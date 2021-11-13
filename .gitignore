@@ -1,4 +1,18 @@
+### symbolic links _____________________________________________________________
+# This allow preview documentation locally. The GitHub Actions will
+# copy the contents to the docs/ folder before generate it
 
+# cd docs/
+# ln -s ../bin bin
+docs/bin
+# cd docs/
+# ln -s ../ontologia ontologia
+docs/ontologia
+# cd docs/
+# ln -s ../testum testum
+docs/testum
+
+### Python ignores _____________________________________________________________
 # Distribution / packaging
 .Python
 build/
@@ -19,3 +33,17 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+## Tox
+*.pyc
+*.pyo
+*.swp
+__pycache__
+.tox
+
+### IDEs _______________________________________________________________________
+.vscode
+.idea
+
+### temp
+tox.ini

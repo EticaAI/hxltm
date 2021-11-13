@@ -57,7 +57,7 @@ Use case: _"I need convert from HXLTM to something else"_
 
 [source,txt]
 ----
-include::../../bin/hxltmcli[tag=epilogum]
+include::../../bin/hxltmcli.py[tag=epilogum]
 ----
 
 === hxltmdexml
@@ -66,7 +66,7 @@ Use case: _"I need convert from something else (in XML) to HXLTM"_
 
 [source,txt]
 ----
-include::../../bin/hxltmdexml[tag=epilogum]
+include::../../bin/hxltmdexml.py[tag=epilogum]
 ----
 
 [#HXLTM-archivum-dialecton]
