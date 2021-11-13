@@ -1,0 +1,14 @@
+# hxltm-exemplum-linguam.tmeta.yml
+# HXLTM Datum: hxltm-exemplum-linguam.tm.hxl.csv
+
+
+# _[eng-Latn]
+# "_" is a language and script neutral variable used for global variables
+#
+# On reference hxltm implementation, values here will be exported as _global_
+# So {{ globum.tbx.titulum }} = "TBX-Basic exemplum"
+#  [eng-Latn]_
+_:
+  glossarium_titulum: TBX-Basic exemplum
+  tbx:
+    titulum: TBX-Basic exemplum

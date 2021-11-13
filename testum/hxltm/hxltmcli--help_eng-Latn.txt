@@ -1,0 +1,241 @@
+usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
+                [--http-header header] [--remove-headers] [--strip-tags]
+                [--ignore-certs]
+                [--log debug|info|warning|error|critical|none]
+                [--fontem-linguam [fontem_linguam]]
+                [--objectivum-linguam [objectivum_linguam]]
+                [--agendum-linguam agendum_linguam]
+                [--non-agendum-linguam non_agendum_linguam]
+                [--auxilium-linguam auxilium_linguam]
+                [--fontem-normam [fontem_normam]]
+                [--tmeta-archivum [tmeta_archivum]]
+                [--objectivum-normam [objectivum_normam]]
+                [--objectivum-formulam OBJECTIVUM_FORMULAM]
+                [--objectivum-HXLTM] [--objectivum-TMX]
+                [--objectivum-TBX-Basim] [--objectivum-UTX] [--objectivum-XML]
+                [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
+                [--objectivum-CSV-3] [--objectivum-TSV-3]
+                [--objectivum-JSON-kv]
+                [--objectivum-formatum-speciale [objectivum_formatum_speciale]]
+                [--limitem-quantitatem [limitem_quantitatem]]
+                [--limitem-initiale-lineam [limitem_initiale_lineam]]
+                [--non-securum-limitem]
+                [--selectum-columnam-numerum columnam_numerum]
+                [--non-selectum-columnam-numerum non_columnam_numerum]
+                [--crudum-objectivum-caput [fon_hxlattrs]]
+                [--crudum-fontem-linguam-hxlattrs [fon_hxlattrs]]
+                [--crudum-fontem-linguam-bcp47 [fon_bcp47]]
+                [--crudum-objectivum-linguam-hxlattrs [obj_hxlattrs]]
+                [--crudum-objectivum-linguam-bcp47 [obj_bcp47]]
+                [--archivum-configurationem]
+                [--archivum-configurationem-appendicem] [--silentium]
+                [--expertum-HXLTM-ASA [hxltm_asa]]
+                [--expertum-HXLTM-ASA-verbosum] [--experimentum-est]
+                [--venandum-insectum-est]
+                [infile] [outfile]
+
+_[eng-Latn] hxltmcli v0.8.7 is an implementation of HXLTM tagging conventions
+on HXL to manage and export tabular data to popular translation memories
+and glossaries file formats with non-close standards.
+[eng-Latn]_"
+
+positional arguments:
+  infile                HXL file to read (if omitted, use standard input).
+  outfile               HXL file to write (if omitted, use standard output).
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --sheet [number]      Select sheet from a workbook (1 is first sheet)
+  --selector [path]     JSONPath expression for starting point in JSON input
+  --http-header header  Custom HTTP header to send with request
+  --remove-headers      Strip text headers from the CSV output
+  --strip-tags          Strip HXL tags from the CSV output
+  --ignore-certs        Don't verify SSL connections (useful for self-signed)
+  --log debug|info|warning|error|critical|none
+                        Set minimum logging level
+  --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
+                        (For bilingual operations) Source natural language
+                        (use if not auto-detected). Must be like {ISO
+                        639-3}-{ISO 15924}. Example: lat-Latn. Accept a single
+                        value.
+  --objectivum-linguam [objectivum_linguam], -OL [objectivum_linguam]
+                        (For bilingual and monolingual operations) Target
+                        natural language (use if not auto-detected). Must be
+                        like {ISO 639-3}-{ISO 15924}. Example: arb-Arab.
+                        Requires: mono or bilingual operation. Accept a single
+                        value.
+  --agendum-linguam agendum_linguam, -AL agendum_linguam
+                        (Planned, but not fully implemented yet) Restrict
+                        working languages to a list. Useful for HXLTM to HXLTM
+                        or multilingual formats like TBX and TMX. Requires:
+                        multilingual operation. Accepts multiple values.
+  --non-agendum-linguam non_agendum_linguam, -non-AL non_agendum_linguam
+                        (Planned, but not implemented yet) Inverse of
+                        --agendum-linguam. Document one or more languages that
+                        should be ignored if they exist. Requires:
+                        multilingual operation. Accept multiple values.
+  --auxilium-linguam auxilium_linguam, -AUXL auxilium_linguam
+                        (Planned, but not implemented yet) Define auxiliary
+                        language. Requires: bilingual operation (and file
+                        format allow metadata). Default: Esperanto and
+                        Interlingua Accepts multiple values.
+  --fontem-normam [fontem_normam]
+                        (For data exchange) Source of data convention
+                        Recommended convention: use "{UN M49}_{P-Code}" when
+                        endorsed by regional government, and reverse domain
+                        name notation with "_" for other cases. Examples:
+                        076_BR (Brazil, adm0, Federal level); 076_BR33
+                        (Brazil, adm1, Minas Gerais State, uses PCode);
+                        076_BR3106200 (Brazil, adm2, Belo Horizonte city, uses
+                        PCode).
+  --tmeta-archivum [tmeta_archivum]
+                        (Draft, not fully implemented) Optional YAML metadata
+                        for advanced processing operations.
+  --objectivum-normam [objectivum_normam]
+                        (For data exchange) Target of data convention
+                        Recommended convention: use "{UN M49}_{P-Code}" when
+                        endorsed by regional government, and reverse domain
+                        name notation with "_" for other cases. Example:
+                        org_hxlstandard
+  --objectivum-formulam OBJECTIVUM_FORMULAM
+                        Template file to use as reference to generate an
+                        output. Less powerful than custom file but can be used
+                        for simple cases.
+  --objectivum-HXLTM, --HXLTM
+                        Save output as HXLTM (default). Multilingual output
+                        format.
+  --objectivum-TMX, --TMX
+                        Export to Translation Memory eXchange (TMX) v1.4b.
+                        Multilingual output format
+  --objectivum-TBX-Basim, --TBX-Basim
+                        (Working draft) Export to Term Base eXchange (TBX)
+                        Basic Multilingual output format
+  --objectivum-UTX, --UTX
+                        (Planned, but not implemented yet) Export to Universal
+                        Terminology eXchange (UTX). Multilingual output format
+  --objectivum-XML      Export to XML format. Multilingual output format
+  --objectivum-XLIFF, --XLIFF, --XLIFF2
+                        Export to XLIFF (XML Localization Interchange File
+                        Format) v2.1. (mono or bi-lingual support only as per
+                        XLIFF specification)
+  --objectivum-XLIFF-obsoletum, --XLIFF-obsoletum, --XLIFF1
+                        (Not implemented) Export to XLIFF (XML Localization
+                        Interchange File Format) v1.2, an obsolete format for
+                        lazy developers who don't implemented XLIFF 2
+                        (released in 2014) yet.
+  --objectivum-CSV-3, --CSV-3
+                        (Not implemented yet) Export to Bilingual CSV with
+                        BCP47 headers (source to target) plus comments on last
+                        column Bilingual operation.
+  --objectivum-TSV-3, --TSV-3
+                        (Not implemented yet) Export to Bilingual TAB with
+                        BCP47 headers (source to target) plus comments on last
+                        column Bilingual operation.
+  --objectivum-JSON-kv, --JSON-kv
+                        (Not implemented yet) Export to Bilingual JSON. Keys
+                        are ID (if available) or source natural language.
+                        Values are target language. No comments are exported.
+                        Monolingual/Bilingual
+  --objectivum-formatum-speciale [objectivum_formatum_speciale]
+                        (Not fully implemented yet) In addition to use a
+                        output format (like --objectivum-TMX) inform an
+                        special additional key that customize the base format
+                        (like normam.TMX) already existing on
+                        ego.hxltm.yml/venditorem.hxltm.yml/cor.hxltm.yml.
+                        Example: "hxltmcli fontem.hxl.csv objectivum.tmx
+                        --objectivum-TMX --objectivum-formatum-speciale TMX-
+                        de-marcus"
+  --limitem-quantitatem [limitem_quantitatem]
+                        (Advanced, large data sets) Customize the limit of the
+                        maximum number of raw rows can be in a single step.
+                        Try increments of 1 million.Use value -1 to disable
+                        limits (even if means exhaust all computer memory
+                        require full restart). Defaults to 1048576 (but to
+                        avoid non-expert humans or automated work flows
+                        generate output with missing data without no one
+                        reading the warning messages if the --limitem-
+                        quantitatem was reached AND no customization was done
+                        on --limitem-initiale-lineam an exception will abort
+  --limitem-initiale-lineam [limitem_initiale_lineam]
+                        (Advanced, large data sets) When working in batches
+                        and the initial row to process is not the first one
+                        (starts from 0) use this option if is inviable
+                        increase to simply --limitem-quantitatem
+  --non-securum-limitem, --ad-astra-per-aspera
+                        (For situational/temporary usage, as in "one weekend"
+                        NOT six months) Disable any secure hardware limits and
+                        make the program try harder tolerate (even if means
+                        ignore entire individual rows or columns) but still
+                        work with what was left from the dataset. This option
+                        assume is acceptable not try protect from exhaust all
+                        memory or disk space when working with large data sets
+                        and (even for smaller, but not well know from the
+                        python or YAML ontologia) the current human user
+                        evaluated that the data loss is either false positive
+                        or tolerable until permanent fix.
+  --selectum-columnam-numerum columnam_numerum
+                        (Advanced) Select only columns from source HXLTM
+                        dataset by a list of index numbers (starts by zero).
+                        As example: to select the first 3 columns use "0,1,2"
+                        and NOT "1,2,3"
+  --non-selectum-columnam-numerum non_columnam_numerum
+                        (Advanced) Exclude columns from source HXLTM dataset
+                        by a list of index numbers (starts by zero). As
+                        example: to ignore the first ("Excel A"), and fifth
+                        ("Excel: E") column:use "0,4" and not "1,5"
+  --crudum-objectivum-caput [fon_hxlattrs]
+                        (Advanced override for tabular output, like CSV).
+                        Explicit define first line of output (separed by ,)
+                        Example: "la,ar,Annotationem"
+  --crudum-fontem-linguam-hxlattrs [fon_hxlattrs], --fon-hxlattrs [fon_hxlattrs]
+                        (Advanced override for --fontem-linguam). Explicit HXL
+                        Attributes for source language. Example:
+                        "+i_la+i_lat+is_latn"
+  --crudum-fontem-linguam-bcp47 [fon_bcp47], --fon-bcp47 [fon_bcp47]
+                        (Advanced override for --fontem-linguam). Explicit
+                        IETF BCP 47 language tag for source language. Example:
+                        "la"
+  --crudum-objectivum-linguam-hxlattrs [obj_hxlattrs], --obj-hxlattrs [obj_hxlattrs]
+                        (Advanced override for --objectivum-linguam). Explicit
+                        HXL Attributes for target language. Example:
+                        "+i_ar+i_arb+is_arab"
+  --crudum-objectivum-linguam-bcp47 [obj_bcp47], --obj-bcp47 [obj_bcp47]
+                        (Advanced override for --objectivum-linguam). Explicit
+                        IETF BCP 47 language tag for target language. Example:
+                        "ar"
+  --archivum-configurationem
+                        Path to custom configuration file (The cor.hxltm.yml)
+  --archivum-configurationem-appendicem
+                        (Not implemented yet)Path to custom configuration file
+                        (The cor.hxltm.yml)
+  --silentium           Silence warnings? Try to not generate any warning. May
+                        generate invalid output
+  --expertum-HXLTM-ASA [hxltm_asa]
+                        (Expert mode) Save an Abstract Syntax Tree in JSON
+                        format to a file path. With --expertum-HXLTM-ASA-
+                        verbosum output entire dataset data. File extensions
+                        with .yml/.yaml = YAML output. Files extensions with
+                        .json/.json5 = JSONs output. Default: JSON output.
+                        Good for debugging.
+  --expertum-HXLTM-ASA-verbosum
+                        (Expert mode) Enable --expertum-HXLTM-ASA verbose mode
+  --experimentum-est    (Internal testing only) Enable undocumented feature
+  --venandum-insectum-est, --debug
+                        Enable debug? Extra information for program debugging
+
+Exemplōrum gratiā:
+
+HXLTM (csv) -> Translation Memory eXchange format (TMX):
+    hxltmcli fontem.tm.hxl.csv objectivum.tmx --objectivum-TMX
+
+HXLTM (xlsx; sheet 7) -> Translation Memory eXchange format (TMX):
+    hxltmcli fontem.xlsx objectivum.tmx --sheet 7 --objectivum-TMX
+
+HXLTM (xlsx; sheet 7, Situs interretialis) -> HXLTM (csv):
+    hxltmcli https://example.org/fontem.xlsx --sheet 7 fontem.tm.hxl.csv
+
+HXLTM (Google Docs) -> HXLTM (csv):
+    hxltmcli https://docs.google.com/spreadsheets/(...) fontem.tm.hxl.csv
+
+HXLTM (Google Docs) -> Translation Memory eXchange format (TMX):
+    hxltmcli https://docs.google.com/spreadsheets/(...) objectivum.tmx --objectivum-TMX
