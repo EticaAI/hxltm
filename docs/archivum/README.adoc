@@ -1,0 +1,498 @@
+= `+HXLTM+` Terminologia Multilinguae: archīvum fōrmātum normam
+:toc: preamble
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+:highlightjs-languages: yaml
+
+////
+asciidoctor --backend=html5 -o hxltm/archivum/index.htm -a toc2 hxltm/archivum/README.adoc
+
+TODO:
+  - https://docs.weblate.org/en/latest/formats.html
+      - This site have several examples of export files.
+        Since HXLTM already is flexible, we could export also for them.
+////
+
+https://hdp.etica.ai/hxltm[image:https://img.shields.io/badge/Site-hdp.etica.ai%2Fhxltm-blue[Site]]
+https://github.com/EticaAI/HXL-Data-Science-file-formats[image:https://img.shields.io/badge/GitHub-EticaAI%2FHXL--Data--Science--file--formats-lightgrey?logo=github&style=social[EticaAI/HXL-Data-Science-file-formats]]
+https://pypi.org/project/hdp-toolchain/[image:https://img.shields.io/badge/python%20package-hdp--toolchain-brightgreen[Python
+Package: hdp-toolchain]]
+https://hxlstandard.org/[image:https://img.shields.io/badge/Standard-HXL-%23F26459[Standard
+HXL]]
+image:https://img.shields.io/github/license/EticaAI/HXL-Data-Science-file-formats[License]
+https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486[image:https://img.shields.io/badge/Google%20Drive-HXL--CPLP--Vocab_Auxilium--Humanitarium--API-yellowgreen[Google
+Drive]]
+
+NOTE: `+hxltmcli+` uses Python 3 and the reference version can be installed
+     with https://pypi.org/project/hdp-toolchain/[hdp-toolchain].
+     TL;DR: `pip install hdp-toolchain[hxltm]`. *The result of the lastest
+     link:++#hxltmcli--help++[hxltmcli --help. is on the bottom of this page].*
+
+NOTE: The https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.yml[HXLTM core ontology cor.hxltm.yml]
+    that comes with hxltmcli can be customized with
+    `hxltmcli --archivum-configurationem path/to/mycopy.hxltm.yml`.
+
+TIP: Bootstrapping-HXLTM (very, VERY long presentation):
+    +++<br>+++
+    1. https://docs.google.com/presentation/d/11t8EMTtT8mV9NM0Dy7kCHDZEYkmSeyh7OA5CX50_OEQ/edit?usp=sharing[eng-Latn: Bootstrapping technical translations and multilingual controlled vocabularies with HXLTM]
+    +++<br>+++
+    2. https://docs.google.com/presentation/d/1wEw9MmEAQypn20XLSDETbV3q2Nlf9ICwn3q970Du1es/edit?usp=sharing[por-Latn: Como criar do zero traduções técnicas e vocabulários controlados multilíngues com HXLTM]
+
+TIP: For advanced hackers or (people helping others in middle of urgency and
+     with basic knowledge of python),
+     *is possible copy only the single file
+     https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/bin/hxltmcli[hxltmcli.py]*,
+     put on your executable path, and use immediately instead of
+     hdp-toolchain version. The hard requirements are
+     `pip install libhxl langcodes pyyaml python-liquid`
+
+
+[#HXLTM-TLDR]
+== TL;DR: Too Long; Didn't read
+
+=== hxltmcli
+
+Use case: _"I need convert from HXLTM to something else"_
+
+[source,txt]
+----
+include::../../bin/hxltmcli[tag=epilogum]
+----
+
+=== hxltmdexml
+
+Use case: _"I need convert from something else (in XML) to HXLTM"_
+
+[source,txt]
+----
+include::../../bin/hxltmdexml[tag=epilogum]
+----
+
+[#HXLTM-archivum-dialecton]
+== HXLM core file dialects
+
+[#HXLTM]
+=== `+HXLTM+`
+==== Terminologia Multilinguae (priore HXL Trānslātiōnem Memoriam), Datum ideam
+
+////
+Naming the HXL TM
+
+Terminologia Multilinguae
+
+- https://en.wiktionary.org/wiki/terminus#Latin
+- https://en.wiktionary.org/wiki/logium#Latin
+- https://en.wiktionary.org/wiki/multi-#English
+- https://en.wiktionary.org/wiki/lingua#Latin
+- https://en.wiktionary.org/wiki/multilingual
+lingua
+////
+
+
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM_CSV]
+----
+
+////
+[#CSV-HXL-XLIFF]
+=== `+CSV-HXL-XLIFF+`:
+==== HXLated bilingual CSV (+ up to 5 source alt) for XLIFF
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_CSV-HXL-XLIFF]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
+----
+////
+
+[#HXLTM-TMETA]
+=== `+HXLTM-TMETA+`:
+==== HXLTM Terminologia Multilinguae Meta
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-TMETA]
+----
+
+////
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
+----
+////
+
+[#HXLTM-ASA]
+=== `+HXLTM-ASA+`:
+==== HXLTM Abstractum Syntaxim Arborem
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-ASA]
+----
+
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
+----
+
+[#HXLTM-archivum-exportandum]
+== HXLTM Normam (HXLTM interoperability with conventions/standards)
+
+TIP: The `hxltmcli` and (for importing XML, as long as you map the
+     tags and attributes, as this page already do for TMX, TBX, XLIFFs, ...)
+     `+hxltmdexml+` *are designed to work with gigabyte size datasets*.
+     The ontology file can be customized with `--archivum-configurationem`
+     which means both edit or create new exporters/importers are possible.
+
+////
+TIP: Consider the formats here as example of how to export HXLTM.
+     `hxltmcli --archivum-configurationem path/to/mycopy.hxltm.yml`.
+////
+
+
+[#CSV-3]
+=== `+CSV-3+`:
+==== CSV 3 bilingual Source + Objective + Comment
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_CSV-3]
+----
+
+===== Command line examples
+
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-3]
+----
+
+===== Result example
+
+- https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv
+
+[source,csv]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv[]
+----
+
+[#GSheets]
+=== `+GSheets+`:
+==== Google Sheets, HXLTM container (read-only; native support as data source)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_GSheets]
+----
+
+[#HXL-Proxy]
+=== `+HXL-Proxy+`:
+==== HXL-Proxy (read-only; native support as data source)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_HXL-Proxy]
+----
+
+[#JSON-kv]
+=== `+JSON-kv+`:
+==== JSON key: val; id/source -> target (draft)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_JSON-kv]
+----
+
+[#TBX-Basim]
+=== `+TBX-Basim+`:
+==== TermBase eXchange (TBX) Basic 2.1
+////
+==== TermBase eXchange (TBX) Basic 2.1
+////
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_TBX-Basim]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TBX-Basim]
+----
+
+===== Result example
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.tbx[]
+----
+
+
+[#TSV-3]
+=== `+TSV-3+`:
+==== TSV-3 bilingual Source + Objective + Comment
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_TSV-3]
+----
+
+===== Command line examples
+
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TSV-3]
+----
+
+===== Result example
+
+- https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv
+
+[source,tsv]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv[]
+----
+
+[#TMX]
+=== `+TMX+`:
+==== Translation Memory eXchange format (TMX)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_TMX]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TMX]
+----
+===== Result example
+
+- https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx[]
+----
+
+[#UTX]
+=== `+UTX+`:
+==== Universal Terminology eXchange (UTX) (working draft)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_UTX]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=UTX]
+----
+===== Result example
+
+- https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.utx
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.utx[]
+----
+
+[#XML]
+=== `+XML+`:
+==== XML Glōssārium, HXLTM container (generic multilingual XML)'
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_XML]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=XML]
+----
+===== Result example
+
+- https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.hxltm.xml[]
+----
+
+
+[#XLIFF]
+=== `+XLIFF+`:
+==== XML Localization Interchange File Format (XLIFF) v2.1
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=XLIFF]
+----
+
+===== Result example
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
+----
+
+[#XLIFF-obsoletum]
+=== `+XLIFF-obsoletum+`:
+==== XML Localization Interchange File Format (XLIFF) v1.2
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF-obsoletum]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=XLIFF-obsoletum]
+----
+
+===== Result example
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
+----
+
+[#XLSX]
+=== `+XLSX+`:
+==== Microsoft Excel, HXLTM container (read-only; native support as data source)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_XLSX]
+----
+
+[#YAML]
+=== `+YAML+`:
+==== YAML (planned, but no draft)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_YAML]
+----
+
+[#HXLTM-ad-hoc]
+== HXLTM Ad Hoc Fōrmulam (HXLTM templated export)
+
+TIP: *About create new HXLTM Ad Hoc*: different from customizable
+     link:++#HXLTM-archivum-exportandum++[HXLTM Normam]
+     (support for gigabyte size data manipulation) the use of this strategy
+     is more optimized for end user who is unlikely o care about load data
+     in chunks and try to explain how to import back to HXLTM working file.
+
+NOTE: TODO: this is a draft. Document already implemented functionality
+
+== HXLTM ontologies
+
+[#ontologia]
+=== Ontologia
+
+Full file at https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.yml.
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=ontologia]
+----
+
+[#ontologia-aliud]
+=== Aliases
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=ontologia_aliud]
+----
+
+[#ontologia-datum-typum]
+=== Data types
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=ontologia_datum_typum]
+----
+
+[#hxltmcli--help]
+== `+hxltmcli --help+`
+
+[source,bash]
+----
+# hxltmcli can be installed with hdp-toolchain
+# @see https://pypi.org/project/hdp-toolchain/
+pip install hdp-toolchain[hxltm]
+
+hxltmcli --help
+----
+
+[source]
+----
+include::../../testum/hxltm/hxltmcli--help_eng-Latn.txt[]
+----
+[#hxltmdexml--help]
+== `+hxltmdexml --help+`
+
+[source,bash]
+----
+# hxltmdexml can be installed with hdp-toolchain
+# @see https://pypi.org/project/hdp-toolchain/
+pip install hdp-toolchain[hxltm]
+
+hxltmdexml --help
+----
+
+[source]
+----
+include::../../testum/hxltm/hxltmdexml--help_eng-Latn.txt[]
+----
+
+== License
+
+link:UNLICENSE[image:../../img/public-domain.png[Public Domain Dedication]]
+
+The https://github.com/EticaAI[EticaAI] has dedicated the work to the
+link:../../UNLICENSE[public domain] by waiving all of their rights to the
+work worldwide under copyright law, including all related and
+neighboring rights, to the extent allowed by law. You can copy, modify,
+distribute and perform the work, even for commercial purposes, all
+without asking permission.

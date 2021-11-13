@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `bin/hxltmdexml.py` v0.8.0 from `EticaAI/HXL-Data-Science-file-formats/bin/hxltmdexml` hdp-toolchain v0.8.8.6.post1
 - `ontologia/cor.hxltm.yml` v0.8.6+EticaAI+voluntārium-commūne from `EticaAI/HXL-Data-Science-file-formats/bin/hxltmdexml` hdp-toolchain v0.8.8.6.post1
 - `testum/hxltm/` from `EticaAI/HXL-Data-Science-file-formats/testum/hxltm/` hdp-toolchain v0.8.8.6.post1
+- `docs/` from `EticaAI/HXL-Data-Science-file-formats/hxltm/` hdp-toolchain v0.8.8.6.post1
 
 ### Changed
 - Started monorepo split from <https://github.com/EticaAI/HXL-Data-Science-file-formats>
