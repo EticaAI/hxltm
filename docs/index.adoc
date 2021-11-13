@@ -1,0 +1,25 @@
+= HXLM index
+
+
+////
+:toc: preamble
+:icons: font
+:source-highlighter: highlight.js
+:highlightjs-languages: yaml
+
+https://hxltm.etica.ai[image:https://img.shields.io/badge/Site-hxltm.etica.ai-blue[Site]]
+https://github.com/EticaAI/HXL-Data-Science-file-formats[image:https://img.shields.io/badge/GitHub-EticaAI%2FHXL--Data--Science--file--formats-lightgrey?logo=github&style=social[EticaAI/HXL-Data-Science-file-formats]]
+https://pypi.org/project/hdp-toolchain/[image:https://img.shields.io/badge/python%20package-hdp--toolchain-brightgreen[Python
+Package: hdp-toolchain]]
+https://hxlstandard.org/[image:https://img.shields.io/badge/Standard-HXL-%23F26459[Standard
+HXL]]
+image:https://img.shields.io/github/license/EticaAI/HXL-Data-Science-file-formats[License]
+https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486[image:https://img.shields.io/badge/Google%20Drive-HXL--CPLP--Vocab_Auxilium--Humanitarium--API-yellowgreen[Google
+Drive]]
+
+
+link:eng-Latn/index.adoc.adoc[English language (Latin script) - HXLM: Multilingual Terminology in Humanitarian Language Exchange]
+
+////
+
+link:eng-Latn/index.adoc.adoc[English language (Latin script)]

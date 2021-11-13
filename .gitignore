@@ -12,6 +12,10 @@ docs/ontologia
 # ln -s ../testum testum
 docs/testum
 
+### Other, relevant to hxltm-eticaai ___________________________________________
+docs/*.htm
+docs/**/*.htm
+
 ### Python ignores _____________________________________________________________
 # Distribution / packaging
 .Python
@@ -40,10 +44,12 @@ MANIFEST
 *.swp
 __pycache__
 .tox
+.benchmarks
+.pytest_cache
 
 ### IDEs _______________________________________________________________________
 .vscode
 .idea
 
 ### temp
-tox.ini
+# tox.ini

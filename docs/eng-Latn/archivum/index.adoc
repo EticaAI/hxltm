@@ -14,10 +14,10 @@ TODO:
         Since HXLTM already is flexible, we could export also for them.
 ////
 
-https://hdp.etica.ai/hxltm[image:https://img.shields.io/badge/Site-hdp.etica.ai%2Fhxltm-blue[Site]]
-https://github.com/EticaAI/HXL-Data-Science-file-formats[image:https://img.shields.io/badge/GitHub-EticaAI%2FHXL--Data--Science--file--formats-lightgrey?logo=github&style=social[EticaAI/HXL-Data-Science-file-formats]]
-https://pypi.org/project/hdp-toolchain/[image:https://img.shields.io/badge/python%20package-hdp--toolchain-brightgreen[Python
-Package: hdp-toolchain]]
+https://hxltm.etica.ai[image:https://img.shields.io/badge/Site-hxltm.etica.ai-blue[Site]]
+https://github.com/EticaAI/hxltm[image:https://img.shields.io/badge/GitHub-EticaAI%2Fhxltm-lightgrey?logo=github&style=social[EticaAI/hxltm]]
+https://pypi.org/project/hxltm-eticaai/[image:https://img.shields.io/badge/python%20package-hxltm--eticaai-brightgreen[Python
+Package: hxltm-eticaai]]
 https://hxlstandard.org/[image:https://img.shields.io/badge/Standard-HXL-%23F26459[Standard
 HXL]]
 image:https://img.shields.io/github/license/EticaAI/HXL-Data-Science-file-formats[License]
@@ -100,7 +100,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM_CSV]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM_CSV]
 ----
 
 ////
@@ -117,7 +117,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_CSV-HXL-XLIFF]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
 ----
 ////
 
@@ -135,7 +135,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-TMETA]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
 ----
 ////
 
@@ -153,7 +153,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-ASA]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
 ----
 
 [#HXLTM-archivum-exportandum]
@@ -185,7 +185,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_CSV-3]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-3]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=CSV-3]
 ----
 
 ===== Result example
@@ -194,7 +194,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-3]
 
 [source,csv]
 ----
-include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv[]
+include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv[]
 ----
 
 [#GSheets]
@@ -240,14 +240,14 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_TBX-Basim]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TBX-Basim]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=TBX-Basim]
 ----
 
 ===== Result example
 
 [source,xml]
 ----
-include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.tbx[]
+include::../../testum/resultatum/hxltm-exemplum-linguam.tbx[]
 ----
 
 
@@ -265,7 +265,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_TSV-3]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TSV-3]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=TSV-3]
 ----
 
 ===== Result example
@@ -274,7 +274,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TSV-3]
 
 [source,tsv]
 ----
-include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv[]
+include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv[]
 ----
 
 [#TMX]
@@ -290,7 +290,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_TMX]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TMX]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=TMX]
 ----
 ===== Result example
 
@@ -298,7 +298,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TMX]
 
 [source,xml]
 ----
-include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx[]
+include::../../testum/resultatum/hxltm-exemplum-linguam.tmx[]
 ----
 
 [#UTX]
@@ -314,7 +314,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_UTX]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=UTX]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=UTX]
 ----
 ===== Result example
 
@@ -322,7 +322,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=UTX]
 
 [source,xml]
 ----
-include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.utx[]
+include::../../testum/resultatum/hxltm-exemplum-linguam.utx[]
 ----
 
 [#XML]
@@ -338,7 +338,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_XML]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=XML]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=XML]
 ----
 ===== Result example
 
@@ -346,7 +346,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=XML]
 
 [source,xml]
 ----
-include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.hxltm.xml[]
+include::../../testum/resultatum/hxltm-exemplum-linguam.hxltm.xml[]
 ----
 
 
@@ -363,14 +363,14 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=XLIFF]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=XLIFF]
 ----
 
 ===== Result example
 
 [source,xml]
 ----
-include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
+include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
 ----
 
 [#XLIFF-obsoletum]
@@ -386,14 +386,14 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF-obsoletum]
 
 [source,bash]
 ----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=XLIFF-obsoletum]
+include::../../testum/disciplinam-manuale-anglicum.sh[tag=XLIFF-obsoletum]
 ----
 
 ===== Result example
 
 [source,xml]
 ----
-include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
+include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
 ----
 
 [#XLSX]
@@ -467,7 +467,7 @@ hxltmcli --help
 
 [source]
 ----
-include::../../testum/hxltm/hxltmcli--help_eng-Latn.txt[]
+include::../../testum/hxltmcli--help_eng-Latn.txt[]
 ----
 [#hxltmdexml--help]
 == `+hxltmdexml --help+`
@@ -483,7 +483,7 @@ hxltmdexml --help
 
 [source]
 ----
-include::../../testum/hxltm/hxltmdexml--help_eng-Latn.txt[]
+include::../../testum/hxltmdexml--help_eng-Latn.txt[]
 ----
 
 == License
