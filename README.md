@@ -25,7 +25,7 @@ pip install hxltm-eticaai
 
 -->
 
-## License
+## Licenses
 
 > Public domain means each issue only needs to be resolved once
 
@@ -45,22 +45,45 @@ by the Open Source Initiative:
 
 ## Creative content license (algorithms and concepts as pivot exchange for other data standards, and user documentation)
 
-> This different license is mostly for lawyers who would complain about use of
-  Unlicense for creative content. More context on waiving patent rigths
-  explicitly here: <https://opensource.org/faq#cc-zero>
+[![Public Domain](https://i.creativecommons.org/p/zero/1.0/88x31.png)](UNLICENSE)
 
 To the extent possible under law, [Etica.AI](https://github.com/EticaAI)
 and non anonymous collaborators have waived all copyright and related or
 neighboring rights to this work to public domain dedication. As 2021, the
 [CC0 1.0 Universal (CC0 1.0) Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/)
-with **additional right** to you is granted:
+with **additional right** to you granted upfront:
 
 - The collaborators explicitly waive any potential **patent rights** for
   algorithms/ideas. We also preemptively ask that potential requests from our
-  heirs in any jurisdiction be ignored.
-  - There is no interest by ourselves to do _patent troll_ (for monetary gain)
-    or allow abuse copyrights (to enforce companies, organizations, o
-    governments) even if
-      - we directly strongly disagree
-      - some entity try to use us as proxy to enforce us some sort of boycott
-        to any other entity.
+  heirs in unforeseen future in any jurisdiction be ignored by any regional or
+  international court.
+
+<details>
+<summary>More context about this</summary>
+
+This different license for creative content is mostly for lawyers who would
+complain about use of Unlicense for creative content. More context (from the
+point of open source) on waiving patent rigths explicitly (since no better license for
+creative content do exist) is here: <https://opensource.org/faq#cc-zero>.
+
+There is no interest by ourselves to do _patent troll_ (for monetary gain)
+or allow abuse copyrights (to enforce companies, organizations, o
+governments) even if:
+
+- we directly strongly disagree
+- some entity try to use us as proxy to enforce us some sort of boycott to any
+  other entity.
+
+Note that data exchange on humanitarian context, even outside global-like
+war-time, already is quite complex and the need of accurate linguistic content
+conversion still even more critical to not have know errors. While the idea of
+stories behind cases like the "_黙殺_" ("_mokusatsu_") are disputable, the
+modern tooling to deal with multilingual terminology (including used to
+create dictionaries) is prone to human error.
+
+</details>
+
+<!--
+  ## Licenses for trademarks, terms, etc
+  ### Comments
+-->
