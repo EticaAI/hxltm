@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move: `testum/hxltm/*` -> `testum/`
 - Move: `docs/*` -> `docs/eng-Latn/*`: now the documentation page have explicitly
   one language, so it _could_ be translated eventually
+- Tox tests pass again. Required minor changes on search path for test dataset
+  without need to specify environment variables (e.g. `testum/hxltm` to
+  `testum/hxltm` as base). Still need some clean up.
 
 ### Fixed
 - `bin/hxltmdexml,py` -> `bin/hxltmdexml.py`

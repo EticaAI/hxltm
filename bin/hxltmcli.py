@@ -318,7 +318,8 @@ try:
 except ImportError:
     HXLTM_SCRIPT_DIR = str(Path(__file__).parent.resolve())
     HXLTM_TESTUM_BASIM_DEFALLO = str(Path(
-        HXLTM_SCRIPT_DIR + '/../../../testum/hxltm').resolve())
+        # HXLTM_SCRIPT_DIR + '/../../../testum/hxltm').resolve())
+        HXLTM_SCRIPT_DIR + '/../../../testum').resolve())
 
 HXLTM_RUNNING_DIR = str(Path().resolve())
 

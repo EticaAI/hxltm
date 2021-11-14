@@ -20,4 +20,4 @@ link:eng-Latn/index.adoc.adoc[English language (Latin script) - HXLM: Multilingu
 
 ////
 
-link:eng-Latn/index.adoc[English language (Latin script)]
+link:eng-Latn[English language (Latin script)]
