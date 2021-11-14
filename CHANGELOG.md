@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- TODO
 <!-- ## [v0.8.9-rc.2] - 2020-11-12 -->
+
+## [v0.8.9-rc.2] - 2020-11-14
 
 ### Added
 - <https://hxltm.etica.ai>, working draft of new documentation page. Based on (eventually to be deprecated) <https://hdp.etica.ai/hxltm/>
