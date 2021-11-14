@@ -5,7 +5,7 @@ usage: hxltmdexml [-h] [--agendum-linguam [agendum_linguam]]
                   [infile] [outfile]
 
 _[eng-Latn]
-hxltmdexml v0.7.0 is an (not feature-by-feature) conversor from some
+hxltmdexml v0.7.1 is an (not feature-by-feature) conversor from some
 XML formats to HXLTM tabular working file.
 [eng-Latn]_"
 

@@ -3,7 +3,7 @@
 #
 #          FILE:  manuale-testum.sh
 #
-#         USAGE:  ./testum/hxltm/manuale-testum.sh
+#         USAGE:  ./testum/manuale-testum.sh
 #
 #   DESCRIPTION:  Manual testum for hxltmcli.
 #                 This file can also be used to undestand how the output
@@ -13,19 +13,24 @@
 #
 #       OPTIONS:  ---
 #
-#  REQUIREMENTS:  ---
+#  REQUIREMENTS:  - ./testum/download-hxltm-datum.sh
 #          BUGS:  ---
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.0
-#       CREATED:  2021-07-03 03:08 UTC
-#      REVISION:  ---
+#       VERSION:  v1.1
+#       CREATED:  2021-07-03 03:08 UTC v1.0
+#      REVISION:  2021-11-13 23:21 UTC v1.1 moved from
+#                                      EticaAI/HXL-Data-Science-file-formats to
+#                                      EticaAI/hxltm. Some paths changes
 #===============================================================================
 # Comment next line if not want to stop on first error
 # set -e
+
+echo "DEPRECATED"
+exit 0
 
 #### Variables ________________________________________________________________
 ROOTDIR="$(pwd)"
@@ -53,7 +58,7 @@ Hapi_schemam_un_htcds_RESULTATUM_XLIFF_LOCAL="resultatum/schemam-un-htcds.xlf"
 Hapi_schemam_un_htcds_RESULTATUM_BILINGUAL_HXL_CSV_LOCAL="resultatum/schemam-un-htcds_eng-Latn_por-Latn.hxl.csv"
 
 #### Init testum and chechs _____________________________________________________
-cd "$ROOTDIR/testum/hxltm" || exit
+cd "$ROOTDIR/testum" || exit
 
 if [ ! -f "$HXLTM_EXEMPLUM_XLSX_LOCAL" ]; then
     echo "$HXLTM_EXEMPLUM_XLSX_LOCAL not found."

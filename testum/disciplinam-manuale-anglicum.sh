@@ -4,7 +4,7 @@
 #
 #          FILE:  disciplinam-manuale-anglicum.sh
 #
-#         USAGE:  cd ./testum/hxltm/
+#         USAGE:  cd ./testum/
 #                 ./disciplinam-manuale-anglicum.sh
 #
 #   DESCRIPTION:  HXLTM disciplīnam manuāle in anglicum linguam
@@ -25,9 +25,11 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedications
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.0
-#       CREATED:  2021-07-11 03:08 UTC
-#      REVISION:  ---
+#       VERSION:  v1.1
+#       CREATED:  2021-07-11 03:08 UTC v1.0
+#      REVISION:  2021-11-13 23:21 UTC v1.1 moved from
+#                                      EticaAI/HXL-Data-Science-file-formats to
+#                                      EticaAI/hxltm. Some paths changes
 #===============================================================================
 # _[eng-Latn]Comment next line if not want to stop on first error[eng-Latn]_
 set -e

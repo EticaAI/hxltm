@@ -3,7 +3,7 @@
 #
 #          FILE:  download-hxltm-datum.sh
 #
-#         USAGE:  ./testum/hxltm/download-hxltm-datum.sh
+#         USAGE:  ./testum/download-hxltm-datum.sh
 #
 #   DESCRIPTION:  Download data from Google Spreadsheets via HXL-Proxy
 #
@@ -21,6 +21,9 @@
 #                         HXL-Data-Science-file-formats/prepare-hxlm-relsease.sh
 #      REVISION:  2021-07-03 03:08 UTC, started, based on
 #    HXL-CPLP/Auxilium-Humanitarium-API/_systema/programma/download-hxl-datum.sh
+#                 2021-11-13 23:21 UTC moved from
+#                                      EticaAI/HXL-Data-Science-file-formats to
+#                                      EticaAI/hxltm. Some paths changes
 #===============================================================================
 
 # Trivia:
@@ -67,29 +70,29 @@ if true ; then
     echo ''
     echo "hxltm_linguam"
     echo "   Fontem:   [$hxltm_exemplum_linguam]"
-    echo "   Archīvum: [${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv]"
-    wget -qO- "$hxltm_exemplum_linguam" > "${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv"
+    echo "   Archīvum: [${ROOTDIR}/testum/hxltm-exemplum-linguam.tm.hxl.csv]"
+    wget -qO- "$hxltm_exemplum_linguam" > "${ROOTDIR}/testum/hxltm-exemplum-linguam.tm.hxl.csv"
 
     # We ship some test files also with hdp-toolchain so python doc test
     # can be executed with Tox.
     echo "hxltm_linguam, hdp-toolchain package (used by python doctests"
-    cp "${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv" "${ROOTDIR}/hxlm/data/exemplum/hxltm-exemplum-linguam.tm.hxl.csv"
+    cp "${ROOTDIR}/testum/hxltm-exemplum-linguam.tm.hxl.csv" "${ROOTDIR}/hxlm/data/exemplum/hxltm-exemplum-linguam.tm.hxl.csv"
 fi
 
 if true ; then
     echo ''
     echo "hxltm_exemplum_glossarium_minimum"
     echo "   Fontem:   [$hxltm_exemplum_glossarium_minimum]"
-    echo "   Archīvum: [${ROOTDIR}/testum/hxltm/hxltm-exemplum-glossarium-minimum.tm.hxl.csv]"
-    wget -qO- "$hxltm_exemplum_glossarium_minimum" > "${ROOTDIR}/testum/hxltm/hxltm-exemplum-glossarium-minimum.tm.hxl.csv"
+    echo "   Archīvum: [${ROOTDIR}/testum/hxltm-exemplum-glossarium-minimum.tm.hxl.csv]"
+    wget -qO- "$hxltm_exemplum_glossarium_minimum" > "${ROOTDIR}/testum/hxltm-exemplum-glossarium-minimum.tm.hxl.csv"
 fi
 
 if true ; then
     echo ''
     echo "csv_3_exemplum"
     echo "   Fontem:   [$csv_3_exemplum]"
-    echo "   Archīvum: [${ROOTDIR}/testum/hxltm/csv-3-exemplum.csv]"
-    wget -qO- "$csv_3_exemplum" > "${ROOTDIR}/testum/hxltm/csv-3-exemplum.csv"
+    echo "   Archīvum: [${ROOTDIR}/testum/csv-3-exemplum.csv]"
+    wget -qO- "$csv_3_exemplum" > "${ROOTDIR}/testum/csv-3-exemplum.csv"
 fi
 
 # .gitignore: Do not save production test files to save space outside hapi.etica.ai
@@ -97,8 +100,8 @@ if true ; then
     echo ''
     echo "Hapi_schemam_un_htcds"
     echo "   Fontem: [$Hapi_schemam_un_htcds]"
-    echo "   Filum:  [${ROOTDIR}/testum/hxltm/schemam-un-htcds.tm.hxl.csv"
-    wget -qO- "$Hapi_schemam_un_htcds" > "${ROOTDIR}/testum/hxltm/schemam-un-htcds.tm.hxl.csv"
+    echo "   Filum:  [${ROOTDIR}/testum/schemam-un-htcds.tm.hxl.csv"
+    wget -qO- "$Hapi_schemam_un_htcds" > "${ROOTDIR}/testum/schemam-un-htcds.tm.hxl.csv"
 fi
 
 exit 0

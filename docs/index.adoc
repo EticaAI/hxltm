@@ -16,10 +16,8 @@ HXL]]
 image:https://img.shields.io/github/license/EticaAI/HXL-Data-Science-file-formats[License]
 https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486[image:https://img.shields.io/badge/Google%20Drive-HXL--CPLP--Vocab_Auxilium--Humanitarium--API-yellowgreen[Google
 Drive]]
-
-
 link:eng-Latn/index.adoc.adoc[English language (Latin script) - HXLM: Multilingual Terminology in Humanitarian Language Exchange]
 
 ////
 
-link:eng-Latn/index.adoc.adoc[English language (Latin script)]
+link:eng-Latn/index.adoc[English language (Latin script)]
