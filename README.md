@@ -12,4 +12,7 @@
 > - documentation that could be localized?
 >   - https://github.com/OpenRefine/OpenRefine/issues/2273#issuecomment-574415046
 
+- https://hxltm.etica.ai
+- https://eticaai.github.io/hxltm/
+
 -->

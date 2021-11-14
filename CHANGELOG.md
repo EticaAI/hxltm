@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - <https://hxltm.etica.ai>, working draft of new documentation page. Based on (eventually to be deprecated) <https://hdp.etica.ai/hxltm/>
+- `testum/de-python/testinfra/test_simplex.py` de `EticaAI/HXL-Data-Science-file-formats/tests/test_shell_basic.py` 
 
 ### Changed
 - Move: `testum/hxltm/*` -> `testum/`
