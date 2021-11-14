@@ -44,8 +44,8 @@
 #                 <@TODO: put additional non-anonymous names here>
 #
 #       COMPANY:  EticaAI
-#       LICENSE:  Public Domain dedication
-#                 SPDX-License-Identifier: Unlicense
+#       LICENSE:  Public Domain dedication OR Zero-Clause BSD
+#                 SPDX-License-Identifier: Unlicense OR 0BSD
 #       VERSION:  v0.8.8
 #       CREATED:  2021-06-27 19:50 UTC v0.5, de github.com/EticaAI
 #                     /HXL-Data-Science-file-formats/blob/main/bin/hxl2example

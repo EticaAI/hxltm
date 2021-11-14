@@ -26,8 +26,8 @@
 #                 <@TODO: put additional non-anonymous names here>
 #
 #       COMPANY:  EticaAI
-#       LICENSE:  Public Domain dedication
-#                 SPDX-License-Identifier: Unlicense
+#       LICENSE:  Public Domain dedication OR Zero-Clause BSD
+#                 SPDX-License-Identifier: Unlicense OR 0BSD
 #       VERSION:  v0.7.0
 #       CREATED:  2021-07-24 00:04 UTC v0.1.0 de hxl2example
 #      REVISION:  2021-07-24 17:49 UTC v0.2.0 hxltmdexml at least read XML
