@@ -46,7 +46,7 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication OR Zero-Clause BSD
 #                 SPDX-License-Identifier: Unlicense OR 0BSD
-#       VERSION:  v0.8.8
+#       VERSION:  v0.9.0-rc.1
 #       CREATED:  2021-06-27 19:50 UTC v0.5, de github.com/EticaAI
 #                     /HXL-Data-Science-file-formats/blob/main/bin/hxl2example
 #      REVISION:  2021-06-27 21:16 UTC v0.6 de hxl2tab
@@ -64,6 +64,7 @@
 #                 2021-10-15 17:08 UTC v0.8.7 MVP of --objectivum-formulam
 #                 2021-10-15 17:08 UTC v0.8.8 --objectivum-formulam, allow
 #                      save result to file (was working for stdout)
+#                 -------------------- v0.9.0 To be released
 # ==============================================================================
 """hxltmcli.py: Humanitarian Exchange Language Trānslātiōnem Memoriam CLI
 
@@ -247,7 +248,7 @@ from liquid.token import Token as LiquidToken
 from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
-__VERSION__ = "v0.8.8"
+__VERSION__ = "v0.9.0-rc.1"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -296,31 +297,22 @@ STDIN = sys.stdin.buffer
 
 _HOME = str(Path.home())
 
-# TODO: clean up redundancy from hxlm/core/schema/urn/util.py
-HXLM_CONFIG_BASE = os.getenv(
-    'HXLM_CONFIG_BASE', _HOME + '/.config/hxlm')
-# ~/.config/hxlm/cor.hxltm.yml
+# cor.hxltm.215.ext:
+# 1. HXLTM_RUNNING_DIR ; defallo .
+# 2. HXLTM_DORMUM      ; defallo ~/.config/hxlm/cor.hxltm.215.ext
+# 3. HXLTM_SYSTEMA_DIR  ; defallo hxltmcli.py dir
 
 # _[eng-Latn]
-# This can be customized with enviroment variable HXLM_CONFIG_BASE
-#
-# Since hpd-toolchain is not a hard requeriment, we first try to load
-# hdp-toolchain lib, but if hxltmcli is a standalone script with
-# only libhxl, yaml, etc installed, we tolerate it
+# Environment variables HXLTM_DORMUM (for default search place for
+# configurations) HXLTM_TESTUM (for default place to search for test
+# files) can be manually configured.
 # [eng-Latn]_
-try:
-    from hxlm.core.constant import (
-        HXLM_ROOT,
-        HDATUM_EXEMPLUM
-    )
-    HXLTM_SCRIPT_DIR = HXLM_ROOT + '/core/bin'
-    HXLTM_TESTUM_BASIM_DEFALLO = str(HDATUM_EXEMPLUM).replace('file://', '')
-except ImportError:
-    HXLTM_SCRIPT_DIR = str(Path(__file__).parent.resolve())
-    HXLTM_TESTUM_BASIM_DEFALLO = str(Path(
-        # HXLTM_SCRIPT_DIR + '/../../../testum/hxltm').resolve())
-        HXLTM_SCRIPT_DIR + '/../../../testum').resolve())
+HXLTM_DORMUM = os.getenv('HXLTM_DORMUM', _HOME + '/.config/hxltm')
+HXLTM_TESTUM = os.getenv(
+    'HXLTM_TESTUM', HXLTM_DORMUM + '/testum')
+# TODO: make HXLTM_TESTUM instalable as python package
 
+HXLTM_SYSTEMA_DIR = str(Path(__file__).parent.resolve())
 HXLTM_RUNNING_DIR = str(Path().resolve())
 
 
@@ -5967,7 +5959,7 @@ class HXLTMTestumAuxilium:
 
         _[eng-Latn]
         Note: this will try check if the enviroment variable
-        HXLTM_TESTUM_BASIM and only fallback to assume the entire
+        HXLTM_TESTUM and only fallback to assume the entire
         hdp-toolchain installation (or a fork from
         EticaAI/HXL-Data-Science-file-formats) on local disk.
 
@@ -5989,9 +5981,9 @@ class HXLTMTestumAuxilium:
 
         # if HDATUM_EXEMPLUM:
         # hxltmtestum = str(Path(
-        #     HXLTM_SCRIPT_DIR + '/../../../testum/hxltm').resolve())
+        #     HXLTM_SYSTEMA_DIR + '/../../../testum/hxltm').resolve())
 
-        praefixum = os.getenv('HXLTM_TESTUM_BASIM', HXLTM_TESTUM_BASIM_DEFALLO)
+        praefixum = os.getenv('HXLTM_TESTUM', HXLTM_TESTUM)
 
         if archivum:
             return praefixum + '/' + archivum
@@ -6014,8 +6006,8 @@ class HXLTMTestumAuxilium:
         if not os.path.isfile(exemplum_archivum):
             raise RuntimeError(
                 'HXLTMTestumAuxilium non-datum [{}]. '
-                'Requīsītum: dēfīnītiōnem HXLTM_TESTUM_BASIM. Exemplum:'
-                '> HXLTM_TESTUM_BASIM="/home/marcus/testum/" '
+                'Requīsītum: dēfīnītiōnem HXLTM_TESTUM. Exemplum:'
+                '> HXLTM_TESTUM="/home/marcus/testum/" '
                 'python3 -m doctest hxltmcli-de-marcus.py'
                 ' <'.format(exemplum_archivum))
 
@@ -6749,8 +6741,8 @@ class HXLTMUtil:
         # pylint: disable=using-constant-test
         if is_debug:
             print('load_hxltm_options')
-            print('HXLM_CONFIG_BASE', HXLM_CONFIG_BASE)
-            print('HXLTM_SCRIPT_DIR', HXLTM_SCRIPT_DIR)
+            print('HXLTM_DORMUM', HXLTM_DORMUM)
+            print('HXLTM_SYSTEMA_DIR', HXLTM_SYSTEMA_DIR)
             print('HXLTM_RUNNING_DIR', HXLTM_RUNNING_DIR)
 
         if custom_file_option is not None:
@@ -6764,13 +6756,25 @@ class HXLTMUtil:
             return HXLTMUtil._load_hxltm_options_file(
                 HXLTM_RUNNING_DIR + '/cor.hxltm.yml', is_debug)
 
-        if Path(HXLM_CONFIG_BASE + '/cor.hxltm.yml').exists():
+        if Path(HXLTM_RUNNING_DIR + '/cor.hxltm.215.yml').exists():
             return HXLTMUtil._load_hxltm_options_file(
-                HXLM_CONFIG_BASE + '/cor.hxltm.yml', is_debug)
+                HXLTM_RUNNING_DIR + '/cor.hxltm.215.yml', is_debug)
 
-        if Path(HXLTM_SCRIPT_DIR + '/cor.hxltm.yml').exists():
+        if Path(HXLTM_DORMUM + '/cor.hxltm.yml').exists():
             return HXLTMUtil._load_hxltm_options_file(
-                HXLTM_SCRIPT_DIR + '/cor.hxltm.yml', is_debug)
+                HXLTM_DORMUM + '/cor.hxltm.yml', is_debug)
+
+        if Path(HXLTM_DORMUM + '/cor.hxltm.215.yml').exists():
+            return HXLTMUtil._load_hxltm_options_file(
+                HXLTM_DORMUM + '/cor.hxltm.215.yml', is_debug)
+
+        if Path(HXLTM_SYSTEMA_DIR + '/cor.hxltm.yml').exists():
+            return HXLTMUtil._load_hxltm_options_file(
+                HXLTM_SYSTEMA_DIR + '/cor.hxltm.yml', is_debug)
+
+        if Path(HXLTM_SYSTEMA_DIR + '/cor.hxltm.215.yml').exists():
+            return HXLTMUtil._load_hxltm_options_file(
+                HXLTM_SYSTEMA_DIR + '/cor.hxltm.215.yml', is_debug)
         # print('oioioi')
 
         raise RuntimeError(

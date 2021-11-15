@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- TODO
-<!-- ## [v0.8.9-rc.2] - 2020-11-12 -->
+- `cor.hxltm.215.yml` can be use instead of `cor.hxltm.yml` (refs #7)
+
+### Changed
+- Environment variable `HXLM_CONFIG_BASE` renamed to `HXLTM_DORMUM`
+- Environment variable `HXLTM_TESTUM_BASIM_DEFALLO` renamed to `HXLTM_TESTUM`
 
 ## [v0.8.9-rc.2] - 2020-11-14
 
