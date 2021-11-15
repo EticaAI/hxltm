@@ -29,7 +29,7 @@ NOTE: `+hxltmcli+` uses Python 3 and the reference version can be installed
      TL;DR: `pip install hdp-toolchain[hxltm]`. *The result of the lastest
      link:++#hxltmcli--help++[hxltmcli --help. is on the bottom of this page].*
 
-NOTE: The https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.yml[HXLTM core ontology cor.hxltm.yml]
+NOTE: The https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.215.yml[HXLTM core ontology cor.hxltm.215.yml]
     that comes with hxltmcli can be customized with
     `hxltmcli --archivum-configurationem path/to/mycopy.hxltm.yml`.
 
@@ -93,7 +93,7 @@ lingua
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_HXLTM]
 ----
 
 ===== Command line examples
@@ -110,7 +110,7 @@ include::../../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM_CSV]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_CSV-HXL-XLIFF]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_CSV-HXL-XLIFF]
 ----
 
 ===== Command line examples
@@ -127,7 +127,7 @@ include::../../testum/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-TMETA]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_HXLTM-TMETA]
 ----
 
 ////
@@ -145,7 +145,7 @@ include::../../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-ASA]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_HXLTM-ASA]
 ----
 
 
@@ -177,7 +177,7 @@ TIP: Consider the formats here as example of how to export HXLTM.
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_CSV-3]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_CSV-3]
 ----
 
 ===== Command line examples
@@ -203,7 +203,7 @@ include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv[]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_GSheets]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_GSheets]
 ----
 
 [#HXL-Proxy]
@@ -212,7 +212,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_GSheets]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_HXL-Proxy]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_HXL-Proxy]
 ----
 
 [#JSON-kv]
@@ -221,7 +221,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_HXL-Proxy]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_JSON-kv]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_JSON-kv]
 ----
 
 [#TBX-Basim]
@@ -233,7 +233,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_JSON-kv]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_TBX-Basim]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_TBX-Basim]
 ----
 
 ===== Command line examples
@@ -257,7 +257,7 @@ include::../../testum/resultatum/hxltm-exemplum-linguam.tbx[]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_TSV-3]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_TSV-3]
 ----
 
 ===== Command line examples
@@ -283,7 +283,7 @@ include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv[]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_TMX]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_TMX]
 ----
 
 ===== Command line examples
@@ -307,7 +307,7 @@ include::../../testum/resultatum/hxltm-exemplum-linguam.tmx[]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_UTX]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_UTX]
 ----
 
 ===== Command line examples
@@ -331,7 +331,7 @@ include::../../testum/resultatum/hxltm-exemplum-linguam.utx[]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_XML]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_XML]
 ----
 
 ===== Command line examples
@@ -356,7 +356,7 @@ include::../../testum/resultatum/hxltm-exemplum-linguam.hxltm.xml[]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_XLIFF]
 ----
 
 ===== Command line examples
@@ -379,7 +379,7 @@ include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF-obsoletum]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_XLIFF-obsoletum]
 ----
 
 ===== Command line examples
@@ -402,7 +402,7 @@ include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_XLSX]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_XLSX]
 ----
 
 [#YAML]
@@ -411,7 +411,7 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_XLSX]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_YAML]
+include::../../ontologia/cor.hxltm.215.yml[tag=normam_YAML]
 ----
 
 [#HXLTM-ad-hoc]
@@ -430,11 +430,11 @@ NOTE: TODO: this is a draft. Document already implemented functionality
 [#ontologia]
 === Ontologia
 
-Full file at https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.yml.
+Full file at https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.215.yml.
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=ontologia]
+include::../../ontologia/cor.hxltm.215.yml[tag=ontologia]
 ----
 
 [#ontologia-aliud]
@@ -442,7 +442,7 @@ include::../../ontologia/cor.hxltm.yml[tag=ontologia]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=ontologia_aliud]
+include::../../ontologia/cor.hxltm.215.yml[tag=ontologia_aliud]
 ----
 
 [#ontologia-datum-typum]
@@ -450,7 +450,7 @@ include::../../ontologia/cor.hxltm.yml[tag=ontologia_aliud]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=ontologia_datum_typum]
+include::../../ontologia/cor.hxltm.215.yml[tag=ontologia_datum_typum]
 ----
 
 [#hxltmcli--help]

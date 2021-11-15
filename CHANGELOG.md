@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - `ontologia/0.77.995.yml` added (but not implemented)
+- `ontologia/cor.hxltm.215.json` and added `ontologia/0.77.995.json`
 
 ### Changed
 - `ontologia/cor.hxltm.215.yml` can be use instead of `ontologia/cor.hxltm.yml` (refs #7)

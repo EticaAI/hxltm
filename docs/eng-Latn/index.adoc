@@ -309,14 +309,14 @@ CAUTION: While the exporting features (like `+normam.TMX.formatum.initiale+`,
          ontology file but also the Python code.
 
 Ontology, YAML::
-- https://hdp.etica.ai/ontologia/cor.hxltm.yml
+- https://hdp.etica.ai/ontologia/cor.hxltm.215.yml
 
 Ontology, JSON::
 - https://hdp.etica.ai/ontologia/json/cor.hxltm.json
 
 [source,yaml]
 ----
-include::../ontologia/cor.hxltm.yml[]
+include::../ontologia/cor.hxltm.215.yml[]
 ----
 
 == License
