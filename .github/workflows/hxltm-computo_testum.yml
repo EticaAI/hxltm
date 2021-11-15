@@ -1,18 +1,15 @@
-# systēma:
-#  - https://en.wiktionary.org/wiki/systema#Latin
-
 # SPDX-License-Identifier: Unlicense OR 0BSD
-# .github/workflows/hxltm-normam-documentum.yml
+# .github/workflows/hxltm-computo_testum.yml
 
 # Trivia:
 # - "HXLTM", https://hxltm.etica.ai/
-# - "computum",https://en.wiktionary.org/wiki/computus#Latin
-# - "referēns", https://en.wiktionary.org/wiki/referens#Latin
+# - "computō",https://en.wiktionary.org/wiki/computus#Latin
 # - "testum", https://en.wiktionary.org/wiki/testum#Latin
+# - "referēns", https://en.wiktionary.org/wiki/referens#Latin
 
 # https://en.wiktionary.org/wiki/computus
 
-name: hxltm-computum-referens
+name: hxltm-computo_testum
 
 # name: testum
 

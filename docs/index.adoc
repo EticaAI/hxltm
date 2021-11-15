@@ -1,5 +1,5 @@
 = HXLTM index
-
+:nofooter: 1
 
 ////
 :toc: preamble

@@ -28,26 +28,42 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+
+      # TODO: make some cross-platform check if yq is installed. For now we're
+      #       using continue-on-error: true, as the GitHu runner actually
+      #       do have yq by default.
+      - run: yq --version
+        id: yq-okay
+        continue-on-error: true
+
+      # - name: setup yq
+      #   if: steps.yq-okay.outcome != 'success'
+      #   continue-on-error: true
+      #   run: |
+      #     sudo apt update -y
+      #     sudo apt install snapd -y
+      #     sudo snap install --classic yq
+
       # - run: sudo snap install yq
       #   # continue-on-error: true
 
-      # @see https://github.com/marketplace/actions/yq-portable-yaml-processor
-      - name: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
-        uses: mikefarah/yq@v4
-        with:
-          cmd: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
+      # # @see https://github.com/marketplace/actions/yq-portable-yaml-processor
+      # - name: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
+      #   uses: mikefarah/yq@v4
+      #   with:
+      #     cmd: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
 
-      # - run: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
-      #   # continue-on-error: true
+      - run: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
+        continue-on-error: true
 
-      # @see https://github.com/marketplace/actions/yq-portable-yaml-processor
-      - name: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
-        uses: mikefarah/yq@v4
-        with:
-          cmd: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
+      # # @see https://github.com/marketplace/actions/yq-portable-yaml-processor
+      # - name: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
+      #   uses: mikefarah/yq@v4
+      #   with:
+      #     cmd: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
 
-      # - run: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
-      #   # continue-on-error: true
+      - run: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
+        continue-on-error: true
 
       - run: cp -r bin/ docs/bin/
         # continue-on-error: true
@@ -64,19 +80,19 @@ jobs:
       - run: cp UNLICENSE docs/UNLICENSE
         # continue-on-error: true
 
-      # @see https://github.com/reitzig/actions-asciidoctor
-      - uses: ruby/setup-ruby@v1
-        continue-on-error: true
-        with:
-          ruby-version: 2.7
+      # # @see https://github.com/reitzig/actions-asciidoctor
+      # - uses: ruby/setup-ruby@v1
+      #   continue-on-error: true
+      #   with:
+      #     ruby-version: 2.7
 
-      - uses: reitzig/actions-asciidoctor@v2.0.0
-        continue-on-error: true
-        with:
-          version: 2.0.16
+      # - uses: reitzig/actions-asciidoctor@v2.0.0
+      #   continue-on-error: true
+      #   with:
+      #     version: 2.0.16
 
-      - run: asciidoctor --version
-        continue-on-error: true
+      # - run: asciidoctor --version
+      #   continue-on-error: true
 
       # @see https://github.com/manoelcampos/asciidoctor-ghpages-action
       # Includes the AsciiDoctor GitHub Pages Action to convert adoc files to html and publish to gh-pages branch
