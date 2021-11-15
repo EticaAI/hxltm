@@ -1,4 +1,4 @@
-# Multilingual Terminology in Humanitarian Language Exchange (HXLTM) - Ontologia and reference implementation
+# HXLTM - ontologia and initial reference implementation
 [![Site](https://img.shields.io/badge/Site-hxltm.etica.ai-blue[Site] "Site")](https://hxltm.etica.ai/)
 [![GitHub](https://img.shields.io/badge/GitHub-EticaAI%2Fhxltm-lightgrey?logo=github&style=social[EticaAI/hxltm] "GitHub")](https://github.com/EticaAI/hxltm)
 [![Pypi: hxltm-eticaai](https://img.shields.io/badge/python%20pypi-hxltm--eticaai-brightgreen[Python] 
@@ -7,12 +7,16 @@
 The _Multilingual Terminology in Humanitarian Language Exchange_
 (abbreviation: _HXLTM_) is an HXLated valid tabular format (stricly, a
 documented subset of [HXL Standard](https://hxlstandard.org/[HXL]) started by
-[HXL-CPLP](https://github.com/HXL-CPLP) with strong focus to store community
+[HXL-CPLP](https://github.com/HXL-CPLP)) with strong focus to store community
 contributed translations and multilingual terminology while maximizing
 portability for implementers.
 
+**The documentation is available at <https://hxltm.etica.ai/>.**
+
 <!--
 ---
+
+Multilingual Terminology in Humanitarian Language Exchange (HXLTM) - Ontologia and reference implementation
 
 Quickstart
 

@@ -1,7 +1,9 @@
-= HXLTM index
+= Terminologia Multilinguae in Humanitarius *Excambiō Linguae
+:lang: la
 :nofooter: 1
 
 ////
+:nofooter: 1
 :toc: preamble
 :icons: font
 :source-highlighter: highlight.js
@@ -20,4 +22,10 @@ link:eng-Latn/index.adoc.adoc[English language (Latin script) - HXLM: Multilingu
 
 ////
 
-link:eng-Latn[English language (Latin script)]
+* link:eng-Latn[English language (Latin script)] ~link:eng-Latn[documentation],~ ~link:eng-Latn/index[index]~
+
+
+---
+
+link:https://en.wiktionary.org/wiki/Reconstruction:Latin/excambio[*Excambiō est recōnstrūctiō (non officialis)].
+Nomen officialis lingua Anglica est link:https://hxlstandard.org/[The Humanitarian Exchange Language]
