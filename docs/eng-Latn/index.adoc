@@ -116,13 +116,13 @@ also tooling for bilingual
 `+hxltmcli+` file and install manually dependencies, like the
 https://github.com/HXLStandard/libhxl-python[HXLStandard/libhxl-python],
 you can install with the
-https://pypi.org/project/hdp-toolchain/[hdp-toolchain].
+https://pypi.org/project/hxltm-eticaai/[hxltm-eticaai].
 
 [source,bash]
 ----
-# hxltmcli is installed with the hdp-toolchain, no extras required.
-# @see https://pypi.org/project/hdp-toolchain/
-pip install hdp-toolchain[hxltm]
+# hxltmcli is installed with the hxltm-eticaai, no extras required.
+# @see https://pypi.org/project/hxltm-eticaai/
+pip install hxltm-eticaai
 
 hxltmcli --help
 
@@ -236,7 +236,7 @@ possible by, instead of `hxltmcli input.hxl.csv output.hxl.csv` use
 
 [source,bash]
 ----
-# libhxl already is installed with hdp-toolchain
+# libhxl already is installed with hxltm-eticaai
 
 hxlselect --help
 #    Filter rows in a HXL dataset. (...)

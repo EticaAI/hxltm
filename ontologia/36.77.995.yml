@@ -1,0 +1,28 @@
+# ontologia/36.77.995.yml
+# @seee https://github.com/EticaAI/hxltm/issues/7
+___0: 995   # 995 = Zmth, Mathematical notation
+___1: 77    # hxltm; h + x +l + t + m = 77 (if modern latin alphabet)
+___2: 36    # cor; 36 (if modern latin alphabet)
+
+
+# h = 8
+# x = 24
+# l = 12
+# t = 20
+# m = 13
+# h + x +l + t + m = 77 (if modern latin alphabet)
+# c = 3
+# o = 15
+# r = 18
+# c + o + r = = 36 (if modern latin alphabet)
+
+
+# - https://en.wikipedia.org/wiki/History_of_the_Latin_script#Archaic_Latin_alphabet
+# - Original Latin alphabet, in the modern equivalent letters
+#   - A B C D E F Z H I K L M N O P Q R S T V X
+# h = 8
+# x = 21 (not 24)
+# l = 11 (not 12)
+# t = 19 (not 20)
+# m = 12 (not 13)
+# h + x +l + t + m = 71 (if old latin alphabet)

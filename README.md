@@ -1,5 +1,20 @@
-# hxltm
-**[monorepo split not finished] See https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/25**
+# Multilingual Terminology in Humanitarian Language Exchange (HXLTM) - Ontologia and reference implementation by EticaAI
+[![Site](https://img.shields.io/badge/Site-hxltm.etica.ai-blue[Site] "Site")](https://hxltm.etica.ai/)
+[![GitHub](https://img.shields.io/badge/GitHub-EticaAI%2Fhxltm-lightgrey?logo=github&style=social[EticaAI/hxltm] "GitHub")](https://github.com/EticaAI/hxltm)
+[![Pypi: hxltm-eticaai](https://img.shields.io/badge/python%20pypi-hxltm--eticaai-brightgreen[Python] 
+ "Pypi: hxltm-eticaai")](https://pypi.org/project/hxltm-eticaai/)
+
+The _Multilingual Terminology in Humanitarian Language Exchange_
+(abbreviation: _HXLTM_) is an HXLated valid tabular format (stricly, a
+documented subset of [HXL Standard](https://hxlstandard.org/[HXL]) started by
+[HXL-CPLP](https://github.com/HXL-CPLP) with strong focus to store community
+contributed translations and multilingual terminology while maximizing
+portability for implementers.
+
+<!--
+---
+
+Quickstart
 
 - <https://hxltm.etica.ai/>
 
@@ -7,6 +22,25 @@
 pip install hxltm-eticaai
 ```
 
+---
+
+(like via use of `+hxltmcli+` to export to
+Excel, +++<abbr title="XML Localization Interchange File Format">XLIFF</abbr>+++,
++++<abbr title="Translation Memory eXchange">TMX</abbr>+++,
++++<abbr title="TermBase eXchange">TBX</abbr>+++,
++++<abbr title="Universal Terminology eXchange">UTX</abbr>+++, JSON, CSV,
+link:archivum/[and more!]
+
+
+
+**[monorepo split not finished] See https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/25**
+
+- <https://hxltm.etica.ai/>
+
+```bash
+pip install hxltm-eticaai
+```
+-->
 
 <!--
 

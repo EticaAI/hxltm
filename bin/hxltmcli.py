@@ -7,8 +7,8 @@
 #                 cat un-htcds.tm.hxl.csv | hxltmcli > un-htcds.xliff
 #
 #   DESCRIPTION:  _[eng-Latn] The HXLTM reference implementation in python.
-#                             While this can installed with hdp-toolchain:
-#                                 pip install hdp-toolchain
+#                             While this can installed with hxltm-eticaai:
+#                                 pip install hxltm-eticaai
 #                             The one--big-file hxltmcli.py (along with the
 #                             cor.hxltm.yml) can be customized as single
 #                             python script. But on this case, you will need
