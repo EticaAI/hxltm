@@ -45,6 +45,7 @@ pip install hxltm-eticaai
 <!--
 
 > TODO:
+> - https://github.com/darshandsoni/asciidoctor-skins
 > - https://github.com/ymyzk/tox-gh-actions
 > - re-add UNLICENSE
 > - re-add dedicated tests with tox

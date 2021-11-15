@@ -15,6 +15,10 @@ docs/testum
 ### Other, relevant to hxltm-eticaai ___________________________________________
 docs/*.htm
 docs/**/*.htm
+docs/*.html
+docs/**/*.html
+docs/*.pdf
+docs/**/*.pdf
 
 ### Python ignores _____________________________________________________________
 # Distribution / packaging
