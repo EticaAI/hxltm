@@ -1,4 +1,12 @@
-name: asciidoctor-ghpages
+# SPDX-License-Identifier: Unlicense OR 0BSD
+# .github/workflows/hxltm-normae_documentum_hxltm-etica-ai.yml
+
+# Trivia:
+# - "HXLTM", https://hxltm.etica.ai/
+# - "normam", https://en.wiktionary.org/wiki/norma#Latin
+# - "documentum", https://en.wiktionary.org/wiki/documentum#Latin
+
+name: hxltm-normae_documentum_hxltm-etica-ai
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -20,14 +28,26 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - run: snap install yq
-        continue-on-error: true
+      # - run: sudo snap install yq
+      #   # continue-on-error: true
 
-      - run: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
-        continue-on-error: true
+      # @see https://github.com/marketplace/actions/yq-portable-yaml-processor
+      - name: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
+        uses: mikefarah/yq@v4
+        with:
+          cmd: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
 
-      - run: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
-        continue-on-error: true
+      # - run: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
+      #   # continue-on-error: true
+
+      # @see https://github.com/marketplace/actions/yq-portable-yaml-processor
+      - name: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
+        uses: mikefarah/yq@v4
+        with:
+          cmd: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
+
+      # - run: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
+      #   # continue-on-error: true
 
       - run: cp -r bin/ docs/bin/
         # continue-on-error: true
@@ -42,23 +62,27 @@ jobs:
       #   continue-on-error: true
 
       - run: cp UNLICENSE docs/UNLICENSE
-        continue-on-error: true
+        # continue-on-error: true
 
       # @see https://github.com/reitzig/actions-asciidoctor
       - uses: ruby/setup-ruby@v1
+        continue-on-error: true
         with:
           ruby-version: 2.7
 
       - uses: reitzig/actions-asciidoctor@v2.0.0
+        continue-on-error: true
         with:
           version: 2.0.16
 
       - run: asciidoctor --version
+        continue-on-error: true
 
       # @see https://github.com/manoelcampos/asciidoctor-ghpages-action
       # Includes the AsciiDoctor GitHub Pages Action to convert adoc files to html and publish to gh-pages branch
       - name: asciidoctor-ghpages
         uses: manoelcampos/asciidoctor-ghpages-action@v2
+        # continue-on-error: true
         with:
           # asciidoctor_params: --attribute=nofooter
           asciidoctor_params: --attribute source-highlighter=rouge
@@ -69,7 +93,7 @@ jobs:
           # slides_build: true
           # pre_build:
           # post_build: 'echo "hxltm.etica.ai" > CNAME'
-          pre_build: find . type -f
+          # pre_build: find . type -f
           # pre_build: git add .
 
       # Not the lastest, but can be used on local ubuntu if no advanced features need

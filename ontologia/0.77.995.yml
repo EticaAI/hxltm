@@ -2,6 +2,8 @@
 # @LICENTIAM      Dominium publicum
 # @DESCRIPTIONEM  _[eng-Latn] Early draft. Concept. NOT implemented [eng-Latn]_
 
+# @see https://www.youtube.com/watch?v=2fhP_fk2wNQ
+
 # TODO: make hxltmdecli and hxltmdexml at least read this file and load
 #       default paths from here.
 
