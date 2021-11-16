@@ -58,3 +58,10 @@ __pycache__
 ### temp
 # tox.ini
 Dockerfile
+
+# asciidoctor
+# @see https://asciidoctor.org/#bundler
+vendor
+Gemfile
+Gemfile.lock
+.bundle

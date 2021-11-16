@@ -22,10 +22,13 @@ link:eng-Latn/index.adoc.adoc[English language (Latin script) - HXLM: Multilingu
 
 ////
 
-* link:eng-Latn[English language (Latin script)] ~link:eng-Latn[documentation],~ ~link:eng-Latn/index[index]~
+* link:eng-Latn[English language (Latin script)] ~link:eng-Latn[documentation],~ ~link:eng-Latn/index/[index]~
 
 
----
-
+.*Excambiō
+[%collapsible]
+====
 link:https://en.wiktionary.org/wiki/Reconstruction:Latin/excambio[*Excambiō est recōnstrūctiō (non officialis)].
 Nomen officialis lingua Anglica est link:https://hxlstandard.org/[The Humanitarian Exchange Language]
+====
+

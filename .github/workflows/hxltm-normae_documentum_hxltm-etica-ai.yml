@@ -112,10 +112,13 @@ jobs:
           # pre_build: find . type -f
           # pre_build: git add .
 
-      # Not the lastest, but can be used on local ubuntu if no advanced features need
-      # sudo apt install asciidoctor
-      # sudo apt install ruby-asciidoctor-pdf
-      # sudo gem install asciidoctor-pdf
 
-      # (error) asciidoctor --backend pdf docs/eng-Latn/index.adoc
-      # asciidoctor-pdf --attribute allow-uri-read=1 docs/eng-Latn/index.adoc
+      # asciidoctor
+      # @see https://asciidoctor.org/#bundler
+      #    cat Gemfile
+      #    source 'https://rubygems.org'
+      #    gem 'asciidoctor'
+      #    gem 'asciidoctor-pdf'
+      #    gem 'asciidoctor-epub3'
+
+      # bundle exec asciidoctor-pdf --attribute allow-uri-read=1 docs/eng-Latn/index.adoc

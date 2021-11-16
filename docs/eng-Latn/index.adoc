@@ -103,7 +103,7 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_HXLTM]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM_CSV]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM_CSV]
 ----
 
 ////
@@ -120,7 +120,7 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_CSV-HXL-XLIFF]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
 ----
 ////
 
@@ -138,7 +138,7 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_HXLTM-TMETA]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
 ----
 ////
 
@@ -156,7 +156,7 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_HXLTM-ASA]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
 ----
 
 [#HXLTM-archivum-exportandum]
@@ -188,7 +188,7 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_CSV-3]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=CSV-3]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=CSV-3]
 ----
 
 ===== Result example
@@ -197,7 +197,7 @@ include::../../testum/disciplinam-manuale-anglicum.sh[tag=CSV-3]
 
 [source,csv]
 ----
-include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv[]
+include::../testum/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv[]
 ----
 
 [#GSheets]
@@ -243,14 +243,14 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_TBX-Basim]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=TBX-Basim]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=TBX-Basim]
 ----
 
 ===== Result example
 
 [source,xml]
 ----
-include::../../testum/resultatum/hxltm-exemplum-linguam.tbx[]
+include::../testum/resultatum/hxltm-exemplum-linguam.tbx[]
 ----
 
 
@@ -268,7 +268,7 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_TSV-3]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=TSV-3]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=TSV-3]
 ----
 
 ===== Result example
@@ -277,7 +277,7 @@ include::../../testum/disciplinam-manuale-anglicum.sh[tag=TSV-3]
 
 [source,tsv]
 ----
-include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv[]
+include::../testum/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv[]
 ----
 
 [#TMX]
@@ -293,7 +293,7 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_TMX]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=TMX]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=TMX]
 ----
 ===== Result example
 
@@ -301,7 +301,7 @@ include::../../testum/disciplinam-manuale-anglicum.sh[tag=TMX]
 
 [source,xml]
 ----
-include::../../testum/resultatum/hxltm-exemplum-linguam.tmx[]
+include::../testum/resultatum/hxltm-exemplum-linguam.tmx[]
 ----
 
 [#UTX]
@@ -317,7 +317,7 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_UTX]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=UTX]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=UTX]
 ----
 ===== Result example
 
@@ -325,7 +325,7 @@ include::../../testum/disciplinam-manuale-anglicum.sh[tag=UTX]
 
 [source,xml]
 ----
-include::../../testum/resultatum/hxltm-exemplum-linguam.utx[]
+include::../testum/resultatum/hxltm-exemplum-linguam.utx[]
 ----
 
 [#XML]
@@ -341,7 +341,7 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_XML]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=XML]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=XML]
 ----
 ===== Result example
 
@@ -349,7 +349,7 @@ include::../../testum/disciplinam-manuale-anglicum.sh[tag=XML]
 
 [source,xml]
 ----
-include::../../testum/resultatum/hxltm-exemplum-linguam.hxltm.xml[]
+include::../testum/resultatum/hxltm-exemplum-linguam.hxltm.xml[]
 ----
 
 
@@ -366,14 +366,14 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_XLIFF]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=XLIFF]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=XLIFF]
 ----
 
 ===== Result example
 
 [source,xml]
 ----
-include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
+include::../testum/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
 ----
 
 [#XLIFF-obsoletum]
@@ -389,14 +389,14 @@ include::../ontologia/cor.hxltm.215.yml[tag=normam_XLIFF-obsoletum]
 
 [source,bash]
 ----
-include::../../testum/disciplinam-manuale-anglicum.sh[tag=XLIFF-obsoletum]
+include::../testum/disciplinam-manuale-anglicum.sh[tag=XLIFF-obsoletum]
 ----
 
 ===== Result example
 
 [source,xml]
 ----
-include::../../testum/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
+include::../testum/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
 ----
 
 [#XLSX]
@@ -470,7 +470,7 @@ hxltmcli --help
 
 [source]
 ----
-include::../../testum/hxltmcli--help_eng-Latn.txt[]
+include::../testum/hxltmcli--help_eng-Latn.txt[]
 ----
 [#hxltmdexml--help]
 == `+hxltmdexml --help+`
@@ -486,7 +486,7 @@ hxltmdexml --help
 
 [source]
 ----
-include::../../testum/hxltmdexml--help_eng-Latn.txt[]
+include::../testum/hxltmdexml--help_eng-Latn.txt[]
 ----
 
 == License
