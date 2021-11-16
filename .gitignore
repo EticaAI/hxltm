@@ -19,6 +19,8 @@ docs/*.html
 docs/**/*.html
 docs/*.pdf
 docs/**/*.pdf
+docs/*.epub
+docs/**/*.epub
 
 ### Python ignores _____________________________________________________________
 # Distribution / packaging

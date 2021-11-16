@@ -1,4 +1,4 @@
-= Quickstart documentation of HXLTM - Multilingual Terminology in Humanitarian Language Exchange
+= Multilingual Terminology in Humanitarian Language Exchange (HXLTM): end user documentation
 :toc: left
 :toclevels: 3
 :icons: font
@@ -23,18 +23,14 @@ https://pypi.org/project/hxltm-eticaai/[image:https://img.shields.io/badge/pytho
 Package: hxltm-eticaai]]
 https://hxlstandard.org/[image:https://img.shields.io/badge/Standard-HXL-%23F26459[Standard
 HXL]]
-image:https://img.shields.io/github/license/EticaAI/HXL-Data-Science-file-formats[License]
+image:https://img.shields.io/github/license/EticaAI/hxltm[License]
 https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486[image:https://img.shields.io/badge/Google%20Drive-HXL--CPLP--Vocab_Auxilium--Humanitarium--API-yellowgreen[Google
 Drive]]
 
-NOTE: `+hxltmcli+` uses Python 3 and the reference version can be installed
-     with https://pypi.org/project/hxltm-eticaai/[hxltm-eticaai].
-     TL;DR: `pip install hxltm-eticaai`. *The result of the lastest
-     link:++#hxltmcli--help++[hxltmcli --help. is on the bottom of this page].*
+NOTE: `+hxltmcli+` uses Python 3 and the reference version can be installed with https://pypi.org/project/hxltm-eticaai/[hxltm-eticaai].
+      TL;DR: `pip install hxltm-eticaai`. *The result of the lastest link:++#hxltmcli--help++[hxltmcli --help. is on the bottom of this page].*
 
-NOTE: The https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.215.yml[HXLTM core ontology cor.hxltm.215.yml]
-    that comes with hxltmcli can be customized with
-    `hxltmcli --archivum-configurationem path/to/mycopy.hxltm.yml`.
+NOTE: The https://github.com/EticaAI/hxltm/blob/main/ontologia/cor.hxltm.215.yml[HXLTM core ontology cor.hxltm.215.yml] that comes with hxltmcli can be customized with `hxltmcli --archivum-configurationem path/to/mycopy.hxltm.yml`.
 
 TIP: Bootstrapping-HXLTM (very, VERY long presentation):
     +++<br>+++
@@ -45,7 +41,7 @@ TIP: Bootstrapping-HXLTM (very, VERY long presentation):
 TIP: For advanced hackers or (people helping others in middle of urgency and
      with basic knowledge of python),
      *is possible copy only the single file
-     https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/bin/hxltmcli[hxltmcli.py]*,
+     https://github.com/EticaAI/hxltm/blob/main/bin/hxltmcli[hxltmcli.py]*,
      put on your executable path, and use immediately instead of
      hxltm-eticaai version. The hard requirements are
      `pip install libhxl langcodes pyyaml python-liquid`

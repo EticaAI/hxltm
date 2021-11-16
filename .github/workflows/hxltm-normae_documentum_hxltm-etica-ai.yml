@@ -122,3 +122,4 @@ jobs:
       #    gem 'asciidoctor-epub3'
 
       # bundle exec asciidoctor-pdf --attribute allow-uri-read=1 docs/eng-Latn/index.adoc
+      # bundle exec asciidoctor-epub --attribute allow-uri-read=1 docs/eng-Latn/index.adoc
