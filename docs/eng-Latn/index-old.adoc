@@ -1,168 +1,56 @@
-= Multilingual Terminology in Humanitarian Language Exchange: the HXLTM lexicography field guide
-EticaAI, Collaborators_of <etica.of.a.ai@gmail.com>; Rocha, Emerson <rocha@ieee.org>
-:toc: 1
-:toclevels: 4
-:sectnums:
-:sectlinks:
-:version-label: HXLTM Live eddition
-:variable-organization-name-current: Collaborators of Etica.AI
-:variable-documentation-live-link: https://hxltm.etica.ai/
-:variable-python-package-manager-name: hxltm-eticaai
-:variable-python-package-manager-released-version: 0.8.9rc2
+= Multilingual Terminology in Humanitarian Language Exchange (HXLTM): end user documentation
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+:highlightjs-languages: yaml
 
 ////
-- https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+asciidoctor --backend=html5 -o hxltm/archivum/index.htm -a toc2 hxltm/archivum/README.adoc
+
+
+= `+HXLTM+` Terminologia Multilinguae: archīvum fōrmātum normam
+
+TODO:
+  - https://docs.weblate.org/en/latest/formats.html
+      - This site have several examples of export files.
+        Since HXLTM already is flexible, we could export also for them.
 ////
 
-<<<
+https://hxltm.etica.ai[image:https://img.shields.io/badge/Site-hxltm.etica.ai-blue[Site]]
+https://github.com/EticaAI/hxltm[image:https://img.shields.io/badge/GitHub-EticaAI%2Fhxltm-lightgrey?logo=github&style=social[EticaAI/hxltm]]
+https://pypi.org/project/hxltm-eticaai/[image:https://img.shields.io/badge/python%20package-hxltm--eticaai-brightgreen[Python
+Package: hxltm-eticaai]]
+https://hxlstandard.org/[image:https://img.shields.io/badge/Standard-HXL-%23F26459[Standard
+HXL]]
+image:https://img.shields.io/github/license/EticaAI/hxltm[License]
+https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486[image:https://img.shields.io/badge/Google%20Drive-HXL--CPLP--Vocab_Auxilium--Humanitarium--API-yellowgreen[Google
+Drive]]
 
-:sectnums!:
+NOTE: `+hxltmcli+` uses Python 3 and the reference version can be installed with https://pypi.org/project/hxltm-eticaai/[hxltm-eticaai].
+      TL;DR: `pip install hxltm-eticaai`. *The result of the lastest link:++#hxltmcli--help++[hxltmcli --help. is on the bottom of this page].*
 
-== Preface
+NOTE: The https://github.com/EticaAI/hxltm/blob/main/ontologia/cor.hxltm.215.yml[HXLTM core ontology cor.hxltm.215.yml] that comes with hxltmcli can be customized with `hxltmcli --archivum-configurationem path/to/mycopy.hxltm.yml`.
 
+TIP: Bootstrapping-HXLTM (very, VERY long presentation):
+    +++<br>+++
+    1. https://docs.google.com/presentation/d/11t8EMTtT8mV9NM0Dy7kCHDZEYkmSeyh7OA5CX50_OEQ/edit?usp=sharing[eng-Latn: Bootstrapping technical translations and multilingual controlled vocabularies with HXLTM]
+    +++<br>+++
+    2. https://docs.google.com/presentation/d/1wEw9MmEAQypn20XLSDETbV3q2Nlf9ICwn3q970Du1es/edit?usp=sharing[por-Latn: Como criar do zero traduções técnicas e vocabulários controlados multilíngues com HXLTM]
 
-This book, both available online on {variable-documentation-live-link} and as an ebook,
-is designed as a field guide for person's doing practical lexicography and need a kickstart on how to use HXLTM tools.
-
-
-[NOTE]
-.Non-audience (for this field guide)
-====
-If you are either an academic researcher,
-technology expert or interested in help with translations,
-please contact the authors directly.
-====
-
-////
-It is still recommended to take a quick look at this guide.
-The public domain license is more than flexible.
-This means you can
-////
-
-<<<
-
-== Quickstart
-
-It's essential that you have knowledge of Arabic numerals and the Latin alphabet without the aid of computer assisted tools.
-Attention to details is for such numbers and the Latin alphabet (since they often are used as part of coding systems to label lingístic content)
-is much more important than knowledge of the language written in Latin script or skill to do computation with numbers themselves.
-
-=== Strategies for production-grade use of reference software
-
-The HXLTM reference tooling is designed to be immediately production-grade.
-However, if software used humanitarian usage is not challenging enough,
-most softwares which advertise conformance with formats HXLTM can export/import actually have bugs.
-
-How to meet both usages?
-What "backward compatibility" could we promess?
-
-Here are some suggestions.
-
-==== Active
-If your use case is processing data right now,
-or what you care about is just the end result,
-you can use the latest versions of any tool.
-
-Even if between the day you start using the tools and a new update some minor change,
-it's more likely that you prefer this cutting edge approach.
-
-==== Conservative
-
-In special data standards who already are not formally documented (or their documentation may be behind paywalls) they are subject to changes (which tend to be bug fixes).
-The way on how to label these standards may also may also renamed over time.
-Also note that even if the current maintainers,
-{variable-organization-name-current},
-will tend to not make changes,
-like minor typographical errors for something already well documented and released on past,
-we may decide to adopt fast suggestions by academic researchers without further delay.
-
-One common industry practice would be to lock the exact command line tools version
-(so this would force the old ontologia file).
-This is still an option and is the one documented in this book.
-
-===== Special case for HXLTM: ontologia files
-
-But HXLTM allows another strategy over the quickstart lock on version:
-*a additional conservative approach is to get the relevant parts of the ontologia relevant to your case*.
-This way you have your own "custom" data standard and it's even documented on your project.
-
-This approach doesn't need to happen upfront:
-if you started as _active_ user and then something changed,
-it is possible to copy only the ontologia files of older versions.
-
-==== Archival
-The "archival" behavior is likely to be the one used for either academic researchers,
-librarians or higher levels of compliance (like use HXLTM to explain some custom format).
-The difference in this approach is when just freezing the exact command line tools version _is not sufficient_.
-Your use case cannot be sure if you need the exact versions for more than 3 years or 30 years, maybe much more.
-
-The HXLTM reference tools are public domain.
-While at time of code writing most code style guides were followed,
-the maximum lines per file was not,
-so less, much less files and no bureaucracy.
-Even the characters per line are capped at 80 columns,
-so it would fit on paper.
-These types of decisions are simpler if you want to archive everything as part of your work.
-
-While this strategy suggestion may resemble how software like
-https://github.com/chrislgarry/Apollo-11[Apollo 11 guidance computer (AGC) via code printed on books],
-note that the average lexicographer would somewhat work with old dictionaries.
-Most content from public dictionaries we have today we're extracted from century-old books.
-Also, the very idea of ontologia files is one way to explain how one code convention is related to another.
-
-This approach makes the way HXLTM is explained on the ontologia an acceptable trade off between adding new features and allowing such level of archival.
-
-=== HXLTM reference tooling installation
-
-Some knowledge of how to operate command line tools is helpful.
-No programming skills are required.
-
-All functionality intended for field lexicographers using HXLTM documented here either exposed as _declarative programming_ with YAML or arguments for programs should be considered a bug.
-
-Choose *one* of the options.
-
-==== Python package alternative
-
-[NOTE]
-.Quick external links for this topic
-====
-[horizontal]
-{variable-python-package-manager-name} Python package:: https://pypi.org/project/{variable-python-package-manager-name}/
-Pypi, Python package manager:: https://pip.pypa.io/
-Python:: https://www.python.org/
-====
-
-
-===== Active use
-
-[subs="attributes"]
-[source,bash]
-----
-pip install {variable-python-package-manager-name} --upgrade
-----
-
-
-===== Conservative
-
-[subs="attributes"]
-[source,bash]
-----
-pip install {variable-python-package-manager-name}={variable-python-package-manager-released-version}
-----
-
-==== Docker alternative
-
-#TODO: this is a draft. Will eventually be updated (2021-11-16T23:16:00Z)#
-
-==== GitHub Action alternative
-
-#TODO: this is a draft. Will eventually be updated (2021-11-16T23:16:00Z)#
+TIP: For advanced hackers or (people helping others in middle of urgency and
+     with basic knowledge of python),
+     *is possible copy only the single file
+     https://github.com/EticaAI/hxltm/blob/main/bin/hxltmcli[hxltmcli.py]*,
+     put on your executable path, and use immediately instead of
+     hxltm-eticaai version. The hard requirements are
+     `pip install libhxl langcodes pyyaml python-liquid`
 
 
 [#HXLTM-TLDR]
-=== TL;DR: Too Long; Didn't read
+== TL;DR: Too Long; Didn't read
 
-==== hxltmcli
+=== hxltmcli
 
 Use case: _"I need convert from HXLTM to something else"_
 
@@ -171,7 +59,7 @@ Use case: _"I need convert from HXLTM to something else"_
 include::../bin/hxltmcli.py[tag=epilogum]
 ----
 
-==== hxltmdexml
+=== hxltmdexml
 
 Use case: _"I need convert from something else (in XML) to HXLTM"_
 
@@ -180,54 +68,8 @@ Use case: _"I need convert from something else (in XML) to HXLTM"_
 include::../bin/hxltmdexml.py[tag=epilogum]
 ----
 
-<<<
-
-:sectnums:
-
-== Introduction
-:sectnums:
-
-=== How to interpret this book
-
-==== A self-testing approach
-
-Parts of this field guide show, in this order:
-
-* relevant section of the ontologia, _as it is_,
-* example of command line usage to trigger data conversion
-* Example of one or more generated outputs
-
-At time of writing, the software used is "asciidoctor",
-which is focused on technical documentation
-This is more general purpose than usage of alternatives like "Jupiter Notebook" popular on data science projects.
-Both cases also mix documentation, formulas and outputs.
-
-One disadvantage compared to a more manual approach,
-(think any average technical book),
-is the end visual result will tend to be more verbose and take more screen size.
-Part of this is also the very nature of what HXLTM tools do:
-convert between data conventions and everything output is different and every part,
-Including new lines or extra spaces,
-can be relevant for who is debugging.
-
-One of the reasons for such an approach is greater assurance that the documentation will be updated since several parts of this are literally generated with each release.
-New data conventions can be added (or removed) over time, but this approach focuses on making it easier to release more frequently.
-
-This book obviously do not contain all tests that are done, but what is here,
-feature-by-feature (or bug-by-bug) what is used on the field.
-
-////
-(...)
-
-Sadly, data formats which are not importable back (so a export+import could be used to test)
-and do not exist some automated strategy to check of they are valid are extra hard to make full automated checks.
-////
-
-<<<
-
 [#HXLTM-archivum-dialecton]
 == HXLM core file dialects
-:sectnums:
 
 [#HXLTM]
 === `+HXLTM+`
@@ -582,13 +424,6 @@ TIP: *About create new HXLTM Ad Hoc*: different from customizable
 
 NOTE: TODO: this is a draft. Document already implemented functionality
 
-////
-= Appendix
-:appendix-caption: Exhibit
-:sectnums:
-:toc:
-////
-
 == HXLTM ontologies
 
 [#ontologia]
@@ -649,13 +484,6 @@ hxltmdexml --help
 ----
 include::../testum/hxltmdexml--help_eng-Latn.txt[]
 ----
-
-== Glossary
-:sectnums:
-
-=== Arabic numerals
-
-#TODO: this is a draft. Will eventually be updated (2021-11-16T23:45:00Z)#
 
 == License
 

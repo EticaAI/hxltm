@@ -46,7 +46,7 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication OR Zero-Clause BSD
 #                 SPDX-License-Identifier: Unlicense OR 0BSD
-#       VERSION:  v0.9.0-rc.1
+#       VERSION:  v0.8.9
 #       CREATED:  2021-06-27 19:50 UTC v0.5, de github.com/EticaAI
 #                     /HXL-Data-Science-file-formats/blob/main/bin/hxl2example
 #      REVISION:  2021-06-27 21:16 UTC v0.6 de hxl2tab
@@ -64,7 +64,7 @@
 #                 2021-10-15 17:08 UTC v0.8.7 MVP of --objectivum-formulam
 #                 2021-10-15 17:08 UTC v0.8.8 --objectivum-formulam, allow
 #                      save result to file (was working for stdout)
-#                 -------------------- v0.9.0 To be released
+#                 2021-11-17 02:37 UTC v0.8.9 Use cor.hxltm.215.yml
 # ==============================================================================
 """hxltmcli.py: Humanitarian Exchange Language Trānslātiōnem Memoriam CLI
 
@@ -248,7 +248,7 @@ from liquid.token import Token as LiquidToken
 from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
-__VERSION__ = "v0.9.0-rc.1"
+__VERSION__ = "v0.8.9"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -263,9 +263,9 @@ __SYSTEMA_VARIANS__ = "hxltmcli.py;EticaAI+voluntārium-commūne"
 # - voluntārium, https://en.wiktionary.org/wiki/voluntarius#Latin
 
 __DESCRIPTIONEM_BREVE__ = """
-_[eng-Latn] hxltmcli {0} is an implementation of HXLTM tagging conventions
-on HXL to manage and export tabular data to popular translation memories
-and glossaries file formats with non-close standards.
+_[eng-Latn] hxltmcli {0} is an example of implementation of the
+Multilingual Terminology in Humanitarian Language Exchange (HXLTM).
+For XML processing, use hxltmdexml.
 [eng-Latn]_"
 """.format(__VERSION__)
 

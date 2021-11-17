@@ -120,9 +120,11 @@ jobs:
       #    gem 'asciidoctor'
       #    gem 'asciidoctor-pdf'
       #    gem 'asciidoctor-epub3'
+      #    gem 'rouge'
 
       # bundle exec asciidoctor-pdf --attribute allow-uri-read=1 docs/eng-Latn/index.adoc
       # bundle exec asciidoctor-epub --attribute allow-uri-read=1 docs/eng-Latn/index.adoc
 
       # bundle exec asciidoctor-pdf -v --attribute allow-uri-read=1 docs/eng-Latn/draft-eng-Latn.adoc
+      # bundle exec asciidoctor-pdf -v --attribute allow-uri-read=1 --attribute source-highlighter=rouge docs/eng-Latn/draft-eng-Latn.adoc
       # bundle exec asciidoctor-pdf -v --attribute allow-uri-read=1 docs/eng-Latn/index.ado

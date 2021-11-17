@@ -28,15 +28,16 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication OR Zero-Clause BSD
 #                 SPDX-License-Identifier: Unlicense OR 0BSD
-#       VERSION:  v0.9.0-rc.1
+#       VERSION:  v0.8.9
 #       CREATED:  2021-07-24 00:04 UTC v0.1.0 de hxl2example
 #      REVISION:  2021-07-24 17:49 UTC v0.2.0 hxltmdexml at least read XML
 #                 2021-07-25 23:28 UTC v0.5.0 XLIFF 1.2 and XLIFF 2.1 (MVP)
 #                 2021-07-28 22:01 UTC v0.7.0 TBX-IATE (MVP), TMX (MVP)
 #                 2021-11-06 21:19 UTC v0.8.0 Fix cli importing; more stable
-#                 -------------------- v0.9.0 To be released
+#                 2021-11-17 02:37 UTC v0.8.9 Use cor.hxltm.215.yml
 # ==============================================================================
-"""hxltmdexml.py: Humanitarian Exchange Language Trānslātiōnem Memoriam de XML
+"""hxltmdexml.py: Multilingual Terminology in Humanitarian Language Exchange
+(HXLTM) de XML
 
 _[eng-Latn]
 
@@ -190,7 +191,7 @@ import yaml
 # pip3 install langcodes
 # import langcodes
 
-__VERSION__ = "v0.9.0-rc.1"
+__VERSION__ = "v0.8.9"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -206,8 +207,9 @@ __SYSTEMA_VARIANS__ = "hxltmdexml.py;EticaAI+voluntārium-commūne"
 
 __DESCRIPTIONEM_BREVE__ = """
 _[eng-Latn]
-hxltmdexml {0} is an (not feature-by-feature) conversor from some
-XML formats to HXLTM tabular working file.
+hxltmdexml {0} is an example of implementation of the
+Multilingual Terminology in Humanitarian Language Exchange (HXLTM)
+focused on convert XML files to the pivot format HXLTM.
 [eng-Latn]_"
 """.format(__VERSION__)
 

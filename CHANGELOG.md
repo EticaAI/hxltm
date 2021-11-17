@@ -7,13 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- `ontologia/0.77.995.yml` added (but not implemented)
-- `ontologia/cor.hxltm.215.json` and added `ontologia/0.77.995.json`
+- TODO
+
+## [v0.8.9] - 2020-11-17
+### Added
+- #8 Official releases now will include PDF documentation 
+- #7 `ontologia/0.77.995.yml` added (but not implemented) 
+- #7 `ontologia/cor.hxltm.215.json` and added `ontologia/0.77.995.json`
 
 ### Changed
-- `ontologia/cor.hxltm.215.yml` can be use instead of `ontologia/cor.hxltm.yml` (refs #7)
-- Environment variable `HXLM_CONFIG_BASE` renamed to `HXLTM_DORMUM`
-- Environment variable `HXLTM_TESTUM_BASIM_DEFALLO` renamed to `HXLTM_TESTUM`
+- #7 `ontologia/cor.hxltm.215.yml` can be use instead of `ontologia/cor.hxltm.yml` (refs #7)
+- #7 Environment variable `HXLM_CONFIG_BASE` renamed to `HXLTM_DORMUM`
+- #7 Environment variable `HXLTM_TESTUM_BASIM_DEFALLO` renamed to `HXLTM_TESTUM`
 
 ## [v0.8.9-rc.2] - 2020-11-14
 
