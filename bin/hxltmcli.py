@@ -10,7 +10,7 @@
 #                             While this can installed with hxltm-eticaai:
 #                                 pip install hxltm-eticaai
 #                             The one--big-file hxltmcli.py (along with the
-#                             cor.hxltm.yml) can be customized as single
+#                             cor.hxltm.215.yml) can be customized as single
 #                             python script. But on this case, you will need
 #                             to install at least the hard dependencies
 #                             of hxltmcli:
@@ -56,7 +56,7 @@
 #                 2021-06-29 23:16 UTC v0.8.1 hxltm2xliff renamed to hxltmcli;
 #                      Moved from github.com/HXL-CPLP/Auxilium-Humanitarium-API
 #                       to github.com/EticaAI/HXL-Data-Science-file-formats
-#                 2021-07-04 04:35 UTC v0.8.2 Configurations on cor.hxltm.yml
+#                 2021-07-04 04:35 UTC v0.8.2 Configurations on cor.hxltm.215.yml
 #                 2021-07-15 00:02 UTC v0.8.3 HXLTM ASA working draft
 #                 2021-07-18 21:39 UTC v0.8.4 HXLTM ASA MVP (TMX and XLIFF 2)
 #                 2021-07-19 17:50 UTC v0.8.5 HXLTM ASA MVP XLIFF 1, TBX-Basic
@@ -357,7 +357,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
     # TODO: move _objectivum_formatum_from_outfile to HXLTMOntologia
     def _objectivum_formatum_from_outfile(self, outfile):
-        """Uses cor.hxltm.yml fontem_archivum_extensionem to detect output
+        """Uses cor.hxltm.215.yml fontem_archivum_extensionem to detect output
         format without user need to explicitly inform the option.
 
         This is not used if the result is stdout
@@ -366,7 +366,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             outfile ([str]): Path string of output file
 
         Returns:
-            [str]: A valid cor.hxltm.yml formatum
+            [str]: A valid cor.hxltm.215.yml formatum
         """
         outfile_lower = outfile.lower()
 
@@ -691,7 +691,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'inform an special additional key that customize '
             'the base format (like normam.TMX) '
             'already existing on '
-            'ego.hxltm.yml/venditorem.hxltm.yml/cor.hxltm.yml. '
+            'ego.hxltm.yml/venditorem.hxltm.yml/cor.hxltm.215.yml. '
             'Example: "hxltmcli fontem.hxl.csv objectivum.tmx '
             '--objectivum-TMX --objectivum-formatum-speciale TMX-de-marcus"',
             dest='objectivum_formatum_speciale',
@@ -842,10 +842,10 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             nargs='?'
         )
 
-        # https://hdp.etica.ai/ontologia/cor.hxltm.yml
+        # https://hdp.etica.ai/ontologia/cor.hxltm.215.yml
         parser.add_argument(
             '--archivum-configurationem',
-            help='Path to custom configuration file (The cor.hxltm.yml)',
+            help='Path to custom configuration file (The cor.hxltm.215.yml)',
             action='store_const',
             const=True,
             default=None
@@ -854,7 +854,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         parser.add_argument(
             '--archivum-configurationem-appendicem',
             help='(Not implemented yet)' +
-            'Path to custom configuration file (The cor.hxltm.yml)',
+            'Path to custom configuration file (The cor.hxltm.215.yml)',
             action='store_const',
             const=True,
             default=None
@@ -920,6 +920,17 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             default=False
         )
 
+        # versiōnem, https://en.wiktionary.org/wiki/versio#Latin
+        parser.add_argument(
+            '--versionem', '--version',
+            help='Output versions (JSON output)',
+            metavar="venandum_insectum",
+            dest="versionem",
+            action='store_const',
+            const=True,
+            default=False
+        )
+
         # self.args = parser.parse_args()
         est_args = parser.parse_args()
         return est_args
@@ -948,6 +959,14 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                         self.original_outfile))
 
         # print(self._argumentum.v())
+        # print(self._argumentum.versionem)
+        # sys.exit()
+
+        if self._argumentum.versionem:
+            # print(sys.argv[0] + " " + __VERSION__
+            # + "[" + __SYSTEMA_VARIANS__ + "]")
+            print(sys.argv[0] + " " + __VERSION__)
+            sys.exit(0)
 
         try:
             temp = tempfile.NamedTemporaryFile()
@@ -1221,7 +1240,7 @@ True
                 [lat-Latn]_
             ontologia (Union[Type['HXLTMOntologia'], Dict]):
                 _[lat-Latn]
-                HXLTM Cor Ontologia e.g. cor.hxltm.yml (in Python Dict)
+                HXLTM Cor Ontologia e.g. cor.hxltm.215.yml (in Python Dict)
                 [lat-Latn]_
             argumentum (HXLTMArgumentum):
                 _[lat-Latn]
@@ -1557,6 +1576,10 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
             _[lat-Latn]
             Argūmentum dēfīnītiōnem ad Vēnandum īnsectum
             [lat-Latn]_
+        versionem (bool):
+            _[lat-Latn]
+            versionem
+            [lat-Latn]_
     """
     tmeta_archivum: InitVar[str] = None
     tmeta: InitVar[dict] = None
@@ -1577,6 +1600,7 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
     silentium: InitVar[bool] = False
     ad_astra: InitVar[bool] = False
     venandum_insectum: InitVar[bool] = False
+    versionem: InitVar[bool] = False
     # crudum_argparse: InitVar[Dict] = {}
 
     # def de_argparse(self, args_rem: Type['ArgumentParser']):
@@ -1680,6 +1704,9 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
 
             if hasattr(args_rem, 'venandum_insectum'):
                 self.est_venandum_insectum(args_rem.venandum_insectum)
+
+            if hasattr(args_rem, 'versionem'):
+                self.versionem = args_rem.versionem
 
         return self
 
@@ -4114,10 +4141,10 @@ class HXLTMInFormatum(ABC):
             Defallo: Python class constant
     """
 
-    # # ontologia/cor.hxltm.yml clāvem nomen
+    # # ontologia/cor.hxltm.215.yml clāvem nomen
     # ONTOLOGIA_FORMATUM = ''
 
-    # ontologia/cor.hxltm.yml basim extēnsiōnem
+    # ontologia/cor.hxltm.215.yml basim extēnsiōnem
     ONTOLOGIA_NORMAM: str = ''
 
     # Trivia: speciāle, https://en.wiktionary.org/wiki/specialis#Latin
@@ -4533,7 +4560,7 @@ Salvi, {{ i }}! \
             if basim not in globum['normam']:
                 raise ValueError(
                     "{0}: non [normam.{1}] in "
-                    "cor.hxltm.yml aut ego.hxltm.yml".format(
+                    "cor.hxltm.215.yml aut ego.hxltm.yml".format(
                         __class__.__name__, basim
                     ))
             if ext is None or len(ext) == 0:
@@ -4547,7 +4574,7 @@ Salvi, {{ i }}! \
 
                     raise ValueError(
                         'Non normam.{0} in archīvum ego.hxltm.yml, '
-                        'venditorem.hxltm.yml aut cor.hxltm.yml. '
+                        'venditorem.hxltm.yml aut cor.hxltm.215.yml. '
                         'Optiōnem: {1}'.format(
                             ext, str(optionem)
                         )
@@ -4624,13 +4651,13 @@ class HXLTMInFormatumTabulamRadicem(HXLTMInFormatum):
 
 
 class HXLTMInFormatumTabulamCSV3(HXLTMInFormatumTabulamRadicem):
-    """See cor.hxltm.yml:normam.CSV-3"""
+    """See cor.hxltm.215.yml:normam.CSV-3"""
 
     ONTOLOGIA_NORMAM = 'CSV-3'
 
 
 class HXLTMInFormatumTabulamTSV3(HXLTMInFormatumTabulamRadicem):
-    """See cor.hxltm.yml:normam.TSV-3"""
+    """See cor.hxltm.215.yml:normam.TSV-3"""
 
     ONTOLOGIA_NORMAM = 'TSV-3'
 
@@ -4680,11 +4707,11 @@ class HXLTMInFormatumTBX(HXLTMInFormatum):
 
     # ONTOLOGIA_FORMATUM = 'TBX-Basim'
 
-    ONTOLOGIA_NORMAM = 'TBX'  # ontologia/cor.hxltm.yml clāvem nomen
+    ONTOLOGIA_NORMAM = 'TBX'  # ontologia/cor.hxltm.215.yml clāvem nomen
 
 
 class HXLTMInFormatumTBXBasim(HXLTMInFormatumTBX):
-    """See cor.hxltm.yml:normam.TBX-Basim"""
+    """See cor.hxltm.215.yml:normam.TBX-Basim"""
 
     ONTOLOGIA_NORMAM = 'TBX-Basim'
 
@@ -4721,17 +4748,17 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
 
     # ONTOLOGIA_FORMATUM = ''
 
-    ONTOLOGIA_NORMAM = 'TMX'  # ontologia/cor.hxltm.yml clāvem nomen
+    ONTOLOGIA_NORMAM = 'TMX'  # ontologia/cor.hxltm.215.yml clāvem nomen
 
 
 class HXLTMInFormatumUTX(HXLTMInFormatumTabulamRadicem):
-    """See cor.hxltm.yml:normam.UTX"""
+    """See cor.hxltm.215.yml:normam.UTX"""
 
     ONTOLOGIA_NORMAM = 'UTX'
 
 
 class HXLTMInFormatumXML(HXLTMInFormatum):
-    """See cor.hxltm.yml:normam.XML"""
+    """See cor.hxltm.215.yml:normam.XML"""
 
     ONTOLOGIA_NORMAM = 'XML'
 
@@ -4770,7 +4797,7 @@ class HXLTMInFormatumXLIFF(HXLTMInFormatum):
 
     # ONTOLOGIA_FORMATUM = ''
 
-    ONTOLOGIA_NORMAM = 'XLIFF'  # ontologia/cor.hxltm.yml clāvem nomen
+    ONTOLOGIA_NORMAM = 'XLIFF'  # ontologia/cor.hxltm.215.yml clāvem nomen
 
 
 class HXLTMInFormatumXLIFFObsoletum(HXLTMInFormatumXLIFF):
@@ -4878,7 +4905,7 @@ True
             self.crudum = ontologia
 
     def hxl_de_aliud_nomen_breve(self, structum=False):
-        """HXL attribūtum de aliud nōmen breve (cor.hxltm.yml)
+        """HXL attribūtum de aliud nōmen breve (cor.hxltm.215.yml)
 
         Trivia:
         - aliud, https://en.wiktionary.org/wiki/alius#Latin
@@ -5243,7 +5270,7 @@ True
         Returns:
             bool:
         """
-        # TODO: make this actually read the cor.hxltm.yml. This hardcoded
+        # TODO: make this actually read the cor.hxltm.215.yml. This hardcoded
         #       part is just a quick fix
 
         if HXLTMOntologia.quid_est_hashtag_circa_linguam(hxl_hashtag):
@@ -5268,7 +5295,7 @@ True
         Returns:
             bool:
         """
-        # TODO: make this actually read the cor.hxltm.yml. This hardcoded
+        # TODO: make this actually read the cor.hxltm.215.yml. This hardcoded
         #       part is just a quick fix
 
         if hxl_hashtag.startswith('#item+rem+i_'):
@@ -5281,10 +5308,10 @@ True
         return False
 
     def quod_nomen_breve_de_hxl(self, hxl_hashtag: str) -> str:
-        # TODO: make this actually read the cor.hxltm.yml. This hardcoded
+        # TODO: make this actually read the cor.hxltm.215.yml. This hardcoded
         #       part is just a quick fix
 
-        # TODO: some types on cor.hxltm.yml are actually not string, but
+        # TODO: some types on cor.hxltm.215.yml are actually not string, but
         #       lists. This means when asked, we should allow give
         #       hints to let these values be converted
         nomen_breve = ''
@@ -6023,7 +6050,7 @@ class HXLTMTestumAuxilium:
 
     @staticmethod
     def ontologia() -> Dict:
-        """HXLTM Ontologia 'cor.hxltm.yml'
+        """HXLTM Ontologia 'cor.hxltm.215.yml'
 
         Returns:
             Dict: HXLTM Ontologia
@@ -6728,7 +6755,7 @@ class HXLTMUtil:
 
     @staticmethod
     def load_hxltm_options(custom_file_option=None, is_debug=False):
-        """Load options from cor.hxltm.yml
+        """Load options from cor.hxltm.215.yml
 
         Args:
             custom_file_option ([str], optional): Custom options.
@@ -6736,7 +6763,7 @@ class HXLTMUtil:
             is_debug (bool, optional): Is debug enabled? Defaults to False.
 
         Returns:
-            [Dict]: Dictionary of cor.hxltm.yml contents
+            [Dict]: Dictionary of cor.hxltm.215.yml contents
         """
         # pylint: disable=using-constant-test
         if is_debug:
@@ -6752,33 +6779,23 @@ class HXLTMUtil:
             raise RuntimeError("Configuration file not found [" +
                                custom_file_option + "]")
 
-        if Path(HXLTM_RUNNING_DIR + '/cor.hxltm.yml').exists():
-            return HXLTMUtil._load_hxltm_options_file(
-                HXLTM_RUNNING_DIR + '/cor.hxltm.yml', is_debug)
-
         if Path(HXLTM_RUNNING_DIR + '/cor.hxltm.215.yml').exists():
             return HXLTMUtil._load_hxltm_options_file(
                 HXLTM_RUNNING_DIR + '/cor.hxltm.215.yml', is_debug)
-
-        if Path(HXLTM_DORMUM + '/cor.hxltm.yml').exists():
-            return HXLTMUtil._load_hxltm_options_file(
-                HXLTM_DORMUM + '/cor.hxltm.yml', is_debug)
 
         if Path(HXLTM_DORMUM + '/cor.hxltm.215.yml').exists():
             return HXLTMUtil._load_hxltm_options_file(
                 HXLTM_DORMUM + '/cor.hxltm.215.yml', is_debug)
 
-        if Path(HXLTM_SYSTEMA_DIR + '/cor.hxltm.yml').exists():
-            return HXLTMUtil._load_hxltm_options_file(
-                HXLTM_SYSTEMA_DIR + '/cor.hxltm.yml', is_debug)
-
         if Path(HXLTM_SYSTEMA_DIR + '/cor.hxltm.215.yml').exists():
             return HXLTMUtil._load_hxltm_options_file(
                 HXLTM_SYSTEMA_DIR + '/cor.hxltm.215.yml', is_debug)
-        # print('oioioi')
 
         raise RuntimeError(
-            "ERROR: no cor.hxltm.yml found (not even default one).")
+            "EXITUM_ERROREM: cor.hxltm.215.yml? 1 HXLTM_RUNNING_DIR [{0}], " +
+            "2 HXLTM_DORMUM [{1}], 3 HXLTM_SYSTEMA_DIR [{2}]".format(
+                HXLTM_RUNNING_DIR, HXLTM_DORMUM, HXLTM_SYSTEMA_DIR)
+        )
 
     @staticmethod
     def _load_hxltm_options_file(file, is_debug=False):

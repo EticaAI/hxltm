@@ -31,12 +31,12 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--archivum-configurationem-appendicem] [--silentium]
                 [--expertum-HXLTM-ASA [hxltm_asa]]
                 [--expertum-HXLTM-ASA-verbosum] [--experimentum-est]
-                [--venandum-insectum-est]
+                [--venandum-insectum-est] [--versionem]
                 [infile] [outfile]
 
-_[eng-Latn] hxltmcli v0.8.8 is an implementation of HXLTM tagging conventions
-on HXL to manage and export tabular data to popular translation memories
-and glossaries file formats with non-close standards.
+_[eng-Latn] hxltmcli v0.8.9 is an example of implementation of the
+Multilingual Terminology in Humanitarian Language Exchange (HXLTM).
+For XML processing, use hxltmdexml.
 [eng-Latn]_"
 
 positional arguments:
@@ -141,7 +141,7 @@ optional arguments:
                         output format (like --objectivum-TMX) inform an
                         special additional key that customize the base format
                         (like normam.TMX) already existing on
-                        ego.hxltm.yml/venditorem.hxltm.yml/cor.hxltm.yml.
+                        ego.hxltm.yml/venditorem.hxltm.yml/cor.hxltm.215.yml.
                         Example: "hxltmcli fontem.hxl.csv objectivum.tmx
                         --objectivum-TMX --objectivum-formatum-speciale TMX-
                         de-marcus"
@@ -204,10 +204,11 @@ optional arguments:
                         IETF BCP 47 language tag for target language. Example:
                         "ar"
   --archivum-configurationem
-                        Path to custom configuration file (The cor.hxltm.yml)
+                        Path to custom configuration file (The
+                        cor.hxltm.215.yml)
   --archivum-configurationem-appendicem
                         (Not implemented yet)Path to custom configuration file
-                        (The cor.hxltm.yml)
+                        (The cor.hxltm.215.yml)
   --silentium           Silence warnings? Try to not generate any warning. May
                         generate invalid output
   --expertum-HXLTM-ASA [hxltm_asa]
@@ -222,6 +223,8 @@ optional arguments:
   --experimentum-est    (Internal testing only) Enable undocumented feature
   --venandum-insectum-est, --debug
                         Enable debug? Extra information for program debugging
+  --versionem, --version
+                        Output versions (JSON output)
 
 Exemplōrum gratiā:
 

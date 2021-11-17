@@ -2,11 +2,13 @@ usage: hxltmdexml [-h] [--agendum-linguam [agendum_linguam]]
                   [--fontem-linguam [fontem_linguam]]
                   [--objectivum-linguam [objectivum_linguam]]
                   [--archivum-configurationem] [--venandum-insectum-est]
+                  [--versionem]
                   [infile] [outfile]
 
 _[eng-Latn]
-hxltmdexml v0.7.1 is an (not feature-by-feature) conversor from some
-XML formats to HXLTM tabular working file.
+hxltmdexml v0.8.9 is an example of implementation of the
+Multilingual Terminology in Humanitarian Language Exchange (HXLTM)
+focused on convert XML files to the pivot format HXLTM.
 [eng-Latn]_"
 
 positional arguments:
@@ -26,9 +28,12 @@ optional arguments:
   --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
   --objectivum-linguam [objectivum_linguam], -OL [objectivum_linguam]
   --archivum-configurationem
-                        Path to custom configuration file (The cor.hxltm.yml)
+                        Path to custom configuration file (The
+                        cor.hxltm.215.yml)
   --venandum-insectum-est, --debug
                         Enable debug? Extra information for program debugging
+  --versionem, --version
+                        Output versions (JSON output)
 
 Exemplōrum gratiā:
 

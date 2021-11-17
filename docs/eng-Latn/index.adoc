@@ -1,4 +1,4 @@
-= Multilingual Terminology in Humanitarian Language Exchange: the HXLTM lexicography field guide
+= Multilingual Terminology in Humanitarian Language Exchange: the HXLTM lexicography field guide [{variable-python-package-manager-full}]
 EticaAI, Collaborators_of <etica.of.a.ai@gmail.com>; Rocha, Emerson <rocha@ieee.org>
 :toc: 1
 :toclevels: 4
@@ -34,8 +34,6 @@ Revision notes: {revremark}
 
 This book, both available online on {variable-documentation-live-link} and as an ebook,
 is designed as a field guide for person's doing practical lexicography and need a kickstart on how to use HXLTM tools.
-
-{variable-python-package-manager-full}
 
 [NOTE]
 .Non-audience (for this field guide)
@@ -463,7 +461,7 @@ include::../testum/disciplinam-manuale-anglicum.sh[tag=TMX]
 ----
 ===== Result example
 
-- https://github.com/EticaAI/hxltm/blob/main/testum/resultatum/hxltm-exemplum-linguam.tmx
+// - https://github.com/EticaAI/hxltm/blob/main/testum/resultatum/hxltm-exemplum-linguam.tmx
 
 [source,xml]
 ----

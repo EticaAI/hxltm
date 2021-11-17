@@ -36,8 +36,21 @@ def test_hxltmdexml_help(host):
 
     assert cmd.succeeded
 
+
 def test_hxltmcli_help(host):
     cmd = host.run("hxltmcli --help")
+
+    assert cmd.succeeded
+
+
+def test_hxltmdexml_versionem(host):
+    cmd = host.run("hxltmdexml --versionem")
+
+    assert cmd.succeeded
+
+
+def test_hxltmcli_versionem(host):
+    cmd = host.run("hxltmcli --versionem")
 
     assert cmd.succeeded
 

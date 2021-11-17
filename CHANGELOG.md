@@ -14,11 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - #8 Official releases now will include PDF documentation 
 - #7 `ontologia/0.77.995.yml` added (but not implemented) 
 - #7 `ontologia/cor.hxltm.215.json` and added `ontologia/0.77.995.json`
+- `hxltmcli --versionem`
+- `hxltmdexml --versionem`
 
 ### Changed
 - #7 `ontologia/cor.hxltm.215.yml` can be use instead of `ontologia/cor.hxltm.yml` (refs #7)
 - #7 Environment variable `HXLM_CONFIG_BASE` renamed to `HXLTM_DORMUM`
 - #7 Environment variable `HXLTM_TESTUM_BASIM_DEFALLO` renamed to `HXLTM_TESTUM`
+- If no `cor.hxltm.215.yml`, now exception explain search paths as a hint.
 
 ## [v0.8.9-rc.2] - 2020-11-14
 
