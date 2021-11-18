@@ -32,8 +32,9 @@ Revision notes: {revremark}
 
 == Preface
 
-This book, both available online on {variable-documentation-live-link} and as an ebook,
-is designed as a field guide for person's doing practical lexicography and need a kickstart on how to use HXLTM tools.
+This work, both available online on {variable-documentation-live-link} and as an ebook,
+is designed as a _field guide_ for person’s doing practical lexicography where the end result is either multilingual terminology or technical translations intended for worldwide usage.
+Special focus is done for the end result fast enough for emergency response and awareness of challenges in the humanitarian field.
 
 [NOTE]
 .Non-audience (for this field guide)
@@ -43,6 +44,29 @@ technology expert or interested in help with translations,
 please contact the authors directly.
 ====
 
+The implementation uses production-grade open source tooling based on an open standard called
+(in English and Latin script, `eng-Latn`) Multilingual Terminology in Humanitarian Language Exchange
+and the conventional abbreviation (in Latin script, or `mul-Latn`) is HXLTM.
+Despite being bootstrapped on the COVID-19 pandemic,
+the worst _(to the date of this writing)_ since the 1918 influenza pandemic,
+after a literature review we found that the humanitarian sector does have decades old issues with multilingual terminology.
+
+For sake of brevity, we will focus on practical aspects of hands-on strategies which allow linguistic data conversion.
+Yet we strongly recommend the entire <<quickstart>> section before the explanations of individual file exchanges.
+
+////
+> No single person, or, in fact, no single ongoing working group in the world,
+> even United Nations translators (with 6 official languages, including
+> few non Latin script) and the European Union translators (with )
+> is able to veryfy errors
+
+
+- https://en.wikipedia.org/wiki/Languages_of_the_European_Union#Writing_systems
+
+For sake of brevity, we will focus on practical aspects of hands on strategies which allow linguistic data conversion.
+////
+
+
 ////
 It is still recommended to take a quick look at this guide.
 The public domain license is more than flexible.
@@ -51,7 +75,8 @@ This means you can
 
 <<<
 
-== Quickstart
+
+== Quickstart [[quickstart]]
 
 It's essential that you have knowledge of Arabic numerals and the Latin alphabet without the aid of computer assisted tools.
 Attention to details is for such numbers and the Latin alphabet (since they often are used as part of coding systems to label lingístic content)
