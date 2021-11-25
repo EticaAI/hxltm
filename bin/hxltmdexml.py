@@ -434,9 +434,9 @@ class HXLTMDeXMLCli:
         self._initiale(pyargs)
 
         if pyargs.versionem:
-            # print(sys.argv[0] + " " + __VERSION__ 
+            # print(sys.argv[0] + " " + __VERSION__
             # + "[" + __SYSTEMA_VARIANS__ + "]")
-            print(sys.argv[0] + " " + __VERSION__ )
+            print(sys.argv[0] + " " + __VERSION__)
             sys.exit(0)
 
         fontem_archivum = pyargs.infile if pyargs.infile else stdin
@@ -3476,6 +3476,13 @@ class XMLInFormatumHXLTM():
             elif linguam.iso6393:
                 valuem = self._ontologia.de(
                     'terminum.' + linguam.iso6393 + '.valorem',
+                    fontem=conceptum_sacuum
+                )
+
+            if not valuem:
+                valuem = self._ontologia.de(
+                    'terminum.' + linguam.linguam +
+                    '.valorem',
                     fontem=conceptum_sacuum
                 )
 

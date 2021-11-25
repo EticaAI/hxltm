@@ -1056,7 +1056,7 @@ normam:
         trivium: []
 
       terminum_valorem:
-        signum: de-textum  # 'lat-Latn' ad <tu tuid="L10N_ego_codicem"><tuv xml:lang="la"><seg>lat-Latn</seg>
+        signum: rem  # 'lat-Latn' ad <conceptum _="L10N_ego_codicem"><linguam _="lat-Latn"><terminum><rem>lat-Latn</rem>
         # de_attributum: False
         trivium:
          - terminum

@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - TODO
 
+### Fixed
+- Bugfixed issue with importing back term value (only on the generic XML importer; TMX/TBX was not affected)
+
 ## [v0.8.9] - 2020-11-17
 ### Added
 - #8 Official releases now will include PDF documentation 
