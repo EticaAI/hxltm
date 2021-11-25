@@ -9,8 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - TODO
 
+## [v0.8.10]
+
+### Changed
+- Generate XML now have less white spaces
+
 ### Fixed
-- Bugfixed issue with importing back term value (only on the generic XML importer; TMX/TBX was not affected)
+- Bugfixed issue with importing back term value (only on the generic XML
+  importer; TMX/TBX was not affected)
+- Bugfixed not previsoulu detected corner case of not exporting exactly the
+  first item (non HXLTM formats, and roundtrip)
 
 ## [v0.8.9] - 2020-11-17
 ### Added

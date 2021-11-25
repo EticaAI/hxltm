@@ -7,6 +7,25 @@
   trgLang="es">
   <file id="f1">
 
+    <unit id="L10N_ego_summarius">
+      <notes><note appliesTo="source" priority="3"
+          category="de_auxilium_linguam">
+          _[eng-Latn]English language (Latin script)[eng-Latn]_
+        </note><note appliesTo="source" priority="3"
+          category="de_auxilium_linguam">
+          _[][]_
+        </note>
+        <note appliesTo="source" priority="1"
+          category="referens_situs_interretialis">https://github.com/HXL-CPLP/forum/issues/58</note>
+        <note appliesTo="source" priority="1"
+          category="referens_situs_interretialis">https://example.org</note>
+        </notes>
+      <segment state="final">
+        <source>Língua portuguesa (alfabeto latino)</source>
+        <target>Idioma español (Alfabeto latino)</target>
+      </segment>
+    </unit>
+
     <unit id="L10N_ego_codicem">
       <notes><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
@@ -46,9 +65,7 @@
           _[][]_
         </note>
         <note appliesTo="source" priority="1"
-          category="referens_situs_interretialis">
-          https://www.unicode.org/iso15924/
-        </note>
+          category="referens_situs_interretialis">https://www.unicode.org/iso15924/</note>
         </notes>
       <segment state="final">
         <source>Alfabeto latino</source>
@@ -65,9 +82,7 @@
           _[][]_
         </note>
         <note appliesTo="source" priority="1"
-          category="referens_situs_interretialis">
-          https://en.wikipedia.org/wiki/UN_M49
-        </note>
+          category="referens_situs_interretialis">https://en.wikipedia.org/wiki/UN_M49</note>
         </notes>
       <segment state="final">
         <source>001</source>
@@ -84,9 +99,7 @@
           _[][]_
         </note>
         <note appliesTo="source" priority="1"
-          category="referens_situs_interretialis">
-          https://en.wikipedia.org/wiki/Place_code
-        </note>
+          category="referens_situs_interretialis">https://en.wikipedia.org/wiki/Place_code</note>
         </notes>
       <segment state="final">
         <source>∅</source>
@@ -118,9 +131,7 @@
           _[][]_
         </note>
         <note appliesTo="source" priority="1"
-          category="referens_situs_interretialis">
-          https://www.iana.org/domains/reserved
-        </note>
+          category="referens_situs_interretialis">https://www.iana.org/domains/reserved</note>
         </notes>
       <segment state="final">
         <source>Teste, 1, 2, 3</source>
@@ -137,9 +148,7 @@
           _[][]_
         </note>
         <note appliesTo="source" priority="1"
-          category="referens_situs_interretialis">
-          https://en.wikipedia.org/wiki/List_of_numeral_systems
-        </note>
+          category="referens_situs_interretialis">https://en.wikipedia.org/wiki/List_of_numeral_systems</note>
         </notes>
       <segment state="final">
         <source>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</source>

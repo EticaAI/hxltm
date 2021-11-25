@@ -12,6 +12,30 @@
   />
   <body>
 
+    <tu tuid="L10N_ego_summarius">
+      <tuv xml:lang="la">
+        <seg>Lingua Latina (Abecedarium Latinum)</seg>
+      </tuv>
+      <tuv xml:lang="pt">
+        <seg>Língua portuguesa (alfabeto latino)</seg>
+      </tuv>
+      <tuv xml:lang="en">
+        <seg>English language (Latin script)</seg>
+      </tuv>
+      <tuv xml:lang="es">
+        <seg>Idioma español (Alfabeto latino)</seg>
+      </tuv>
+      <tuv xml:lang="ar">
+        <seg>اللغة العربية</seg>
+      </tuv>
+      <tuv xml:lang="hi">
+        <seg>हिन्दी भाषा (देवनागरी लिपि)</seg>
+      </tuv>
+      <tuv xml:lang="sl">
+        <seg>Slovenščina (Latinska abeceda)</seg>
+      </tuv>
+    </tu>
+
     <tu tuid="L10N_ego_codicem">
       <tuv xml:lang="la">
         <seg>lat-Latn</seg>

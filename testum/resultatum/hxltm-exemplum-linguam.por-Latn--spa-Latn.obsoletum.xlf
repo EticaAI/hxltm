@@ -8,6 +8,17 @@
     original="exemplum.ext">
     <body>
 
+    <trans-unit id="L10N_ego_summarius" translate="no" approved="yes">
+      <source xml:lang="pt">Língua portuguesa (alfabeto latino)</source>
+      <target xml:lang="es" state="final" state-qualifier="id-match">Idioma español (Alfabeto latino)</target>
+      <note annotates="source" priority="2">
+        _[eng-Latn]English language (Latin script)[eng-Latn]_
+      </note>
+      <note annotates="source" priority="1"
+        from="referens_situs_interretialis">https://github.com/HXL-CPLP/forum/issues/58</note><note annotates="source" priority="1"
+        from="referens_situs_interretialis">https://example.org</note>
+    </trans-unit>
+
     <trans-unit id="L10N_ego_codicem" translate="no" approved="yes">
       <source xml:lang="pt">por-Latn</source>
       <target xml:lang="es" state="final" state-qualifier="id-match">spa-Latn</target>
@@ -37,9 +48,7 @@
         _[eng-Latn]Latin script[eng-Latn]_
       </note>
       <note annotates="source" priority="1"
-        from="referens_situs_interretialis">
-        https://www.unicode.org/iso15924/
-      </note>
+        from="referens_situs_interretialis">https://www.unicode.org/iso15924/</note>
     </trans-unit>
 
     <trans-unit id="L10N_ego_patriam_UN_M49_numerum" translate="no" approved="yes">
@@ -49,9 +58,7 @@
         _[eng-Latn]001[eng-Latn]_
       </note>
       <note annotates="source" priority="1"
-        from="referens_situs_interretialis">
-        https://en.wikipedia.org/wiki/UN_M49
-      </note>
+        from="referens_situs_interretialis">https://en.wikipedia.org/wiki/UN_M49</note>
     </trans-unit>
 
     <trans-unit id="L10N_ego_patriam_UN_P_codicem" translate="no" approved="yes">
@@ -61,9 +68,7 @@
         _[eng-Latn]∅[eng-Latn]_
       </note>
       <note annotates="source" priority="1"
-        from="referens_situs_interretialis">
-        https://en.wikipedia.org/wiki/Place_code
-      </note>
+        from="referens_situs_interretialis">https://en.wikipedia.org/wiki/Place_code</note>
     </trans-unit>
 
     <trans-unit id="I18N_testum_salve_mundi_testum_I18N" translate="no" approved="yes">
@@ -84,9 +89,7 @@
         _[eng-Latn]Test, 1, 2, 3[eng-Latn]_
       </note>
       <note annotates="source" priority="1"
-        from="referens_situs_interretialis">
-        https://www.iana.org/domains/reserved
-      </note>
+        from="referens_situs_interretialis">https://www.iana.org/domains/reserved</note>
     </trans-unit>
 
     <trans-unit id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1234_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N" translate="no" approved="yes">
@@ -96,9 +99,7 @@
         _[eng-Latn]1, 2, 3, 4, 5, 6, 7, 8, 9, 10[eng-Latn]_
       </note>
       <note annotates="source" priority="1"
-        from="referens_situs_interretialis">
-        https://en.wikipedia.org/wiki/List_of_numeral_systems
-      </note>
+        from="referens_situs_interretialis">https://en.wikipedia.org/wiki/List_of_numeral_systems</note>
     </trans-unit>
 
     </body>

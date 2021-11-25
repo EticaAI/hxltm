@@ -4004,7 +4004,7 @@ class HXLTMIterandumRem:
     def __init__(self, hxltm_datum: Type['HXLTMDatum'] = None):
         self.hxltm_datum = hxltm_datum
 
-        self.rem_hoc = 0
+        self.rem_hoc = -1
         self.rem_quantitatem = hxltm_datum.conceptum_quantitatem()
 
     def __iter__(self):
@@ -4242,6 +4242,7 @@ class HXLTMInFormatum(ABC):
             liquid_template = self.normam['formatum']['corporeum']
 
             for rem in self.de_rem():
+                # print(str(rem))
                 liquid_context = {'rem': str(rem)}
                 liquid_context = rem.contextum()
                 resultatum.append(

@@ -18,6 +18,59 @@
   <text>
     <body>
 
+    <termEntry id="L10N_ego_summarius">
+      
+      <langSet xml:lang="la">
+        <tig>
+          <term>
+            Lingua Latina (Abecedarium Latinum)
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="pt">
+        <tig>
+          <term>
+            Língua portuguesa (alfabeto latino)
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="en">
+        <tig>
+          <term>
+            English language (Latin script)
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="es">
+        <tig>
+          <term>
+            Idioma español (Alfabeto latino)
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="ar">
+        <tig>
+          <term>
+            اللغة العربية
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="hi">
+        <tig>
+          <term>
+            हिन्दी भाषा (देवनागरी लिपि)
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="sl">
+        <tig>
+          <term>
+            Slovenščina (Latinska abeceda)
+          </term>
+        </tig>
+      </langSet>
+    </termEntry>
+
     <termEntry id="L10N_ego_codicem">
       
       <langSet xml:lang="la">

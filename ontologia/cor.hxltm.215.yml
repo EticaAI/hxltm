@@ -917,7 +917,7 @@ normam:
               {% for item in rem.de_linguam %}
               {% if item[1].rem != '' -%}
               <tuv xml:lang="{{ item[1].bcp47 }}">
-                <seg>{{ item[1].rem }}</seg>
+                <seg>{{- item[1].rem -}}</seg>
               </tuv>
               {%- endif -%}
               {%- endfor %}
@@ -1126,9 +1126,9 @@ normam:
                   <definitionem></definitionem>
                   <terminum>
                     {% if item[1].accuratum -%}
-                    <accuratum>{{ item[1].accuratum }}</accuratum>
+                    <accuratum>{{- item[1].accuratum -}}</accuratum>
                     {%- endif %}
-                    <rem>{{ item[1].rem }}</rem>
+                    <rem>{{- item[1].rem -}}</rem>
                   </terminum>
                   <!-- <terminum-fontem></terminum-fontem> -->
                   <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -1258,7 +1258,7 @@ normam:
                 {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}
                 <note appliesTo="source" priority="1"
                   category="referens_situs_interretialis">
-                  {{ item }}
+                  {{- item -}}
                 </note>
                 {% endfor -%}
               </notes>
@@ -1268,9 +1268,9 @@ normam:
               -->
               {% endif -%}
               <segment state="{{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'initial' }}">
-                <source>{{ rem.de_fontem_linguam.rem }}</source>
+                <source>{{- rem.de_fontem_linguam.rem -}}</source>
                 {%- if rem.de_objectivum_linguam and rem.de_objectivum_linguam.rem != '' %}
-                <target>{{ rem.de_objectivum_linguam.rem }}</target>
+                <target>{{- rem.de_objectivum_linguam.rem -}}</target>
                 {%- else %}
                 <!-- non rem.de_objectivum_linguam -->
                 {%- endif  %}
@@ -1449,7 +1449,7 @@ normam:
               {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}
               <note annotates="source" priority="1"
                 from="referens_situs_interretialis">
-                {{ item }}
+                {{- item -}}
               </note>
               {%- endfor %}
               {%- else -%}
