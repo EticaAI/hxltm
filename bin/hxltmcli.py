@@ -4583,6 +4583,14 @@ Salvi, {{ i }}! \
 
             globum = {**globum, **summam, **summam_tmeta, **argumentum}
 
+            if 'tmeta' in globum:
+                if '____' in globum['tmeta']:
+                    globum['____'] = globum['tmeta']['____']
+                    # pass
+                else:
+                    # TODO: maybe raise exception if necessary
+                    pass
+
         return globum
 
 

@@ -5,13 +5,11 @@
   <martifHeader>
     <fileDesc>
       <titleStmt>
-        <title>TBX-Basic Sample File</title>
-        <note>
-          Lorem ipsum dolor semet
-        </note>
+        <title></title>
+        <note>Lorem ipsum dolor semet</note>
       </titleStmt>
       <sourceDesc>
-        <p>Lorem ipsum dolor semet</p>
+        <p></p>
       </sourceDesc>
     </fileDesc>
   </martifHeader>
@@ -22,51 +20,37 @@
       
       <langSet xml:lang="la">
         <tig>
-          <term>
-            Lingua Latina (Abecedarium Latinum)
-          </term>
+          <term>Lingua Latina (Abecedarium Latinum)</term>
         </tig>
       </langSet>
       <langSet xml:lang="pt">
         <tig>
-          <term>
-            Língua portuguesa (alfabeto latino)
-          </term>
+          <term>Língua portuguesa (alfabeto latino)</term>
         </tig>
       </langSet>
       <langSet xml:lang="en">
         <tig>
-          <term>
-            English language (Latin script)
-          </term>
+          <term>English language (Latin script)</term>
         </tig>
       </langSet>
       <langSet xml:lang="es">
         <tig>
-          <term>
-            Idioma español (Alfabeto latino)
-          </term>
+          <term>Idioma español (Alfabeto latino)</term>
         </tig>
       </langSet>
       <langSet xml:lang="ar">
         <tig>
-          <term>
-            اللغة العربية
-          </term>
+          <term>اللغة العربية</term>
         </tig>
       </langSet>
       <langSet xml:lang="hi">
         <tig>
-          <term>
-            हिन्दी भाषा (देवनागरी लिपि)
-          </term>
+          <term>हिन्दी भाषा (देवनागरी लिपि)</term>
         </tig>
       </langSet>
       <langSet xml:lang="sl">
         <tig>
-          <term>
-            Slovenščina (Latinska abeceda)
-          </term>
+          <term>Slovenščina (Latinska abeceda)</term>
         </tig>
       </langSet>
     </termEntry>
@@ -75,51 +59,37 @@
       
       <langSet xml:lang="la">
         <tig>
-          <term>
-            lat-Latn
-          </term>
+          <term>lat-Latn</term>
         </tig>
       </langSet>
       <langSet xml:lang="pt">
         <tig>
-          <term>
-            por-Latn
-          </term>
+          <term>por-Latn</term>
         </tig>
       </langSet>
       <langSet xml:lang="en">
         <tig>
-          <term>
-            eng-Latn
-          </term>
+          <term>eng-Latn</term>
         </tig>
       </langSet>
       <langSet xml:lang="es">
         <tig>
-          <term>
-            spa-Latn
-          </term>
+          <term>spa-Latn</term>
         </tig>
       </langSet>
       <langSet xml:lang="ar">
         <tig>
-          <term>
-            arb-Arab
-          </term>
+          <term>arb-Arab</term>
         </tig>
       </langSet>
       <langSet xml:lang="hi">
         <tig>
-          <term>
-            hin-Deva
-          </term>
+          <term>hin-Deva</term>
         </tig>
       </langSet>
       <langSet xml:lang="sl">
         <tig>
-          <term>
-            slv-Latn
-          </term>
+          <term>slv-Latn</term>
         </tig>
       </langSet>
     </termEntry>
@@ -128,51 +98,37 @@
       
       <langSet xml:lang="la">
         <tig>
-          <term>
-            Lingua Latina
-          </term>
+          <term>Lingua Latina</term>
         </tig>
       </langSet>
       <langSet xml:lang="pt">
         <tig>
-          <term>
-            Língua portuguesa
-          </term>
+          <term>Língua portuguesa</term>
         </tig>
       </langSet>
       <langSet xml:lang="en">
         <tig>
-          <term>
-            English language
-          </term>
+          <term>English language</term>
         </tig>
       </langSet>
       <langSet xml:lang="es">
         <tig>
-          <term>
-            Idioma español
-          </term>
+          <term>Idioma español</term>
         </tig>
       </langSet>
       <langSet xml:lang="ar">
         <tig>
-          <term>
-            اللغة العربية
-          </term>
+          <term>اللغة العربية</term>
         </tig>
       </langSet>
       <langSet xml:lang="hi">
         <tig>
-          <term>
-            हिन्दी भाषा
-          </term>
+          <term>हिन्दी भाषा</term>
         </tig>
       </langSet>
       <langSet xml:lang="sl">
         <tig>
-          <term>
-            Slovenščina
-          </term>
+          <term>Slovenščina</term>
         </tig>
       </langSet>
     </termEntry>
@@ -181,44 +137,32 @@
       
       <langSet xml:lang="la">
         <tig>
-          <term>
-            Abecedarium Latinum
-          </term>
+          <term>Abecedarium Latinum</term>
         </tig>
       </langSet>
       <langSet xml:lang="pt">
         <tig>
-          <term>
-            Alfabeto latino
-          </term>
+          <term>Alfabeto latino</term>
         </tig>
       </langSet>
       <langSet xml:lang="en">
         <tig>
-          <term>
-            Latin script
-          </term>
+          <term>Latin script</term>
         </tig>
       </langSet>
       <langSet xml:lang="es">
         <tig>
-          <term>
-            Alfabeto latino
-          </term>
+          <term>Alfabeto latino</term>
         </tig>
       </langSet>
       <langSet xml:lang="hi">
         <tig>
-          <term>
-            देवनागरी लिपि
-          </term>
+          <term>देवनागरी लिपि</term>
         </tig>
       </langSet>
       <langSet xml:lang="sl">
         <tig>
-          <term>
-            Latinska abeceda
-          </term>
+          <term>Latinska abeceda</term>
         </tig>
       </langSet>
     </termEntry>
@@ -227,51 +171,37 @@
       
       <langSet xml:lang="la">
         <tig>
-          <term>
-            001
-          </term>
+          <term>001</term>
         </tig>
       </langSet>
       <langSet xml:lang="pt">
         <tig>
-          <term>
-            001
-          </term>
+          <term>001</term>
         </tig>
       </langSet>
       <langSet xml:lang="en">
         <tig>
-          <term>
-            001
-          </term>
+          <term>001</term>
         </tig>
       </langSet>
       <langSet xml:lang="es">
         <tig>
-          <term>
-            001
-          </term>
+          <term>001</term>
         </tig>
       </langSet>
       <langSet xml:lang="ar">
         <tig>
-          <term>
-            001
-          </term>
+          <term>001</term>
         </tig>
       </langSet>
       <langSet xml:lang="hi">
         <tig>
-          <term>
-            001
-          </term>
+          <term>001</term>
         </tig>
       </langSet>
       <langSet xml:lang="sl">
         <tig>
-          <term>
-            001
-          </term>
+          <term>001</term>
         </tig>
       </langSet>
     </termEntry>
@@ -280,51 +210,37 @@
       
       <langSet xml:lang="la">
         <tig>
-          <term>
-            ∅
-          </term>
+          <term>∅</term>
         </tig>
       </langSet>
       <langSet xml:lang="pt">
         <tig>
-          <term>
-            ∅
-          </term>
+          <term>∅</term>
         </tig>
       </langSet>
       <langSet xml:lang="en">
         <tig>
-          <term>
-            ∅
-          </term>
+          <term>∅</term>
         </tig>
       </langSet>
       <langSet xml:lang="es">
         <tig>
-          <term>
-            ∅
-          </term>
+          <term>∅</term>
         </tig>
       </langSet>
       <langSet xml:lang="ar">
         <tig>
-          <term>
-            ∅
-          </term>
+          <term>∅</term>
         </tig>
       </langSet>
       <langSet xml:lang="hi">
         <tig>
-          <term>
-            ∅
-          </term>
+          <term>∅</term>
         </tig>
       </langSet>
       <langSet xml:lang="sl">
         <tig>
-          <term>
-            ∅
-          </term>
+          <term>∅</term>
         </tig>
       </langSet>
     </termEntry>
@@ -333,37 +249,27 @@
       
       <langSet xml:lang="la">
         <tig>
-          <term>
-            Salvi mundi!
-          </term>
+          <term>Salvi mundi!</term>
         </tig>
       </langSet>
       <langSet xml:lang="pt">
         <tig>
-          <term>
-            Olá mundo!
-          </term>
+          <term>Olá mundo!</term>
         </tig>
       </langSet>
       <langSet xml:lang="en">
         <tig>
-          <term>
-            Hello, World!
-          </term>
+          <term>Hello, World!</term>
         </tig>
       </langSet>
       <langSet xml:lang="es">
         <tig>
-          <term>
-            ¡Hola mundo!
-          </term>
+          <term>¡Hola mundo!</term>
         </tig>
       </langSet>
       <langSet xml:lang="hi">
         <tig>
-          <term>
-            नमस्ते दुनिया
-          </term>
+          <term>नमस्ते दुनिया</term>
         </tig>
       </langSet>
     </termEntry>
@@ -372,37 +278,27 @@
       
       <langSet xml:lang="la">
         <tig>
-          <term>
-            Testum, I, II, III
-          </term>
+          <term>Testum, I, II, III</term>
         </tig>
       </langSet>
       <langSet xml:lang="pt">
         <tig>
-          <term>
-            Teste, 1, 2, 3
-          </term>
+          <term>Teste, 1, 2, 3</term>
         </tig>
       </langSet>
       <langSet xml:lang="en">
         <tig>
-          <term>
-            Test, 1, 2, 3
-          </term>
+          <term>Test, 1, 2, 3</term>
         </tig>
       </langSet>
       <langSet xml:lang="es">
         <tig>
-          <term>
-            Prueba, 1, 2, 3
-          </term>
+          <term>Prueba, 1, 2, 3</term>
         </tig>
       </langSet>
       <langSet xml:lang="hi">
         <tig>
-          <term>
-            परीक्षा, १, २, ३
-          </term>
+          <term>परीक्षा, १, २, ३</term>
         </tig>
       </langSet>
     </termEntry>
@@ -411,44 +307,32 @@
       
       <langSet xml:lang="la">
         <tig>
-          <term>
-            I,V, X, L, C, D, M
-          </term>
+          <term>I,V, X, L, C, D, M</term>
         </tig>
       </langSet>
       <langSet xml:lang="pt">
         <tig>
-          <term>
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-          </term>
+          <term>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</term>
         </tig>
       </langSet>
       <langSet xml:lang="en">
         <tig>
-          <term>
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-          </term>
+          <term>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</term>
         </tig>
       </langSet>
       <langSet xml:lang="es">
         <tig>
-          <term>
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-          </term>
+          <term>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</term>
         </tig>
       </langSet>
       <langSet xml:lang="hi">
         <tig>
-          <term>
-            ०, १, २, ३, ४, ५, ६, ७, ८, ९
-          </term>
+          <term>०, १, २, ३, ४, ५, ६, ७, ८, ९</term>
         </tig>
       </langSet>
       <langSet xml:lang="sl">
         <tig>
-          <term>
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-          </term>
+          <term>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</term>
         </tig>
       </langSet>
     </termEntry>

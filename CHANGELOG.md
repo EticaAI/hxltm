@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v0.8.10]
 
+### Added
+- tmeta files `.tmeta.215.yml` (cli option --tmeta-archivum) now expose
+  variables from script neutral `____` (four underscores; allusion to
+  _breaking the forth wall_, give extra metadata)
+
 ### Changed
 - Generate XML now have less white spaces
 

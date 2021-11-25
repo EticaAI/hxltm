@@ -607,13 +607,11 @@ normam:
           <martifHeader>
             <fileDesc>
               <titleStmt>
-                <title>TBX-Basic Sample File</title>
-                <note>
-                  Lorem ipsum dolor semet
-                </note>
+                <title>{{- ____.glossarium_titulum -}}</title>
+                <note>Lorem ipsum dolor semet</note>
               </titleStmt>
               <sourceDesc>
-                <p>Lorem ipsum dolor semet</p>
+                <p>{{ ____.glossarium_fontem }}</p>
               </sourceDesc>
             </fileDesc>
           </martifHeader>
@@ -635,9 +633,7 @@ normam:
               {% if item[1].rem != '' -%}
               <langSet xml:lang="{{ item[1].bcp47 }}">
                 <tig>
-                  <term>
-                    {{ item[1].rem }}
-                  </term>
+                  <term>{{- item[1].rem -}}</term>
                 </tig>
               </langSet>
               {%- endif -%}
@@ -1112,7 +1108,7 @@ normam:
       initiale: |2-
         <glossarium _="Latium" __="hxltmcli.py" ___="{{ globum.instrumentum_versionem }}">
           <caput>
-            <titulum>{{ globum.glossarium_titulum }}</titulum>
+            <titulum>{{- globum.glossarium_titulum -}}</titulum>
           </caput>
           <datum>
             <!-- _[eng-Latn]@TODO Use librarium as XLIFF file / Excel worksheets. The "_" is (an non-Latin) script neutral default ID [eng-Latn]_ -->
