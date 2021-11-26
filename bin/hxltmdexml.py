@@ -443,16 +443,13 @@ class HXLTMDeXMLCli:
         objectvum_archivum = pyargs.outfile if pyargs.outfile else stdout
 
         agendum_linguam = []
-        agendum_linguam_set = set()
         if pyargs.agendum_linguam:
             for item in pyargs.agendum_linguam:
                 # print('item', item)
                 rem = item.split(',')
                 for resultatum in rem:
-                    agendum_linguam_set.add(resultatum)
-
-        if len(agendum_linguam_set) > 0:
-            agendum_linguam = list(agendum_linguam_set)
+                    if resultatum not in agendum_linguam:
+                        agendum_linguam.append(resultatum)
 
         dexml = HXLTMdeXML(
             self._ontologia,

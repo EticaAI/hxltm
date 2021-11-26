@@ -1744,12 +1744,14 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
                         self.agendum_linguam.append(item)
                     else:
                         self.agendum_linguam.append(HXLTMLinguam(item))
+                unicum.append(item)
         elif isinstance(rem, str):
             collectionem = rem.split(',')
             unicum = []
             for item in collectionem:
                 if item not in unicum:
                     self.agendum_linguam.append(HXLTMLinguam(item.trim()))
+                    unicum.append(item)
         elif rem is None:
             # self.agendum_linguam.append(HXLTMLinguam())
             self.agendum_linguam = []
