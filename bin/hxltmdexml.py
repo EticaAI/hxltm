@@ -1537,7 +1537,7 @@ HXLTMLinguam()
 
 >>> HXLTMLinguam('rmf-Latn').v()
 {'_typum': 'HXLTMLinguam', 'crudum': 'rmf-Latn', \
-'linguam': 'rmf-Latn', 'iso6393': 'rmf', 'iso115924': 'Latn'}
+'linguam': 'rmf-Latn', 'iso6393': 'rmf', 'iso115924': 'Latn', 'bcp47': 'rmf'}
 
         Kalo Finnish Romani, Latin script (no ISO 2 language, so no attr)
 
@@ -1617,7 +1617,7 @@ HXLTMLinguam()
         else:
             self.vacuum = vacuum
 
-    def initialle(self, strictum: bool):
+    def initialle(self, strictum: bool):  # pylint: disable=too-many-branches
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
@@ -1687,6 +1687,10 @@ HXLTMLinguam()
         if self.imperium:
             self.imperium = self.imperium.upper()
 
+        # Tags like ancient greek, grc-Grek, should still have BCP47
+        if not self.bcp47 and self.iso6393:
+            self.bcp47 = self.iso6393
+
         if self.privatum is not None and len(self.privatum) > 0:
             # https://tools.ietf.org/search/bcp47#page-2-12
             # '4.5.  Canonicalization of Language Tags'
@@ -1726,6 +1730,62 @@ HXLTMLinguam()
                 resultatum.append('+ix_' + item)
 
         return ''.join(resultatum).lower()
+
+    def aequale(
+            self,
+            clavem_et_linguam: Union[str, Type['HXLTMLinguam']]) -> int:
+        """aequāle crudum clavem?
+
+        Args:
+            clavem_et_linguam (str, HXLTMLinguam): Textum crudum et linguam
+
+        Returns:
+            int: aequāle numerum
+        """
+        # @TODO: the numeric results on this function are still an usable
+        #        draft. They can be used later to assert the closest
+        #        option to return a viable result
+
+        if clavem_et_linguam and isinstance(clavem_et_linguam, str):
+            neo = HXLTMLinguam(clavem_et_linguam)
+        else:
+            neo = clavem_et_linguam
+
+        # print(neo.a(), self.a())
+
+        if neo.a() == self.a():
+            return 100
+
+        if neo.iso6391a2 == self.iso6391a2 and \
+                neo.iso6393 == self.iso6393 and \
+                neo.iso115924 == self.iso115924 and \
+                neo.imperium == self.imperium:
+            # non privatum
+            return 95
+
+        if neo.iso6391a2 == self.iso6391a2 and \
+                neo.iso6393 == self.iso6393 and \
+                neo.iso115924 == self.iso115924 and \
+                neo.privatum == self.privatum:
+            # non imperium
+            return 95
+
+        if neo.iso6393 == self.iso6393 and \
+                neo.iso115924 == self.iso115924 and \
+                (neo.privatum == self.privatum or
+                    neo.privatum == self.privatum):
+            # non iso6391a2
+            # non imperium || non privatum
+            return 95
+
+        if neo.iso6393 == self.iso6393 and \
+                neo.iso115924 == self.iso115924:
+            # non iso6391a2
+            # non privatum
+            # non imperium
+            return 90
+
+        return -100
 
     def designo(self, clavem: str, rem: Any) -> Type['HXLTMLinguam']:
         """Designo clavem rem

@@ -2431,10 +2431,6 @@ HXLTMDatumNormam()
 
 >>> HXLTMDatumNormam('356_XZ_X_wadegile_private1@museum.icom.भारत').a()
 '+normam_356_xz_museum_icom_भारत_x_private1_wadegile'
-
->>> HXLTMLinguam('rmf-Latn').v()
-{'_typum': 'HXLTMLinguam', 'crudum': 'rmf-Latn', \
-'linguam': 'rmf-Latn', 'iso6393': 'rmf', 'iso115924': 'Latn'}
     """
 
     _typum: InitVar[str] = None
@@ -5472,7 +5468,7 @@ HXLTMLinguam()
 
 >>> HXLTMLinguam('rmf-Latn').v()
 {'_typum': 'HXLTMLinguam', 'crudum': 'rmf-Latn', \
-'linguam': 'rmf-Latn', 'iso6393': 'rmf', 'iso115924': 'Latn'}
+'linguam': 'rmf-Latn', 'iso6393': 'rmf', 'iso115924': 'Latn', 'bcp47': 'rmf'}
 
         Kalo Finnish Romani, Latin script (no ISO 2 language, so no attr)
 
@@ -5621,6 +5617,10 @@ HXLTMLinguam()
         self.linguam = self.iso6393 + '-' + self.iso115924
         if self.imperium:
             self.imperium = self.imperium.upper()
+
+        # Tags like Ancient Greek, grc-Grek, should still have BCP47
+        if not self.bcp47 and self.iso6393:
+            self.bcp47 = self.iso6393
 
         if self.privatum is not None and len(self.privatum) > 0:
             # https://tools.ietf.org/search/bcp47#page-2-12
