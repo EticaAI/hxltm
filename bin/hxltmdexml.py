@@ -213,6 +213,37 @@ focused on convert XML files to the pivot format HXLTM.
 [eng-Latn]_"
 """.format(__VERSION__)
 
+__ATTRIBUTUM_OPTIONEM__ = {
+    # No annotationem (text notes) at concept level: please use meta_conceptum
+    'annotationem': [
+        '#meta+linguam+__linguam__+annotationem',
+        '#meta+terminum+__linguam__+annotationem',
+    ],
+    'annotationem_linguam': ['#meta+linguam+__linguam__+annotationem'],
+    'annotationem_terminum': ['#meta+terminum+__linguam__+annotationem'],
+    'codicem': ['#item+conceptum+codicem'],
+    'codicem_conceptum': [
+        '#item+conceptum+codicem'
+    ],
+    'dominium': ['#item+conceptum+dominium'],
+    'index_de_terminum': ['#item+conceptum+index_de_terminum'],
+    'meta': [
+        '#meta+conceptum',
+        '#meta+linguam+__linguam__',
+        '#meta+terminum+__linguam__',
+    ],
+    'meta_conceptum': ['#meta+conceptum'],
+    'meta_linguam': ['#meta+linguam+__linguam__'],
+    'meta_terminum': ['#meta+terminum+__linguam__'],
+    'rem': ['#item+terminum+__linguam__+rem'],
+}
+__ATTRIBUTUM_DEFALLO__ = [
+    # 'codicem' # hardcoded, cannot be removed
+    # 'rem' # hardcoded, cannot be removed
+    'index_de_terminum',
+    'meta'
+]
+
 # tag::epilogum[]
 __EPILOGUM__ = """
 Exemplōrum gratiā:
@@ -366,21 +397,22 @@ class HXLTMDeXMLCli:
             nargs='?'
         )
 
-
         parser.add_argument(
-            '--agendum-attribatum', '-AA',
-            help='(draft, not fully implemented). Additional attributes'
-            'to import/export. Required for some'
+            '--agendum-attributum', '-AA',
+            help='(draft, not fully implemented). Additional attributes '
+            'to import/export. Required for some '
             'multilinguam formats (like TBX) both to '
             'avoid scan the source file and to be sure about HXL attributes '
             'of the output format. '
-            'Example I: item+rem '
-            'Example II (TBX IATE, es,en,fr,la,pt,mul): '
-            'spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,'
-            'mul-Zyyy',
-            metavar='agendum_linguam',
+            'Default: {0}. Options: [{1}]'.format(
+                ','.join(__ATTRIBUTUM_DEFALLO__),
+                ' '.join(__ATTRIBUTUM_OPTIONEM__.keys())
+            ),
+            default=','.join(__ATTRIBUTUM_DEFALLO__),
+            metavar='agendum_attributum',
             action='append',
-            nargs='?'
+            nargs='?',
+            type=lambda x: map(int, x.split(','))
         )
 
         parser.add_argument(
@@ -474,6 +506,7 @@ class HXLTMDeXMLCli:
             objectvum_archivum,
             # agendum_linguam=pyargs.agendum_linguam,
             agendum_linguam=agendum_linguam,
+            agendum_attributum=pyargs.agendum_attributum,
             fontem_linguam=pyargs.fontem_linguam,
             objectivum_linguam=pyargs.objectivum_linguam,
         )
@@ -547,6 +580,7 @@ class HXLTMdeXML:
 
     objectvum_archivum = sys.stdout,
     _agendum_linguam: Type[List['HXLTMLinguam']] = []
+    _agendum_attributum: Type[List[str]] = []
     _fontem_linguam: Type['HXLTMLinguam'] = None
     _objectivum_linguam: Type['HXLTMLinguam'] = None
 
@@ -564,7 +598,8 @@ class HXLTMdeXML:
         fontem_archivum=sys.stdin.buffer,
         objectvum_archivum=sys.stdout,
         # agendum_linguam: Type[List['HXLTMLinguam']] = None,
-        agendum_linguam: List[str] = None,
+        agendum_linguam: List[str] = [],
+        agendum_attributum: List[str] = [],
         fontem_linguam: str = None,
         objectivum_linguam: str = None,
     ):
@@ -597,6 +632,9 @@ class HXLTMdeXML:
             for item in agendum_linguam:
                 self._agendum_linguam.append(HXLTMLinguam(item))
 
+        if agendum_attributum:
+            self._agendum_attributum = agendum_attributum
+
         self._fontem_linguam = fontem_linguam
         # if fontem_linguam:
         #     self._fontem_linguam = HXLTMLinguam(fontem_linguam)
@@ -608,6 +646,7 @@ class HXLTMdeXML:
         self.in_formatum = XMLInFormatumHXLTM(
             self._ontologia,
             self._agendum_linguam,
+            self._agendum_attributum,
             # self._fontem_linguam,
             # self._objectivum_linguam
         )
@@ -3273,6 +3312,7 @@ class XMLInFormatumHXLTM():
     # linguam_collectionem = []
     # linguam_agendum: Type[List['HXLTMLinguam']] = None
     agendum_linguam: Type[List['HXLTMLinguam']] = []
+    agendum_attributum: List[str] = [],
     fontem_linguam: Type['HXLTMLinguam'] = None
     objectivum_linguam: Type['HXLTMLinguam'] = None
 
@@ -3297,7 +3337,8 @@ class XMLInFormatumHXLTM():
     def __init__(
         self,
         ontologia: Type['HXLTMOntologia'],
-        agendum_linguam: Type[List['HXLTMLinguam']] = None,
+        agendum_linguam: Type[List['HXLTMLinguam']] = [],
+        agendum_attributum: Type[List[str]] = [],
         fontem_linguam: Type['HXLTMLinguam'] = None,
         objectivum_linguam: Type['HXLTMLinguam'] = None
     ):
@@ -3309,6 +3350,9 @@ class XMLInFormatumHXLTM():
         self._ontologia = ontologia
         if agendum_linguam:
             self.agendum_linguam = agendum_linguam
+
+        if agendum_attributum:
+            self.agendum_attributum = agendum_attributum
 
         if fontem_linguam:
             self.fontem_linguam = fontem_linguam
@@ -3436,6 +3480,8 @@ class XMLInFormatumHXLTM():
     def in_caput(self):
         resultatum = []
         resultatum.append('#item+conceptum+codicem')
+        # print('self.agendum_attributum', str(self.agendum_attributum))
+        # print('self.agendum_attributum', str(self.agendum_attributum[0]))
         if self.fontem_linguam:
             resultatum.append('#item+rem' + self.fontem_linguam.a())
             if self._habendum_accuratum:

@@ -1,4 +1,5 @@
 usage: hxltmdexml [-h] [--agendum-linguam [agendum_linguam]]
+                  [--agendum-attributum [agendum_attributum]]
                   [--fontem-linguam [fontem_linguam]]
                   [--objectivum-linguam [objectivum_linguam]]
                   [--archivum-configurationem] [--venandum-insectum-est]
@@ -19,12 +20,22 @@ optional arguments:
   -h, --help            show this help message and exit
   --agendum-linguam [agendum_linguam], -AL [agendum_linguam]
                         List of working languages. Required for multilinguam
-                        formats (like TBX and TBX) both to avoid scan the
-                        source file and to be sure about HXL attributes of the
-                        output format. Example I (Latin and Arabic): lat-
-                        Latn@la,arb-Arab@ar . Example II (TBX IATE,
-                        es,en,fr,la,pt,mul): spa-Latn@es,eng-Latn@en,fra-
-                        Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
+                        formats (like TBX) both to avoid scan the source file
+                        and to be sure about HXL attributes of the output
+                        format. Example I (Latin and Arabic): lat-Latn@la,arb-
+                        Arab@ar . Example II (TBX IATE, es,en,fr,la,pt,mul):
+                        spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-
+                        Latn@pt,mul-Zyyy
+  --agendum-attributum [agendum_attributum], -AA [agendum_attributum]
+                        (draft, not fully implemented). Additional attributes
+                        to import/export. Required for some multilinguam
+                        formats (like TBX) both to avoid scan the source file
+                        and to be sure about HXL attributes of the output
+                        format. Default: index_de_terminum,meta. Options:
+                        [annotationem annotationem_linguam
+                        annotationem_terminum codicem codicem_conceptum
+                        dominium index_de_terminum meta meta_conceptum
+                        meta_linguam meta_terminum rem]
   --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
   --objectivum-linguam [objectivum_linguam], -OL [objectivum_linguam]
   --archivum-configurationem
