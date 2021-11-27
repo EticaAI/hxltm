@@ -13,6 +13,11 @@ portability for implementers.
 
 **The documentation is available at <https://hxltm.etica.ai/>.**
 
+```bash
+pip install hxltm-eticaai --upgrade
+```
+
+
 <!--
 ---
 

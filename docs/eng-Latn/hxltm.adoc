@@ -1,0 +1,72 @@
+= HXLTM (draft)
+EticaAI, Collaborators_of <etica.of.a.ai@gmail.com>; Rocha, Emerson <rocha@ieee.org>
+:toc: 1
+:toclevels: 4
+
+TIP: While this documentation is not finalized, please refer to https://hxlstandard.org/ and HXLTM exported formats which do have formalized strict structure (TBX, TMX, XLIFF)
+
+WARNING: This is a *work in progress* documentation about relationship from HXLTM on tabular format equivalent on XML-like (structured formats).
+         It's not finalized.
+
+
+== General idea
+=== Concept, language and term
+
+While HXLTM is a more strict subset of HXL
+(which make feasible to import and export to other data formats related to terminology and translation)
+it tend to be easier to undestand that the approach break the data in 3 + 1 blocks:
+
+1. Concept-level
+2. Language-level
+3. Term-level
+
+The 4th level will not be explained here,
+but it break what each dataset knows about itself.
+But in short, is relationship between linguistic datasets,
+information about how is processed, etc.
+
+The data standard that is close to what the most complex features related to this is TermBase eXchange (TBX).
+
+==== Base tags used when HXLTM (on tabular container)
+
+NOTE: Compared to the HXLStandard,
+      while the HXLTM reference tools will allow mix with other HXL tags,
+      most optimized operations will work with only `#item` and `#meta`.
+
+1. Concept-level
+** `#item+conceptum`
+** `#meta+conceptum`
+2. Language-level
+** `#item+linguam+\\__linguam__`
+** `#meta+linguam+\\__linguam__`
+3. Term-level
+** `#item+terminum+\\__linguam__`
+** `#meta+terminum+\\__linguam__`
+
+////
+== Drafts
+
+Concept level
+
+#item+conceptum+codicem
+
+
+Language level
+---------
+#item+linguam+i_la+lat+is_Latn
+
+#item+linguam+i_la+lat+is_Latn+dedinitionem
+
+Term level
+---------
+#item+linguam+i_la+lat+is_Latn+terminum+tem (verboso demais)
+
+
+
+#item+terminum+i_la+lat+is_Latn+rem
+>>>> a coisa
+#item+terminum+i_la+lat+is_Latn+typum
+>>>>> term, shortForm, abbr,...
+
+
+////

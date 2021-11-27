@@ -1090,7 +1090,7 @@ normam:
         librarium: librarium
 
         # partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
-        partem-orationis: partem-orationis
+        partem_orationis: partem_orationis
 
         # terminum, https://en.wiktionary.org/wiki/terminus#Latin
         terminum: terminum
@@ -2632,7 +2632,7 @@ ontologia_aliud:
       _aliud: 'TBX_noun|UTX_noun'
       _codicem: lat_nomen_substantivum
       _codicem_TBX: TBX_noun
-      _codicem_UTX: UTX_properNoun
+      _codicem_UTX: UTX_noun
       _codicem_wikidata: Q1084 # https://www.wikidata.org/wiki/Q1084
       _normam: https://la.wikipedia.org/wiki/Nomen_substantivum
       codicem_lat: nomen_substantivum

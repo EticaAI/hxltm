@@ -354,7 +354,24 @@ class HXLTMDeXMLCli:
         parser.add_argument(
             '--agendum-linguam', '-AL',
             help='List of working languages. Required for '
-            'multilinguam formats (like TBX and TBX) both to '
+            'multilinguam formats (like TBX) both to '
+            'avoid scan the source file and to be sure about HXL attributes '
+            'of the output format. '
+            'Example I (Latin and Arabic): lat-Latn@la,arb-Arab@ar . '
+            'Example II (TBX IATE, es,en,fr,la,pt,mul): '
+            'spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,'
+            'mul-Zyyy',
+            metavar='agendum_linguam',
+            action='append',
+            nargs='?'
+        )
+
+
+        parser.add_argument(
+            '--agendum-attribatum', '-AL',
+            help='(draft, not fully implemented). Additional attributes'
+            'to import/export. Required for some'
+            'multilinguam formats (like TBX) both to '
             'avoid scan the source file and to be sure about HXL attributes '
             'of the output format. '
             'Example I (Latin and Arabic): lat-Latn@la,arb-Arab@ar . '
