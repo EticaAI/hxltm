@@ -22,6 +22,8 @@ docs/**/*.pdf
 docs/*.epub
 docs/**/*.epub
 
+temp-external-references
+
 ### Python ignores _____________________________________________________________
 # Distribution / packaging
 .Python
