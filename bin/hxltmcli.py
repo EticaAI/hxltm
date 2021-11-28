@@ -180,6 +180,11 @@ To Do
 
 [eng-Latn]_
 """
+
+# TODO: since this commit an error with syntax is breaking using on python 3.7
+#       https://github.com/EticaAI/hxltm/runs/4343555339?check_suite_focus=true
+#       This needs better check later if still persists or is false positive
+
 import sys
 import os
 import logging
@@ -248,7 +253,7 @@ from liquid.token import Token as LiquidToken
 from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
-__VERSION__ = "v0.8.9"
+__VERSION__ = "v0.9.0-rc1"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -271,6 +276,7 @@ For XML processing, use hxltmdexml.
 
 __ATTRIBUTUM_OPTIONEM__ = {
     # No annotationem (text notes) at concept level: please use meta_conceptum
+    'accuratum': ['#item+terminum+__linguam__+accuratum'],
     'annotationem': [
         '#meta+linguam+__linguam__+annotationem',
         '#meta+terminum+__linguam__+annotationem',
@@ -348,11 +354,7 @@ HXLTM_RUNNING_DIR = str(Path().resolve())
 
 
 class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
-    """
-    _[eng-Latn] hxltmcli is an working draft of a tool to
-                convert prototype of translation memory stored with HXL to
-                XLIFF v2.1
-    [eng-Latn]_
+    """HXLTMCLI
     """
 
     def __init__(self):
@@ -453,9 +455,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         Returns:
             bool: If okay.
         """
-
-        # with open(archivum, 'r') as arch:
-        #     hxltm_crudum = arch.read().splitlines()
 
         self.hxltm_asa = HXLTMASA(
             archivum,
@@ -1172,6 +1171,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         Requires that the input must be a valid HXLated file
         """
+        # pylint: disable=no-self-use
 
         with open(hxlated_input, 'r') as csv_file:
             csv_reader = csv.reader(csv_file)
@@ -1632,7 +1632,7 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
     tmeta: InitVar[dict] = None
     agendum_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
     auxilium_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
-    agendum_attributum: InitVar[List[Type[str]]] = []
+    agendum_attributum: InitVar[List[str]] = []
     fontem_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_formatum: InitVar[str] = 'HXLTM'
@@ -1651,7 +1651,6 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
     versionem: InitVar[bool] = False
     # crudum_argparse: InitVar[Dict] = {}
 
-    # def de_argparse(self, args_rem: Type['ArgumentParser']):
     def de_argparse(self, args_rem: Dict = None):
         """Argūmentum de Python argparse
 
@@ -1662,7 +1661,8 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
         Returns:
             [HXLTMArgumentum]: Ego HXLTMArgumentum
         """
-        # print(args_rem)
+        # pylint: disable=too-many-branches,too-many-statements
+
         if args_rem is not None:
             if hasattr(args_rem, 'outfile'):
                 self.objectivum_archivum_nomen = args_rem.outfile
@@ -1956,7 +1956,7 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
 
         return self
 
-    def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
+    def v(self, _verbosum: bool = None):
         """Ego python Dict
 
         Trivia:
@@ -1969,6 +1969,8 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
         Returns:
             [Dict]: Python objectīvum
         """
+        # pylint: disable=invalid-name,too-many-branches
+
         # TODO: add a commom helper of this for all other .v()
         # TODO: make it at least one level more deep (or recursive)
 
@@ -2066,6 +2068,7 @@ class HXLTMDatum:
 
 #>>> crudum_datum
     """
+    # pylint: disable=too-many-instance-attributes
 
     # crudum: InitVar[List] = []
     crudum_caput: InitVar[List] = []
@@ -4982,6 +4985,9 @@ True
 
     """
 
+    # dēprecātum, https://en.wiktionary.org/wiki/deprecatus#Latin
+    _deprecatum: Type[set] = set()
+
     def __init__(self, ontologia: Dict, vacuum: bool = False):
         """
         _[eng-Latn] Constructs all the necessary attributes for the
@@ -5421,6 +5427,15 @@ True
             nomen_breve = 'conceptum_typum'
 
         elif hxl_hashtag.startswith('#status+rem+accuratum+i_'):
+            # Deprecated
+            self._deprecatum.add(
+                'deprecatum [{0}]: #item+terminum+__linguam__+accuratum'.format(
+                    hxl_hashtag)
+            )
+            nomen_breve = 'accuratum__L__'
+
+        elif hxl_hashtag.startswith('#item+terminum+i_') and \
+                hxl_hashtag.endswith('+accuratum'):
             nomen_breve = 'accuratum__L__'
 
         elif hxl_hashtag.startswith('#status+rem+textum+i_'):
@@ -5430,6 +5445,12 @@ True
             nomen_breve = 'statum_rem_json__L__'
 
         elif hxl_hashtag.startswith('#item+rem+i_'):
+            # Deprecated
+            self._deprecatum.add('deprecatum [{0}]'.format(hxl_hashtag))
+            nomen_breve = 'rem__L__'
+
+        elif hxl_hashtag.startswith('#item+terminum+i_') and \
+                hxl_hashtag.endswith('+rem'):
             nomen_breve = 'rem__L__'
 
         return nomen_breve
@@ -5690,6 +5711,12 @@ HXLTMLinguam()
             parts = self.bcp47.split('-')
             if len(parts[0]) == 2:
                 self.iso6391a2 = parts[0].lower()
+
+        # Improved message over
+        #     ValueError: not enough values to unpack (expected 2, got 1)
+        if self.linguam.find('-') == -1:
+            raise ValueError(
+                'HXLTMLinguam zzz-Zzzz? [{0}]'.format(str(self.linguam)))
 
         self.iso6393, self.iso115924 = \
             list(self.linguam.split('-'))

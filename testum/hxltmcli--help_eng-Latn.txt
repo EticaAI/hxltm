@@ -35,7 +35,7 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--venandum-insectum-est] [--versionem]
                 [infile] [outfile]
 
-_[eng-Latn] hxltmcli v0.8.9 is an example of implementation of the
+_[eng-Latn] hxltmcli v0.9.0-rc1 is an example of implementation of the
 Multilingual Terminology in Humanitarian Language Exchange (HXLTM).
 For XML processing, use hxltmdexml.
 [eng-Latn]_"

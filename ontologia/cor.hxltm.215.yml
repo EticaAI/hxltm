@@ -1711,7 +1711,9 @@ ontologia:
       # Trivia: linguam, https://en.wiktionary.org/wiki/lingua#Latin
       __linguam__:
          # Exemplum: '#item +rem +i_en +i_eng +is_Latn'
+         # TODO: invert __HXL with __HXL_deprecatum
         __HXL: '#item +rem __linguam__'
+        __HXL_deprecatum: ['#item +terminum +__linguam__ +rem']
         __nomen_breve: 'rem__L__'  # rem.rem__L__
         __id: ontologia.commune.rem.__linguam__
         __libellam: rem

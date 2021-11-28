@@ -56,6 +56,9 @@ include::../testum/hxltm-salve-mundi.hxltm.xml[]
 
 ////
 hxltmdexml --agendum-linguam lat-Latn,arb-Arab testum/hxltm-salve-mundi.hxltm.xml > testum/resultatum/hxltm-salve-mundi.tm.hxl.csv
+
+hxltmcli --agendum-linguam eng-Latn@en,por-Latn@pt hxl-non-hxltm-exemplum.hxl.csv
+
 ////
 [source,bash]
 ----
@@ -67,6 +70,9 @@ hxltmdexml --agendum-linguam lat-Latn,arb-Arab testum/hxltm-salve-mundi.hxltm.xm
 ----
 include::../testum/resultatum/hxltm-salve-mundi.tm.hxl.csv[]
 ----
+
+> TODO: make it work with new format
+>       `hxltmcli hxltm-exemplum-glossarium-minimum.tm.hxl.csv --objectivum-TMX`
 
 ////
 == Drafts

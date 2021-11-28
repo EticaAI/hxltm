@@ -152,6 +152,10 @@ To Do
 [eng-Latn]_
 """
 
+# TODO: since this commit an error with syntax is breaking using on python 3.7
+#       https://github.com/EticaAI/hxltm/runs/4343555339?check_suite_focus=true
+#       This needs better check later if still persists or is false positive
+
 # import xml.etree.ElementTree as et
 import sys
 import os
@@ -191,7 +195,7 @@ import yaml
 # pip3 install langcodes
 # import langcodes
 
-__VERSION__ = "v0.8.9"
+__VERSION__ = "v0.9.0-rc1"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -235,6 +239,7 @@ __ATTRIBUTUM_OPTIONEM__ = {
     'meta_conceptum': ['#meta+conceptum'],
     'meta_linguam': ['#meta+linguam+__linguam__'],
     'meta_terminum': ['#meta+terminum+__linguam__'],
+    # __nomen_breve: 'rem__L__'
     'rem': ['#item+terminum+__linguam__+rem'],
 }
 __ATTRIBUTUM_DEFALLO__ = [
@@ -3252,6 +3257,7 @@ class XMLInFormatumHXLTM():
         ontologia: Type['HXLTMOntologia'],
         agendum_linguam: Type[List['HXLTMLinguam']] = [],
         agendum_attributum: Type[List[str]] = [],
+        # agendum_attributum: Type[List['str']] = [],
         fontem_linguam: Type['HXLTMLinguam'] = None,
         objectivum_linguam: Type['HXLTMLinguam'] = None
     ):
