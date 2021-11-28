@@ -18,6 +18,8 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--objectivum-CSV-3] [--objectivum-TSV-3]
                 [--objectivum-JSON-kv]
                 [--objectivum-formatum-speciale [objectivum_formatum_speciale]]
+                [--transformare-ad-maximum-columnam]
+                [--transformare-ad-maximum-lineam]
                 [--limitem-quantitatem [limitem_quantitatem]]
                 [--limitem-initiale-lineam [limitem_initiale_lineam]]
                 [--non-securum-limitem]
@@ -156,6 +158,20 @@ optional arguments:
                         Example: "hxltmcli fontem.hxl.csv objectivum.tmx
                         --objectivum-TMX --objectivum-formatum-speciale TMX-
                         de-marcus"
+  --transformare-ad-maximum-columnam
+                        (Early draft) Transformation of type reshape entire
+                        dataset. Convert HXLTM narrow (more rows) to wide
+                        (more columns; each new language means add more
+                        columns). more columns; also called vertical database
+                        model or open schema). See
+                        https://en.wikipedia.org/wiki/Wide_and_narrow_data.
+  --transformare-ad-maximum-lineam
+                        (Early draft) Transformation of type reshape entire
+                        dataset. Convert HXLTM wide (more columns; each new
+                        language means add more columns) to narrow (more rows;
+                        each new language does not require more columns; also
+                        called vertical database model or open schema). See
+                        https://en.wikipedia.org/wiki/Wide_and_narrow_data.
   --limitem-quantitatem [limitem_quantitatem]
                         (Advanced, large data sets) Customize the limit of the
                         maximum number of raw rows can be in a single step.

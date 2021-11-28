@@ -5026,9 +5026,8 @@ False
 >>> ontologia.quid_est_hashtag_circa_linguam('#item+conceptum+codicem')
 False
 
->>> ontologia.quid_est_hashtag_circa_linguam('#rem+rem+i_la+i_lat+is_latn')
+>>> ontologia.est_validum_ad_regula('#item+conceptum+codicem')
 True
-
 
 #>>> ontologia.quod_rem_statum()
 {'accuratum': None, 'crudum': [], 'crudum_originale': [], \
@@ -5060,6 +5059,16 @@ True
             self.crudum = {}
         else:
             self.crudum = ontologia
+
+    def _ontologia_regulam_regex(self, clavem: str) -> str:
+        """_ontologia_regulam_regex
+        """
+        try:
+            return self.crudum['ontologia_regulam'][clavem]
+            # return self.crudum['ontologia_regulam'][clavem]['regex']
+        except:
+            raise ValueError(
+                'Non {0} ad ontologia_regulam.{0}.regex'.format(clavem))
 
     def hxl_de_aliud_nomen_breve(self, structum=False):
         """HXL attribūtum de aliud nōmen breve (cor.hxltm.215.yml)
@@ -5156,6 +5165,36 @@ True
             lambda d, key: d.get(
                 key) if d else default, keys, fontem
         )
+
+    def est_validum_ad_regula(
+            self,
+            hxlhashtag: str,
+            regulam_clavem: str = None
+    ) -> bool:
+        """est_validum_ad_regula est validum ad rēgulam? [ ontologia_regulam ]
+
+        _[eng-Latn]
+        Is this hashtag valid based on Ontologia regexes?
+        [eng-Latn]_
+
+        Trivia:
+        - rēgulam, https://en.wiktionary.org/wiki/regula#Latin
+        - validum, https://en.wiktionary.org/wiki/validus#Latin
+
+        Args:
+            hxlhashtag (str): HXL Hashtag
+            ontologia_regex (str, optional): ontologia_regulam clavem
+
+        Returns:
+            bool: Python True est validum
+        """
+        if regulam_clavem is None:
+            regulam_clavem = 'abstractum_aut_concretum'
+
+        regula = self._ontologia_regulam_regex(regulam_clavem)
+        regula_regex = re.compile(regula['regex'])
+
+        return bool(regula_regex.match(hxlhashtag))
 
     def quod_aliud(self, aliud_typum: str, aliud_valorem: str) -> Dict:
         """Quod Aliud?
@@ -5418,9 +5457,38 @@ True
         # TODO: implement this check
         return resultatum
 
-    @staticmethod
+    # @staticmethod
+    # def quid_est_columnam_aut_lineam(
+    #         hxl_hashtag: str) -> Union[str, None]:
+    #     """Quid est columnam aut līneam?
+
+    #     _[eng-Latn]
+    #     Is this hashtag type maximixed columns or maximized rows?
+    #     See https://en.wikipedia.org/wiki/Wide_and_narrow_data
+    #     [eng-Latn]
+
+    #     Args:
+    #         hxl_hashtag (str): Hashtag ad textum
+
+    #     Returns:
+    #         str: 'columnam', 'lineam', None
+    #     """
+    #     # TODO: make this actually read the cor.hxltm.215.yml. This hardcoded
+    #     #       part is just a quick fix
+
+    #     if HXLTMOntologia.quid_est_hashtag_circa_conceptum(hxl_hashtag):
+    #         # Concept hashtags are neither cases
+    #         return None
+
+    #     if hxl_hashtag.find('+conceptum') > -1:
+    #         return True
+
+    #     return False
+
     def quid_est_hashtag_circa_conceptum(
-            hxl_hashtag: str) -> Union[bool, None]:
+        self,
+        hxl_hashtag: str
+    ) -> Union[bool, None]:
         """Quid est hashtag circa +conceptum?
 
         _[eng-Latn]
@@ -5436,7 +5504,7 @@ True
         # TODO: make this actually read the cor.hxltm.215.yml. This hardcoded
         #       part is just a quick fix
 
-        if HXLTMOntologia.quid_est_hashtag_circa_linguam(hxl_hashtag):
+        if self.quid_est_hashtag_circa_linguam(hxl_hashtag):
             return False
 
         if hxl_hashtag.find('+conceptum') > -1:
@@ -5444,8 +5512,7 @@ True
 
         return False
 
-    @staticmethod
-    def quid_est_hashtag_circa_linguam(hxl_hashtag: str) -> bool:
+    def quid_est_hashtag_circa_linguam(self, hxl_hashtag: str) -> bool:
         """Quid est hashtag circa linguam?
 
         _[eng-Latn]
@@ -5462,9 +5529,13 @@ True
         #       part is just a quick fix
 
         if hxl_hashtag.startswith('#item+rem+i_'):
+            self._deprecatum.add('deprecatum [{0}]'.format(hxl_hashtag))
             return True
+
         if hxl_hashtag.startswith('#meta+rem+i_'):
+            self._deprecatum.add('deprecatum [{0}]'.format(hxl_hashtag))
             return True
+
         if re.match(r"\#.*(\+i_).*(\+is_).*", hxl_hashtag):
             # # +i_ +is_
             return True
@@ -7836,7 +7907,7 @@ class StreamOutput(object):
     def __exit__(self, value, type, traceback):
         pass
 
-    def write(self, s): # pylint: disable=invalid-name
+    def write(self, s):  # pylint: disable=invalid-name
         self.output.write(s)
 
 

@@ -2995,6 +2995,27 @@ ontologia_aliud_familiam:
 
 # end::ontologia_aliud[]
 
+
+# Trivia: rēgulam, https://en.wiktionary.org/wiki/regula#Latin
+ontologia_regulam:
+  # @see https://regex101.com/ (online regex tester, multiple engines)
+  # @see https://docs.python.org/3/howto/regex.html
+  # @see https://developer.mozilla.org/en-US/docs/Web/JavaScript
+  #      /Reference/Global_Objects/RegExp
+  # @see https://pkg.go.dev/regexp/syntax
+  # @see https://www.php.net/manual/en/reference.pcre.pattern.syntax.php
+
+  # abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
+  abstractum:
+    regex: "^#item"
+
+  abstractum_aut_concretum:
+    regex: "^#item|^#meta"
+
+  # concrētum, https://en.wiktionary.org/wiki/concretus
+  concretum:
+    regex: "^#item"
+
 ## TBX Basic 3.1 (http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf)
 #  5 Mandatory data categories
 #  There are only two mandatory data categories in TBX-Basic: term, and language.
