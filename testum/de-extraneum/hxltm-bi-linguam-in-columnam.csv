@@ -1,0 +1,8 @@
+id,source language,target language,source term,target term
+#item+conceptum+codicem,#item+terminum+est_linguam_fontem,#item+terminum+est_linguam_objectivum,#item+terminum+de_linguam_fontem,#item+terminum+de_linguam_objectivum
+1,eng-Latn,por-Latn,UN,ONU
+2,eng-Latn,por-Latn,United Nations,Organização das Nações Unidas
+3,eng-Latn,por-Latn,IFRC,FICV/CV
+4,eng-Latn,por-Latn,International Federation of Red Cross and Red Crescent Societies ,Federação Internacional das Sociedades da Cruz Vermelha e do Crescente Vermelho
+5,eng-Latn,por-Latn,AI,AI
+6,eng-Latn,por-Latn,Amnesty International,Amnistia Internacional

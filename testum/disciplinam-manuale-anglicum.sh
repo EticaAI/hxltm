@@ -54,6 +54,60 @@ hxltmdexml --help > "hxltmdexml--help_eng-Latn.txt"
 # fi
 ### TODO: implement some way to also validate all CSVs on folder
 
+
+# tag::HXLStandard_examples[]
+### I -------------------------------------------------------------------------
+
+### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Convert a file in CSV to HXLTM (using HXLStandard tools): use hxltag
+# [eng-Latn]_
+
+# head -n 2 de-csv/csv-non-hxltm-exemplum.csv
+#    id,en,pt
+#    1,UN,ONU
+
+hxltag \
+  --map='id #item+conceptum+codicem' \
+  --map='en #item+terminum+i_en+i_eng+is_latn+rem' \
+  --map='pt #item+terminum+i_pt+i_por+is_latn+rem' \
+  de-csv/csv-non-hxltm-exemplum.csv \
+  resultatum/de-csv/csv-non-hxltm-exemplum.tm.hxl.csv
+
+# head -n 2 resultatum/de-csv/csv-non-hxltm-exemplum.tm.hxl.csv
+#    id,en,pt
+#    #item+conceptum+codicem,#item+terminum+i_en+i_eng+is_latn+rem,
+#    #item+terminum+i_pt+i_por+is_latn+rem
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# Convert a file already in HXL, but not in HXLTM, to HXLTM: use hxlrename
+# [eng-Latn]_
+
+# head -n 2 hxl/hxl-non-hxltm-exemplum.hxl.csv
+#    id,en,pt
+#    #vocab+id,#vocab+term+i_en,#vocab+term+i_pt
+
+hxlrename \
+  --rename='vocab+id:item+conceptum+codicem' \
+  --rename='vocab+term+i_en:item+terminum+i_en+i_eng+is_latn+rem'  \
+  --rename='vocab+term+i_pt:item+terminum+i_pt+i_por+is_latn+rem'  \
+  de-hxl/hxl-non-hxltm-exemplum.hxl.csv \
+  resultatum/de-hxl/hxl-non-hxltm-exemplum.tm.hxl.csv
+
+# head -n 2 resultatum/de-hxl-non-hxltm/hxl-non-hxltm-exemplum.tm.hxl.csv
+#    id,en,pt
+#    #item+conceptum+codicem,#item+terminum+i_en+i_eng+is_latn+rem,
+#    #item+terminum+i_pt+i_por+is_latn+rem
+
+# end::HXLStandard_examples[]
+
+# Temp, remove
+#    hxlcut --include='#item+codicem' resultatum/de-hxl/hxl-non-hxltm-exemplum.tm.hxl.csv > de-extraneum/hxltm-solum-id.tm.hxl.csv
+#    hxlcut --include='#item+terminum' resultatum/de-hxl/hxl-non-hxltm-exemplum.tm.hxl.csv > de-extraneum/hxltm-solum-linguam.tm.hxl.csv
+#    hxltmcli de-extraneum/hxltm-solum-id.tm.hxl.csv
+#    hxltmcli de-extraneum/hxltm-solum-linguam.tm.hxl.csv
+
 # tag::HXLTM_CSV[]
 ### I -------------------------------------------------------------------------
 # _[eng-Latn]

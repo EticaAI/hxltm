@@ -86,7 +86,7 @@ optional arguments:
                         formats (like TBX) both to avoid scan the source file
                         and to be sure about HXL attributes of the output
                         format. Default: indicem_de_terminum,meta. Options:
-                        [annotationem annotationem_linguam
+                        [accuratum annotationem annotationem_linguam
                         annotationem_terminum codicem codicem_conceptum
                         dominium indicem_de_terminum meta meta_conceptum
                         meta_linguam meta_terminum rem]

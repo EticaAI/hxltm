@@ -5716,7 +5716,8 @@ HXLTMLinguam()
         #     ValueError: not enough values to unpack (expected 2, got 1)
         if self.linguam.find('-') == -1:
             raise ValueError(
-                'HXLTMLinguam zzz-Zzzz? [{0}]'.format(str(self.linguam)))
+                'HXLTMLinguam zzz-Zzzz? [{0}] Archivum est HXLTM?'.format(
+                    str(self.linguam)))
 
         self.iso6393, self.iso115924 = \
             list(self.linguam.split('-'))
