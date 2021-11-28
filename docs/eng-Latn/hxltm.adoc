@@ -61,6 +61,8 @@ hxltmcli --agendum-linguam eng-Latn@en,por-Latn@pt hxl-non-hxltm-exemplum.hxl.cs
 
 linguacodex --de_codex por-Latn-g-port1283-t-eng --de_bcp47_simplex | jq
 
+hxltmcli de-extraneum/hxltm-multi-linguam-in-columnam-v.csv
+
 ////
 [source,bash]
 ----

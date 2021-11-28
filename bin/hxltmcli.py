@@ -747,6 +747,39 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             nargs='?'
         )
 
+        # Trivia: trānsfōrmāre, https://en.wiktionary.org/wiki/transformo#Latin
+        parser.add_argument(
+            '--transformare-ad-maximum-columnam',
+            help='(Early draft) '
+            'Transformation of type reshape entire dataset. '
+            'Convert HXLTM narrow '
+            '(more rows) to wide (more columns; each new language means '
+            'add more columns). '
+            'more columns; also called vertical database model or '
+            'open schema). '
+            'See https://en.wikipedia.org/wiki/Wide_and_narrow_data.',
+            metavar='transformare_ad_maximum_columnam',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
+        parser.add_argument(
+            '--transformare-ad-maximum-lineam',
+            help='(Early draft) '
+            'Transformation of type reshape entire dataset. '
+            'Convert HXLTM wide '
+            '(more columns; each new language means add more columns) '
+            'to narrow (more rows; each new language does not require '
+            'more columns; also called vertical database model or '
+            'open schema). '
+            'See https://en.wikipedia.org/wiki/Wide_and_narrow_data.',
+            metavar='transformare_ad_maximum_lineam',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
         parser.add_argument(
             '--limitem-quantitatem',
             help='(Advanced, large data sets) '
@@ -1641,6 +1674,7 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
     objectivum_formulam: InitVar[str] = None
     objectivum_formatum_speciale: InitVar[str] = None
     objectivum_archivum_nomen: InitVar[str] = None
+    transformare_ad_maximum: InitVar[str] = None  # columnam, lineam, None
     columnam_numerum: InitVar[List] = []
     non_columnam_numerum: InitVar[List] = []
     limitem_initiale_lineam: InitVar[int] = -1
@@ -1738,6 +1772,20 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
                     args_rem.objectivum_formatum_speciale:
                 self.objectivum_formatum_speciale = \
                     args_rem.objectivum_formatum_speciale
+
+            if hasattr(args_rem, 'transformare_ad_maximum_columnam') and \
+                    args_rem.transformare_ad_maximum_columnam:
+                self.transformare_ad_maximum = 'columnam'
+
+            if hasattr(args_rem, 'transformare_ad_maximum_lineam') and \
+                    args_rem.transformare_ad_maximum_lineam:
+
+                if self.transformare_ad_maximum:
+                    raise ValueError(
+                        '--transformare-ad-maximum-columnam + '
+                        '--transformare-ad-maximum-lineam'
+                    )
+                self.transformare_ad_maximum = 'lineam'
 
             if hasattr(args_rem, 'columnam_numerum'):
                 self.columnam_numerum = args_rem.columnam_numerum
@@ -2310,7 +2358,8 @@ class HXLTMDatum:
             if not self.__commune_asa:
                 raise ReferenceError('hxltm_asa not initialized yet')
             return self.__commune_asa
-        elif self.__commune_asa is not None:
+
+        if self.__commune_asa is not None:
             raise ReferenceError('hxltm_asa already initialized')
 
         self.__commune_asa = hxltm_asa
@@ -2867,7 +2916,7 @@ True
             datum_rem_brevis: List = None,
             columnam_collectionem: List[Type['HXLTMDatumColumnam']] = None,
             argumentum: Type['HXLTMArgumentum'] = None
-    ):
+    ):  # pylint: disable=too-many-arguments
         """Datum Caput
 
         Args:
@@ -3061,6 +3110,7 @@ True
         Returns:
             Union[str, None]: linguam aut python None
         """
+        # pylint: disable=no-self-use
         # https://en.wiktionary.org/wiki/columna#Latin
         print('TODO')
 
@@ -3517,6 +3567,7 @@ HXLTMASA()
         Returns:
             [Dict]: [description]
         """
+        # pylint: disable=too-many-locals,too-many-branches,too-many-statements
 
         # NOTE: the agendum-linguam should already be filtered steps before
         #       this method would try to check it.
@@ -3673,9 +3724,10 @@ HXLTMASA()
         return self._quod_clavem_et_valorem_ii(
             resultatum, supplementum_valorem)
 
-    def _quod_clavem_et_valorem_ii(self,
-                                   clavem_et_valorem: Dict,
-                                   statum_rem_accuratuam: Dict):
+    def _quod_clavem_et_valorem_ii(
+            self,
+            clavem_et_valorem: Dict,
+            statum_rem_accuratuam: Dict):
         """[summary]
 
         Args:
@@ -3686,6 +3738,8 @@ HXLTMASA()
         Returns:
             [type]: [description]
         """
+        # pylint: disable=no-self-use
+
         # clavem_de_linguam = ['de_linguam', 'de_fontem_linguam',
         #                      'de_objectivum_linguam', 'de_auxilium_linguam']
         clavem_de_linguam = ['de_linguam', 'de_auxilium_linguam']
@@ -3776,6 +3830,9 @@ HXLTMASA()
         return None
 
     def quod_statum(self, _option) -> Dict:
+        """quod_statum
+        """
+        # pylint: disable=no-self-use
         # @deprecated use HXLTMOntologia.quod_aliud_de_multiplum()
         resultatum = {
             # 1-10, TBX uses it
@@ -3838,6 +3895,11 @@ HXLTMASA()
         return resultatum
 
     def quod_nomen(self) -> str:
+        """quod_nomen
+
+        Returns:
+            str: Nomen
+        """
         conceptum_index = [0]  # TODO: make it not hardcoded
         conceptum_nomen = ''
 
@@ -5022,6 +5084,9 @@ True
         # pylint: disable=invalid-name
 
         def recursionem(rem):
+            """recursionem
+            """
+            # pylint: disable=no-self-use
             # Trivia:
             # - recursiōnem, https://en.wiktionary.org/wiki/recursio#Latin
             for _k, v in rem.items():
@@ -5055,6 +5120,7 @@ True
         Returns:
             [str]: an HXL hashtag without spaces
         """
+        # pylint: disable=no-self-use
         if objectivum is not None:
             if '__HXL' in objectivum:
                 return ''.join(objectivum['__HXL'].split())
@@ -5326,6 +5392,8 @@ True
         Returns:
             Dict: [description]
         """
+        # pylint: disable=no-self-use
+
         # TODO: make the defaults configurable
 
         resultatum = {
@@ -5458,6 +5526,7 @@ True
     def quod_nomen_breve_de_id(self, _hxl_hashtag: str) -> str:
         """TODO quod_nomen_breve_de_id
         """
+        # pylint: disable=no-self-use
         return ''
 
     # def in_rem(self, focused_datum: List) -> Type['HXLTMRem']:
@@ -5537,9 +5606,9 @@ class HXLTMBCP47:
         Returns:
             str: ISO 639-3 language code
         """
-        L = langcodes.Language.get(textum)
-        if L.is_valid():
-            return L.to_alpha3()
+        Lang = langcodes.Language.get(textum)
+        if Lang.is_valid():
+            return Lang.to_alpha3()
             # resultatum = L.to_alpha3()
         return None
 
@@ -7435,6 +7504,7 @@ class HXLUtils:
     def __init__(self):
 
         self.logger = logging.getLogger(__name__)
+        # pylint: disable=invalid-name
 
         # Posix exit codes
         self.EXIT_OK = 0
@@ -7452,6 +7522,7 @@ class HXLUtils:
         @param hxl_output: if True (default), include options for HXL output.
         @returns: an argument parser, partly set up.
         """
+        # pylint: disable=no-self-use
         if epilog is None:
             parser = argparse.ArgumentParser(description=description)
         else:
@@ -7527,6 +7598,7 @@ class HXLUtils:
         parser,
         help='Apply only to rows matching at least one query.'
     ):
+        # pylint: disable=no-self-use
         parser.add_argument(
             '-q',
             '--query',
@@ -7538,6 +7610,7 @@ class HXLUtils:
 
     def do_common_args(self, args):
         """Process standard args"""
+        # pylint: disable=no-self-use
         logging.basicConfig(
             format='%(levelname)s (%(name)s): %(message)s',
             level=args.log.upper())
@@ -7576,12 +7649,14 @@ class HXLUtils:
 
     def make_output(self, args, stdout=sys.stdout):
         """Create an output stream."""
+        # pylint: disable=no-self-use
         if args.outfile:
             return FileOutput(args.outfile)
         else:
             return StreamOutput(stdout)
 
     def make_headers(self, args):
+        # pylint: disable=no-self-use
         # get custom headers
         header_strings = []
         header = os.environ.get("HXL_HTTP_HEADER")
@@ -7761,7 +7836,7 @@ class StreamOutput(object):
     def __exit__(self, value, type, traceback):
         pass
 
-    def write(self, s):
+    def write(self, s): # pylint: disable=invalid-name
         self.output.write(s)
 
 

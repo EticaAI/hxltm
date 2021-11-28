@@ -615,8 +615,8 @@ class HXLTMdeXML:
         fontem_archivum=sys.stdin.buffer,
         objectvum_archivum=sys.stdout,
         # agendum_linguam: Type[List['HXLTMLinguam']] = None,
-        agendum_linguam: List[str] = [],
-        agendum_attributum: List[str] = [],
+        agendum_linguam: List[str] = None,
+        agendum_attributum: List[str] = None,
         fontem_linguam: str = None,
         objectivum_linguam: str = None,
     ):
@@ -1205,6 +1205,7 @@ class HXLTMdeXML:
         Returns:
             Dict:
         """
+        # pylint: disable=no-self-use
         xml_attributum_nunc = {}
 
         if hasattr(nodum, 'attrib'):
@@ -1380,6 +1381,7 @@ class HXLTMdeXML:
         Returns:
             [str]: archīvum typum
         """
+        # pylint: disable=no-self-use
         resultatum = 'xml'
         # todo: implement other checks
         return resultatum
@@ -1433,48 +1435,51 @@ class HXLTMdeXML:
 
         return self.EXITUM_ERROREM
 
-    def testum(self):
+#     def testum(self):
 
-        tree = XMLElementTree.parse(self.fontem_archivum)
-        # tree = ET.parse(self.archivum)
-        root = tree.getroot()
+#         tree = XMLElementTree.parse(self.fontem_archivum)
+#         # tree = ET.parse(self.archivum)
+#         root = tree.getroot()
 
-        # print(root.tag)
+#         # print(root.tag)
 
-        self.xliff_obsoletum(root)
-        self.xliff_testum2()
+#         self.xliff_obsoletum(root)
+#         self.xliff_testum2()
 
-    def xliff_obsoletum(self, root):
-        print('oi')
+#     def xliff_obsoletum(self, root):
+#         print('oi')
 
-        print(root.findall('./{*}file/{*}body/{*}trans-unit'))
-        print('')
+#         print(root.findall('./{*}file/{*}body/{*}trans-unit'))
+#         print('')
 
-    def xliff_testum2(self):
-        # @see https://docs.python.org/3/library
-        #      /xml.etree.elementtree.html#elementtree-xpath
-        crudum = """<?xml version="1.0"?>
-<actors xmlns:fictional="http://characters.example.com"
-        xmlns="http://people.example.com">
-    <actor>
-        <name>John Cleese</name>
-        <fictional:character>Lancelot</fictional:character>
-        <fictional:character>Archie Leach</fictional:character>
-    </actor>
-    <actor>
-        <name>Eric Idle</name>
-        <fictional:character>Sir Robin</fictional:character>
-        <fictional:character>Gunther</fictional:character>
-        <fictional:character>Commander Clement</fictional:character>
-    </actor>
-</actors>
-        """
+#     def xliff_testum2(self):
+#         """xliff_testum2
+#         """
+#         # pylint: disable=no-self-use
+#         # @see https://docs.python.org/3/library
+#         #      /xml.etree.elementtree.html#elementtree-xpath
+#         crudum = """<?xml version="1.0"?>
+# <actors xmlns:fictional="http://characters.example.com"
+#         xmlns="http://people.example.com">
+#     <actor>
+#         <name>John Cleese</name>
+#         <fictional:character>Lancelot</fictional:character>
+#         <fictional:character>Archie Leach</fictional:character>
+#     </actor>
+#     <actor>
+#         <name>Eric Idle</name>
+#         <fictional:character>Sir Robin</fictional:character>
+#         <fictional:character>Gunther</fictional:character>
+#         <fictional:character>Commander Clement</fictional:character>
+#     </actor>
+# </actors>
+#         """
 
-        root = XMLElementTree.fromstring(crudum)
+#         root = XMLElementTree.fromstring(crudum)
 
-        print(root.findall("."))
+#         print(root.findall("."))
 
-        print(root.findall("./country/neighbor"))
+#         print(root.findall("./country/neighbor"))
 
 
 @dataclass
@@ -2012,6 +2017,7 @@ True
         Returns:
             [str]: an HXL hashtag without spaces
         """
+        # pylint: disable=no-self-use
         if objectivum is not None:
             if '__HXL' in objectivum:
                 return ''.join(objectivum['__HXL'].split())
@@ -2283,6 +2289,7 @@ True
         Returns:
             Dict: [description]
         """
+        # pylint: disable=no-self-use
         # TODO: make the defaults configurable
 
         resultatum = {
@@ -2328,6 +2335,7 @@ True
         Returns:
             Dict: typum, versiōnem, variāns
         """
+        # pylint: disable=no-self-use
         resultatum = {
             'hxltm_normam': '',
             'typum': 'XML',
@@ -2420,6 +2428,7 @@ True
         Returns:
             Dict: typum, versiōnem, variāns
         """
+        # pylint: disable=no-self-use
         resultatum = {
             'conceptum_signum': '',
             'conceptum_attributum': 'id',
@@ -2596,6 +2605,7 @@ True
     def quod_nomen_breve_de_id(self, _hxl_hashtag: str) -> str:
         """TODO quod_nomen_breve_de_id
         """
+        # pylint: disable=no-self-use
         return ''
 
     # def in_rem(self, focused_datum: List) -> Type['HXLTMRem']:
@@ -3255,8 +3265,8 @@ class XMLInFormatumHXLTM():
     def __init__(
         self,
         ontologia: Type['HXLTMOntologia'],
-        agendum_linguam: Type[List['HXLTMLinguam']] = [],
-        agendum_attributum: Type[List[str]] = [],
+        agendum_linguam: Type[List['HXLTMLinguam']] = None,
+        agendum_attributum: Type[List[str]] = None,
         # agendum_attributum: Type[List['str']] = [],
         fontem_linguam: Type['HXLTMLinguam'] = None,
         objectivum_linguam: Type['HXLTMLinguam'] = None
@@ -3472,6 +3482,7 @@ class XMLInFormatumHXLTM():
         Returns:
             [list]:
         """
+        # pylint: disable=no-self-use
         resultatum = [conceptum_codicem]
         if fontem_textum:
             resultatum.append(fontem_textum)
@@ -3663,6 +3674,9 @@ class HXLUtilsDeXML:
     """
 
     def __init__(self):
+        """__init__
+        """
+        # pylint: disable=invalid-name
 
         self.logger = logging.getLogger(__name__)
 
@@ -3682,6 +3696,7 @@ class HXLUtilsDeXML:
         @param hxl_output: if True (default), include options for HXL output.
         @returns: an argument parser, partly set up.
         """
+        # pylint: disable=no-self-use
         if epilog is None:
             parser = argparse.ArgumentParser(description=description)
         else:
