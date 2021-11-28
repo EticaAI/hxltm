@@ -226,7 +226,7 @@ __ATTRIBUTUM_OPTIONEM__ = {
         '#item+conceptum+codicem'
     ],
     'dominium': ['#item+conceptum+dominium'],
-    'index_de_terminum': ['#item+conceptum+index_de_terminum'],
+    'indicem_de_terminum': ['#item+conceptum+indicem_de_terminum'],
     'meta': [
         '#meta+conceptum',
         '#meta+linguam+__linguam__',
@@ -240,7 +240,7 @@ __ATTRIBUTUM_OPTIONEM__ = {
 __ATTRIBUTUM_DEFALLO__ = [
     # 'codicem' # hardcoded, cannot be removed
     # 'rem' # hardcoded, cannot be removed
-    'index_de_terminum',
+    'indicem_de_terminum',
     'meta'
 ]
 
@@ -408,11 +408,12 @@ class HXLTMDeXMLCli:
                 ','.join(__ATTRIBUTUM_DEFALLO__),
                 ' '.join(__ATTRIBUTUM_OPTIONEM__.keys())
             ),
-            default=','.join(__ATTRIBUTUM_DEFALLO__),
+            # default=','.join(__ATTRIBUTUM_DEFALLO__),
             metavar='agendum_attributum',
             action='append',
             nargs='?',
-            type=lambda x: map(int, x.split(','))
+            # type=lambda x: map(int, x.split(','))
+            # type=lambda x: map(int, x.split(','))
         )
 
         parser.add_argument(
@@ -500,13 +501,27 @@ class HXLTMDeXMLCli:
                     if resultatum not in agendum_linguam:
                         agendum_linguam.append(resultatum)
 
+        agendum_attributum = []
+        if pyargs.agendum_attributum:
+            for item in pyargs.agendum_attributum:
+                # print('item', item)
+                rem = item.split(',')
+                for resultatum in rem:
+                    if resultatum not in agendum_attributum:
+                        agendum_attributum.append(resultatum)
+        else:
+            agendum_attributum = __ATTRIBUTUM_DEFALLO__
+
+        # print('pyargs.agendum_attributum', pyargs.agendum_attributum)
+        # print('agendum_attributum', agendum_attributum)
+
         dexml = HXLTMdeXML(
             self._ontologia,
             fontem_archivum,
             objectvum_archivum,
             # agendum_linguam=pyargs.agendum_linguam,
             agendum_linguam=agendum_linguam,
-            agendum_attributum=pyargs.agendum_attributum,
+            agendum_attributum=agendum_attributum,
             fontem_linguam=pyargs.fontem_linguam,
             objectivum_linguam=pyargs.objectivum_linguam,
         )
@@ -3479,26 +3494,53 @@ class XMLInFormatumHXLTM():
 
     def in_caput(self):
         resultatum = []
+        # if 'rem' in self.agendum_attributum:
         resultatum.append('#item+conceptum+codicem')
-        # print('self.agendum_attributum', str(self.agendum_attributum))
+
+        # print('self.agendum_attributum', self.agendum_attributum)
+        if 'indicem_de_terminum' in self.agendum_attributum:
+            resultatum.append('#item+conceptum+indicem_de_terminum')
+
+        if 'meta' in self.agendum_attributum or \
+                'meta_conceptum' in self.agendum_attributum:
+            resultatum.append('#meta+conceptum')
+
         # print('self.agendum_attributum', str(self.agendum_attributum[0]))
         if self.fontem_linguam:
             resultatum.append('#item+rem' + self.fontem_linguam.a())
             if self._habendum_accuratum:
                 resultatum.append(
                     '#item+rem+accuratum' + self.fontem_linguam.a())
+            if 'meta' in self.agendum_attributum or \
+                    'meta_linguam' in self.agendum_attributum:
+                resultatum.append('#meta+linguam' + self.fontem_linguam.a())
+
         if self.objectivum_linguam:
             resultatum.append('#item+rem' + self.objectivum_linguam.a())
             if self._habendum_accuratum:
                 resultatum.append(
                     '#item+rem+accuratum' + self.objectivum_linguam.a())
+            if 'meta' in self.agendum_attributum or \
+                    'meta_linguam' in self.agendum_attributum:
+                resultatum.append('#meta+linguam' +
+                                  self.objectivum_linguam.a())
 
         for linguam in self.agendum_linguam:
+
+            if 'meta' in self.agendum_attributum or \
+                    'meta_linguam' in self.agendum_attributum:
+                resultatum.append('#meta+linguam' + linguam.a())
+
             resultatum.append('#item+rem' + linguam.a())
             if self._habendum_accuratum:
                 resultatum.append('#status+rem+accuratum' + linguam.a())
             if self._habendum_typum:
                 resultatum.append('#status+terminum+typum' + linguam.a())
+
+            if 'meta' in self.agendum_attributum or \
+                    'meta_terminum' in self.agendum_attributum:
+                resultatum.append('#meta+terminum' + linguam.a())
+
         return resultatum
 
     def in_lineam(
@@ -3573,19 +3615,46 @@ class XMLInFormatumHXLTM():
             conceptum_sacuum['conceptum']['codicem']
         )
 
+        # print('self.agendum_attributum2', self.agendum_attributum)
+        if 'indicem_de_terminum' in self.agendum_attributum:
+            # For now, it's hardcoded 1 but later should be rewriten to allow
+            # multiple terms entry
+            lineam_1.append("1")
+
+        if 'meta' in self.agendum_attributum or \
+                'meta_conceptum' in self.agendum_attributum:
+            # resultatum.append('#meta+conceptum')
+            # For now, it's hardcoded empty string, but later should be
+            # rewriten to add explicitly metadata or anything not explicity
+            # exported by other means
+            lineam_1.append("")
+
         # TODO: fix TBX/TMX that now may output fontem
 
         if self.fontem_linguam:
             lineam_1.append(self._ontologia.de(
                 'terminum.fontem.valorem', fontem=conceptum_sacuum))
+            if 'meta' in self.agendum_attributum or \
+                    'meta_linguam' in self.agendum_attributum:
+                # TODO: this is a draft. need to be implemented
+                lineam_1.append("")
 
         if self.objectivum_linguam:
             lineam_1.append(self._ontologia.de(
                 'terminum.objectivum.valorem', fontem=conceptum_sacuum))
+            if 'meta' in self.agendum_attributum or \
+                    'meta_linguam' in self.agendum_attributum:
+                # TODO: this is a draft. need to be implemented
+                lineam_1.append("")
 
         for linguam in self.agendum_linguam:
             # lineam_1.append('#item+rem' + linguam.a())
             valuem = ''
+
+            if 'meta' in self.agendum_attributum or \
+                    'meta_linguam' in self.agendum_attributum:
+                # TODO: this is a draft. need to be implemented
+                lineam_1.append("")
 
             if linguam.bcp47:
                 valuem = self._ontologia.de(
@@ -3657,6 +3726,12 @@ class XMLInFormatumHXLTM():
                     )
 
                 lineam_1.append(valuem)
+
+            if 'meta' in self.agendum_attributum or \
+                    'meta_terminum' in self.agendum_attributum:
+                # TODO: this is a draft. need to be implemented
+                lineam_1.append("")
+
         # for item in self.linguam_agendum:
         #     lineam_1.append('')
 

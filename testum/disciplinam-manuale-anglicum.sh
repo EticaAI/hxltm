@@ -652,7 +652,7 @@ hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf \
     rursum/XLIFF-obsoletum/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv \
      --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
-cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmdexml > rursum/XLIFF-obsoletum/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv  --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
+cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmdexml --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es > rursum/XLIFF-obsoletum/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv  --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
 # end::hxltmdexml-XLIFF-obsoletum[]
 
@@ -681,7 +681,8 @@ hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf \
     rursum/XLIFF/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv \
     --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
-cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml > rursum/XLIFF/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
+# TODO: this command is generating invalid CSV since early v0.9.0-rc1
+cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es > rursum/XLIFF/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
 
 # end::hxltmdexml-XLIFF-obsoletum[]
