@@ -54,6 +54,11 @@ hxltmdexml --help > "hxltmdexml--help_eng-Latn.txt"
 # fi
 ### TODO: implement some way to also validate all CSVs on folder
 
+# To validate all CSVs
+# csvlint from https://github.com/Clever/csvlint/
+#    find . -iname "*.csv" -type f -exec echo "{}" \;
+#    find . -iname "*.csv" -type f -exec echo "{}" \; -exec csvlint "{}" \;
+
 
 # tag::HXLStandard_examples[]
 ### I -------------------------------------------------------------------------

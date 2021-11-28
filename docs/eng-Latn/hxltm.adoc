@@ -59,6 +59,8 @@ hxltmdexml --agendum-linguam lat-Latn,arb-Arab testum/hxltm-salve-mundi.hxltm.xm
 
 hxltmcli --agendum-linguam eng-Latn@en,por-Latn@pt hxl-non-hxltm-exemplum.hxl.csv
 
+linguacodex --de_codex por-Latn-g-port1283-t-eng --de_bcp47_simplex | jq
+
 ////
 [source,bash]
 ----
