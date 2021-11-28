@@ -269,6 +269,37 @@ For XML processing, use hxltmdexml.
 [eng-Latn]_"
 """.format(__VERSION__)
 
+__ATTRIBUTUM_OPTIONEM__ = {
+    # No annotationem (text notes) at concept level: please use meta_conceptum
+    'annotationem': [
+        '#meta+linguam+__linguam__+annotationem',
+        '#meta+terminum+__linguam__+annotationem',
+    ],
+    'annotationem_linguam': ['#meta+linguam+__linguam__+annotationem'],
+    'annotationem_terminum': ['#meta+terminum+__linguam__+annotationem'],
+    'codicem': ['#item+conceptum+codicem'],
+    'codicem_conceptum': [
+        '#item+conceptum+codicem'
+    ],
+    'dominium': ['#item+conceptum+dominium'],
+    'indicem_de_terminum': ['#item+conceptum+indicem_de_terminum'],
+    'meta': [
+        '#meta+conceptum',
+        '#meta+linguam+__linguam__',
+        '#meta+terminum+__linguam__',
+    ],
+    'meta_conceptum': ['#meta+conceptum'],
+    'meta_linguam': ['#meta+linguam+__linguam__'],
+    'meta_terminum': ['#meta+terminum+__linguam__'],
+    'rem': ['#item+terminum+__linguam__+rem'],
+}
+__ATTRIBUTUM_DEFALLO__ = [
+    # 'codicem' # hardcoded, cannot be removed
+    # 'rem' # hardcoded, cannot be removed
+    'indicem_de_terminum',
+    'meta'
+]
+
 # tag::epilogum[]
 __EPILOGUM__ = """
 Exemplōrum gratiā:
@@ -519,6 +550,22 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             # action='append',
             type=lambda x: x.split(',')
             # nargs='?'
+        )
+
+        parser.add_argument(
+            '--agendum-attributum', '-AA',
+            help='(draft, not fully implemented). Additional attributes '
+            'to import/export. Required for some '
+            'multilinguam formats (like TBX) both to '
+            'avoid scan the source file and to be sure about HXL attributes '
+            'of the output format. '
+            'Default: {0}. Options: [{1}]'.format(
+                ','.join(__ATTRIBUTUM_DEFALLO__),
+                ' '.join(__ATTRIBUTUM_OPTIONEM__.keys())
+            ),
+            metavar='agendum_attributum',
+            action='append',
+            nargs='?',
         )
 
         parser.add_argument(
@@ -1585,6 +1632,7 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
     tmeta: InitVar[dict] = None
     agendum_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
     auxilium_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
+    agendum_attributum: InitVar[List[Type[str]]] = []
     fontem_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_formatum: InitVar[str] = 'HXLTM'
@@ -1647,6 +1695,12 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
             if hasattr(args_rem, 'objectivum_normam') and \
                     args_rem.objectivum_normam:
                 self.objectivum_normam = args_rem.objectivum_normam
+
+            if hasattr(args_rem, 'agendum_attributum') and \
+                    args_rem.agendum_attributum:
+                self.est_agendum_attributum(args_rem.agendum_attributum)
+            else:
+                self.est_agendum_attributum(None)
 
             if hasattr(args_rem, 'tmeta_archivum') and \
                     args_rem.tmeta_archivum:
@@ -1722,6 +1776,34 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
             [HXLTMArgumentum]: Ego HXLTMArgumentum
         """
         self.ad_astra = bool(rem)
+
+        return self
+
+    def est_agendum_attributum(
+            self, agendum_attributum: Union[str, list] = None):
+        """Argūmentum dēfīnītiōnem ad agendum attributum
+
+        Args:
+            agendum_attributum (Union[str, HXLTMLinguam]): Rem
+
+        Returns:
+            [HXLTMArgumentum]: Ego HXLTMArgumentum
+        """
+        agendum_attributum_ = []
+        if agendum_attributum:
+            if not isinstance(agendum_attributum, list):
+                agendum_attributum = [agendum_attributum]
+
+            for item in agendum_attributum:
+                # print('item', item)
+                rem = item.split(',')
+                for resultatum in rem:
+                    if resultatum not in agendum_attributum:
+                        agendum_attributum_.append(resultatum)
+        else:
+            agendum_attributum_ = __ATTRIBUTUM_DEFALLO__
+
+        self.agendum_attributum = agendum_attributum_
 
         return self
 

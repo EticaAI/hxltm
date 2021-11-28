@@ -7,6 +7,7 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--agendum-linguam agendum_linguam]
                 [--non-agendum-linguam non_agendum_linguam]
                 [--auxilium-linguam auxilium_linguam]
+                [--agendum-attributum [agendum_attributum]]
                 [--fontem-normam [fontem_normam]]
                 [--tmeta-archivum [tmeta_archivum]]
                 [--objectivum-normam [objectivum_normam]]
@@ -79,6 +80,16 @@ optional arguments:
                         language. Requires: bilingual operation (and file
                         format allow metadata). Default: Esperanto and
                         Interlingua Accepts multiple values.
+  --agendum-attributum [agendum_attributum], -AA [agendum_attributum]
+                        (draft, not fully implemented). Additional attributes
+                        to import/export. Required for some multilinguam
+                        formats (like TBX) both to avoid scan the source file
+                        and to be sure about HXL attributes of the output
+                        format. Default: indicem_de_terminum,meta. Options:
+                        [annotationem annotationem_linguam
+                        annotationem_terminum codicem codicem_conceptum
+                        dominium indicem_de_terminum meta meta_conceptum
+                        meta_linguam meta_terminum rem]
   --fontem-normam [fontem_normam]
                         (For data exchange) Source of data convention
                         Recommended convention: use "{UN M49}_{P-Code}" when
