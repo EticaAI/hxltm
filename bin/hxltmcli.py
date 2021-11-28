@@ -5033,6 +5033,16 @@ True
 ...  'conceptum_classem')
 True
 
+>>> ontologia.quod_rem_ab_regula('+i_en+i_eng+is_latn+is_215', 'iso15924_a')
+['latn']
+
+>>> ontologia.quod_rem_ab_regula('+i_en+i_eng+is_latn+is_215', 'iso15924_n')
+['215']
+
+>>> ontologia.quod_rem_ab_regula(
+...    '#item+terminum,#item+conceptum', 'hxltm_basim')
+['#item+terminum']
+
 #>>> ontologia.quod_rem_statum()
 {'accuratum': None, 'crudum': [], 'crudum_originale': [], \
 'XLIFF': 'initial', 'UTX': 'provisional'}
@@ -5211,7 +5221,8 @@ True
 
         Args:
             hxlhashtag (str): HXL Hashtag
-            ontologia_regex (str, optional): ontologia_regulam clavem
+            ontologia_regex (Union[list, str], optional):
+                            ontologia_regulam clavem
 
         Returns:
             bool: Python True est validum
@@ -5222,11 +5233,51 @@ True
         regula_multipla = self._ontologia_regulam_regex(regulam_clavem)
         # return list(regula_multipla.keys())
         for item in regula_multipla:
-            regula_regex = re.compile(r"{0}".format(item['regex']))
-            if not bool(regula_regex.match(hxlhashtag)):
+            regula_regex = re.compile(
+                r"{0}".format(item['existere']), re.IGNORECASE)
+            # if not bool(regula_regex.match(hxlhashtag)):
+            if not bool(regula_regex.search(hxlhashtag)):
                 return False
 
         return True
+
+    def quod_rem_ab_regula(
+            self,
+            hxlhashtag: str,
+            regulam_clavem: Union[list, str] = None
+    ) -> bool:
+        """quod_rem_ab_regula est rem ad rēgulam? [ ontologia_regulam ]
+
+        _[eng-Latn]
+        Literal translation of 'est rem ad rēgulam? ':
+        what is the matter by rule?
+        [eng-Latn]_
+
+        Args:
+            hxlhashtag (str): HXL Hashtag
+            ontologia_regex (str, optional): ontologia_regulam clavem
+
+        Returns:
+            bool: Python True est validum
+        """
+        resultatum = []
+
+        regula_multipla = self._ontologia_regulam_regex(regulam_clavem)
+        # return list(regula_multipla.keys())
+        for item in regula_multipla:
+            regula_regex = re.compile(
+                r"{0}".format(item['rem']), re.IGNORECASE)
+
+            rem = regula_regex.finditer(hxlhashtag)
+            if rem:
+                for item in rem:
+                    resultatum.append(item.group())
+                    # for group in item.groups():
+                    #     resultatum.append(group)
+
+            # if not bool(regula_regex.match(hxlhashtag)):
+            #     return False
+        return resultatum
 
     def quod_aliud(self, aliud_typum: str, aliud_valorem: str) -> Dict:
         """Quod Aliud?
