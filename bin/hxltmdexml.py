@@ -1365,10 +1365,10 @@ class HXLTMdeXML:
         #       that XLIFF 2.x can have the souce and target language
         #       defined already at <xliff> element
 
-        # ontologia_de_xml = \
-        #     self._ontologia.crudum['normam']['XLIFF']['de_xml']
+        ontologia_de_xml = \
+            self._ontologia.crudum['normam']['XLIFF']['de_xml']
 
-        # return self._de_commune_xml(ontologia_de_xml)
+        return self._de_commune_xml(ontologia_de_xml)
 
         resultatum_csv = csv.writer(
             self.objectvum_archivum,
@@ -2023,10 +2023,12 @@ True
 >>> ontologia.quid_est_hashtag_circa_conceptum('#rem+rem+i_la+i_lat+is_latn')
 False
 
->>> ontologia.quid_est_hashtag_circa_linguam('#item+conceptum+codicem')
+>>> ontologia.quid_est_hashtag_circa_linguam_aut_terminum(
+...    '#item+conceptum+codicem')
 False
 
->>> ontologia.quid_est_hashtag_circa_linguam('#rem+rem+i_la+i_lat+is_latn')
+>>> ontologia.quid_est_hashtag_circa_linguam_aut_terminum(
+...    '#rem+rem+i_la+i_lat+is_latn')
 True
 
 
@@ -2618,7 +2620,7 @@ True
         # TODO: make this actually read the cor.hxltm.215.yml. This hardcoded
         #       part is just a quick fix
 
-        if HXLTMOntologia.quid_est_hashtag_circa_linguam(hxl_hashtag):
+        if HXLTMOntologia.quid_est_hashtag_circa_linguam_aut_terminum(hxl_hashtag):
             return False
 
         if hxl_hashtag.find('+conceptum') > -1:
@@ -2627,7 +2629,7 @@ True
         return False
 
     @staticmethod
-    def quid_est_hashtag_circa_linguam(hxl_hashtag: str) -> bool:
+    def quid_est_hashtag_circa_linguam_aut_terminum(hxl_hashtag: str) -> bool:
         """Quid est hashtag circa linguam?
 
         _[eng-Latn]
@@ -2642,6 +2644,11 @@ True
         """
         # TODO: make this actually read the cor.hxltm.215.yml. This hardcoded
         #       part is just a quick fix
+
+        if hxl_hashtag.startswith('#item+linguam'):
+            return True
+        if hxl_hashtag.startswith('#meta+linguam'):
+            return True
 
         if hxl_hashtag.startswith('#item+rem+i_'):
             return True

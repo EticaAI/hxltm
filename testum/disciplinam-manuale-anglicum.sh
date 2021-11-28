@@ -42,6 +42,18 @@ hxltmcli --help > "hxltmcli--help_eng-Latn.txt"
 # [eng-Latn]_
 hxltmdexml --help > "hxltmdexml--help_eng-Latn.txt"
 
+#
+# To validate all XMLs
+#    find . -iname "*.xml" -o -iname "*.tbx" -o -iname "*.xlf" -type f | xargs xmlstarlet val
+
+### TODO: implement XML generic validation as part of the test
+# if command -v xmlstarlet; then
+#     find . -iname "*.xml" -o -iname "*.tbx" -o -iname "*.xlf" -type f | xargs xmlstarlet val
+# else
+#     echo "no XML test validation now"
+# fi
+### TODO: implement some way to also validate all CSVs on folder
+
 # tag::HXLTM_CSV[]
 ### I -------------------------------------------------------------------------
 # _[eng-Latn]
