@@ -5029,6 +5029,10 @@ False
 >>> ontologia.est_validum_ad_regula('#item+conceptum+codicem')
 True
 
+>>> ontologia.est_validum_ad_regula('#item+conceptum+codicem',
+...  'conceptum_classem')
+True
+
 #>>> ontologia.quod_rem_statum()
 {'accuratum': None, 'crudum': [], 'crudum_originale': [], \
 'XLIFF': 'initial', 'UTX': 'provisional'}
@@ -5049,6 +5053,9 @@ True
     # dēprecātum, https://en.wiktionary.org/wiki/deprecatus#Latin
     _deprecatum: Type[set] = set()
 
+    # tolerātum, https://en.wiktionary.org/wiki/toleratus#Latin
+    _deprecatum_toleratum: bool = True
+
     def __init__(self, ontologia: Dict, vacuum: bool = False):
         """
         _[eng-Latn] Constructs all the necessary attributes for the
@@ -5060,15 +5067,36 @@ True
         else:
             self.crudum = ontologia
 
-    def _ontologia_regulam_regex(self, clavem: str) -> str:
+    def _ontologia_regulam_regex(self, clavem: Union[list, str]) -> list:
         """_ontologia_regulam_regex
         """
+        resultatum = []
+        # return self.crudum['ontologia_regulam']
+
+        # print(self.crudum['ontologia_regulam'])
+
         try:
-            return self.crudum['ontologia_regulam'][clavem]
+            if not isinstance(clavem, list):
+                clavem = [clavem]
+
+            for item in clavem:
+                resultatum.append(self.crudum['ontologia_regulam'][item])
+                if self._deprecatum_toleratum and \
+                        item + '_deprecatum' in self.crudum['ontologia_regulam']:
+                    resultatum.append(
+                        self.crudum['ontologia_regulam'][item + '_deprecatum'])
             # return self.crudum['ontologia_regulam'][clavem]['regex']
         except:
+            clavem_est = []
+            if 'ontologia_regulam' in self.crudum:
+                #  and
+                # self.crudum['ontologia_regulam']['ontologia_regulam']:
+                clavem_est = list(self.crudum['ontologia_regulam'].keys())
             raise ValueError(
-                'Non {0} ad ontologia_regulam.{0}.regex'.format(clavem))
+                'Non {0} ad ontologia_regulam.{0}.regex. '
+                'Optionem {1}'.format(str(clavem), str(clavem_est)))
+
+        return resultatum
 
     def hxl_de_aliud_nomen_breve(self, structum=False):
         """HXL attribūtum de aliud nōmen breve (cor.hxltm.215.yml)
@@ -5169,7 +5197,7 @@ True
     def est_validum_ad_regula(
             self,
             hxlhashtag: str,
-            regulam_clavem: str = None
+            regulam_clavem: Union[list, str] = None
     ) -> bool:
         """est_validum_ad_regula est validum ad rēgulam? [ ontologia_regulam ]
 
@@ -5189,12 +5217,16 @@ True
             bool: Python True est validum
         """
         if regulam_clavem is None:
-            regulam_clavem = 'abstractum_aut_concretum'
+            regulam_clavem = ['hxltm_basim', 'hxltm_basim']
 
-        regula = self._ontologia_regulam_regex(regulam_clavem)
-        regula_regex = re.compile(regula['regex'])
+        regula_multipla = self._ontologia_regulam_regex(regulam_clavem)
+        # return list(regula_multipla.keys())
+        for item in regula_multipla:
+            regula_regex = re.compile(r"{0}".format(item['regex']))
+            if not bool(regula_regex.match(hxlhashtag)):
+                return False
 
-        return bool(regula_regex.match(hxlhashtag))
+        return True
 
     def quod_aliud(self, aliud_typum: str, aliud_valorem: str) -> Dict:
         """Quod Aliud?
