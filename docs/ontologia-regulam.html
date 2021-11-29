@@ -1,0 +1,86 @@
+<!doctype html>
+<html class="no-js" lang="la">
+
+<head>
+  <meta charset="utf-8">
+  <title>Regula testum</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <p>Regula testum. Ad console.log</p>
+  <script>
+    const hxltm_ontologia_archivum = "./ontologia/cor.hxltm.215.json"
+
+    const testum_rem = (ontologia) => {
+      // const a = 'b'
+      return [
+        '#item+conceptum+codicem',
+        // '#meta+conceptum+codicem',
+        '#meta+conceptum+codicem+id',
+        '#meta +conceptum +codicem+id',
+        'lalala #meta+conceptum+codicem+id',
+        '#date #meta+conceptum+codicem+id',
+        // '#meta+linguam+i_pt+i_por+ig_port1283+is_latn',
+        '#meta+linguam',
+      ]
+    }
+
+    const main = (ontologia) => {
+      const regulam = ontologia.ontologia_regulam
+      // console.log(regulam)
+      // console.log(regulam._basim.javascriptum2)
+
+      // let regEx2 = new RegExp(regulam._basim.javascriptum2, "ig");
+      // let regEx = /quick\s(brown).+?(jumps)/ig;
+      // let result = regEx.exec('The Quick Brown Fox Jumps Over The Lazy Dog');
+      // console.log(result);
+      // let result2 = regEx2.exec('The Quick Brown Fox Jumps Over The Lazy Dog');
+      // console.log(result2);
+      // console.log(regEx);
+      // console.log(regEx2);
+
+      rem = testum_rem(ontologia)
+      console.log('rem', rem)
+
+      // regex_basim = new RegExp(regulam._basim.javascriptum, "ig");
+      // regex_basim = new RegExp("quick\s(brown).+?(jumps)", "ig");
+      // regex_basim = new RegExp("item.+?(conceptum).+?(codicem)", "ig");
+      // console.log(regex_basim.exec(rem[0]))
+      // regex_basim2 = new RegExp("item.+?(?<classem>conceptum).+?(codicem)", "ig");
+      // console.log(regex_basim2.exec(rem[0]))
+      regex_basim3 = new RegExp("\#(?<divisionem>item).+?(?<classem>conceptum).+?(codicem)", "ig");
+      console.log('regex_basim3', regex_basim3.exec(rem[0]))
+      // regex_basim4 = new RegExp("\#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))", "ig");
+      // regex_basim4 = new RegExp("\#(?<divisionem>(meta|item)).+?(?<classem>(conceptum|linguam|terminum))", "ig");
+      // regex_basim4 = new RegExp("\#(?<divisionem>item).+?(?<classem>(conceptum|linguam|terminum))", "ig");
+      regex_basim4 = new RegExp("^\#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))", "i");
+      console.log('regex_basim4 0', rem[0], regex_basim4.exec(rem[0]))
+      console.log('regex_basim4 1', rem[1], regex_basim4.exec(rem[1]))
+      console.log('regex_basim4 2', rem[2], regex_basim4.exec(rem[2]))
+      console.log('')
+      regex_basim5 = new RegExp("^\#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))", "i");
+      // console.log('regex_basim5 0', rem[0], regex_basim5.exec(rem[0]))
+      // console.log('regex_basim5 1', rem[1], regex_basim5.exec(rem[1]))
+      // console.log('regex_basim5 2', rem[2], regex_basim5.exec(rem[2]))
+      rem.forEach(element => {
+        result = regex_basim5.exec(element) || { groups: {} }
+        console.log('regex_basim5', element, result.groups)
+      });
+    }
+
+    fetch(hxltm_ontologia_archivum)
+      .then(response => {
+        return response.json();
+      })
+      // .then(jsondata => console.log(jsondata));
+      .then(jsondata => main(jsondata));
+
+  </script>
+</body>
+
+</html>

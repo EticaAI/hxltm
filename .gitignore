@@ -24,6 +24,7 @@ docs/*.pdf
 docs/**/*.pdf
 docs/*.epub
 docs/**/*.epub
+!docs/**/ontologia-regulam.html
 
 temp-external-references
 
