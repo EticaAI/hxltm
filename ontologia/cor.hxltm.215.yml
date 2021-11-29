@@ -3026,71 +3026,71 @@ ontologia_regulam:
 
   # abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
   abstractum:
-    existere: "^#meta"
+    python: "^#meta"
 
   # classem, https://en.wiktionary.org/wiki/classis#Latin
   conceptum_classem:
-    existere: '(^#item|^#meta)\+conceptum'
+    python: '(^#item|^#meta)\+conceptum'
 
   # concrētum, https://en.wiktionary.org/wiki/concretus
   concretum:
-    existere: "^#item"
+    python: "^#item"
 
   # Glottocode, https://glottolog.org/
   glotto:
     # 'port1283' ad '+ig_port1283+'
-    rem: '(?<=ig_)([\w]{4}[\d]{4})'
+    python: '(?<=ig_)([\w]{4}[\d]{4})'
 
   # basim, https://en.wiktionary.org/wiki/basis#Latin
   hxltm_basim:
-    existere: '(^#item|^#meta)(\+conceptum|\+linguam|\+terminum)'
-    rem: '(^#item|^#meta)(\+conceptum|\+linguam|\+terminum)'
+    python: '(^#item|^#meta)(\+conceptum|\+linguam|\+terminum)'
+    # rem: '(^#item|^#meta)(\+conceptum|\+linguam|\+terminum)'
 
   # HXL vacabularies, +v_(...)
   hxl_v:
-    existere: '(\+v_[\w|\d]+)'
-    rem: '(?<=\+)(v_[\w|\d]+)'
+    # existere: '(\+v_[\w|\d]+)'
+    python: '(?<=\+)(v_[\w|\d]+)'
 
   iso639_1:
     # 'en' in '+i_en'
-    rem: '(?<=i_)([\w]{2})\+'
+    python: '(?<=i_)([\w]{2})\+'
 
   iso639_3:
     # 'eng' in '+i_eng'
-    rem: '(?<=i_)([\w]{3})\+'
+    python: '(?<=i_)([\w]{3})\+'
 
   iso15924:
     # ISO 15924: 'latn' in '+is_latn+'
-    rem: 'TODO'
+    python: 'TODO'
 
   iso15924_a:
     # ISO 15924: 'latn' in '+is_latn+'
-    rem: '(?<=is_)([\w]{4})'
+    python: '(?<=is_)([\w]{4})'
 
   iso15924_n:
     # ISO 15924: '215' in +is_215+
-    rem: '(?<=is_)([\d]{3})'
+    python: '(?<=is_)([\d]{3})'
 
   linguam_classem:
-    existere: '(^#item|^#meta)\+linguam'
+    python: '(^#item|^#meta)\+linguam'
 
   # explicitum, https://en.wiktionary.org/wiki/implicitus#Latin
   # implicitum, https://en.wiktionary.org/wiki/explicitus#Latin
   # The bare minimum to be considered linguan is i_www+i_Wwww or i_www+i_nnn
   linguam_basim_explicitum:
-    existere: '(\+i_([\w]{2}))([\w]{4}[\d]{4})?.*(\+is_[\w]{4}|\+is_[\d]{3}){1}' # needs more test
+    python: '(\+i_([\w]{2}))([\w]{4}[\d]{4})?.*(\+is_[\w]{4}|\+is_[\d]{3}){1}' # needs more test
     # existere: '(\+is_([\w]{4})|([\d]{3}))'
 
   # Implicitly language, value present as value on another column
   linguam_basim_implicitum_de:
-    existere: '(\+de_linguam_fontem|\+de_linguam_objectivum|\+de_linguam)'
+    python: '(\+de_linguam_fontem|\+de_linguam_objectivum|\+de_linguam)'
 
   # Implicitly language, this column have values from equivalent de_linguam*
   linguam_basim_implicitum_est:
-    existere: '(\+est_linguam_fontem|\+est_linguam_objectivum|\+est_linguam)'
+    python: '(\+est_linguam_fontem|\+est_linguam_objectivum|\+est_linguam)'
 
   terminum_classem:
-    existere: '(^#item|^#meta)\+terminum'
+    python: '(^#item|^#meta)\+terminum'
 
 ### Example test cases
 #item+conceptum

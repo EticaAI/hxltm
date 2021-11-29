@@ -12,39 +12,46 @@
 <body>
   <p>Regula testum. Ad console.log</p>
   <script>
+
+    /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
     const debug = true
     const hxltm_ontologia_archivum = "./ontologia/cor.hxltm.215.json"
+    const testum_regula_adhoc = ''
+    const testum_exemplum_adhoc = [
+      {
+        hxl: '#item+linguam'
+      }
+      // ,{
+      //   hxl: '#meta+linguam+invalid',
+      //   speciem: ''
+      // }
+    ]
+    /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
 
-    const quod_exemplum = (ontologia) => {
-      let resultatum = ontologia.ontologia_regulam.__exemplum
-      // Ad hoc exemplum
-      resultatum.push(
-        { hxl: '#item+linguam' }
-        // { hxl: '#item+linguam', classem: 'xpto' }
-      )
+    const quod_exemplum = (ontologia, exemplum_adhoc) => {
+      let resultatum = ontologia.ontologia_regulam.__exemplum || []
+      if (exemplum_adhoc.length > 0) {
+        resultatum = resultatum.concat(exemplum_adhoc)
+      } else {
+        debug && console.log('quod_exemplum non exemplum_adhoc')
+      }
+
       return resultatum
     }
 
     const actionem_testum = (exemplum, regula) => {
-      debug && console.log('actionem_testum', regula)
       const regula_regex = new RegExp(regula, "i");
       let errorem = []
       exemplum.forEach(element => {
-        debug && console.log('exemplum element', element)
+        debug && console.log('actionem_testum item', element)
         result = regula_regex.exec(element.hxl)
-        // console.log('regex_basim6 v2', element, result.groups)
-        // element.forEach(el2 => {
-        //   console.log(el2)
-        // })
-        // If exemplum defined values, check if are equal
         Object.entries(element).forEach(([key, value]) => {
           if (result.groups[key]) {
-            // console.log('compare', element[key], result.groups[key])
             if (element[key] !== result.groups[key]) {
-              console.error(`[key !=] ${key} ; ${element[key]} ; ${result.groups[key]}`)
+              console.error(
+                `[key !=] ${key} ; ${element[key]} ; ${result.groups[key]}`)
             }
           }
-          // console.log(`${key}: ${value}`)
         });
       });
       if (errorem.length > 0) {
@@ -55,48 +62,18 @@
     }
 
     const main = (ontologia) => {
-      const regulam = ontologia.ontologia_regulam.__exemplum
-      // rem = testum_rem(ontologia)
-      const rem2 = quod_exemplum(ontologia)
+      const est_regula = testum_regula_adhoc || ontologia.ontologia_regulam._basim.javascript
+      const est_exemplum = quod_exemplum(ontologia, testum_exemplum_adhoc)
+      if (debug) {
+        console.log(`main
+est_regula          [${est_regula}]
+testum_regula_adhoc [${testum_regula_adhoc}]
+ontologia_regulam   [${ontologia.ontologia_regulam._basim.javascript}]
+        `)
+        console.log('main est_exemplum', est_exemplum)
+      }
 
-      // regex_basim5 = new RegExp("^\#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))", "i");
-      // // regex_basim5 = new RegExp("^\#(?<divisionem>(item|meta)).{1}?(?<classem>(conceptum|linguam|terminum))", "i");
-      // // regex_basim5 = new RegExp("^\#(?<divisionem>(item|meta)).{1}?(?<classem>(conceptum|linguam|terminum)).{1}?.*", "i");
-      // rem.forEach(element => {
-      //   result = regex_basim5.exec(element) || { groups: {} }
-      //   console.log('regex_basim5', element, result.groups)
-      // });
-      // console.log('')
-      // console.log('')
-      regex_basim6 = new RegExp("^\#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)", "i");
-      // // regex_basim5 = new RegExp("^\#(?<divisionem>(item|meta)).{1}?(?<classem>(conceptum|linguam|terminum))", "i");
-      // // regex_basim5 = new RegExp("^\#(?<divisionem>(item|meta)).{1}?(?<classem>(conceptum|linguam|terminum)).{1}?.*", "i");
-      // rem.forEach(element => {
-      //   result = regex_basim6.exec(element) || { groups: {} }
-      //   console.log('regex_basim6', element, result.groups)
-      // });
-      // console.log('')
-      // console.log('')
-
-      rem2.forEach(element => {
-        result = regex_basim6.exec(element.hxl) || { groups: {} }
-        console.log('regex_basim6 v2', element, result.groups)
-        // element.forEach(el2 => {
-        //   console.log(el2)
-        // })
-        // If exemplum defined values, check if are equal
-        Object.entries(element).forEach(([key, value]) => {
-          if (result.groups[key]) {
-            // console.log('compare', element[key], result.groups[key])
-            if (element[key] !== result.groups[key]) {
-              console.error(`[key !=] ${key} ; ${element[key]} ; ${result.groups[key]}`)
-            }
-          }
-          // console.log(`${key}: ${value}`)
-        });
-      });
-
-      actionem_testum(quod_exemplum(ontologia), ontologia.ontologia_regulam._basim.javascript)
+      actionem_testum(est_exemplum, est_regula)
 
     }
 
@@ -104,7 +81,6 @@
       .then(response => {
         return response.json();
       })
-      // .then(jsondata => console.log(jsondata));
       .then(jsondata => main(jsondata));
 
   </script>

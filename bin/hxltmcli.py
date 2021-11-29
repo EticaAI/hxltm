@@ -5234,7 +5234,7 @@ True
         # return list(regula_multipla.keys())
         for item in regula_multipla:
             regula_regex = re.compile(
-                r"{0}".format(item['existere']), re.IGNORECASE)
+                r"{0}".format(item['python']), re.IGNORECASE)
             # if not bool(regula_regex.match(hxlhashtag)):
             if not bool(regula_regex.search(hxlhashtag)):
                 return False
@@ -5266,7 +5266,7 @@ True
         # return list(regula_multipla.keys())
         for item in regula_multipla:
             regula_regex = re.compile(
-                r"{0}".format(item['rem']), re.IGNORECASE)
+                r"{0}".format(item['python']), re.IGNORECASE)
 
             rem = regula_regex.finditer(hxlhashtag)
             if rem:
