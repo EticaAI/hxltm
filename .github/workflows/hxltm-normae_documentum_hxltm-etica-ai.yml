@@ -56,6 +56,10 @@ jobs:
       - run: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
         continue-on-error: true
 
+      # Github Pages must track the json files
+      - run: echo '!ontologia/*.json' >> .gitignore
+        continue-on-error: true
+
       # # @see https://github.com/marketplace/actions/yq-portable-yaml-processor
       # - name: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
       #   uses: mikefarah/yq@v4

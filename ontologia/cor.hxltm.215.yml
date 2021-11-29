@@ -3006,17 +3006,20 @@ ontologia_regulam:
   # @see https://www.php.net/manual/en/reference.pcre.pattern.syntax.php
 
   __exemplum:
-    '#item+conceptum+codicem':
-    '#meta+linguam+i_pt+i_por+ig_port1283+is_latn':
-    '#item+terminum+i_pt+i_por+ig_port1283+is_latn+rem':
+    - hxl: '#item+conceptum+codicem'
+      divisionem: item
+      classem: conceptum
+      speciem: +codicem
+    - hxl: '#meta+linguam+i_pt+i_por+ig_port1283+is_latn'
+      divisionem: meta
+      classem: linguam
+      speciem: +i_pt+i_por+ig_port1283+is_latn
 
   _basim:
-    # let regEx = /quick\s(brown).+?(jumps)/ig;
-    # let result = regEx.exec('The Quick Brown Fox Jumps Over The Lazy Dog');
-    javascriptum2: >-
-      quick\s(brown).+?(jumps)
-    javascriptum: >-
-      quick\s(brown).+?(jumps)
+    javascript: >-
+      \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
+    python: >-
+      \#(?P<divisionem>(item|meta)).+?(?P<classem>(conceptum|linguam|terminum))(?P<speciem>.*)
 
   # named group:
   #  (?P<hxltag>\#[a-zA-Z_]*)(?P<hxlattrs>\+\w*){0,20}
