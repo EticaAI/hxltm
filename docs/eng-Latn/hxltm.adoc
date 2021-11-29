@@ -11,6 +11,7 @@ WARNING: This is a *work in progress* documentation about relationship from HXLT
 
 == General idea
 
+[#conceptum-linguam-terminum]
 === Concept, language and term
 
 While HXLTM is an stricter subset of HXL
@@ -32,20 +33,22 @@ is helpful to undestand how HXLTM use these levels.
 The `4. _Fourth-level_` (not used with this nomenclature on other standards) means arbitrary data related to entire dataset _knows_ about itself:
 for example the relationship between linguistic datasets,
 information about how it is processed, etc.
-It can also be used to save on HXLTM tabular format what would be on metadata from XML containers with one issue:
-storing such metadata in *every* row is very verbose.
+// It can also be used to save on HXLTM tabular format what would be on metadata from XML containers with one issue:
+// storing such metadata in *every* row is very verbose.
 
 TIP: If you are _only_ a end user,
      you can ignore referentes to the `4. _Fourth-level_`.
      But the idea of _Concrete vs Abstract_ is relevant as it can affect how you label data.
 
+[#item-meta]
 ==== Concrete vs Abstract
 The way `1. Concept-level`, `2. Language-level` and `3. Term-level` expressions used on HXLTM also have two options of base hashtag which could be explained as making the data either concrete (like the main objective) or abstract (like metadata).
 
 This distinction is made both to allow ad-hoc differentiation when parsing HXL directly,
 without HXLTM-aware tools,
 by simply changing the base tag.
-For example you may be doing a collaborative translation but tools that fetch you data and publish may be marked to not export entire coluns (like new translations) that are marked as abstract.
+
+TIP: For example you may be doing a collaborative translation but tools that fetch you data and publish may be marked to not export entire coluns (like new translations) that are marked as abstract.
 
 ////
 NOTE: tools parsing HXLTM tables directly should undestand 
@@ -77,7 +80,68 @@ The baseline HXL hashtags _(when using Latin script)_ are the following:
 4. _Fourth-level_
 ** `#x_meta`
 
-== HXL attributes
+== HXL base hashtags for HXLTM
+
+=== `+#item+`
+
+Concrete (see <<#item-meta>>) implementation of any the 3 base groups (See <<#conceptum-linguam-terminum>>).
+
+=== `+#meta+`
+
+Abstract (see <<#item-meta>>) implementation of any the 3 base groups (See <<#conceptum-linguam-terminum>>).
+
+=== Other cases
+
+==== Behavior for HXL hashtags not know by HXLTM
+* See https://hxlstandard.org/standard/dictionary/[]
+
+Datasets with valid HXL base hashtags
+(but not explicitly known as part of HXLTM, like your user-configurable Ontologia)
+can be used when creating more generic exporters from tabular formats.
+
+NOTE: operations related to transpose data (see <<#__linguam__>>),
+      which already are very advanced to simplify for the end user,
+      did not explicitly have promises that will keep it working.
+      If you have generic HXL tags that want to transpose,
+      the more reliable way would be attach explicitly to one of the
+      <<#conceptum-linguam-terminum>>.
+
+=== Behavior for columns without HXL hashtags (but tabular dataset already is HXLated)
+HXLTM tools will not create **new** columns on HXLTM tabular datasets without HXL hashtags.
+But it _MAY_ re-export columns without HXL headings when no advanced transposition is done and MAY allow exporters specifying exact column order of original dataset.
+
+Rationale: HXLTM tools, even for datasets with text headings (but not HXL hashtags,
+even unknown by HXLTM, but valid in generic HXL),
+are unlikely to reliably know what to do.
+
+NOTE: if you are creating an exporter using HXLTM (not an external tool) please consider using some custom base hashtag or new attribute.
+      This allows your implementation to be more generic and less likely to break if column order changes.
+
+==== Behavior for tabular dataset without any HXL hashtag (like generic CSV, XLSX, Google Sheets, ...)
+Except for tools specialized to import
+(for example, `hxltmdexml`)
+HXLTM requires already HXLated dataset.
+You can use HXLStandard tools to map any container (which is beyond CSV or local files)
+to add the tags used by HXLTM.
+
+== HXL attributes for HXLTM
+=== `+conceptum`
+
+HXL attribute for **Concept-level** representation (See <<#conceptum-linguam-terminum>>).
+
+=== `+linguam`
+
+HXL attribute required for **Language-level** representation (See <<#conceptum-linguam-terminum>>).
+
+Required: <<#__linguam__>>
+
+=== `+terminum`
+
+HXL attribute required for **Term-level** representation (See <<#conceptum-linguam-terminum>>).
+
+Required: <<#__linguam__>>
+
+[#__linguam__]
 === `+__linguam__+`
 Both user documentation and ontologia file uses `+__linguam__+` to represent an unlimited (but predictable) number of HXL attributes related to express the idea of language (often a language code).
 
