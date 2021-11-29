@@ -3005,6 +3005,22 @@ ontologia_regulam:
   # @see https://pkg.go.dev/regexp/syntax
   # @see https://www.php.net/manual/en/reference.pcre.pattern.syntax.php
 
+  __exemplum:
+    '#item+conceptum+codicem':
+    '#meta+linguam+i_pt+i_por+ig_port1283+is_latn':
+    '#item+terminum+i_pt+i_por+ig_port1283+is_latn+rem':
+
+  _basim:
+    # let regEx = /quick\s(brown).+?(jumps)/ig;
+    # let result = regEx.exec('The Quick Brown Fox Jumps Over The Lazy Dog');
+    javascriptum2: >-
+      quick\s(brown).+?(jumps)
+    javascriptum: >-
+      quick\s(brown).+?(jumps)
+
+  # named group:
+  #  (?P<hxltag>\#[a-zA-Z_]*)(?P<hxlattrs>\+\w*){0,20}
+
   # abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
   abstractum:
     existere: "^#meta"
@@ -3077,9 +3093,9 @@ ontologia_regulam:
 #item+conceptum
 #meta+conceptum
 #item+conceptum+codicem
-#meta+linguam+i_en+i_eng+is_latn+rem
-#meta+linguam+i_en+i_eng+ig_port1283+is_latn+rem
-#meta+linguam+i_en+i_eng+is_215+rem
+#meta+linguam+i_en+i_eng+is_latn
+#meta+linguam+i_en+i_eng+ig_port1283+is_latn
+#meta+linguam+i_en+i_eng+is_215
 #item+terminum+est_linguam+v_linguam_maximum,
 #item+terminum+est_linguam+v_linguam_a
 #item+terminum+est_linguam+v_linguam
