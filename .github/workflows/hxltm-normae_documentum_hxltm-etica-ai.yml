@@ -53,7 +53,7 @@ jobs:
       #   with:
       #     cmd: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
 
-      - run: yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
+      - run: yq --output-format json < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
         continue-on-error: true
 
       # Github Pages must track the json files

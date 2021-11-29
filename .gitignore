@@ -13,7 +13,7 @@ docs/ontologia
 docs/testum
 
 ### Other, relevant to hxltm-eticaai ___________________________________________
-# yq < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
+# yq --output-format json < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
 ontologia/*.json
 
 docs/*.htm

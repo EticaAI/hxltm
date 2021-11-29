@@ -1,5 +1,5 @@
 = HXLTM (draft)
-EticaAI, Collaborators_of <etica.of.a.ai@gmail.com>; Rocha, Emerson <rocha@ieee.org>
+// EticaAI, Collaborators_of <etica.of.a.ai@gmail.com>; Rocha, Emerson <rocha@ieee.org>
 :toc: 1
 :toclevels: 4
 
@@ -10,43 +10,115 @@ WARNING: This is a *work in progress* documentation about relationship from HXLT
 
 
 == General idea
+
 === Concept, language and term
 
-While HXLTM is a more strict subset of HXL
+While HXLTM is an stricter subset of HXL
 (which make feasible to import and export to other data formats related to terminology and translation)
-it tend to be easier to undestand that the approach break the data in 3 + 1 blocks:
+it tend to be easier to undestand that the approach by breaking the data in 3 + 1 blocks:
 
-1. Concept-level
-2. Language-level
-3. Term-level
+1. **Concept-level**
+2. **Language-level**
+3. **Term-level**
+4. **_Fourth-level_**
 
-The 4th level will not be explained here,
-but it break what each dataset knows about itself.
-But in short, is relationship between linguistic datasets,
-information about how is processed, etc.
+For data low level data exchange, _in general_,
+the `1. Concept-level`, `2. Language-level` and `3. Term-level` are aligned with
+link:++#TBX++[TermBase eXchange (TBX)] and (not always with these terms) link:++#UTX++[Universal Terminology eXchange (UTX)].
+General experience with terminology, even as an user of https://iate.europa.eu/fields-explained[Europe IATE],
+https://unterm.un.org/[UNTERM] or end user interface with similar propose,
+is helpful to undestand how HXLTM use these levels.
 
-The data standard that is close to what the most complex features related to this is TermBase eXchange (TBX).
+The `4. _Fourth-level_` (not used with this nomenclature on other standards) means arbitrary data related to entire dataset _knows_ about itself:
+for example the relationship between linguistic datasets,
+information about how it is processed, etc.
+It can also be used to save on HXLTM tabular format what would be on metadata from XML containers with one issue:
+storing such metadata in *every* row is very verbose.
 
-==== Base tags used when HXLTM on tabular container
+TIP: If you are _only_ a end user,
+     you can ignore referentes to the `4. _Fourth-level_`.
+     But the idea of _Concrete vs Abstract_ is relevant as it can affect how you label data.
 
-NOTE: Compared to the HXLStandard,
-      while the HXLTM reference tools will allow mix with other HXL tags,
-      most optimized operations for formats that are not tabular HXLTM will work with only `#item` and `#meta` *and* require an extra base HXL attribute.
+==== Concrete vs Abstract
+The way `1. Concept-level`, `2. Language-level` and `3. Term-level` expressions used on HXLTM also have two options of base hashtag which could be explained as making the data either concrete (like the main objective) or abstract (like metadata).
+
+This distinction is made both to allow ad-hoc differentiation when parsing HXL directly,
+without HXLTM-aware tools,
+by simply changing the base tag.
+For example you may be doing a collaborative translation but tools that fetch you data and publish may be marked to not export entire coluns (like new translations) that are marked as abstract.
+
+////
+NOTE: tools parsing HXLTM tables directly should undestand 
+
+Another reason is to allow 
+
+and also to allow some level of tolerance when validating data:
+if a data source needs to be processed both by old and new tools,
+this feature can be explored
+////
+
+=== Base tags used when HXLTM on tabular container
+
+Compared to the HXLStandard,
+while the HXLTM reference tools will allow mix with other HXL tags,
+most optimized operations for formats that are not tabular HXLTM will work with only `#item` and `#meta` *and* require an extra base HXL attribute.
+// Such extra attribute also match the  `1. Concept-level`, `2. Language-level` and `3. Term-level` idea.
+The baseline HXL hashtags _(when using Latin script)_ are the following:
 
 1. Concept-level
 ** `#item+conceptum`
-** `#meta+conceptum`
+** `#meta+conceptum` (abstract)
 2. Language-level
 ** `#item+linguam+\\__linguam__`
-** `#meta+linguam+\\__linguam__`
+** `#meta+linguam+\\__linguam__` (abstract)
 3. Term-level
 ** `#item+terminum+\\__linguam__`
-** `#meta+terminum+\\__linguam__`
+** `#meta+terminum+\\__linguam__` (abstract)
+4. _Fourth-level_
+** `#x_meta`
+
+== HXL attributes
+=== `+__linguam__+`
+Both user documentation and ontologia file uses `+__linguam__+` to represent an unlimited (but predictable) number of HXL attributes related to express the idea of language (often a language code).
+
+Since HXLTM can work with both with Wide and narrow data
+(see https://en.wikipedia.org/wiki/Wide_and_narrow_data[Wikipedia for Wide and narrow data
+])
+additional differentiation is done with attributes that mention the language explicitly or implicitly.
+
+NOTE: The default format used on most HXLTM documentation is the `+__linguam__+` (explicitum).
+      This tend to be easier _(at least for tasks not related to review language codes themselves)_ for end users edit raw data **and** allow HXLTM tools work with memory efficient way:
+      not only all languages are know upfront,
+      but with only a small number of rows already it is possible to know all information related to a concept and export data immediately, freeing memory.
+
+=== `+__linguam__+` (explicitum)
+
+_TODO: this is a draft. Needs be documented later_
+
+=== `+__linguam__+` (implicitum)
+
+==== `+de_linguam`
+The language code of this column is stored as the value of an equivalent column with the name `+est_linguam`.
+
+==== `+de_linguam_fontem`
+The language code of this column is stored as the value of an equivalent column with the name `+est_linguam_fontem`.
+
+==== `+de_linguam_objectivum`
+The language code of this column is stored as the value of an equivalent column with the name `+est_linguam_objectivum`.
+
+==== `+est_linguam`
+The values of each row on this column represent the code referenced on another column with attribute `+de_linguam`.
+
+==== `+est_linguam_fontem`
+The values of each row on this column represent the code referenced on another column with attribute `+de_linguam_fontem`.
+
+==== `+est_linguam_objectivum`
+The values of each row on this column represent the code referenced on another column with attribute `+de_linguam_objectivum`.
 
 ==== Base tags used when HXLTM on XML-like container
 
 NOTE: this section does not include other formalized specifications
-      (mostly TBX, but we implicitly appli this too to every imported/exported format).
+      (mostly TBX, but we implicitly apply this too to every imported/exported format).
 
 
 [source,xml]
@@ -113,3 +185,29 @@ Term level
 - https://aclanthology.org/2020.lrec-1.603.pdf
 - https://github.com/trimed-dialect/TriMED/tree/master/Modules/TBX_trimed_module
 ////
+
+== See also
+
+=== HXLStandard
+The main inspiration
+(and strongly recommended reading for implementers trying to add advanced features)
+is the https://hxlstandard.org/[The Humanitarian Exchange Language Standard].
+
+Note that the HXL Standard is more flexible than HXLTM.
+
+Did you know that HXL is public domain? That's fantastic!
+
+[#UTX]
+=== Universal Terminology eXchange UTX
+
+- http://www.aamt.info/english/utx/[UTX (Universal Terminology eXchange)]
+- http://www.aamt.info/japanese/utx/[用語集形式UTX]
+
+After HXL itself, UTC is one strong inspiration for HXLTM.
+
+Did you know that UTX is public domain? That's fantastic!
+
+[#TBX]
+=== TermBase eXchange (TBX) (the creative commons licensed)
+
+_TODO: add more information here_
