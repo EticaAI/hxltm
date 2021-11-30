@@ -204,6 +204,7 @@ from typing import (
     Iterable,
     Optional,
     List,
+    Pattern,
     TextIO,
     Type,
     Union,
@@ -5243,6 +5244,55 @@ True
 
         return True
 
+    def est_validum_ad_regula2(
+            self,
+            textum_aut_regulam: Union[Dict, str],
+            regulam_regex: Type['Pattern'],
+            _strictum: bool = 0
+    ) -> bool:
+
+        if isinstance(textum_aut_regulam, str):
+            # Simpler case, just return if there is any match at all
+            return bool(regulam_regex.search(textum_aut_regulam))
+
+        if not isinstance(textum_aut_regulam, dict) or \
+                'hxl' not in textum_aut_regulam:
+            raise ValueError("Errorem {0} typum {1}. Non Python dict aut "
+                             "rem['hxl']".format())
+        python_match = regulam_regex.match(textum_aut_regulam['hxl'])
+
+        if not python_match:
+            return False
+
+        # TODO: _strictum could be used on the strategy to check if matches
+        for chavem in textum_aut_regulam.keys():
+            if chavem == 'hxl':
+                continue
+            v1 = textum_aut_regulam[chavem]
+            v2 = python_match.group(chavem)
+            # print('chavem v1 v2:', chavem, v1, v2)
+            if v1 and v2 and v1 != v2:
+                return False
+
+            if _strictum == 1 and v1 and v1 != v2:
+                return False
+
+            # _strictum = 2 needs inverse loop
+
+        # Check full values
+        # Regex should already be compiled one
+        # print(textum_aut_regulam)
+        # print(type(textum_aut_regulam))
+        # print(type(regulam_regex))
+        # print(python_match)
+        # # print(python_match.groups)
+        # print(type(python_match))
+        # python_match = regulam_regex.match(hxlhashtag)
+
+        # print(python_match)
+
+        return True
+
     def quod_rem_ab_regula(
             self,
             hxlhashtag: str,
@@ -6426,8 +6476,13 @@ class HXLTMTestumAuxilium:
         ontologia = HXLTMTestumAuxilium.ontologia()
         exemplum = \
             ontologia.crudum['ontologia_regulam']['exemplum']['hxl_caput']
+        structuram_basim = \
+            ontologia.crudum['ontologia_regulam']['structuram']['basim']['python']
+        regulam_regex = re.compile(
+            r"{0}".format(structuram_basim), re.IGNORECASE)
         for item in exemplum:
-            print(item)
+            ontologia.est_validum_ad_regula2(item, regulam_regex)
+            # print(item)
         return True
 
 
