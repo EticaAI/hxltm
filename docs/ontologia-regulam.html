@@ -29,7 +29,7 @@
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
 
     const quod_exemplum = (ontologia, exemplum_adhoc) => {
-      let resultatum = ontologia.ontologia_regulam.__exemplum || []
+      let resultatum = ontologia.ontologia_regulam.exemplum.hxl_caput || []
       if (exemplum_adhoc.length > 0) {
         resultatum = resultatum.concat(exemplum_adhoc)
       } else {
@@ -62,13 +62,13 @@
     }
 
     const main = (ontologia) => {
-      const est_regula = testum_regula_adhoc || ontologia.ontologia_regulam._basim.javascript
+      const est_regula = testum_regula_adhoc || ontologia.ontologia_regulam.structuram.basim.javascript
       const est_exemplum = quod_exemplum(ontologia, testum_exemplum_adhoc)
       if (debug) {
         console.log(`main
 est_regula          [${est_regula}]
 testum_regula_adhoc [${testum_regula_adhoc}]
-ontologia_regulam   [${ontologia.ontologia_regulam._basim.javascript}]
+ontologia_regulam   [${ontologia.ontologia_regulam.structuram.basim.javascript}]
         `)
         console.log('main est_exemplum', est_exemplum)
       }

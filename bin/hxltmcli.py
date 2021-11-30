@@ -5066,6 +5066,8 @@ True
     # tolerātum, https://en.wiktionary.org/wiki/toleratus#Latin
     _deprecatum_toleratum: bool = True
 
+    crudum: dict = None
+
     def __init__(self, ontologia: Dict, vacuum: bool = False):
         """
         _[eng-Latn] Constructs all the necessary attributes for the
@@ -6405,6 +6407,28 @@ class HXLTMTestumAuxilium:
         # print(HXLTMUtil.load_hxltm_options()['normam'])
         # return HXLTMUtil.load_hxltm_options()
         return HXLTMOntologia(conf)
+
+    @staticmethod
+    def ontologia_regulam() -> bool:
+        """HXLTM regulam
+
+        _[eng-Latn]
+        Self test to check if
+        [eng-Latn]_
+
+        Returns:
+            bool:
+
+        >>> HXLTMTestumAuxilium.ontologia_regulam()
+        True
+        """
+        # conf = HXLTMUtil.load_hxltm_options()
+        ontologia = HXLTMTestumAuxilium.ontologia()
+        exemplum = \
+            ontologia.crudum['ontologia_regulam']['exemplum']['hxl_caput']
+        for item in exemplum:
+            print(item)
+        return True
 
 
 class HXLTMTypum:

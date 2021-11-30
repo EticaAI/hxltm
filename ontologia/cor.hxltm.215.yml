@@ -3005,21 +3005,24 @@ ontologia_regulam:
   # @see https://pkg.go.dev/regexp/syntax
   # @see https://www.php.net/manual/en/reference.pcre.pattern.syntax.php
 
-  __exemplum:
-    - hxl: '#item+conceptum+codicem'
-      divisionem: item
-      classem: conceptum
-      speciem: +codicem
-    - hxl: '#meta+linguam+i_pt+i_por+ig_port1283+is_latn'
-      divisionem: meta
-      classem: linguam
-      speciem: +i_pt+i_por+ig_port1283+is_latn
+  exemplum:
+    hxl_caput:
+      - hxl: '#item+conceptum+codicem'
+        divisionem: item
+        classem: conceptum
+        speciem: +codicem
+      - hxl: '#meta+linguam+i_pt+i_por+ig_port1283+is_latn'
+        divisionem: meta
+        classem: linguam
+        speciem: +i_pt+i_por+ig_port1283+is_latn
 
-  _basim:
-    javascript: >-
-      \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
-    python: >-
-      \#(?P<divisionem>(item|meta)).+?(?P<classem>(conceptum|linguam|terminum))(?P<speciem>.*)
+  # Trivia: strūctūram, https://en.wiktionary.org/wiki/structura#Latin
+  structuram:
+    basim:
+      javascript: >-
+        \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
+      python: >-
+        \#(?P<divisionem>(item|meta)).+?(?P<classem>(conceptum|linguam|terminum))(?P<speciem>.*)
 
   # named group:
   #  (?P<hxltag>\#[a-zA-Z_]*)(?P<hxlattrs>\+\w*){0,20}
