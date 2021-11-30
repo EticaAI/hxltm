@@ -31,8 +31,30 @@ https://unterm.un.org/[UNTERM] or end user interface with similar propose,
 is helpful to undestand how HXLTM use these levels.
 
 The **`4. _Fourth-level_`**
-(not used with this nomenclature on other standards) when used on HXLTM documentation means arbitrary data related to the entire dataset _knows_ about itself and does not fit as _Abstract_ of any of the 3 levels (not even the `1. **Concept-level**`)
+(not used with this nomenclature on other standards) when used on HXLTM documentation means arbitrary data related to the entire dataset _knows_ about itself and does not fit as _Abstract_ of any of the 3 levels (not even the `1. **Concept-level**`).
 This can be used, for example, as a base to store **in every data row** title or description of an TBX.
+Since this use case is uncommon (relevant only if you are storing several datasets from different sources)
+will not the explaned here.
+
+IMPORTANT: If this is your first time doing lexicography work
+           (e.g, practical dictionary compiling, like merging work from volunteers)
+           It's really important to understand that in the real world,
+           natural languages do not have one to one equivalent and most difficulties for translators actually are shitty source terms to translate.
+           Such issues are less common in prose (sentences, paragraphs)
+           but terms (often one or few words, in special abbreviations) need more context.
+           Even paid professional translators are likely to have poor performance compared to volunteer translations if you manage to document better what source material means.
+           One reason for this difference is even professional translators will _faithfully translate_ whatever was the source terms,
+           even if this means literal translations.
+
+TIP: If you perceive too many literal translations,
+     either improve context for each concept,
+     or at bare minimum allow one reviewned version of initial text based on feedback of one or more translators.
+
+#TODO: define a suggested language attribute for such revieened translations (2021-11-29T21:49:00Z)#
+
+// TIP: One common symptom of literal translations is lack of context.
+
+// Not only this, but often means target languages have either to create new terms from bad source terms so generic that are unusable for serious work.
 
 ////
 for example the relationship between linguistic datasets,
