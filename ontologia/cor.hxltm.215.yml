@@ -3018,7 +3018,13 @@ ontologia_regulam:
 
   # Trivia: strūctūram, https://en.wiktionary.org/wiki/structura#Latin
   structuram:
+    # basim -> divisionem, classem, speciem
     basim:
+      javascript: >-
+        \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
+      python: >-
+        \#(?P<divisionem>(item|meta)).+?(?P<classem>(conceptum|linguam|terminum))(?P<speciem>.*)
+    subspeciem:
       javascript: >-
         \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
       python: >-

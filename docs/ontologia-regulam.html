@@ -14,7 +14,7 @@
   <script>
 
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
-    const debug = true
+    const debug = false
     const hxltm_ontologia_archivum = "./ontologia/cor.hxltm.215.json"
     const testum_regula_adhoc = ''
     const testum_exemplum_adhoc = [
@@ -74,6 +74,23 @@ ontologia_regulam   [${ontologia.ontologia_regulam.structuram.basim.javascript}]
       }
 
       actionem_testum(est_exemplum, est_regula)
+
+    // var regula2 = '(?<linguam>(i.?_).*(?!<etc>(\\+.?))).?'
+    // var regula2 = '(?<linguam>(i.?_).*(?<etc>(\\+.?))).?'
+    // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>(.?))).?'
+    // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>[^\\+i](.?))).?'
+    var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>[^\\+i.?](.?))).?'
+    var subspeciem = [
+      '+i_pt+i_por+ig_port1283+is_latn+rem',
+      '+ix_de_linguam',
+      '+ix_est_linguam',
+      '+ix_est_linguam_fontem',
+    ]
+    var regula_regex2 = new RegExp(regula2, "i")
+
+    subspeciem.forEach(element => {
+      console.log(regula_regex2.exec(element))
+    });
 
     }
 
