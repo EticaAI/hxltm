@@ -2,6 +2,7 @@
 // EticaAI, Collaborators_of <etica.of.a.ai@gmail.com>; Rocha, Emerson <rocha@ieee.org>
 :toc: 1
 :toclevels: 4
+:sectlinks: 1
 
 TIP: While this documentation is not finalized, please refer to https://hxlstandard.org/ and HXLTM exported formats which do have formalized strict structure (TBX, TMX, XLIFF)
 
@@ -182,7 +183,7 @@ Datasets with valid HXL base hashtags
 (but not explicitly known as part of HXLTM, like your user-configurable Ontologia)
 can be used when creating more generic exporters from tabular formats.
 
-NOTE: operations related to transpose data (see <<#linguam>>),
+NOTE: operations related to transpose data (see <<#__linguam__>>),
       which already are very advanced to simplify for the end user,
       did not explicitly have promises that will keep it working.
       If you have generic HXL tags that want to transpose,
@@ -208,33 +209,44 @@ You can use HXLStandard tools to map any container (which is beyond CSV or local
 to add the tags used by HXLTM.
 
 == HXL attributes for HXLTM
-=== `+conceptum`
 
+TIP: an HXLTM dataset can contain much more attributes than the ones listed here,
+     especially if mixed with general HXL Standard tags.
+     One of the main reasons for this documentation is document what exist
+     (or is planned to be implemented)
+     tools that make advanced conversions using these attributes.
+     *You are free to create your own attributes neither documented on HXLTM or HXL Standard*.
+
+// TIP: You are free to create your own attributes and HXL Standard tools are more flexible than HXLTM.
+
+=== `+conceptum`
+Definitionem::
 HXL attribute for **Concept-level** representation (See <<#conceptum-linguam-terminum>>).
 
 ==== `+conceptum+codicem`
 
 === `+linguam`
-
+Definitionem::
 HXL attribute required for **Language-level** representation (See <<#conceptum-linguam-terminum>>).
 
-Required additional atttribute: <<#linguam>>
+Required additional atttribute: <<#__linguam__>>
 
-=== `+linguam+definitionem`
+[#linguam__linguam__definitionem]
+==== `+linguam+\\__linguam__+definitionem`
 
 While each language can have several terms, the textual definition should be defined at language level.
 
 NOTE: HXLTM intentionally **NOT** allows set textual definition on Concept-level.
 
-Required additional atttribute: <<#linguam>>
+Required additional atttribute: <<#__linguam__>>
 
 === `+terminum`
-
+Definitionem::
 HXL attribute required for **Term-level** representation (See <<#conceptum-linguam-terminum>>).
 
-Required additional atttribute: <<#linguam>>
+Required additional atttribute: <<#__linguam__>>
 
-[#linguam]
+[#__linguam__]
 === `+__linguam__+`
 Both user documentation and ontologia file uses `+__linguam__+` to represent an unlimited (but predictable) number of HXL attributes related to express the idea of language (often a language code).
 
@@ -248,58 +260,144 @@ NOTE: The default format used on most HXLTM documentation is the `+__linguam__+`
       not only all languages are know upfront,
       but with only a small number of rows already it is possible to know all information related to a concept and export data immediately, freeing memory.
 
-=== `+__linguam__+` (explicitum)
+[#__linguam__explicitum]
+==== `+__linguam__+` (explicitum)
 
-_TODO: this is a draft. Needs be documented later_
+#TODO: this is a draft. Needs be documented later#
 
-=== `+__linguam__+` (implicitum)
+[#__linguam__implicitum]
+==== `+__linguam__+` (implicitum)
 
-==== `+ix_de_linguam`
-The language code of this column is stored as the value of an equivalent column with the name `+est_linguam`.
+There are only two grouped ways to express when the language is not explicitly already present on the HXL hashtags used by HXLTM.
+They are not part of HXL Standard 1.1 (but still could be somewhat used when transposing data without HXLTM-aware tools).
+The difference betwen the groups is the following: one contains the data about what languages is used by the other.
 
-==== `+ix_de_linguam_fontem`
-The language code of this column is stored as the value of an equivalent column with the name `+est_linguam_fontem`.
-
-==== `+ix_de_linguam_objectivum`
-The language code of this column is stored as the value of an equivalent column with the name `+est_linguam_objectivum`.
-
-==== `+ix_est_linguam`
-The values of each row on this column represent the code referenced on another column with attribute `+de_linguam`.
-
-==== `+ix_est_linguam_fontem`
-The values of each row on this column represent the code referenced on another column with attribute `+de_linguam_fontem`.
-
-==== `+ix_est_linguam_objectivum`
-The values of each row on this column represent the code referenced on another column with attribute `+de_linguam_objectivum`.
+* <<#ib_h_de_*>>: uses data from
+* <<#ib_h_est_*>>: have data of
 
 === `+ib_*`
-* BCP47
-* https://tools.ietf.org/rfc/bcp/bcp47
-
+* BCP47 (prefix)
+** https://tools.ietf.org/rfc/bcp/bcp47
 
 === `+ib_h_*`
-* BCP 47 Extension H - Use on HXLTM
-* https://hxltm.etica.ai/
+* BCP 47 Extension H - Use on HXLTM (prefix)
+** https://hxltm.etica.ai/
+
+// ----
+// %%
+// Identifier:
+// Description:
+// Comments:
+// Added:
+// RFC:
+// Authority:
+// Contact_Email:
+// Mailing_List:
+// URL:
+// %%
+// ----
+
+[#ib_h_de_*]
+==== `+ib_h_de_*`
+Definitionem::
+The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_*>>.
+
+[#ib_h_de_linguam]
+===== `+ib_h_de_linguam`
+Definitionem::
+The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam>>.
+
+[#ib_h_de_linguam_fontem]
+===== `+ib_h_de_linguam_fontem`
+Definitionem::
+The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam_fontem>>.
+
+[#ib_h_de_linguam_objectivum]
+===== `+ib_h_de_linguam_objectivum`
+Definitionem::
+The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam_objectivum]>>.
+
+[#ib_h_est_*]
+==== `+ib_h_est_*`
+Definitionem::
+The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_*>>.
+
+[#ib_h_est_linguam]
+===== `+ib_h_est_linguam`
+Definitionem::
+The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_linguam>>.
+
+[#ib_h_est_linguam_fontem]
+===== `+ib_h_est_linguam_fontem`
+Definitionem::
+The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_linguam_fontem>>.
+
+[#ib_h_est_linguam_objectivum]
+===== `+ib_h_est_linguam_objectivum`
+Definitionem::
+The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_linguam_objectivum>>.
 
 === `+ib_t_*`
+Titulum::
 * BCP 47 Extension T - Transformed Content
+Referens::
 * https://datatracker.ietf.org/doc/html/rfc6497
 
-
 === `+ib_u_*`
+Titulum::
 * Unicode Extensions for BCP 47
+Referens::
 * https://cldr.unicode.org/index/bcp47-extension
 
 
-=== `+ib_x_*`
+==== `+ib_x_*`
+Titulum::
 * BCP47 Private Use Subtags
+Referens::
 * https://www.rfc-editor.org/rfc/rfc4646#section-2.2.7
+
+NOTE: As per BCP47, each tag must be from 2 to 8 characters long.
+      This means that terms like _nomen periculosum_ are shortened to _periculo_.
+
+==== `+ib_x_ambigua`
+
+Titulum::
+* BCP47 Private Use Subtags, HXLTM convention, ambigua
+Definitionem::
+* _ambiguous names, nomina ambigua, have been used with more than one meaning_
+Referens::
+* https://en.wikipedia.org/wiki/Nomen_dubium 
+Usum::
+* Consider using <<#ib_x_periculo>> if the ambigity is not just confuding from nomenclature point of view,
+  but potentially harmful on real world usage.
+
+[#ib_x_dubium]
+==== `+ib_x_dubium`
+Titulum::
+* BCP47 Private Use Subtags, HXLTM convention, dubium
+Definitionem::
+* a _nomen dubium_ (Latin for "doubtful name", plural nomina dubia) is a scientific name that is of unknown or doubtful application.
+Referens::
+* https://en.wikipedia.org/wiki/Nomen_dubium 
+Usum::
+* Consider use more specific <<#ib_x_periculo>> or <<#ib_x_ambigua>> when applicable.
+
+[#ib_x_periculo]
+=== `+ib_x_periculo`
+Titulum::
+* BCP47 Private Use Subtags, HXLTM convention, periculo
+Definitionem::
+* perilous names, nomina periculosa, names that may lead to accidents endangering life or health or with potential serious economic consequences
+Referens::
+* https://en.wikipedia.org/wiki/Nomen_dubium
+* https://en.wiktionary.org/wiki/nomina_periculosa
+Usum::
+* No specific usage note. Follow the definition and external references.
 
 ==== Base tags used when HXLTM on XML-like container
 
 NOTE: this section does not include other formalized specifications
       (mostly TBX, but we implicitly apply this too to every imported/exported format).
-
 
 [source,xml]
 ----
