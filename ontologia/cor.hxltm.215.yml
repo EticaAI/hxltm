@@ -3004,7 +3004,7 @@ ontologia_regulam:
   #      /Reference/Global_Objects/RegExp
   # @see https://pkg.go.dev/regexp/syntax
   # @see https://www.php.net/manual/en/reference.pcre.pattern.syntax.php
-
+  # /workspace/git/EticaAI/tico-19-hxltm/scripts/fn/linguacodex.py --de_bcp47_simplex --de_codex pt-Latn-g-port1283 | jq
   exemplum:
     hxl_caput:
       - hxl: '#item+conceptum+codicem'
@@ -3012,9 +3012,18 @@ ontologia_regulam:
         classem: '+conceptum'
         speciem: '+codicem'
       - hxl: '#meta+linguam+i_pt+i_por+ig_port1283+is_latn'
+        # BCP47 extended
+        bcp47e: pt-Latn-g-port1283
         divisionem: '#meta'
         classem: '+linguam'
         speciem: +i_pt+i_por+ig_port1283+is_latn
+      - hxl: '#item+linguam+i_pt+i_por+ig_port1283+is_latn+ib_t_en_latn+rem'
+        # BCP47 extended
+        bcp47e: pt-Latn-g-port1283-t-en-latn
+        divisionem: '#meta'
+        classem: '+linguam'
+        speciem: +i_pt+i_por+ig_port1283+is_latn
+     # /workspace/git/EticaAI/tico-19-hxltm/scripts/fn/linguacodex.py --de_bcp47_simplex --de_codex g-port1283-aaa-bbb | jq
 
   # Trivia: strūctūram, https://en.wiktionary.org/wiki/structura#Latin
   structuram:

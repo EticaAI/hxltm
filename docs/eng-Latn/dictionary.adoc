@@ -1,7 +1,7 @@
 = Dictionary of Multilingual Terminology in Humanitarian Language Exchange
 // EticaAI, Collaborators_of <etica.of.a.ai@gmail.com>; Rocha, Emerson <rocha@ieee.org>
 :toc: 1
-:toclevels: 4
+:toclevels: 5
 :sectlinks: 1
 
 TIP: While this documentation is not finalized, please refer to https://hxlstandard.org/ and HXLTM exported formats which do have formalized strict structure (TBX, TMX, XLIFF)
@@ -281,13 +281,31 @@ The difference betwen the groups is the following: one contains the data about w
 * <<#ib_h_de_*>>: uses data from
 * <<#ib_h_est_*>>: have data of
 
-=== `+ib_*`
+=== `+ib_*` (BCP47 extension base prefix)
 * BCP47 (prefix)
 ** https://tools.ietf.org/rfc/bcp/bcp47
 
-=== `+ib_h_*`
-* BCP 47 Extension H - Use on HXLTM (prefix)
-** https://hxltm.etica.ai/
+
+[#ib_g_*]
+==== `+ib_g_*` (BCP 47 informal Extension G - Glottocode prefix)
+Definitionem::
+* BCP 47 informal Extension G - Glottocode prefix for Glottocode language codes
+Referens::
+* https://glottolog.org/
+* https://hxltm.etica.ai/
+Usum::
+* Note: this prefix was not formally submitted as IETF RFC.
+  Yet is relevant enough to be used beyond private prefix `-x-`
+
+[#ib_h_*]
+==== `+ib_h_*` (BCP 47 informal Extension H - HXLTM prefix)
+Definitionem::
+* BCP 47 informal Extension H - Use on HXLTM (prefix)
+Referens::
+* https://hxltm.etica.ai/
+Usum::
+* Note: this prefix was not formally submitted as IETF RFC.
+  Yet is relevant enough to be used beyond private prefix `-x-`
 
 // ----
 // %%
@@ -304,59 +322,88 @@ The difference betwen the groups is the following: one contains the data about w
 // ----
 
 [#ib_h_de_*]
-==== `+ib_h_de_*`
+===== `+ib_h_de_*`
 Definitionem::
 The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_*>>.
 
 [#ib_h_de_linguam]
-===== `+ib_h_de_linguam`
+====== `+ib_h_de_linguam`
 Definitionem::
 The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam>>.
 
 [#ib_h_de_linguam_fontem]
-===== `+ib_h_de_linguam_fontem`
+====== `+ib_h_de_linguam_fontem`
 Definitionem::
 The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam_fontem>>.
 
 [#ib_h_de_linguam_objectivum]
-===== `+ib_h_de_linguam_objectivum`
+====== `+ib_h_de_linguam_objectivum`
 Definitionem::
 The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam_objectivum>>.
 
 [#ib_h_est_*]
-==== `+ib_h_est_*`
+===== `+ib_h_est_*`
 Definitionem::
 The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_*>>.
 
 [#ib_h_est_linguam]
-===== `+ib_h_est_linguam`
+====== `+ib_h_est_linguam`
 Definitionem::
 The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_linguam>>.
 
 [#ib_h_est_linguam_fontem]
-===== `+ib_h_est_linguam_fontem`
+====== `+ib_h_est_linguam_fontem`
 Definitionem::
 The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_linguam_fontem>>.
 
 [#ib_h_est_linguam_objectivum]
-===== `+ib_h_est_linguam_objectivum`
+====== `+ib_h_est_linguam_objectivum`
 Definitionem::
 The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_linguam_objectivum>>.
 
-=== `+ib_t_*`
+[#ib_t_*]
+==== `+ib_t_*` (BCP 47 Extension T - Transformed Content)
 Titulum::
 * BCP 47 Extension T - Transformed Content
 Referens::
 * https://datatracker.ietf.org/doc/html/rfc6497
 
-=== `+ib_u_*`
+
+////
+
+////
+
+==== `+ib_u_*` (BCP 47 Extension U)
 Titulum::
 * Unicode Extensions for BCP 47
 Referens::
 * https://cldr.unicode.org/index/bcp47-extension
+* https://datatracker.ietf.org/doc/html/rfc6067
+
+////
+
+%%
+Identifier: u
+Description: Unicode Locale
+Comments: Subtags for the identification of language and cultural
+    variations.  Used to set behavior in locale APIs.  Data is
+    located in the "common/bcp47" directory inside the referenced
+    URL.  Unicode Technical Standard #35 (LDML) provides additional
+    reference material defining the keys and values.
+    For more details please see
+    <http://cldr.unicode.org/index/bcp47-extension>.
+Added: 2010-09-02
+RFC: RFC 6067
+Authority:     Unicode Consortium
+Contact_Email: cldr-contact@unicode.org
+Mailing_List:  cldr-users@unicode.org
+URL: http://www.unicode.org/Public/cldr/latest/core.zip
+%%
+
+////
 
 
-==== `+ib_x_*`
+==== `+ib_x_*` (BCP 47 private extensions)
 Titulum::
 * BCP47 Private Use Subtags
 Referens::
@@ -365,7 +412,7 @@ Referens::
 NOTE: As per BCP47, each tag must be from 2 to 8 characters long.
       This means that terms like _nomen periculosum_ are shortened to _periculo_.
 
-==== `+ib_x_ambiguum`
+===== `+ib_x_ambiguum`
 
 Titulum::
 * BCP47 Private Use Subtags, HXLTM convention, ambiguum
@@ -379,7 +426,7 @@ Usum::
   but potentially harmful on real world usage.
 
 [#ib_x_dubium]
-==== `+ib_x_dubium`
+===== `+ib_x_dubium`
 Titulum::
 * BCP47 Private Use Subtags, HXLTM convention, dubium
 Definitionem::
@@ -390,7 +437,7 @@ Usum::
 * Consider use more specific <<#ib_x_periculo>> or <<#ib_x_ambigua>> when applicable.
 
 [#ib_x_periculo]
-=== `+ib_x_periculo`
+===== `+ib_x_periculo`
 Titulum::
 * BCP47 Private Use Subtags, HXLTM convention, periculo
 Definitionem::
@@ -401,7 +448,7 @@ Referens::
 Usum::
 * No specific usage note. Follow the definition and external references.
 
-==== Base tags used when HXLTM on XML-like container
+== Base tags used when HXLTM on XML-like container
 
 NOTE: this section does not include other formalized specifications
       (mostly TBX, but we implicitly apply this too to every imported/exported format).
