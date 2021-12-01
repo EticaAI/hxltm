@@ -6477,7 +6477,7 @@ class HXLTMTestumAuxilium:
         exemplum = \
             ontologia.crudum['ontologia_regulam']['exemplum']['hxl_caput']
         structuram_basim = \
-            ontologia.crudum['ontologia_regulam']['structuram']['basim']['python']
+            ontologia.crudum['ontologia_regulam']['structuram']['basim']['python']  # noqa
         regulam_regex = re.compile(
             r"{0}".format(structuram_basim), re.IGNORECASE)
         for item in exemplum:

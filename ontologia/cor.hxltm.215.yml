@@ -3025,7 +3025,7 @@ ontologia_regulam:
         (?<divisionem>(#item|#meta))(?<classem>(\+conceptum|\+linguam|\+terminum))((?<linguam_de>(\+ix_de_[a-z_]*))|(?<linguam_est>(\+ix_est_[a-z_]*))|(?<linguam_i2a>(\+i_\w\w))?(?<linguam_i3a>(\+i_\w\w\w))(?<linguam_ig>(\+ig_\w\w\w\w\d\d\d\d))?((?<linguam_s4a>(\+is_\w{3,4})))(?<linguam_it>(\+it_[a-z0-9_]*))?)?(?<etcetera>(\+.*))?(?<datum_vocabularium>(\+v_[a-z_]*))?
       #  \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
       python: >-
-        \(?P<divisionem>(#item|#meta)).+?(?P<classem>(conceptum|linguam|terminum))(?P<speciem>.*)
+        \(?P<divisionem>(#item|#meta).+?(?P<classem>(conceptum|linguam|terminum))(?P<speciem>.*)
     subspeciem:
       javascript: >-
         \(?<divisionem>(#item|#meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
@@ -3108,16 +3108,16 @@ ontologia_regulam:
 #meta+conceptum
 #item+conceptum+codicem
 #meta+linguam+i_en+i_eng+is_latn
-#meta+linguam+i_en+i_eng+ig_port1283+is_latn
+#meta+linguam+i_en+i_eng+ig_port1283+is_latn+it_en_por_latn+ib_x_ambigua
 #meta+linguam+i_en+i_eng+is_215
-#item+terminum+est_linguam+v_linguam_maximum,
-#item+terminum+est_linguam+v_linguam_a
-#item+terminum+est_linguam+v_linguam
-#item+terminum+de_linguam
-#item+terminum+est_linguam_fonte
-#item+terminum+est_linguam_objectivum
-#item+terminum+de_linguam_fontem
-#item+terminum+de_linguam_objectivum
+#item+terminum+ib_h_est_linguam+v_linguam_maximum
+#item+terminum+ib_h_est_linguam+v_linguam_a
+#item+terminum+ib_h_est_linguam+v_linguam
+#item+terminum+ib_h_de_linguam
+#item+terminum+ib_h_est_linguam_fonte+v_lngam
+#item+terminum+ib_h_est_inguam_objectivum
+#item+terminum+ib_h_de_linguam_fontem
+#item+terminum+ib_h_de_linguam_objectivum
 #item+terminum+i_en+i_eng+is_latn+rem
 
 # Regexes test

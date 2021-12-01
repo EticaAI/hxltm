@@ -1,4 +1,4 @@
-= HXLTM (draft)
+= Dictionary of Multilingual Terminology in Humanitarian Language Exchange
 // EticaAI, Collaborators_of <etica.of.a.ai@gmail.com>; Rocha, Emerson <rocha@ieee.org>
 :toc: 1
 :toclevels: 4
@@ -51,7 +51,7 @@ TIP: If you perceive too many literal translations,
      either improve context for each concept,
      or at bare minimum allow one reviewned version of initial text based on feedback of one or more translators.
 
-#TODO: define a suggested language attribute for such revieened translations (2021-11-29T21:49:00Z)#
+#TODO: define a suggested language attribute for such reviewed translations (2021-11-29T21:49:00Z)#
 
 
 ////
@@ -183,7 +183,7 @@ Datasets with valid HXL base hashtags
 (but not explicitly known as part of HXLTM, like your user-configurable Ontologia)
 can be used when creating more generic exporters from tabular formats.
 
-NOTE: operations related to transpose data (see <<#__linguam__>>),
+NOTE: Operations related to transpose data (see <<#__linguam__>>),
       which already are very advanced to simplify for the end user,
       did not explicitly have promises that will keep it working.
       If you have generic HXL tags that want to transpose,
@@ -210,8 +210,8 @@ to add the tags used by HXLTM.
 
 == HXL attributes for HXLTM
 
-TIP: an HXLTM dataset can contain much more attributes than the ones listed here,
-     especially if mixed with general HXL Standard tags.
+TIP: An HXLTM dataset can contain much more attributes than the ones listed here,
+     especially if mixed with general HXL Standard tags.
      One of the main reasons for this documentation is document what exist
      (or is planned to be implemented)
      tools that make advanced conversions using these attributes.
@@ -224,12 +224,17 @@ Definitionem::
 HXL attribute for **Concept-level** representation (See <<#conceptum-linguam-terminum>>).
 
 ==== `+conceptum+codicem`
+Definitionem::
+The unique code (on context of current dataset) for the concept.
+Usum::
+* For columns not containing linguistic data or that need to interoperate with HXL Standard tools,
+  use HXL Standard have `+code`.
+  ** Example: `#meta+code` (HXL) vs `#item+conceptum+codicem` (HXMTL)
 
-=== `+linguam`
+[#linguam__linguam__]
+=== `+linguam+\\__linguam__`
 Definitionem::
 HXL attribute required for **Language-level** representation (See <<#conceptum-linguam-terminum>>).
-
-Required additional atttribute: <<#__linguam__>>
 
 [#linguam__linguam__definitionem]
 ==== `+linguam+\\__linguam__+definitionem`
@@ -238,13 +243,14 @@ While each language can have several terms, the textual definition should be def
 
 NOTE: HXLTM intentionally **NOT** allows set textual definition on Concept-level.
 
-Required additional atttribute: <<#__linguam__>>
+Required additional atttribute: <<#\\__linguam__>>
 
-=== `+terminum`
+[#terminum__linguam__]
+=== `+terminum+\\__linguam__`
 Definitionem::
 HXL attribute required for **Term-level** representation (See <<#conceptum-linguam-terminum>>).
 
-Required additional atttribute: <<#__linguam__>>
+Required additional atttribute: <<#\\__linguam__>>
 
 [#__linguam__]
 === `+__linguam__+`
@@ -315,7 +321,7 @@ The language code of this column is stored as the value of an equivalent column 
 [#ib_h_de_linguam_objectivum]
 ===== `+ib_h_de_linguam_objectivum`
 Definitionem::
-The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam_objectivum]>>.
+The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam_objectivum>>.
 
 [#ib_h_est_*]
 ==== `+ib_h_est_*`
@@ -359,14 +365,15 @@ Referens::
 NOTE: As per BCP47, each tag must be from 2 to 8 characters long.
       This means that terms like _nomen periculosum_ are shortened to _periculo_.
 
-==== `+ib_x_ambigua`
+==== `+ib_x_ambiguum`
 
 Titulum::
-* BCP47 Private Use Subtags, HXLTM convention, ambigua
+* BCP47 Private Use Subtags, HXLTM convention, ambiguum
 Definitionem::
 * _ambiguous names, nomina ambigua, have been used with more than one meaning_
 Referens::
-* https://en.wikipedia.org/wiki/Nomen_dubium 
+* https://en.wikipedia.org/wiki/Nomen_dubium
+* https://en.wiktionary.org/wiki/ambiguus#Latin
 Usum::
 * Consider using <<#ib_x_periculo>> if the ambigity is not just confuding from nomenclature point of view,
   but potentially harmful on real world usage.
