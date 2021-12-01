@@ -52,6 +52,12 @@ TIP: If you perceive too many literal translations,
 
 #TODO: define a suggested language attribute for such revieened translations (2021-11-29T21:49:00Z)#
 
+
+////
+- On the issue with gender on the Core-Person-Vocabulary
+** https://github.com/SEMICeu/Core-Person-Vocabulary/issues/13
+////
+
 // TIP: One common symptom of literal translations is lack of context.
 
 // Not only this, but often means target languages have either to create new terms from bad source terms so generic that are unusable for serious work.
@@ -248,23 +254,46 @@ _TODO: this is a draft. Needs be documented later_
 
 === `+__linguam__+` (implicitum)
 
-==== `+de_linguam`
+==== `+ix_de_linguam`
 The language code of this column is stored as the value of an equivalent column with the name `+est_linguam`.
 
-==== `+de_linguam_fontem`
+==== `+ix_de_linguam_fontem`
 The language code of this column is stored as the value of an equivalent column with the name `+est_linguam_fontem`.
 
-==== `+de_linguam_objectivum`
+==== `+ix_de_linguam_objectivum`
 The language code of this column is stored as the value of an equivalent column with the name `+est_linguam_objectivum`.
 
-==== `+est_linguam`
+==== `+ix_est_linguam`
 The values of each row on this column represent the code referenced on another column with attribute `+de_linguam`.
 
-==== `+est_linguam_fontem`
+==== `+ix_est_linguam_fontem`
 The values of each row on this column represent the code referenced on another column with attribute `+de_linguam_fontem`.
 
-==== `+est_linguam_objectivum`
+==== `+ix_est_linguam_objectivum`
 The values of each row on this column represent the code referenced on another column with attribute `+de_linguam_objectivum`.
+
+=== `+ib_*`
+* BCP47
+* https://tools.ietf.org/rfc/bcp/bcp47
+
+
+=== `+ib_h_*`
+* BCP 47 Extension H - Use on HXLTM
+* https://hxltm.etica.ai/
+
+=== `+ib_t_*`
+* BCP 47 Extension T - Transformed Content
+* https://datatracker.ietf.org/doc/html/rfc6497
+
+
+=== `+ib_u_*`
+* Unicode Extensions for BCP 47
+* https://cldr.unicode.org/index/bcp47-extension
+
+
+=== `+ib_x_*`
+* BCP47 Private Use Subtags
+* https://www.rfc-editor.org/rfc/rfc4646#section-2.2.7
 
 ==== Base tags used when HXLTM on XML-like container
 

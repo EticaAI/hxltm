@@ -79,14 +79,19 @@ ontologia_regulam   [${ontologia.ontologia_regulam.structuram.basim.javascript}]
     // var regula2 = '(?<linguam>(i.?_).*(?<etc>(\\+.?))).?'
     // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>(.?))).?'
     // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>[^\\+i](.?))).?'
-    var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>[^\\+i.?](.?))).?'
+    // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>[^\\+i.?](.?))).?'
+    // var regula2 = '(?<linguam>(\\+i.?_.*))?(?<etcetera>[\\+[^i]].*)?'
+    // var regula3 = '(?<etcetera>(\\+[^i\w?_].*))'
+    var regula3 = '(?<linguam>(\\+i.?_.*))?(?<etcetera>(\\+[^i\w?_].*))'
     var subspeciem = [
       '+i_pt+i_por+ig_port1283+is_latn+rem',
+      '+i_pt+i_por+ig_port1283+is_latn+exemplo1+exemplo2+exemplo3',
       '+ix_de_linguam',
       '+ix_est_linguam',
       '+ix_est_linguam_fontem',
     ]
-    var regula_regex2 = new RegExp(regula2, "i")
+    // var regula_regex2 = new RegExp(regula2, "i")
+    var regula_regex2 = new RegExp(regula3, "i")
 
     subspeciem.forEach(element => {
       console.log(regula_regex2.exec(element))

@@ -3008,27 +3008,29 @@ ontologia_regulam:
   exemplum:
     hxl_caput:
       - hxl: '#item+conceptum+codicem'
-        divisionem: item
-        classem: conceptum
-        speciem: +codicem
+        divisionem: '#item'
+        classem: '+conceptum'
+        speciem: '+codicem'
       - hxl: '#meta+linguam+i_pt+i_por+ig_port1283+is_latn'
-        divisionem: meta
-        classem: linguam
+        divisionem: '#meta'
+        classem: '+linguam'
         speciem: +i_pt+i_por+ig_port1283+is_latn
 
   # Trivia: strūctūram, https://en.wiktionary.org/wiki/structura#Latin
   structuram:
     # basim -> divisionem, classem, speciem
     basim:
+      # https://regex101.com/r/XUOncM/5
       javascript: >-
-        \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
+        (?<divisionem>(#item|#meta))(?<classem>(\+conceptum|\+linguam|\+terminum))((?<linguam_de>(\+ix_de_[a-z_]*))|(?<linguam_est>(\+ix_est_[a-z_]*))|(?<linguam_i2a>(\+i_\w\w))?(?<linguam_i3a>(\+i_\w\w\w))(?<linguam_ig>(\+ig_\w\w\w\w\d\d\d\d))?((?<linguam_s4a>(\+is_\w{3,4})))(?<linguam_it>(\+it_[a-z0-9_]*))?)?(?<etcetera>(\+.*))?(?<datum_vocabularium>(\+v_[a-z_]*))?
+      #  \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
       python: >-
-        \#(?P<divisionem>(item|meta)).+?(?P<classem>(conceptum|linguam|terminum))(?P<speciem>.*)
+        \(?P<divisionem>(#item|#meta)).+?(?P<classem>(conceptum|linguam|terminum))(?P<speciem>.*)
     subspeciem:
       javascript: >-
-        \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
+        \(?<divisionem>(#item|#meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
       python: >-
-        \#(?P<divisionem>(item|meta)).+?(?P<classem>(conceptum|linguam|terminum))(?P<speciem>.*)
+        \(?P<divisionem>(#item|#meta)).+?(?P<classem>(conceptum|linguam|terminum))(?P<speciem>.*)
 
   # named group:
   #  (?P<hxltag>\#[a-zA-Z_]*)(?P<hxlattrs>\+\w*){0,20}
