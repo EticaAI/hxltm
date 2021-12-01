@@ -4,13 +4,15 @@
 :toclevels: 5
 :sectlinks: 1
 
+// bundle exec asciidoctor --attribute allow-uri-read=1 docs/eng-Latn/dictionary.ado
+
 TIP: While this documentation is not finalized, please refer to https://hxlstandard.org/ and HXLTM exported formats which do have formalized strict structure (TBX, TMX, XLIFF)
 
 WARNING: This is a *work in progress* documentation about relationship from HXLTM on tabular format equivalent on XML-like (structured formats).
          It's not finalized.
 
 
-== General idea
+== General idea of how HXLTM uses HXL to exchange multilingual terminologies and technical translations
 
 [#conceptum-linguam-terminum]
 === Concept, language and term
@@ -134,37 +136,12 @@ while the HXLTM reference tools will allow mix with other HXL generic tags (for 
 the most optimized operations for formats that are not tabular HXLTM will work with only `#item` and `#meta` *and* require an extra base HXL attribute.
 Without this extra attribute HXLTM tools will assume you are mixing generic HXL.
 
-=== Use with not typical linguistic content
-
-* https://tools.ietf.org/search/bcp47
-** https://en.wikipedia.org/wiki/ISO_15924
-** https://en.wikipedia.org/wiki/ISO_639-3
-
-==== One non typical language
-
-In addition to allow mix linguistic content
-(for example, extra metadata, codes, etc)
-is also possible to reuse HXLTM tools for no linguistic content at all:
-you just need _create_ your own private language code.
-Since HXLTM operates using BCP47,
-the most generic base to use is ISO 15924 `Zyyy`` and ISO 639-3 `zxx``:
-`zxx-Zyyy` (or `+i_zxx+is_Zyyy`)
-
-==== Several non typical languages
-Both use of BCP47 one or more private tags,
-`zxx-Zyyy-x-privatum` (or `+i_zxx+is_Zyyy+ix_privatum`),
-or language codes and language scripts,
-like `qaa-Zyyy` (or `+i_qaa+is_Zyyy`),
-can be used.
-
-==== Text descriptions for non typical languages
-
-When using HXLTM to encode either one non or several typical languages,
-for example quick examples of programming hello worlds,
-you can writte the human descriptions as definitions of a real natural language.
 
 == HXL base hashtag for HXLTM
+Definitionem::
 When working with HXLTM on a tabular container, it is necessary specify a base HXL hashtag.
+Exemplum::
+* On `#item+conceptum+codicem` the `#item` is considered an HXL base hashtag for HXLTM.
 
 === `+#item+`
 
@@ -174,7 +151,13 @@ Concrete (see <<#item-meta>>) implementation of any the 3 base groups (See <<#co
 
 Abstract (see <<#item-meta>>) implementation of any the 3 base groups (See <<#conceptum-linguam-terminum>>).
 
-=== Other cases
+=== Common behavior for other cases
+While HXLTM can be used to import and export to much more stricter and well documented formats
+(like XML-like ones such as TBX)
+it's internal working format is HXL.
+The closest multilingual format would be the tabular UTX.
+
+The objective of this section is explain tendency of how the reference HXLTM tooling will react (or not complain) for other cases.
 
 ==== Behavior for HXL hashtags not know by HXLTM
 * See https://hxlstandard.org/standard/dictionary/[]
@@ -183,7 +166,7 @@ Datasets with valid HXL base hashtags
 (but not explicitly known as part of HXLTM, like your user-configurable Ontologia)
 can be used when creating more generic exporters from tabular formats.
 
-NOTE: Operations related to transpose data (see <<#__linguam__>>),
+NOTE: Operations related to transpose data (see <<#\\__linguam__>>),
       which already are very advanced to simplify for the end user,
       did not explicitly have promises that will keep it working.
       If you have generic HXL tags that want to transpose,
@@ -198,6 +181,7 @@ Rationale: HXLTM tools, even for datasets with text headings (but not HXL hashta
 even unknown by HXLTM, but valid in generic HXL),
 are unlikely to reliably know what to do.
 
+
 NOTE: if you are creating an exporter using HXLTM (not an external tool) please consider using some custom base hashtag or new attribute.
       This allows your implementation to be more generic and less likely to break if column order changes.
 
@@ -208,14 +192,21 @@ HXLTM requires already HXLated dataset.
 You can use HXLStandard tools to map any container (which is beyond CSV or local files)
 to add the tags used by HXLTM.
 
-== HXL attributes for HXLTM
+== HXL attributes for HXLTM (baseline)
+Definitionem::
+When working with HXLTM on a tabular container, it is necessary specify a base HXL hashtag.
+Exemplum::
+* On `#item+conceptum+codicem` the `+conceptum+codicem` are attributes used with special meaning for HXLTM.
+  The `+conceptum` means **1. Concept-level**,
+  while `+codicem` is additional information on this level.
+* On `#meta+linguam+\\__linguam__` (**2. Language-level**) and `#item+terminum+\\__linguam__+rem` (**3. Term-level**) the `+\\__linguam__` is a placeholder for one or more language-like attributes that **are always required**.
 
 TIP: An HXLTM dataset can contain much more attributes than the ones listed here,
      especially if mixed with general HXL Standard tags.
      One of the main reasons for this documentation is document what exist
      (or is planned to be implemented)
      tools that make advanced conversions using these attributes.
-     *You are free to create your own attributes neither documented on HXLTM or HXL Standard*.
+     *You are free to create your own attributes if neither are documented on HXLTM or HXL Standard*.
 
 // TIP: You are free to create your own attributes and HXL Standard tools are more flexible than HXLTM.
 
@@ -281,13 +272,15 @@ The difference betwen the groups is the following: one contains the data about w
 * <<#ib_h_de_*>>: uses data from
 * <<#ib_h_est_*>>: have data of
 
-=== `+ib_*` (BCP47 extension base prefix)
+== HXL attributes for HXLTM (extended)
+
+=== `+iz_bcp47e_*` (BCP47 extension base prefix)
 * BCP47 (prefix)
 ** https://tools.ietf.org/rfc/bcp/bcp47
 
 
 [#ib_g_*]
-==== `+ib_g_*` (BCP 47 informal Extension G - Glottocode prefix)
+==== `+iz_bcp47e_g_*` (BCP 47 informal Extension G - Glottocode prefix)
 Definitionem::
 * BCP 47 informal Extension G - Glottocode prefix for Glottocode language codes
 Referens::
@@ -298,7 +291,7 @@ Usum::
   Yet is relevant enough to be used beyond private prefix `-x-`
 
 [#ib_h_*]
-==== `+ib_h_*` (BCP 47 informal Extension H - HXLTM prefix)
+==== `+iz_bcp47e_h_*` (BCP 47 informal Extension H - HXLTM prefix)
 Definitionem::
 * BCP 47 informal Extension H - Use on HXLTM (prefix)
 Referens::
@@ -322,47 +315,47 @@ Usum::
 // ----
 
 [#ib_h_de_*]
-===== `+ib_h_de_*`
+===== `+iz_bcp47e_h_de_*`
 Definitionem::
 The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_*>>.
 
 [#ib_h_de_linguam]
-====== `+ib_h_de_linguam`
+====== `+iz_bcp47e_h_de_linguam`
 Definitionem::
 The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam>>.
 
 [#ib_h_de_linguam_fontem]
-====== `+ib_h_de_linguam_fontem`
+====== `+iz_bcp47e_h_de_linguam_fontem`
 Definitionem::
 The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam_fontem>>.
 
 [#ib_h_de_linguam_objectivum]
-====== `+ib_h_de_linguam_objectivum`
+====== `+iz_bcp47e_h_de_linguam_objectivum`
 Definitionem::
 The language code of this column is stored as the value of an equivalent column with the name <<#ib_h_est_linguam_objectivum>>.
 
 [#ib_h_est_*]
-===== `+ib_h_est_*`
+===== `+iz_bcp47e_h_est_*`
 Definitionem::
 The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_*>>.
 
 [#ib_h_est_linguam]
-====== `+ib_h_est_linguam`
+====== `+iz_bcp47e_h_est_linguam`
 Definitionem::
 The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_linguam>>.
 
 [#ib_h_est_linguam_fontem]
-====== `+ib_h_est_linguam_fontem`
+====== `+iz_bcp47e_h_est_linguam_fontem`
 Definitionem::
 The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_linguam_fontem>>.
 
 [#ib_h_est_linguam_objectivum]
-====== `+ib_h_est_linguam_objectivum`
+====== `+iz_bcp47e_h_est_linguam_objectivum`
 Definitionem::
 The values of each row on this column represent the code referenced on another column with attribute <<#ib_h_de_linguam_objectivum>>.
 
-[#ib_t_*]
-==== `+ib_t_*` (BCP 47 Extension T - Transformed Content)
+[#iz_bcp47e_t_*]
+==== `+iz_bcp47e_t_*` (BCP 47 Extension T - Transformed Content)
 Titulum::
 * BCP 47 Extension T - Transformed Content
 Referens::
@@ -373,7 +366,7 @@ Referens::
 
 ////
 
-==== `+ib_u_*` (BCP 47 Extension U)
+==== `+iz_bcp47e_u_*` (BCP 47 Extension U)
 Titulum::
 * Unicode Extensions for BCP 47
 Referens::
@@ -403,7 +396,7 @@ URL: http://www.unicode.org/Public/cldr/latest/core.zip
 ////
 
 
-==== `+ib_x_*` (BCP 47 private extensions)
+==== `+iz_bcp47e_x_*` (BCP 47 private extensions)
 Titulum::
 * BCP47 Private Use Subtags
 Referens::
@@ -412,7 +405,7 @@ Referens::
 NOTE: As per BCP47, each tag must be from 2 to 8 characters long.
       This means that terms like _nomen periculosum_ are shortened to _periculo_.
 
-===== `+ib_x_ambiguum`
+===== `+iz_bcp47e_x_ambiguum`
 
 Titulum::
 * BCP47 Private Use Subtags, HXLTM convention, ambiguum
@@ -422,11 +415,11 @@ Referens::
 * https://en.wikipedia.org/wiki/Nomen_dubium
 * https://en.wiktionary.org/wiki/ambiguus#Latin
 Usum::
-* Consider using <<#ib_x_periculo>> if the ambigity is not just confuding from nomenclature point of view,
+* Consider using <<#iz_bcp47e_x_periculo>> if the ambigity is not just confuding from nomenclature point of view,
   but potentially harmful on real world usage.
 
-[#ib_x_dubium]
-===== `+ib_x_dubium`
+[#iz_bcp47e_x_dubium]
+===== `+iz_bcp47e_x_dubium`
 Titulum::
 * BCP47 Private Use Subtags, HXLTM convention, dubium
 Definitionem::
@@ -434,10 +427,10 @@ Definitionem::
 Referens::
 * https://en.wikipedia.org/wiki/Nomen_dubium 
 Usum::
-* Consider use more specific <<#ib_x_periculo>> or <<#ib_x_ambigua>> when applicable.
+* Consider use more specific <<#iz_bcp47e_x_periculo>> or <<#iz_bcp47e_x_ambigua>> when applicable.
 
-[#ib_x_periculo]
-===== `+ib_x_periculo`
+[#iz_bcp47e_x_periculo]
+===== `+iz_bcp47e_x_periculo`
 Titulum::
 * BCP47 Private Use Subtags, HXLTM convention, periculo
 Definitionem::
@@ -516,6 +509,71 @@ Term level
 - https://aclanthology.org/2020.lrec-1.603.pdf
 - https://github.com/trimed-dialect/TriMED/tree/master/Modules/TBX_trimed_module
 ////
+
+== Appendix
+
+=== Normalization of \\__language__ attributes
+
+Note: all language attributes start with `+i`
+
+#TODO: improve this section#
+
+**Example 1**
+
+----
++i_pt
++i_por
++ig_port1283
++ir_076
++is_latn
++it_en_eng_latn
++ix_ambigua
++iz_bcp47e_t (long form of +it_, but without break in parts)
++iz_bcp47e_x (long form of +ix_, but without break in parts)
+----
+
+
+**Example 2 (this include tags that should not occur together)**
+----
++i_pt
++i_por
++ii_de_linguam_fontem
++ii_est_linguam_fontem
++ir_076
++ir_br
+----
+
+// +izb47_t_en_por_latn
+// +izb47_x_ambigua
+
+=== Use with not typical linguistic content
+
+* https://tools.ietf.org/search/bcp47
+** https://en.wikipedia.org/wiki/ISO_15924
+** https://en.wikipedia.org/wiki/ISO_639-3
+
+==== One non typical language
+
+In addition to allow mix linguistic content
+(for example, extra metadata, codes, etc)
+is also possible to reuse HXLTM tools for no linguistic content at all:
+you just need _create_ your own private language code.
+Since HXLTM operates using BCP47,
+the most generic base to use is ISO 15924 `Zyyy`` and ISO 639-3 `zxx``:
+`zxx-Zyyy` (or `+i_zxx+is_Zyyy`)
+
+==== Several non typical languages
+Both use of BCP47 one or more private tags,
+`zxx-Zyyy-x-privatum` (or `+i_zxx+is_Zyyy+ix_privatum`),
+or language codes and language scripts,
+like `qaa-Zyyy` (or `+i_qaa+is_Zyyy`),
+can be used.
+
+==== Text descriptions for non typical languages
+
+When using HXLTM to encode either one non or several typical languages,
+for example quick examples of programming hello worlds,
+you can writte the human descriptions as definitions of a real natural language.
 
 == See also
 

@@ -6479,10 +6479,11 @@ class HXLTMTestumAuxilium:
         structuram_basim = \
             ontologia.crudum['ontologia_regulam']['structuram']['basim']['python']  # noqa
         regulam_regex = re.compile(
-            r"{0}".format(structuram_basim), re.IGNORECASE)
+            r"{0}".format(structuram_basim), re.IGNORECASE | re.VERBOSE)
         for item in exemplum:
-            ontologia.est_validum_ad_regula2(item, regulam_regex)
-            # print(item)
+            if not ontologia.est_validum_ad_regula2(item, regulam_regex):
+                return False
+            # print(item, regulam_regex)
         return True
 
 
