@@ -66,7 +66,7 @@ jobs:
       #   with:
       #     cmd: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
 
-      - run: yq < ontologia/0.77.995.yml > ontologia/0.77.995.json
+      - run: yq --output-format json < ontologia/0.77.995.yml > ontologia/0.77.995.json
         continue-on-error: true
 
       - run: cp -r bin/ docs/bin/

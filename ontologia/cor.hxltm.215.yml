@@ -3025,6 +3025,12 @@ ontologia_regulam:
         divisionem: '#item'
         classem: '+linguam'
         # speciem: +i_pt+i_por+ig_port1283+is_latn
+      - hxl: '#meta+linguam+i_en+i_eng+ig_stan1293+ir_076+is_latn+it_1_pt_por_latn+iu_1_emerrocha+iw_1_bing+ix_ambiguum+ix_periculo+v_linguam_maximum'
+        # BCP47 extended
+        # bcp47e: pt-Latn-g-port1283-t-en-latn
+        divisionem: '#meta'
+        classem: '+linguam'
+        # speciem: +i_pt+i_por+ig_port1283+is_latn
      # /workspace/git/EticaAI/tico-19-hxltm/scripts/fn/linguacodex.py --de_bcp47_simplex --de_codex g-port1283-aaa-bbb | jq
 
   # Trivia: strūctūram, https://en.wiktionary.org/wiki/structura#Latin
@@ -3032,9 +3038,9 @@ ontologia_regulam:
     # basim -> divisionem, classem, speciem
     basim:
       # https://regex101.com/r/XUOncM/5
-      # https://regex101.com/r/Ff27ID/3
+      # https://regex101.com/r/Ff27ID/4
       javascript: >-
-        (?<divisionem>(#item|#meta))(?<classem>(\+conceptum|\+linguam|\+terminum))((?<linguam_de>(\+ix_de_[a-z_]*))|(?<linguam_est>(\+ix_est_[a-z_]*))|(?<linguam_i2a>(\+i_\w\w))?(?<linguam_i3a>(\+i_\w\w\w))(?<linguam_ig>(\+ig_\w\w\w\w\d\d\d\d))?((?<linguam_s4a>(\+is_\w{3,4})))(?<linguam_it>(\+it_[a-z0-9_]*))?)?(?<etcetera>(\+.*))?(?<datum_vocabularium>(\+v_[a-z_]*))?
+        (?<divisionem>(\#item|\#meta))(?<classem>(\+conceptum|\+linguam|\+terminum))((?<!conceptum)((?<linguam_implicitum_de>(\+ii_de_linguam[a-z_]*))|(?<linguam_implicitum_est>(\+ii_est_linguam[a-z_]*)))|((?<linguam_iso639_1_a>(\+i_\w\w))?(?<linguam_iso639_3_a>(\+i_\w\w\w))(?<linguam_glotto>(\+ig_[a-z]{4}\d{4}))?((?<linguam_iso3166_2_a>(\+ir_[a-z]{2}))|(?<linguam_iso3166_3_a>(\+ir_[a-z]{3}))|(?<linguam_unm49>(\+ir_[0-9]{3})))?(((?<linguam_iso15924_a>(\+is_[a-z]{4})))|((?<linguam_iso15924_n>(\+is_[0-9]{3}))))((?<linguam_translationem_de_linguam>((\+it_[1,9]{1}_[a-z0-9_]*){1,})))?(((?<linguam_translationem_humanum>((\+iu_[1,9]{1}_[a-z0-9_]*){1,}){1,})))?(((?<linguam_translationem_machinam>((\+iw_[1,9]{1}_[a-z0-9_]*){1,}){1,})))?(((?<linguam_privatum>((\+ix_[a-z0-9]{2,8})){1,})))?))?.*(?<datum_vocabularium>(\+v_[a-z_]*))?
       #  \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
       # https://learnbyexample.github.io/py_regular_expressions/groupings-and-backreferences.html
       python: |
@@ -3060,7 +3066,7 @@ ontologia_regulam:
           ## explicitum est
           (
             (?P<linguam_iso639_1_a>(\+i_\w\w))?
-            (?P<linguam_iso639_3_a>(\+i_\w\w\w))         # requisitum!
+            (?P<linguam_iso639_3_a>(\+i_\w\w\w))         # ISO 639-3 requisitum!
             (?P<linguam_glotto>(\+ig_[a-z]{4}\d{4}))?
             (  # Locum
               (?P<linguam_iso3166_2_a>(\+ir_[a-z]{2}))
@@ -3069,14 +3075,33 @@ ontologia_regulam:
               |
               (?P<linguam_unm49>(\+ir_[0-9]{3}))
             )?
-            (  # scriptum codicem: requisitum!
+            (  # Scriptum codicem: requisitum!
               ((?P<linguam_iso15924_a>(\+is_[a-z]{4})))
               |
               ((?P<linguam_iso15924_n>(\+is_[0-9]{3})))
             )
+            (  # BCP 47  Extension T style, de linguam
+              (?P<linguam_translationem_de_linguam>((\+it_[1,9]{1}_[a-z0-9_]*){1,}))
+            )?
+            (  # Humam translator, list
+              ((?P<linguam_translationem_humanum>((\+iu_[1,9]{1}_[a-z0-9_]*){1,}){1,}))
+            )?
+              # +iv_ not used
+            (  # _machinam translator, list
+              ((?P<linguam_translationem_machinam>((\+iw_[1,9]{1}_[a-z0-9_]*){1,}){1,}))
+            )?
+            (  # BCP 47 Private attribute
+              ((?P<linguam_privatum>((\+ix_[a-z0-9]{2,8})){1,}))
+            )?
           )
         )?
-        .*
+        #(?P<etcetera>
+        #  (\+[0-9a-z_]*)
+        #)?
+        .* # TODO: remove this
+        (?P<datum_vocabularium>
+          (\+v_[a-z_]*)
+        )?
     # subspeciem:
     #   javascript: >-
     #     \(?<divisionem>(#item|#meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
@@ -3158,12 +3183,13 @@ ontologia_regulam:
     python: '(^#item|^#meta)\+terminum'
 
 ### Example test cases
-#meta+linguam+i_en+i_eng+ig_stan1293+ir_076+is_latn+it_en_por_latn+ib_x_ambigua
+#meta+linguam+i_en+i_eng+ig_stan1293+ir_076+is_latn+it_1_pt_por_latn+iu_1_emerrocha+iw_1_bing+ix_ambiguum+ix_periculo+v_linguam_maximum
+#meta+linguam+i_en+i_eng+ig_stan1293+ir_076+is_latn+it_1_pt_por_latn+it_2_es_spa_latn+iu_1_emerrocha+ix_ambiguum+ix_periculo
 #item+terminum+ii_de_linguam_fontem
 #meta+conceptum+i_en+i_eng+is_latn
 #item+conceptum+codicem
 #meta+linguam+i_en+i_eng+is_latn
-#meta+linguam+i_en+i_eng+ig_stan1293+is_latn+it_en_por_latn+ib_x_ambigua
+#meta+linguam+i_en+i_eng+ig_stan1293+is_latn+it_1_en_por_latn+ix_ambigua
 #meta+linguam+i_en+i_eng+is_215
 #item+terminum+ii_est_linguam+v_linguam_maximum
 #item+terminum+ii_est_linguam+v_linguam_a

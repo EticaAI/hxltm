@@ -14,7 +14,7 @@
   <script>
 
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
-    const debug = false
+    const debug = true
     const hxltm_ontologia_archivum = "./ontologia/cor.hxltm.215.json"
     const testum_regula_adhoc = ''
     const testum_exemplum_adhoc = [
@@ -45,6 +45,7 @@
       exemplum.forEach(element => {
         debug && console.log('actionem_testum item', element)
         result = regula_regex.exec(element.hxl)
+        debug && console.log('actionem_testum groups', result.groups)
         Object.entries(element).forEach(([key, value]) => {
           if (result.groups[key]) {
             if (element[key] !== result.groups[key]) {
@@ -61,41 +62,60 @@
       }
     }
 
+    /**
+     * Simplistic conversion from python re Regex to ECMAScript regex
+     */
+    const javascript_regex_de_python_regex = (python_regex) => {
+      return python_regex
+        .replace(/((?<!\\)[#]).*/g, '') // Strip comments # (but not \#)
+        .replace(/\s/g, '')             // Strip spaces
+        .replace(/\(\?P</g, '(?<')      // Replace python (?P<group>...), no P
+    }
+
     const main = (ontologia) => {
       const est_regula = testum_regula_adhoc || ontologia.ontologia_regulam.structuram.basim.javascript
       const est_exemplum = quod_exemplum(ontologia, testum_exemplum_adhoc)
       if (debug) {
+        const de_python_regex = javascript_regex_de_python_regex(
+          ontologia.ontologia_regulam.structuram.basim.python)
         console.log(`main
 est_regula          [${est_regula}]
 testum_regula_adhoc [${testum_regula_adhoc}]
 ontologia_regulam   [${ontologia.ontologia_regulam.structuram.basim.javascript}]
+... de_python       [${de_python_regex}]
         `)
         console.log('main est_exemplum', est_exemplum)
       }
 
+      if (debug) {
+        // Use this to generate the 
+        //  ontologia.ontologia_regulam.structuram.basim.javascript
+        console.log(javascript_regex_de_python_regex(
+          ontologia.ontologia_regulam.structuram.basim.python))
+      }
       actionem_testum(est_exemplum, est_regula)
 
-    // var regula2 = '(?<linguam>(i.?_).*(?!<etc>(\\+.?))).?'
-    // var regula2 = '(?<linguam>(i.?_).*(?<etc>(\\+.?))).?'
-    // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>(.?))).?'
-    // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>[^\\+i](.?))).?'
-    // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>[^\\+i.?](.?))).?'
-    // var regula2 = '(?<linguam>(\\+i.?_.*))?(?<etcetera>[\\+[^i]].*)?'
-    // var regula3 = '(?<etcetera>(\\+[^i\w?_].*))'
-    var regula3 = '(?<linguam>(\\+i.?_.*))?(?<etcetera>(\\+[^i\w?_].*))'
-    var subspeciem = [
-      '+i_pt+i_por+ig_port1283+is_latn+rem',
-      '+i_pt+i_por+ig_port1283+is_latn+exemplo1+exemplo2+exemplo3',
-      '+ix_de_linguam',
-      '+ix_est_linguam',
-      '+ix_est_linguam_fontem',
-    ]
-    // var regula_regex2 = new RegExp(regula2, "i")
-    var regula_regex2 = new RegExp(regula3, "i")
+      // var regula2 = '(?<linguam>(i.?_).*(?!<etc>(\\+.?))).?'
+      // var regula2 = '(?<linguam>(i.?_).*(?<etc>(\\+.?))).?'
+      // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>(.?))).?'
+      // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>[^\\+i](.?))).?'
+      // var regula2 = '(?<linguam>(\\+i.?_).*(?<etc>[^\\+i.?](.?))).?'
+      // var regula2 = '(?<linguam>(\\+i.?_.*))?(?<etcetera>[\\+[^i]].*)?'
+      // var regula3 = '(?<etcetera>(\\+[^i\w?_].*))'
+      var regula3 = '(?<linguam>(\\+i.?_.*))?(?<etcetera>(\\+[^i\w?_].*))'
+      var subspeciem = [
+        '+i_pt+i_por+ig_port1283+is_latn+rem',
+        '+i_pt+i_por+ig_port1283+is_latn+exemplo1+exemplo2+exemplo3',
+        '+ix_de_linguam',
+        '+ix_est_linguam',
+        '+ix_est_linguam_fontem',
+      ]
+      // var regula_regex2 = new RegExp(regula2, "i")
+      var regula_regex2 = new RegExp(regula3, "i")
 
-    subspeciem.forEach(element => {
-      console.log(regula_regex2.exec(element))
-    });
+      subspeciem.forEach(element => {
+        console.log(regula_regex2.exec(element))
+      });
 
     }
 

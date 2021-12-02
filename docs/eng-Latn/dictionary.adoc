@@ -427,7 +427,7 @@ Definitionem::
 Referens::
 * https://en.wikipedia.org/wiki/Nomen_dubium 
 Usum::
-* Consider use more specific <<#iz_bcp47e_x_periculo>> or <<#iz_bcp47e_x_ambigua>> when applicable.
+* Consider use more specific <<#iz_bcp47e_x_periculo>> or <<#iz_bcp47e_x_ambiguum>> when applicable.
 
 [#iz_bcp47e_x_periculo]
 ===== `+iz_bcp47e_x_periculo`
@@ -524,10 +524,13 @@ Note: all language attributes start with `+i`
 +i_pt
 +i_por
 +ig_port1283
++ir_br
 +ir_076
 +is_latn
 +it_en_eng_latn
-+ix_ambigua
++iu_1_traslatorname
++iw_1_bing
++ix_ambiguum+ix_periculo
 +iz_bcp47e_t (long form of +it_, but without break in parts)
 +iz_bcp47e_x (long form of +ix_, but without break in parts)
 ----
@@ -537,6 +540,7 @@ Note: all language attributes start with `+i`
 ----
 +i_pt
 +i_por
++ii_de_linguam
 +ii_de_linguam_fontem
 +ii_est_linguam_fontem
 +ir_076
@@ -544,7 +548,7 @@ Note: all language attributes start with `+i`
 ----
 
 // +izb47_t_en_por_latn
-// +izb47_x_ambigua
+// +izb47_x_ambiguum
 
 === Use with not typical linguistic content
 
