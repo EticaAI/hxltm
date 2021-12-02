@@ -5262,6 +5262,7 @@ True
         python_match = regulam_regex.match(textum_aut_regulam['hxl'])
 
         if not python_match:
+            # print('not python_match:', textum_aut_regulam, python_match)
             return False
 
         # TODO: _strictum could be used on the strategy to check if matches

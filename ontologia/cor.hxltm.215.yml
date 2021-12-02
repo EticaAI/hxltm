@@ -2999,7 +2999,9 @@ ontologia_aliud_familiam:
 # Trivia: rēgulam, https://en.wiktionary.org/wiki/regula#Latin
 ontologia_regulam:
   # @see https://regex101.com/ (online regex tester, multiple engines)
+  # @see https://en.wikipedia.org/wiki/Comparison_of_regular_expression_engines
   # @see https://docs.python.org/3/howto/regex.html
+  # @see https://learnbyexample.github.io/py_regular_expressions/groupings-and-backreferences.html
   # @see https://developer.mozilla.org/en-US/docs/Web/JavaScript
   #      /Reference/Global_Objects/RegExp
   # @see https://pkg.go.dev/regexp/syntax
@@ -3030,33 +3032,51 @@ ontologia_regulam:
     # basim -> divisionem, classem, speciem
     basim:
       # https://regex101.com/r/XUOncM/5
+      # https://regex101.com/r/Ff27ID/3
       javascript: >-
         (?<divisionem>(#item|#meta))(?<classem>(\+conceptum|\+linguam|\+terminum))((?<linguam_de>(\+ix_de_[a-z_]*))|(?<linguam_est>(\+ix_est_[a-z_]*))|(?<linguam_i2a>(\+i_\w\w))?(?<linguam_i3a>(\+i_\w\w\w))(?<linguam_ig>(\+ig_\w\w\w\w\d\d\d\d))?((?<linguam_s4a>(\+is_\w{3,4})))(?<linguam_it>(\+it_[a-z0-9_]*))?)?(?<etcetera>(\+.*))?(?<datum_vocabularium>(\+v_[a-z_]*))?
       #  \#(?<divisionem>(item|meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
+      # https://learnbyexample.github.io/py_regular_expressions/groupings-and-backreferences.html
       python: |
+        # I: Abstractum (#meta) aut concretum (#item)
         (?P<divisionem>
           (\#item|\#meta)
         )
+        # II: Classem: +conceptum, +linguam aut +terminum
         (?P<classem>
           (\+conceptum|\+linguam|\+terminum)
         )
-        (
-          (?P<linguam_de>(\+ix_de_[a-z_]*))
-          |
-          (?P<linguam_est>(\+ix_est_[a-z_]*))
-          |
-          (?P<linguam_i2a>(\+i_\w\w))?
-          (?P<linguam_i3a>(\+i_\w\w\w))
-          (?P<linguam_ig>(\+ig_\w\w\w\w\d\d\d\d))?
-          ((?P<linguam_s4a>(\+is_\w{3,4})))
-          (?P<linguam_it>(\+it_[a-z0-9_]*))?
+        # III: +linguam et +terminum; quod linguam?
+        # _[eng-Lant]Know non-enforcement: this will tolerate if classem =+conceptum[eng-Latn]_
+        ((?<!conceptum)
+          # III.I: implicitum aut explicitum
+          ## implicitum est
+          (
+            (?P<linguam_implicitum_de>(\+ii_de_linguam[a-z_]*))
+            |
+            (?P<linguam_implicitum_est>(\+ii_est_linguam[a-z_]*))
+          )
+          | # ...aut...
+          ## explicitum est
+          (
+            (?P<linguam_iso639_1_a>(\+i_\w\w))?
+            (?P<linguam_iso639_3_a>(\+i_\w\w\w))         # requisitum!
+            (?P<linguam_glotto>(\+ig_[a-z]{4}\d{4}))?
+            (  # Locum
+              (?P<linguam_iso3166_2_a>(\+ir_[a-z]{2}))
+              |
+              (?P<linguam_iso3166_3_a>(\+ir_[a-z]{3}))
+              |
+              (?P<linguam_unm49>(\+ir_[0-9]{3}))
+            )?
+            (  # scriptum codicem: requisitum!
+              ((?P<linguam_iso15924_a>(\+is_[a-z]{4})))
+              |
+              ((?P<linguam_iso15924_n>(\+is_[0-9]{3})))
+            )
+          )
         )?
-        (?P<etcetera>
-          (\+.*)
-        )?
-        (?P<datum_vocabularium>
-          (\+v_[a-z_]*)
-        )?
+        .*
     # subspeciem:
     #   javascript: >-
     #     \(?<divisionem>(#item|#meta)).+?(?<classem>(conceptum|linguam|terminum))(?<speciem>.*)
@@ -3065,6 +3085,7 @@ ontologia_regulam:
 
     # https://regex101.com/r/ijNoTe/1
     # https://regex101.com/delete/nERE0vlhhSmLY2ircayaduP8
+    # https://regex101.com/r/Ff27ID/2
   # named group:
   #  (?P<hxltag>\#[a-zA-Z_]*)(?P<hxlattrs>\+\w*){0,20}
 
@@ -3137,23 +3158,24 @@ ontologia_regulam:
     python: '(^#item|^#meta)\+terminum'
 
 ### Example test cases
-#item+conceptum
-#meta+conceptum
+#meta+linguam+i_en+i_eng+ig_stan1293+ir_076+is_latn+it_en_por_latn+ib_x_ambigua
+#item+terminum+ii_de_linguam_fontem
+#meta+conceptum+i_en+i_eng+is_latn
 #item+conceptum+codicem
 #meta+linguam+i_en+i_eng+is_latn
-#meta+linguam+i_pt+i_por+ig_port1283+is_latn+it_en_por_latn+ib_x_ambigua
+#meta+linguam+i_en+i_eng+ig_stan1293+is_latn+it_en_por_latn+ib_x_ambigua
 #meta+linguam+i_en+i_eng+is_215
-#item+terminum+ib_h_est_linguam+v_linguam_maximum
-#item+terminum+ib_h_est_linguam+v_linguam_a
-#item+terminum+ib_h_est_linguam+v_linguam
-#item+terminum+ib_h_de_linguam
-#item+terminum+ib_h_est_linguam_fonte+v_lngam
-#item+terminum+ib_h_est_inguam_objectivum
-#item+terminum+ib_h_de_linguam_fontem
-#item+terminum+ib_h_de_linguam_objectivum
+#item+terminum+ii_est_linguam+v_linguam_maximum
+#item+terminum+ii_est_linguam+v_linguam_a
+#item+terminum+ii_est_linguam+v_linguam
+#item+terminum+ii_de_linguam
+#item+terminum+ii_est_linguam_fonte+v_lngam
+#item+terminum+ii_est_linguam_objectivum
+#item+terminum+ii_de_linguam_fontem
 #item+terminum+i_en+i_eng+is_latn+rem
-#meta+linguam+i_pt+i_por+ig_port1283+is_latn+izb47_t_en_por_latn+ib_x_ambigua
 
+## Dummy example I
+#item+terminum
 
 
 # Regexes test
