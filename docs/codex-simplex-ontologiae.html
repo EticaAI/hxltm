@@ -94,6 +94,11 @@
         'Company name [14.56~2]',
       ],
       "3": [
+        'alternative-name--12-34',
+        'altrrnative-nane_12-34',
+        'lawyer_12-34',
+      ],
+      "4": [
         '//نام مهاجم// [12.34~1]',
         '//نام بازمانده// [12.34~2]',
         '//نام شرکت// [14.56~2]',
@@ -103,11 +108,33 @@
 
     // @TODO: too simplistic. Need deal with more cases
     const quod_codicem = (textum) => {
+      // @see https://stackoverflow.com/questions/14891129
+      //      /regular-expression-pl-and-pn/14891168
       // let removedText = textum.replace(/\D+/g, '');
-      // let removedText = textum.replace(/\w+/g, '');
-      let removedText = textum.replace(/[a-zA-z]/g, '');
-      console.log(textum, removedText)
-      return [textum, textum]
+      let entitatem = 0
+      let codicem_completum = null
+      let codicem_cor = textum.replace(/[^0-9_~\.\^\-\[\]\(\)\{\}]/g, '');
+      if (codicem_cor.match(/\((.*)\)/)) {
+        codicem_cor = codicem_cor.match(/\((.*)\)/).pop()
+      }
+      if (codicem_cor.match(/\[(.*)\]/)) {
+        codicem_cor = codicem_cor.match(/\[(.*)\]/).pop()
+      }
+      if (codicem_cor.indexOf("~") > -1) {
+        let temp = codicem_cor.split("~")
+        codicem_completum = temp[0]
+        entitatem = temp[1]
+      } else {
+        codicem_completum = codicem_cor
+      }
+
+      // @TODO alternative-name--12-34
+      // @TODO altrrnative-nane_12-34
+
+      // console.log(textum_cor, textum)
+      // @TODO: textum without code parts
+
+      return [codicem_completum, codicem_cor, entitatem, textum]
     }
 
     const quod_conceptum = (datum, codicem) => {
@@ -125,7 +152,24 @@
       return null
     }
 
+    const quod_resumens = (fontem, ast_rem) => {
+      let resultatum = {
+        fontem: fontem,
+        objectivum: []
+      }
+      ast_rem.forEach(item => {
+        resultatum.objectivum.push(item.est_textum)
+      });
+
+      return resultatum
+    }
+
     const main = (clavem_collectionem, objectivum_linguam, agendum_linguam) => {
+      const ast = {
+        ast_completum: null,
+        ast_rem: null,
+        resumens: null
+      }
       const resultatum = []
       let index = 0
       clavem_collectionem.forEach(item => {
@@ -137,8 +181,8 @@
         let est_textum = null
         est_codicem = quod_codicem(item)
         if (est_codicem) {
-          est_codicem_basim = est_codicem[0]
-          est_codicem_completum = est_codicem[1]
+          est_codicem_basim = est_codicem[1]
+          est_codicem_completum = est_codicem[0]
           est_conceptum = quod_conceptum(datum, est_codicem_basim)
         }
         if (est_conceptum) {
@@ -163,14 +207,34 @@
         )
         index = index + 1
       });
-      return resultatum
+      ast.ast_rem = resultatum
+      ast.resumens = quod_resumens(clavem_collectionem, ast.ast_rem)
+      return ast
     }
 
     // console.log(datum)
     // console.log(testum)
-    console.log(main(testum["1"], 'eng-Latn', ['prs-Arab']))
-    console.log(main(testum["2"], 'eng-Latn', ['prs-Arab']))
-    console.log(main(testum["3"], 'eng-Latn', ['prs-Arab']))
+    let ad_hoc_rem = null
+    console.log(1)
+    ad_hoc_rem = main(testum["1"], 'eng-Latn', ['prs-Arab'])
+    console.log(ad_hoc_rem.resumens.fontem)
+    console.log(ad_hoc_rem.resumens.objectivum)
+    console.log(ad_hoc_rem)
+    console.log(2)
+    ad_hoc_rem = main(testum["2"], 'eng-Latn', ['prs-Arab'])
+    console.log(ad_hoc_rem.resumens.fontem)
+    console.log(ad_hoc_rem.resumens.objectivum)
+    console.log(ad_hoc_rem)
+    console.log(3)
+    ad_hoc_rem = main(testum["3"], 'eng-Latn', ['prs-Arab'])
+    console.log(ad_hoc_rem.resumens.fontem)
+    console.log(ad_hoc_rem.resumens.objectivum)
+    console.log(ad_hoc_rem)
+    console.log(4)
+    ad_hoc_rem = main(testum["4"], 'eng-Latn', ['prs-Arab'])
+    console.log(ad_hoc_rem.resumens.fontem)
+    console.log(ad_hoc_rem.resumens.objectivum)
+    console.log(ad_hoc_rem)
     // main(testum["2"], 'eng-Latn')
   </script>
 </body>
