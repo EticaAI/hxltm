@@ -28,30 +28,39 @@
         },
         "prs-Arab": {
           "0": "//شخص//"
+        },
+        "qhx-Latn": {
+          "0": "#item+personam"
         }
       },
       "12.10": {
         "eng-Latn": {
-          "0": "//Any type of person name//"
+          "0": "Person - //Any type of person name//"
         },
         "prs-Arab": {
-          "0": "//هر نوع نام شخصی//"
+          "0": "//شخص// - //هر نوع نام شخصی//"
+        },
+        "qhx-Latn": {
+          "0": "#item+personam+nomen+co_12_10"
         }
       },
       "12.10.34": {
         "eng-Latn": {
-          "0": "alternative name"
+          "0": "Person - alternative name"
         },
         "prs-Arab": {
-          "0": "//نام جایگزین//"
+          "0": "//شخص// - //نام جایگزین//"
+        },
+        "qhx-Latn": {
+          "0": "#item+personam+nomen+co_12_10_34"
         }
       },
       "12.10.34.5.99": {
         "eng-Latn": {
-          "0": "nickname from workplace"
+          "0": "Person - nickname from workplace"
         },
         "prs-Arab": {
-          "0": "//نام مستعار از محل کار//"
+          "0": "//شخص// - //نام مستعار از محل کار//"
         }
       },
       "14": {
@@ -64,10 +73,10 @@
       },
       "14.56": {
         "eng-Latn": {
-          "0": "Legal Entity"
+          "0": "Legal Entity - alternative name"
         },
         "prs-Arab": {
-          "0": "//نام جایگزین//"
+          "0": "//نهاد قانونی// - //نام جایگزین//"
         }
       }
     }
@@ -83,12 +92,22 @@
         'Attacker name [12.34~1]',
         'Survivor name [12.34~2]',
         'Company name [14.56~2]',
+      ],
+      "3": [
+        '//نام مهاجم// [12.34~1]',
+        '//نام بازمانده// [12.34~2]',
+        '//نام شرکت// [14.56~2]',
       ]
     }
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
 
+    // @TODO: too simplistic. Need deal with more cases
     const quod_codicem = (textum) => {
-      return textum
+      // let removedText = textum.replace(/\D+/g, '');
+      // let removedText = textum.replace(/\w+/g, '');
+      let removedText = textum.replace(/[a-zA-z]/g, '');
+      console.log(textum, removedText)
+      return [textum, textum]
     }
 
     const quod_conceptum = (datum, codicem) => {
@@ -99,7 +118,7 @@
     }
 
     const quod_terminum = (conceptum, objectivum_linguam, agendum_linguam) => {
-      console.log(objectivum_linguam, conceptum[objectivum_linguam])
+      // console.log(objectivum_linguam, conceptum[objectivum_linguam])
       if (conceptum[objectivum_linguam] && conceptum[objectivum_linguam]['0']) {
         return conceptum[objectivum_linguam]['0']
       }
@@ -107,24 +126,51 @@
     }
 
     const main = (clavem_collectionem, objectivum_linguam, agendum_linguam) => {
+      const resultatum = []
+      let index = 0
       clavem_collectionem.forEach(item => {
         let est_codicem = null
+        let est_codicem_basim = null
+        let est_codicem_completum = null
         let est_conceptum = null
         let est_terminum = null
+        let est_textum = null
         est_codicem = quod_codicem(item)
         if (est_codicem) {
-          est_conceptum = quod_conceptum(datum, est_codicem)
+          est_codicem_basim = est_codicem[0]
+          est_codicem_completum = est_codicem[1]
+          est_conceptum = quod_conceptum(datum, est_codicem_basim)
         }
         if (est_conceptum) {
           est_terminum = quod_terminum(est_conceptum, objectivum_linguam, agendum_linguam)
         }
-        console.log(item, est_conceptum, est_terminum)
+        if (est_terminum) {
+          est_textum = '[' + est_codicem_completum + '] ' + est_terminum
+        } else {
+          est_textum = '//?' + item + '?//'
+        }
+
+        // console.log(item, est_conceptum, est_terminum)
+        resultatum.push(
+          {
+            'index': index,
+            'crudum': item,
+            'est_codicem_completum': est_codicem_completum,
+            'est_conceptum': est_conceptum,
+            'est_terminum': est_terminum,
+            'est_textum': est_textum,
+          }
+        )
+        index = index + 1
       });
+      return resultatum
     }
 
     // console.log(datum)
     // console.log(testum)
-    main(testum["1"], 'eng-Latn', ['prs-Arab'])
+    console.log(main(testum["1"], 'eng-Latn', ['prs-Arab']))
+    console.log(main(testum["2"], 'eng-Latn', ['prs-Arab']))
+    console.log(main(testum["3"], 'eng-Latn', ['prs-Arab']))
     // main(testum["2"], 'eng-Latn')
   </script>
 </body>
