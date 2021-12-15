@@ -9,10 +9,123 @@
   <link rel="icon" href="data:,">
 </head>
 
+<!--
+  @see
+  - https://github.com/HXL-CPLP/forum/issues/60
+  - https://github.com/SEMICeu/Core-Person-Vocabulary/issues/39
+
+-->
+
 <body>
   <p>cōdex simplex ontologiae Ad console.log</p>
   <script>
+    /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
+    const debug = false
+    const datum = {
+      "12": {
+        "eng-Latn": {
+          "0": "Person"
+        },
+        "prs-Arab": {
+          "0": "//شخص//"
+        }
+      },
+      "12.10": {
+        "eng-Latn": {
+          "0": "//Any type of person name//"
+        },
+        "prs-Arab": {
+          "0": "//هر نوع نام شخصی//"
+        }
+      },
+      "12.10.34": {
+        "eng-Latn": {
+          "0": "alternative name"
+        },
+        "prs-Arab": {
+          "0": "//نام جایگزین//"
+        }
+      },
+      "12.10.34.5.99": {
+        "eng-Latn": {
+          "0": "nickname from workplace"
+        },
+        "prs-Arab": {
+          "0": "//نام مستعار از محل کار//"
+        }
+      },
+      "14": {
+        "eng-Latn": {
+          "0": "Legal Entity"
+        },
+        "prs-Arab": {
+          "0": "//نهاد قانونی//"
+        }
+      },
+      "14.56": {
+        "eng-Latn": {
+          "0": "Legal Entity"
+        },
+        "prs-Arab": {
+          "0": "//نام جایگزین//"
+        }
+      }
+    }
 
+    const testum = {
+      "1": [
+        '12.10.34',
+        '12.10.34~2',
+        '14.56',
+        '14.56~2',
+      ],
+      "2": [
+        'Attacker name [12.34~1]',
+        'Survivor name [12.34~2]',
+        'Company name [14.56~2]',
+      ]
+    }
+    /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
+
+    const quod_codicem = (textum) => {
+      return textum
+    }
+
+    const quod_conceptum = (datum, codicem) => {
+      if (datum[codicem]) {
+        return datum[codicem]
+      }
+      return null
+    }
+
+    const quod_terminum = (conceptum, objectivum_linguam, agendum_linguam) => {
+      console.log(objectivum_linguam, conceptum[objectivum_linguam])
+      if (conceptum[objectivum_linguam] && conceptum[objectivum_linguam]['0']) {
+        return conceptum[objectivum_linguam]['0']
+      }
+      return null
+    }
+
+    const main = (clavem_collectionem, objectivum_linguam, agendum_linguam) => {
+      clavem_collectionem.forEach(item => {
+        let est_codicem = null
+        let est_conceptum = null
+        let est_terminum = null
+        est_codicem = quod_codicem(item)
+        if (est_codicem) {
+          est_conceptum = quod_conceptum(datum, est_codicem)
+        }
+        if (est_conceptum) {
+          est_terminum = quod_terminum(est_conceptum, objectivum_linguam, agendum_linguam)
+        }
+        console.log(item, est_conceptum, est_terminum)
+      });
+    }
+
+    // console.log(datum)
+    // console.log(testum)
+    main(testum["1"], 'eng-Latn', ['prs-Arab'])
+    // main(testum["2"], 'eng-Latn')
   </script>
 </body>
 
