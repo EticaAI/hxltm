@@ -89,8 +89,8 @@
         '14.56~2',
       ],
       "2": [
-        'Attacker name [12.34~1]',
-        'Survivor name [12.34~2]',
+        'Attacker name [12.10.34~1]',
+        'Survivor name [12.10.34~2]',
         'Company name [14.56~2]',
       ],
       "3": [
@@ -99,8 +99,8 @@
         'lawyer_12-34',
       ],
       "4": [
-        '//نام مهاجم// [12.34~1]',
-        '//نام بازمانده// [12.34~2]',
+        '//نام مهاجم// [12.10.34~1]',
+        '//نام بازمانده// [12.10.34~2]',
         '//نام شرکت// [14.56~2]',
       ]
     }
@@ -123,7 +123,7 @@
       if (codicem_cor.indexOf("~") > -1) {
         let temp = codicem_cor.split("~")
         codicem_completum = temp[0]
-        entitatem = temp[1]
+        entitatem = parseInt(temp[1])
       } else {
         codicem_completum = codicem_cor
       }
@@ -148,6 +148,13 @@
       // console.log(objectivum_linguam, conceptum[objectivum_linguam])
       if (conceptum[objectivum_linguam] && conceptum[objectivum_linguam]['0']) {
         return conceptum[objectivum_linguam]['0']
+      }
+      if (agendum_linguam) {
+        agendum_linguam.forEach(item => {
+          if (conceptum[item] && conceptum[item]['0']) {
+            return conceptum[item]['0']
+          }
+        });
       }
       return null
     }
@@ -180,9 +187,10 @@
         let est_terminum = null
         let est_textum = null
         est_codicem = quod_codicem(item)
+        // console.log('est_codicem', est_codicem)
         if (est_codicem) {
-          est_codicem_basim = est_codicem[1]
-          est_codicem_completum = est_codicem[0]
+          est_codicem_basim = est_codicem[0]
+          est_codicem_completum = est_codicem[1]
           est_conceptum = quod_conceptum(datum, est_codicem_basim)
         }
         if (est_conceptum) {
@@ -214,22 +222,32 @@
 
     // console.log(datum)
     // console.log(testum)
+
     let ad_hoc_rem = null
     console.log(1)
     ad_hoc_rem = main(testum["1"], 'eng-Latn', ['prs-Arab'])
     console.log(ad_hoc_rem.resumens.fontem)
     console.log(ad_hoc_rem.resumens.objectivum)
     console.log(ad_hoc_rem)
+
+    console.log("1 'qhx-Latn")
+    ad_hoc_rem = main(testum["1"], 'qhx-Latn', ['prs-Arab', 'eng-Latn'])
+    console.log(ad_hoc_rem.resumens.fontem)
+    console.log(ad_hoc_rem.resumens.objectivum)
+    console.log(ad_hoc_rem)
+
     console.log(2)
     ad_hoc_rem = main(testum["2"], 'eng-Latn', ['prs-Arab'])
     console.log(ad_hoc_rem.resumens.fontem)
     console.log(ad_hoc_rem.resumens.objectivum)
     console.log(ad_hoc_rem)
+
     console.log(3)
     ad_hoc_rem = main(testum["3"], 'eng-Latn', ['prs-Arab'])
     console.log(ad_hoc_rem.resumens.fontem)
     console.log(ad_hoc_rem.resumens.objectivum)
     console.log(ad_hoc_rem)
+
     console.log(4)
     ad_hoc_rem = main(testum["4"], 'eng-Latn', ['prs-Arab'])
     console.log(ad_hoc_rem.resumens.fontem)
