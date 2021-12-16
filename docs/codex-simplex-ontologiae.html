@@ -114,7 +114,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       // @see https://stackoverflow.com/questions/14891129
       //      /regular-expression-pl-and-pn/14891168
       // let removedText = textum.replace(/\D+/g, '');
-      let entitatem = 0
+      let grupum = 0
       let codicem_completum = null
       let codicem_cor = textum.replace(/[^0-9_~\.\^\-\[\]\(\)\{\}]/g, '');
       if (codicem_cor.match(/\((.*)\)/)) {
@@ -137,7 +137,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       // console.log(textum_cor, textum)
       // @TODO: textum without code parts
 
-      return [codicem_completum, codicem_cor, entitatem, textum]
+      return [codicem_completum, codicem_cor, grupum, textum]
     }
 
     const quod_conceptum = (datum, codicem) => {
@@ -174,6 +174,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       return resultatum
     }
 
+    // @TODO https://renenyffenegger.ch/notes/tools/Graphviz/elems/subgraph/index
     const de_codex_ast_in_dot = (ast) => {
       let titulum = ast.ast_completum.titulum + ',' + ast.ast_completum.linguam
       return `digraph "${titulum}" {
@@ -190,9 +191,11 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       let rem_titulum = clavem_collectionem.shift()
       let rem_linguam = clavem_collectionem.shift()
       let ontologia_crudum = document.querySelector('#ontologia').value
+      let radicem_set =  new Set()
+      let grupum_set =  new Set()
 
       jsyaml.load(ontologia_crudum, function (doc) {
-        console.log('doc', doc)
+        // console.log('doc', doc)
         datum = doc
       });
       // _[eng-Latn] If you and use JSON, no YAML: [eng-Latn]_
@@ -205,7 +208,8 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
         ast_completum: {
           titulum: rem_titulum,
           linguam: rem_linguam,
-          entitatem: []
+          grupum: [],
+          radicem: []
         },
         ast_rem: null,
         resumens: null
@@ -216,16 +220,19 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
         let est_codicem = null
         let est_codicem_basim = null
         let est_codicem_completum = null
+        let est_codicem_grupum = 0
         let est_conceptum = null
         let est_terminum = null
         let est_textum = null
-        let est_codicem_entitatem = -1
+        let est_radicem = -1
+        let est_grupum = 0
         est_codicem = quod_codicem(item)
         // console.log('est_codicem', est_codicem)
         if (est_codicem) {
           est_codicem_basim = est_codicem[0]
+          est_radicem = parseInt(est_codicem[0].split('.')[0])
           est_codicem_completum = est_codicem[1]
-          est_codicem_entitatem = est_codicem[2]
+          est_codicem_grupum = est_codicem[2]
           est_conceptum = quod_conceptum(datum, est_codicem_basim)
         }
         if (est_conceptum) {
@@ -237,22 +244,29 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
           est_textum = '//?' + item + '?//'
         }
 
+        radicem_set.add(est_radicem)
+        grupum_set.add(est_grupum)
+
         // console.log(item, est_conceptum, est_terminum)
         resultatum.push(
           {
             'index': index,
             'crudum': item,
+            'radicem': est_radicem,
             'est_codicem_completum': est_codicem_completum,
-            'est_codicem_entitatem': est_codicem_entitatem,
+            'grupum': est_codicem_grupum,
             'est_conceptum': est_conceptum,
             'est_terminum': est_terminum,
             'est_textum': est_textum,
+            // '__': est_codicem,
           }
         )
         index = index + 1
       });
-      ast.ast_rem = resultatum
-      ast.resumens = quod_resumens(clavem_collectionem, ast.ast_rem)
+      ast.ast_completum.grupum = Array.from(grupum_set).sort()
+      ast.ast_completum.radicem = Array.from(radicem_set).sort()
+      ast.collectionem = resultatum
+      ast.resumens = quod_resumens(clavem_collectionem, ast.collectionem)
       ast.dot = de_codex_ast_in_dot(ast)
       return ast
     }
@@ -343,10 +357,11 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
     try {
       // const doc = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
       datum_temp = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-      console.log(datum_temp);
+      // console.log(datum_temp);
     } catch (e) {
       console.log(e);
     }
+
     actionem.addEventListener("click", function (el) {
       // console.log('click', el)
       // console.log('ui_testum', ui_testum, parseCSV(ui_testum.value))
@@ -394,6 +409,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
     <li>http://webgraphviz.com/</li>
     <!-- _[eng-Latn] this one accept show via URL [eng-Latn]_  -->
     <li>https://dreampuf.github.io/GraphvizOnline/</li>
+    <li>https://github.com/magjac/d3-graphviz</li>
   </ul>
   </p>
 </body>
