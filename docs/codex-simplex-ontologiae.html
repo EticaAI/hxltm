@@ -110,21 +110,42 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
     // const yaml = require('js-yaml');
 
     /**
-     * @exemplum abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2'])
+     * @exemplum
+     * abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2'])
+     *
      * @param {array} rem_collectionem - Array JavaScriptae de perfectum Rem aut vacuum
      * @returns {array}
      **/
     const abstractum_syntaxim_arborem = (rem_collectionem) => {
       let ast = []
       let rem_crudum = []
+      let coniunctum = new Set()
+      let coniunctum_incognitum = []
       let indicem = 1
 
       rem_collectionem.forEach(element => {
-        rem_crudum.push(atomum(element))
+        if (element) {
+          let _rem = quod_significationem_de_codicem_purum(element, indicem)
+          rem_crudum.push(_rem)
+          coniunctum.add(_rem[3])
+        } else {
+          // coniunctum.add(-1)
+          // rem_crudum.push('')
+          coniunctum_incognitum.push(indicem)
+        }
         indicem = indicem + 1
       });
 
-      return rem_crudum
+      if (coniunctum_incognitum.length > 0) {
+        ast.push([-1, coniunctum_incognitum])
+      }
+      // console.log('test', ast, coniunctum, coniunctum.length)
+      if (coniunctum.size) {
+        coniunctum.forEach(coniunctum_numerum => {
+          // console.log('coniunctum_numerum', coniunctum_numerum)
+          ast.push([coniunctum_numerum, ast_coniunctum(rem_crudum, coniunctum_numerum)])
+        });
+      }
 
       return ast
     }
@@ -135,12 +156,46 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
 
     /**
      *
-     * @param {string} [rem_crudum]
-     * @param {number} [indicem]
-     * @returns {object}
+     * @param {array}  rem_completum
+     * @param {number} coniunctum
+     * @returns {array}
      **/
-    const ast_nodum = (rem_crudum, indicem) => {
+    const ast_coniunctum = (rem_completum, coniunctum) => {
+      let resultatum = []
+      rem_completum.forEach(element => {
+        // console.log('coniunctum', coniunctum, element)
+        if (element[3] === coniunctum) {
+          // console.log('foi')
+          resultatum.push(element)
+        }
+      });
+      if (resultatum.length === 0) {
+        throw `ast_coniunctum non? coniunctum[${coniunctum}] rem_completum [${JSON.stringify(rem_completum)}] `;
+      }
+      return resultatum
+    }
 
+    // ast_in_summarium(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2']))
+    // summārium, https://en.wiktionary.org/wiki/summarium
+    const ast_in_summarium = (ast) => {
+      let resultatum = {}
+      if (ast && ast.length) {
+        ast.forEach(coniunctum_et_rem_collectionem => {
+          let coniunctum = "" + coniunctum_et_rem_collectionem[0]
+          // console.log(coniunctum)
+          resultatum[coniunctum] = []
+          coniunctum_et_rem_collectionem[1].forEach(rem_collectionem => {
+            // console.log('rem_collectionem', rem_collectionem)
+            if (Array.isArray(rem_collectionem)) {
+              resultatum[coniunctum].push("" + rem_collectionem[0] + ',' + rem_collectionem[1])
+            } else {
+              resultatum[coniunctum].push('' + rem_collectionem)
+            }
+          });
+        });
+      }
+
+      return resultatum
     }
 
     /**
@@ -153,7 +208,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       let resultatum = []
 
       resultatum = quod_codicem(rem_crudum)
-      console.log('atomum', rem_crudum, resultatum)
+      // console.log('atomum', rem_crudum, resultatum)
       if (resultatum && resultatum[0]) {
         return resultatum
       }
