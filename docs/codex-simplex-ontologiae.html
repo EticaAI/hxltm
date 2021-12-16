@@ -32,11 +32,13 @@ SPDX-License-Identifier: Unlicense
 
 <body>
   <h1>cōdex simplex ontologiae</h1>
-  <form>
-    <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn" />
-    <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="prs-Arab,qhx-Latn">
-    <button type="button" class="btn btn-primary" id="actionem">āctiōnem</button>
-  </form>
+  <div class="fixed-bottom">
+    <form>
+      <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn" />
+      <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="prs-Arab,qhx-Latn">
+      <button type="button" class="btn btn-primary" id="actionem" class="actionem">āctiōnem</button>
+    </form>
+  </div>
   <p>cōdex simplex ontologiae Ad console.log</p>
   <h2>Ontologia</h2>
   <textarea id="ontologia" style="width:100%;min-height: 10em;">
@@ -78,7 +80,7 @@ SPDX-License-Identifier: Unlicense
   prs-Arab:
     '0': "//نهاد قانونی// - //نام جایگزین//"
   </textarea>
-<!--
+  <!--
   <h2>Professōrem</h2>
   <textarea id="professorem" style="width:100%;height: auto;">
 UNMigration/HTCDS,eng-Latn-x-exemplum,Case Owner,[12.10.23] First Name,[12.10.45] Second Name,Type of Exploitation
@@ -86,40 +88,15 @@ INTERPOL/ante-mortem,eng-Latn-x-exemplum,AM No:,[12.10.23] First name(s):,[12.10
   </textarea>
 -->
   <h2>Testum</h2>
-  <!-- <textarea id="testum" style="width:100%;min-height: 5em;">
-{
-  "1": [
-    '12.10.34',
-    '12.10.34~2',
-    '14.56',
-    '14.56~2'
-  ],
-  "2": [
-    'Attacker name [12.10.34~1]',
-    'Survivor name [12.10.34~2]',
-    'Company name [14.56~2]'
-  ],
-  "3": [
-    'alternative-name--12-34',
-    'altrrnative-nane_12-34',
-    'lawyer_12-34'
-  ],
-  "4": [
-    '//نام مهاجم// [12.10.34~1]',
-    '//نام بازمانده// [12.10.34~2]',
-    '//نام شرکت// [14.56~2]'
-  ]
-}
-  </textarea> -->
-  <!-- <textarea id="testum" style="width:100%; height:auto; max-height: 5em;"> -->
   <textarea id="testum">
 Testum/1,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
 Testum/2,mul-Latn-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Company name [14.56~2]
 Testum/3,mul-Latn-x-testum,alternative-name--12-10-34,altrrnative-nane_12-10-34
 Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام بازمانده// [12.10.34~2]","//نام شرکت// [14.56~2]"
+Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
 </textarea>
-  <h2>@TODO</h2>
-  <p>...</p>
+  <h3>DOT</h3>
+  <textarea id="testum_dot" style="width:100%; min-height: 5em; height: auto;"></textarea>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"
     integrity="sha512-CSBhVREyzHAjAFfBlIBakjoRUKp5h7VSweP0InR/pAJyptH7peuhCsqAI/snV+TwZmXZqoUklpXp6R6wMnYf5Q=="
@@ -127,40 +104,8 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
   <script>
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
     const debug = false
-    let datum = {}
+    let datum_globum = {}
     let testum = {}
-
-    testum = {
-      "1": [
-        'Testum/1',
-        'mul-Zmth-x-testum',
-        '12.10.34',
-        '12.10.34~2',
-        '14.56',
-        '14.56~2',
-      ],
-      "2": [
-        'Testum/2',
-        'mul-Latn-x-testum',
-        'Attacker name [12.10.34~1]',
-        'Survivor name [12.10.34~2]',
-        'Company name [14.56~2]'
-      ],
-      "3": [
-        'Testum/3',
-        'mul-Latn-x-testum',
-        'alternative-name--12-34',
-        'altrrnative-nane_12-34',
-        'lawyer_12-34'
-      ],
-      "4": [
-        'Testum/4',
-        'prs-Arab-x-testum',
-        '//نام مهاجم// [12.10.34~1]',
-        '//نام بازمانده// [12.10.34~2]',
-        '//نام شرکت// [14.56~2]'
-      ]
-    }
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
     // const yaml = require('js-yaml');
 
@@ -229,16 +174,25 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
       return resultatum
     }
 
+    const de_codex_ast_in_dot = (ast) => {
+      let titulum = ast.ast_completum.titulum + ',' + ast.ast_completum.linguam
+      return `digraph "${titulum}" {
+  A -> {B C}
+}`
+    }
+
     /**
      * _[eng-Latn] Main logic [eng-Latn]_
      */
-    const main = (clavem_collectionem, objectivum_linguam, agendum_linguam) => {
-      // console.log(item)
-      let collectionem_titulum = clavem_collectionem.shift()
-      let collectionem_linguam = clavem_collectionem.shift()
+    const main = (datum, clavem_collectionem, objectivum_linguam, agendum_linguam) => {
+      // console.log('main', clavem_collectionem)
+      datum_globum = datum
+      let rem_titulum = clavem_collectionem.shift()
+      let rem_linguam = clavem_collectionem.shift()
       let ontologia_crudum = document.querySelector('#ontologia').value
 
-      jsyaml.load(testum, function (doc) {
+      jsyaml.load(ontologia_crudum, function (doc) {
+        console.log('doc', doc)
         datum = doc
       });
       // _[eng-Latn] If you and use JSON, no YAML: [eng-Latn]_
@@ -248,7 +202,11 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
       // testum = JSON.parse(document.querySelector('#testum').value)
 
       const ast = {
-        ast_completum: null,
+        ast_completum: {
+          titulum: rem_titulum,
+          linguam: rem_linguam,
+          entitatem: []
+        },
         ast_rem: null,
         resumens: null
       }
@@ -261,11 +219,13 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         let est_conceptum = null
         let est_terminum = null
         let est_textum = null
+        let est_codicem_entitatem = -1
         est_codicem = quod_codicem(item)
         // console.log('est_codicem', est_codicem)
         if (est_codicem) {
           est_codicem_basim = est_codicem[0]
           est_codicem_completum = est_codicem[1]
+          est_codicem_entitatem = est_codicem[2]
           est_conceptum = quod_conceptum(datum, est_codicem_basim)
         }
         if (est_conceptum) {
@@ -283,6 +243,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
             'index': index,
             'crudum': item,
             'est_codicem_completum': est_codicem_completum,
+            'est_codicem_entitatem': est_codicem_entitatem,
             'est_conceptum': est_conceptum,
             'est_terminum': est_terminum,
             'est_textum': est_textum,
@@ -292,43 +253,10 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
       });
       ast.ast_rem = resultatum
       ast.resumens = quod_resumens(clavem_collectionem, ast.ast_rem)
+      ast.dot = de_codex_ast_in_dot(ast)
       return ast
     }
 
-    // console.log(datum)
-    // console.log(testum)
-
-    let ad_hoc_rem = null
-    console.log(1)
-    ad_hoc_rem = main(testum["1"], 'eng-Latn', ['prs-Arab'])
-    console.log(ad_hoc_rem.resumens.fontem)
-    console.log(ad_hoc_rem.resumens.objectivum)
-    console.log(ad_hoc_rem)
-
-    console.log("1 'qhx-Latn")
-    ad_hoc_rem = main(testum["1"], 'qhx-Latn', ['prs-Arab', 'eng-Latn'])
-    console.log(ad_hoc_rem.resumens.fontem)
-    console.log(ad_hoc_rem.resumens.objectivum)
-    console.log(ad_hoc_rem)
-
-    console.log(2)
-    ad_hoc_rem = main(testum["2"], 'eng-Latn', ['prs-Arab'])
-    console.log(ad_hoc_rem.resumens.fontem)
-    console.log(ad_hoc_rem.resumens.objectivum)
-    console.log(ad_hoc_rem)
-
-    console.log(3)
-    ad_hoc_rem = main(testum["3"], 'eng-Latn', ['prs-Arab'])
-    console.log(ad_hoc_rem.resumens.fontem)
-    console.log(ad_hoc_rem.resumens.objectivum)
-    console.log(ad_hoc_rem)
-
-    console.log(4)
-    ad_hoc_rem = main(testum["4"], 'eng-Latn', ['prs-Arab'])
-    console.log(ad_hoc_rem.resumens.fontem)
-    console.log(ad_hoc_rem.resumens.objectivum)
-    console.log(ad_hoc_rem)
-    // main(testum["2"], 'eng-Latn')
   </script>
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -406,24 +334,68 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
     const ui_actionem = document.querySelector('#actionem')
     const ui_objectivum_linguam = document.querySelector('#objectivum_linguam')
     const ui_agendum_linguam = document.querySelector('#agendum_linguam')
-    const ui_testum = document.querySelector('#testum')
+    const ui_testum_dot = document.querySelector('#testum_dot')
+    // const ui_testum = document.querySelector('#testum')
     let testum_colloctionem = []
-    actionem.addEventListener("click", function (el) {
-      console.log('click', el)
-      console.log('ui_testum', ui_testum, parseCSV(ui_testum.value))
+    let abstractum_syntaxim_arborem = null
+    let datum_temp = null
 
-      testum_colloctionem = parseCSV(ui_testum.value)
-      testum_colloctionem = parseCSV(ui_testum.value)
+    try {
+      // const doc = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+      datum_temp = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+      console.log(datum_temp);
+    } catch (e) {
+      console.log(e);
+    }
+    actionem.addEventListener("click", function (el) {
+      // console.log('click', el)
+      // console.log('ui_testum', ui_testum, parseCSV(ui_testum.value))
+
+      // testum_colloctionem = parseCSV(ui_testum.value)
+      // testum_colloctionem = parseCSV(document.querySelector('#testum').value)
+      testum_colloctionem = parseCSV(CoreMirrorTestum.getValue())
       adhoc_objectivum_linguam = ui_objectivum_linguam.value
       adhoc_agendum_linguam = ui_objectivum_linguam.value.split(',')
+
+      // jsyaml.load(CoreMirrorOntologia.getValue(), function (doc) {
+      //   console.log('oi')
+      //   datum_temp = doc
+      // });
+      try {
+        // const doc = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+        datum_temp = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+        console.log(datum_temp);
+      } catch (e) {
+        console.log(e);
+      }
       testum_colloctionem.forEach(item => {
-        console.log('loop', item)
-        main(item, adhoc_objectivum_linguam, adhoc_agendum_linguam)
+        // console.log('loop', item)
+
+        abstractum_syntaxim_arborem = main(datum_temp, item, adhoc_objectivum_linguam, adhoc_agendum_linguam)
+        // console.log(abstractum_syntaxim_arborem)
+        // console.log(abstractum_syntaxim_arborem)
+        console.log(abstractum_syntaxim_arborem.resumens.fontem)
+        console.log(abstractum_syntaxim_arborem.resumens.objectivum)
+        console.log(abstractum_syntaxim_arborem)
+        ui_testum_dot.value = abstractum_syntaxim_arborem.dot
       });
     });
     //*********** _[eng-Latn] User interface logic, END [eng-Latn]_ **********//
   </script>
 
+  <h2>@TODO</h2>
+  <p>
+  <ul>
+    <!-- http://www.graphviz.org/doc/info/lang.html -->
+    <li>http://viz-js.com/
+      <!-- http://www.graphviz.org/doc/info/lang.html -->
+    </li>
+    <li>https://github.com/dagrejs/dagre/wiki</li>
+    <li>http://webgraphviz.com/</li>
+    <!-- _[eng-Latn] this one accept show via URL [eng-Latn]_  -->
+    <li>https://dreampuf.github.io/GraphvizOnline/</li>
+  </ul>
+  </p>
 </body>
 
 </html>
