@@ -1,6 +1,9 @@
+<!--
+Dominium Publicum
+SPDX-License-Identifier: Unlicense
+-->
 <!doctype html>
-<html class="no-js" lang="la">
-
+<html lang="la">
 <head>
   <meta charset="utf-8">
   <title>cōdex simplex ontologiae</title>
@@ -18,70 +21,100 @@
 
 <body>
   <p>cōdex simplex ontologiae Ad console.log</p>
+  <textarea id="ontologia" style="width:100%;min-height: 20em;">
+{
+  "12": {
+    "eng-Latn": {
+      "0": "Person"
+    },
+    "prs-Arab": {
+      "0": "//شخص//"
+    },
+    "qhx-Latn": {
+      "0": "#item+personam"
+    }
+  },
+  "12.10": {
+    "eng-Latn": {
+      "0": "Person - //Any type of person name//"
+    },
+    "prs-Arab": {
+      "0": "//شخص// - //هر نوع نام شخصی//"
+    },
+    "qhx-Latn": {
+      "0": "#item+personam+nomen+co_12_10"
+    }
+  },
+  "12.10.34": {
+    "eng-Latn": {
+      "0": "Person - alternative name"
+    },
+    "prs-Arab": {
+      "0": "//شخص// - //نام جایگزین//"
+    },
+    "qhx-Latn": {
+      "0": "#item+personam+nomen+co_12_10_34"
+    }
+  },
+  "12.10.34.5.99": {
+    "eng-Latn": {
+      "0": "Person - nickname from workplace"
+    },
+    "prs-Arab": {
+      "0": "//شخص// - //نام مستعار از محل کار//"
+    }
+  },
+  "14": {
+    "eng-Latn": {
+      "0": "Legal Entity"
+    },
+    "prs-Arab": {
+      "0": "//نهاد قانونی//"
+    }
+  },
+  "14.56": {
+    "eng-Latn": {
+      "0": "Legal Entity - alternative name"
+    },
+    "prs-Arab": {
+      "0": "//نهاد قانونی// - //نام جایگزین//"
+    }
+  }
+}
+  </textarea>
+  <textarea id="testum" style="width:100%;min-height: 5em;">
+{
+  "1": [
+    '12.10.34',
+    '12.10.34~2',
+    '14.56',
+    '14.56~2'
+  ],
+  "2": [
+    'Attacker name [12.10.34~1]',
+    'Survivor name [12.10.34~2]',
+    'Company name [14.56~2]'
+  ],
+  "3": [
+    'alternative-name--12-34',
+    'altrrnative-nane_12-34',
+    'lawyer_12-34'
+  ],
+  "4": [
+    '//نام مهاجم// [12.10.34~1]',
+    '//نام بازمانده// [12.10.34~2]',
+    '//نام شرکت// [14.56~2]'
+  ]
+}
+  </textarea>
+
   <script>
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
     const debug = false
-    const datum = {
-      "12": {
-        "eng-Latn": {
-          "0": "Person"
-        },
-        "prs-Arab": {
-          "0": "//شخص//"
-        },
-        "qhx-Latn": {
-          "0": "#item+personam"
-        }
-      },
-      "12.10": {
-        "eng-Latn": {
-          "0": "Person - //Any type of person name//"
-        },
-        "prs-Arab": {
-          "0": "//شخص// - //هر نوع نام شخصی//"
-        },
-        "qhx-Latn": {
-          "0": "#item+personam+nomen+co_12_10"
-        }
-      },
-      "12.10.34": {
-        "eng-Latn": {
-          "0": "Person - alternative name"
-        },
-        "prs-Arab": {
-          "0": "//شخص// - //نام جایگزین//"
-        },
-        "qhx-Latn": {
-          "0": "#item+personam+nomen+co_12_10_34"
-        }
-      },
-      "12.10.34.5.99": {
-        "eng-Latn": {
-          "0": "Person - nickname from workplace"
-        },
-        "prs-Arab": {
-          "0": "//شخص// - //نام مستعار از محل کار//"
-        }
-      },
-      "14": {
-        "eng-Latn": {
-          "0": "Legal Entity"
-        },
-        "prs-Arab": {
-          "0": "//نهاد قانونی//"
-        }
-      },
-      "14.56": {
-        "eng-Latn": {
-          "0": "Legal Entity - alternative name"
-        },
-        "prs-Arab": {
-          "0": "//نهاد قانونی// - //نام جایگزین//"
-        }
-      }
-    }
+    let datum = {}
+    let testum = {}
 
-    const testum = {
+    testum = {
       "1": [
         '12.10.34',
         '12.10.34~2',
@@ -91,17 +124,17 @@
       "2": [
         'Attacker name [12.10.34~1]',
         'Survivor name [12.10.34~2]',
-        'Company name [14.56~2]',
+        'Company name [14.56~2]'
       ],
       "3": [
         'alternative-name--12-34',
         'altrrnative-nane_12-34',
-        'lawyer_12-34',
+        'lawyer_12-34'
       ],
       "4": [
         '//نام مهاجم// [12.10.34~1]',
         '//نام بازمانده// [12.10.34~2]',
-        '//نام شرکت// [14.56~2]',
+        '//نام شرکت// [14.56~2]'
       ]
     }
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
@@ -172,6 +205,9 @@
     }
 
     const main = (clavem_collectionem, objectivum_linguam, agendum_linguam) => {
+      datum = JSON.parse(document.querySelector('#ontologia').value)
+      // testum = JSON.parse(document.querySelector('#testum').value)
+
       const ast = {
         ast_completum: null,
         ast_rem: null,
