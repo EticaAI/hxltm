@@ -109,12 +109,139 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
     // const yaml = require('js-yaml');
 
+    /**
+     * @exemplum abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2'])
+     * @param {array} rem_collectionem - Array JavaScriptae de perfectum Rem aut vacuum
+     * @returns {array}
+     **/
+    const abstractum_syntaxim_arborem = (rem_collectionem) => {
+      let ast = []
+      let rem_crudum = []
+      let indicem = 1
+
+      rem_collectionem.forEach(element => {
+        rem_crudum.push(atomum(element))
+        indicem = indicem + 1
+      });
+
+      return rem_crudum
+
+      return ast
+    }
+
+    const ast_rem = (rem_crudum) => {
+      return rem_crudum
+    }
+
+    /**
+     *
+     * @param {string} [rem_crudum]
+     * @param {number} [indicem]
+     * @returns {object}
+     **/
+    const ast_nodum = (rem_crudum, indicem) => {
+
+    }
+
+    /**
+     * Trivia:
+     * - atomum, https://en.wiktionary.org/wiki/atomus#Latin
+     * @param {string} rem_crudum
+     * @returns {[array|null]}
+     */
+    const atomum = (rem_crudum) => {
+      let resultatum = []
+
+      resultatum = quod_codicem(rem_crudum)
+      console.log('atomum', rem_crudum, resultatum)
+      if (resultatum && resultatum[0]) {
+        return resultatum
+      }
+      return null
+    }
+
+    /**
+     * Trivia:
+     * - coniūnctum, https://en.wiktionary.org/wiki/coniunctus#Latin
+     *
+     * @param {string} [rem_crudum]
+     * @param {number} [indicem]
+     * @returns {object}
+     **/
+    const abstractum_syntaxim_arborem_coniunctum = (rem_crudum, indicem) => {
+
+    }
+
+    /**
+     * Trivia:
+     * - significātiōnem, https://en.wiktionary.org/wiki/significatio#Latin
+     * - pūrum, https://en.wiktionary.org/wiki/purus#Latin
+     * - abstractum, https://en.wiktionary.org/wiki/purus#Latin
+     *
+     * @example
+     * // returns [3, '12.34~3', '12.34', 3]
+     * quod_significationem_de_codicem_purum('12.34~2', 3)
+     *
+     * @example
+     * // returns [3, '12.34~3', '12.34', 3]
+     * quod_significationem_de_codicem_purum('12.34', 4)
+     *
+     * @example
+     * // returns [3, '12.34.56~3', '12.34.56', 3, ['12', '12.34']]
+     * quod_significationem_de_codicem_purum('12', -1, true)
+     *
+     * @param {string} [codicem_purum]
+     * @param {number} indicem
+     * @param {bool} [abstractum]
+     * @returns {array}
+     */
+    const quod_significationem_de_codicem_purum = (codicem_purum, indicem, abstractum) => {
+      // coniunctum = 0: De anglicum "Broadcast address"
+      // @see https://en.wikipedia.org/wiki/Broadcast_address
+      let coniunctum = 0
+      let codicem_completum = codicem_purum
+      let codicem_radicem = ''
+      let patrem = []
+
+      if (!codicem_purum) {
+        throw "codicem_purum?";
+      }
+
+      if (codicem_purum.length < 5 && !abstractum) {
+        throw `codicem_purum > [00.00]? [${codicem_purum}]`;
+      }
+      // @TODO: check if starts and ends with digit
+
+      if (codicem_purum.indexOf("~") > -1) {
+        let temp = codicem_purum.split("~")
+        codicem_radicem = temp[0]
+        coniunctum = parseInt(temp[1])
+      } else {
+        codicem_radicem = codicem_purum
+      }
+      let temp_parts = codicem_radicem.split('.')
+      if (temp_parts.length > 1) {
+        // let temp_patrem = codicem_radicem.split('.')
+        do {
+          // console.log('oi', temp_parts)
+          temp_parts.pop();
+          patrem.push(temp_parts.join('.'))
+        } while (temp_parts.length > 0);
+
+        patrem = patrem.filter(col => col != "").reverse()
+      }
+
+      return [indicem, codicem_completum, codicem_radicem, coniunctum, patrem]
+    }
+
+    // quod_significationem_de_codicem_purum()
+
     // @TODO: too simplistic. Need deal with more cases
     const quod_codicem = (textum) => {
       // @see https://stackoverflow.com/questions/14891129
       //      /regular-expression-pl-and-pn/14891168
       // let removedText = textum.replace(/\D+/g, '');
-      let grupum = 0
+      let coniunctum = 0
       let codicem_completum = null
       let codicem_cor = textum.replace(/[^0-9_~\.\^\-\[\]\(\)\{\}]/g, '');
       if (codicem_cor.match(/\((.*)\)/)) {
@@ -125,7 +252,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       }
       if (codicem_cor.indexOf("~") > -1) {
         let temp = codicem_cor.split("~")
-        codicem_completum = temp[0]
+        codicem_cor = temp[0]
         entitatem = parseInt(temp[1])
       } else {
         codicem_completum = codicem_cor
@@ -137,7 +264,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       // console.log(textum_cor, textum)
       // @TODO: textum without code parts
 
-      return [codicem_completum, codicem_cor, grupum, textum]
+      return [codicem_completum, codicem_cor, coniunctum, textum]
     }
 
     const quod_conceptum = (datum, codicem) => {
@@ -176,7 +303,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
 
     // @TODO https://renenyffenegger.ch/notes/tools/Graphviz/elems/subgraph/index
     const de_codex_ast_in_dot = (ast) => {
-      let titulum = ast.ast_completum.titulum + ',' + ast.ast_completum.linguam
+      let titulum = ast.summarium.titulum + ',' + ast.summarium.linguam
       return `digraph "${titulum}" {
   A -> {B C}
 }`
@@ -191,8 +318,8 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       let rem_titulum = clavem_collectionem.shift()
       let rem_linguam = clavem_collectionem.shift()
       let ontologia_crudum = document.querySelector('#ontologia').value
-      let radicem_set =  new Set()
-      let grupum_set =  new Set()
+      let radicem_set = new Set()
+      let grupum_set = new Set()
 
       jsyaml.load(ontologia_crudum, function (doc) {
         // console.log('doc', doc)
@@ -205,13 +332,17 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       // testum = JSON.parse(document.querySelector('#testum').value)
 
       const ast = {
-        ast_completum: {
+        ast: {
+          dot: null
+        },
+        summarium: {
           titulum: rem_titulum,
           linguam: rem_linguam,
+          // Lingua Latina: grupum; Anglicum: cluster
           grupum: [],
           radicem: []
         },
-        ast_rem: null,
+        // ast_rem: null,
         resumens: null
       }
       const resultatum = []
@@ -227,8 +358,8 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
         let est_radicem = -1
         let est_grupum = 0
         est_codicem = quod_codicem(item)
-        // console.log('est_codicem', est_codicem)
-        if (est_codicem) {
+        console.log('est_codicem', est_codicem)
+        if (est_codicem && est_codicem[0]) {
           est_codicem_basim = est_codicem[0]
           est_radicem = parseInt(est_codicem[0].split('.')[0])
           est_codicem_completum = est_codicem[1]
@@ -263,11 +394,11 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
         )
         index = index + 1
       });
-      ast.ast_completum.grupum = Array.from(grupum_set).sort()
-      ast.ast_completum.radicem = Array.from(radicem_set).sort()
+      ast.summarium.grupum = Array.from(grupum_set).sort()
+      ast.summarium.radicem = Array.from(radicem_set).sort()
       ast.collectionem = resultatum
       ast.resumens = quod_resumens(clavem_collectionem, ast.collectionem)
-      ast.dot = de_codex_ast_in_dot(ast)
+      ast.ast.dot = de_codex_ast_in_dot(ast)
       return ast
     }
 
@@ -351,7 +482,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
     const ui_testum_dot = document.querySelector('#testum_dot')
     // const ui_testum = document.querySelector('#testum')
     let testum_colloctionem = []
-    let abstractum_syntaxim_arborem = null
+    // let abstractum_syntaxim_arborem = null
     let datum_temp = null
 
     try {
@@ -386,13 +517,13 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       testum_colloctionem.forEach(item => {
         // console.log('loop', item)
 
-        abstractum_syntaxim_arborem = main(datum_temp, item, adhoc_objectivum_linguam, adhoc_agendum_linguam)
+        resultatum_main = main(datum_temp, item, adhoc_objectivum_linguam, adhoc_agendum_linguam)
         // console.log(abstractum_syntaxim_arborem)
         // console.log(abstractum_syntaxim_arborem)
-        console.log(abstractum_syntaxim_arborem.resumens.fontem)
-        console.log(abstractum_syntaxim_arborem.resumens.objectivum)
-        console.log(abstractum_syntaxim_arborem)
-        ui_testum_dot.value = abstractum_syntaxim_arborem.dot
+        console.log(resultatum_main.resumens.fontem)
+        console.log(resultatum_main.resumens.objectivum)
+        console.log(resultatum_main)
+        ui_testum_dot.value = resultatum_main.ast.dot
       });
     });
     //*********** _[eng-Latn] User interface logic, END [eng-Latn]_ **********//
