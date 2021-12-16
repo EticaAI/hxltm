@@ -25,68 +25,54 @@ SPDX-License-Identifier: Unlicense
 -->
 
 <body>
+  <h1>cōdex simplex ontologiae</h1>
   <p>cōdex simplex ontologiae Ad console.log</p>
+  <h2>Ontologia</h2>
   <textarea id="ontologia" style="width:100%;min-height: 20em;">
-{
-  "12": {
-    "eng-Latn": {
-      "0": "Person"
-    },
-    "prs-Arab": {
-      "0": "//شخص//"
-    },
-    "qhx-Latn": {
-      "0": "#item+personam"
-    }
-  },
-  "12.10": {
-    "eng-Latn": {
-      "0": "Person - //Any type of person name//"
-    },
-    "prs-Arab": {
-      "0": "//شخص// - //هر نوع نام شخصی//"
-    },
-    "qhx-Latn": {
-      "0": "#item+personam+nomen+co_12_10"
-    }
-  },
-  "12.10.34": {
-    "eng-Latn": {
-      "0": "Person - alternative name"
-    },
-    "prs-Arab": {
-      "0": "//شخص// - //نام جایگزین//"
-    },
-    "qhx-Latn": {
-      "0": "#item+personam+nomen+co_12_10_34"
-    }
-  },
-  "12.10.34.5.99": {
-    "eng-Latn": {
-      "0": "Person - nickname from workplace"
-    },
-    "prs-Arab": {
-      "0": "//شخص// - //نام مستعار از محل کار//"
-    }
-  },
-  "14": {
-    "eng-Latn": {
-      "0": "Legal Entity"
-    },
-    "prs-Arab": {
-      "0": "//نهاد قانونی//"
-    }
-  },
-  "14.56": {
-    "eng-Latn": {
-      "0": "Legal Entity - alternative name"
-    },
-    "prs-Arab": {
-      "0": "//نهاد قانونی// - //نام جایگزین//"
-    }
-  }
-}
+# https://semiceu.github.io/Core-Person-Vocabulary/releases/2.00/
+'12':
+  eng-Latn:
+    '0': Person
+  prs-Arab:
+    '0': "//شخص//"
+  qhx-Latn:
+    '0': "#item+personam"
+'14':
+  eng-Latn:
+    '0': Legal Entity
+  prs-Arab:
+    '0': "//نهاد قانونی//"
+'12.10':
+  eng-Latn:
+    '0': Person - //Any type of person name//
+  prs-Arab:
+    '0': "//شخص// - //هر نوع نام شخصی//"
+  qhx-Latn:
+    '0': "#item+personam+nomen+co_12_10"
+'12.10.34':
+  eng-Latn:
+    '0': Person - alternative name
+  prs-Arab:
+    '0': "//شخص// - //نام جایگزین//"
+  qhx-Latn:
+    '0': "#item+personam+nomen+co_12_10_34"
+'12.10.34.5.99':
+  eng-Latn:
+    '0': Person - nickname from workplace
+  prs-Arab:
+    '0': "//شخص// - //نام مستعار از محل کار//"
+'14.56':
+  eng-Latn:
+    '0': Legal Entity - alternative name
+  prs-Arab:
+    '0': "//نهاد قانونی// - //نام جایگزین//"
   </textarea>
+  <h2>Professōrem</h2>
+  <textarea id="professorem" style="width:100%;height: auto;">
+UNMigration/HTCDS,eng-Latn,Case Owner,[12.10.23] First Name,[12.10.45] Second Name,Type of Exploitation
+INTERPOL/ante-mortem,eng-Latn,AM No:,[12.10.23] First name(s):,[12.10.23] Family name:,Date of birth:,Nature of disaster:
+  </textarea>
+  <h2>Testum</h2>
   <textarea id="testum" style="width:100%;min-height: 5em;">
 {
   "1": [
@@ -112,7 +98,14 @@ SPDX-License-Identifier: Unlicense
   ]
 }
   </textarea>
+  <textarea id="testum2" style="width:100%;min-height: 5em;">
+Testum/1,mul-Zmth,12.10.34,12.10.34~2,14.56,14.56,14.56~2
+Testum/2,mul-Latn,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Company name [14.56~2]
+Testum/3,mul-Latn,alternative-name--12-10-34,altrrnative-nane_12-10-34
+Testum/4,prs-Arab,"//نام مهاجم// [12.10.34~1]","//نام بازمانده// [12.10.34~2]","//نام شرکت// [14.56~2]"
+  </textarea>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js" integrity="sha512-CSBhVREyzHAjAFfBlIBakjoRUKp5h7VSweP0InR/pAJyptH7peuhCsqAI/snV+TwZmXZqoUklpXp6R6wMnYf5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
     const debug = false
@@ -143,6 +136,7 @@ SPDX-License-Identifier: Unlicense
       ]
     }
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
+    // const yaml = require('js-yaml');
 
     // @TODO: too simplistic. Need deal with more cases
     const quod_codicem = (textum) => {
@@ -210,7 +204,15 @@ SPDX-License-Identifier: Unlicense
     }
 
     const main = (clavem_collectionem, objectivum_linguam, agendum_linguam) => {
-      datum = JSON.parse(document.querySelector('#ontologia').value)
+      let ontologia_crudum = document.querySelector('#ontologia').value
+
+      jsyaml.load(testum, function (doc) {
+        datum = doc
+      });
+      // _[eng-Latn] If you and use JSON, no YAML: [eng-Latn]_
+      // datum = JSON.parse(ontologia_crudum)
+
+      // datum = JSON.parse(document.querySelector('#ontologia').value)
       // testum = JSON.parse(document.querySelector('#testum').value)
 
       const ast = {
@@ -300,22 +302,91 @@ SPDX-License-Identifier: Unlicense
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/codejar@3.5.0/codejar.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" integrity="sha512-hpZ5pDCF2bRCweL5WoA0/N1elet1KYL5mx3LP555Eg/0ZguaHawxNvEjF6O3rufAChs16HVNhEc6blF/rZoowQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.64.0/codemirror.min.js" integrity="sha512-4DlmQ+aBOfYTZ3uzRKCDXdyL7y8IlopnVChhXG0pRFgyvhwONVQW3JX8e5DYoXUNr3evQpLZz7S3O1XxMH4WKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.64.0/mode/javascript/javascript.min.js" integrity="sha512-DJ/Flq7rxJDDhgkO49H/rmidX44jmxWot/ku3c+XXEF9XFal78KIpu7w6jEaQhK4jli1U3/yOH+Rp3cIIEYFPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-  <textarea id="editor">asd asd asd asd asd</textarea>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.64.0/mode/javascript/javascript.min.js" integrity="sha512-DJ/Flq7rxJDDhgkO49H/rmidX44jmxWot/ku3c+XXEF9XFal78KIpu7w6jEaQhK4jli1U3/yOH+Rp3cIIEYFPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.64.0/mode/yaml/yaml.min.js" integrity="sha512-+aXDZ93WyextRiAZpsRuJyiAZ38ztttUyO/H3FZx4gOAOv4/k9C6Um1CvHVtaowHZ2h7kH0d+orWvdBLPVwb4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://gist.githubusercontent.com/rooks/6a13affb544ef8bc338b49af7d018318/raw/79343a3cc8fe3ca9a611f6386996238ed6bb91e0/csv.js"></script> -->
   <!-- <script src="lib/codemirror.js"></script> -->
   <!-- <link rel="stylesheet" href="lib/codemirror.css"> -->
   <!-- <script src="mode/javascript/javascript.js"></script> -->
   <!-- https://codemirror.net/doc/manual.html -->
   <script>
+
+    // TODO: implement any basic raibow only for testcases https://packagecontrol.io/packages/rainbow_csv
+
+    // Temp; from this random person https://gist.github.com/rooks/6a13affb544ef8bc338b49af7d018318
+    const DELIM = ','
+    const QUOTE = '"'
+
+    const MAX_LENGTH = 9
+    const tokenRainbow = state => `string num${state.num}`
+    const tokenPlain = () => 'string'
+
+    CodeMirror.defineMode('csv', function modeCsv(opts, modeOpts) {
+        let { delimiter = DELIM, rainbow = false } = modeOpts
+        let token = rainbow ? tokenRainbow : tokenPlain
+
+        function tokenMain(stream, state) {
+            if (stream.sol()) {
+                state.num = 0
+            }
+
+            let ch = stream.next()
+
+            if (ch === QUOTE) {
+                state.tokenize = tokenQuotes
+                return token(state)
+            }
+
+            if (ch === delimiter) {
+                state.num = (state.num + 1) % MAX_LENGTH
+                return 'delim'
+            }
+
+            return token(state)
+        }
+
+        function tokenQuotes(stream, state) {
+            let ch = stream.next()
+            if (ch === QUOTE) {
+                let next = stream.peek()
+                // escaped quotaion mark
+                if (next === QUOTE) {
+                    stream.next()
+                }
+                // end of the record
+                else {
+                    state.tokenize = tokenMain
+                }
+            }
+
+            return token(state)
+        }
+
+        return {
+            startState() {
+                return {
+                    num: 0,
+                    tokenize: tokenMain
+                }
+            },
+            token(stream, state) {
+                let style = state.tokenize(stream, state)
+                return style
+            }
+        }
+    })
+
     // var myCodeMirror = CodeMirror(document.body);
     var CoreMirrorOntologia = CodeMirror.fromTextArea(document.querySelector('#ontologia'));
     var CoreMirrorTestum = CodeMirror.fromTextArea(document.querySelector('#testum'));
+    // var CoreMirrorTestum2 = CodeMirror.fromTextArea(document.querySelector('#testum2'));
 
     CoreMirrorOntologia.setOption('lineNumbers', true)
     CoreMirrorTestum.setOption('lineNumbers', true)
+    // CoreMirrorTestum2.setOption('lineNumbers', true)
+    // CoreMirrorTestum2.setOption('mode', 'csv')
   </script>
 
 </body>
