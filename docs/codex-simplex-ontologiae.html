@@ -52,7 +52,7 @@ SPDX-License-Identifier: Unlicense
         quaeso! <kbd>Control+Shift+J</kbd> aut <kbd>Command+Option+J</kbd>.</small>
     </p>
     <section class="ontologia">
-      <h2 id="h-ontologia"><a href="#h-ontologia">§</a> Ontologia</h2>
+      <h2 id="h-ontologia"><a href="#h-ontologia">§</a> 1. Ontologia</h2>
       <textarea id="ontologia" class="c-ontologia" style="width:100%;min-height: 10em;"># https://semiceu.github.io/Core-Person-Vocabulary/releases/2.00/
 '12':
   eng-Latn:
@@ -139,6 +139,10 @@ SPDX-License-Identifier: Unlicense
         </button>
       </div>
     </section>
+    <section class="professorem">
+      <h2 id="h-professorem"><a href="#h-professorem">§</a> 2. Professōrem</h2>
+      <p>...</p>
+    </section>
     <!--
     <h2>Professōrem</h2>
     <textarea id="professorem" style="width:100%;height: auto;">
@@ -147,7 +151,7 @@ SPDX-License-Identifier: Unlicense
     </textarea>
   -->
     <section class="testum">
-      <h2 id="h-testum"><a href="#h-testum">§</a> Testum</h2>
+      <h2 id="h-testum"><a href="#h-testum">§</a> 3. Testum</h2>
       <textarea id="testum">Testum/1,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
 Testum/2,mul-Latn-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Company name [14.56~2]
 Testum/3,mul-Latn-x-testum,alternative-name--12-10-34,altrrnative-nane_12-10-34
@@ -160,8 +164,18 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         </button>
       </div>
       <section class="ast">
-        <h3 id="h-ast"><a href="#h-ast">§</a> AST</h3>
-        <textarea id="testum_dot" style="width:100%; min-height: 5em; height: auto;"></textarea>
+        <h3 id="h-ast"><a href="#h-ast">§</a> 3.1. AST</h3>
+        <section>
+          <h4 id="h-ast"><a href="#h-ast-dot">§</a> 3.1.1. DOT</h4>
+          <textarea id="testum_dot" readonly="1" style="width:100%; min-height: 5em; height: auto;"></textarea>
+          <button type="button" class="btn btn-outline-success btn-sm" id="testum-ast-archivum-dot">
+            <i class="bi bi-file-earmark-arrow-down"></i>
+            testum-ast.gv
+          </button>
+          <p>
+            <a href="http://www.graphviz.org/doc/info/lang.html">DOT Language</a>
+          </p>
+        </section>
       </section>
     </section>
     <section class="todo">
@@ -285,6 +299,33 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       }
 
       return resultatum
+    }
+
+    // document.querySelector('#testum_dot').value = ast_in_dot_numerae(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2'])
+    // ast_in_dot_numerae(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2']))
+    // summārium, https://en.wiktionary.org/wiki/summarium
+    function ast_in_dot_numerae(ast, titulum) {
+      let resultatum = []
+      const sumarium = ast_in_summarium(ast)
+      // return sumarium
+
+      resultatum.push(`digraph "${titulum}" {`)
+      Object.entries(sumarium).forEach(([clavem, rem_simplex]) => {
+        console.log(`${clavem} ${rem_simplex}`); // "a 5", "b 7", "c 9"
+        // let rem_simplex_q = rem_simplex.reduce(function (acc, val) {
+        //   return acc + ` "${val}"`
+        // })
+        let rem_simplex_q = rem_simplex.map(function (item) {
+          return `"${item}"`
+        }).join(" ");
+        // rem_simplex.forEach(it => {
+        //   rem_simplex_q
+        // });
+        resultatum.push(`  "${clavem}" -> {${rem_simplex_q}}`)
+      });
+      // resultatum.push('A -> {B C}')
+      resultatum.push('}')
+      return resultatum.join("\n")
     }
 
     /**
@@ -613,6 +654,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     // var myCodeMirror = CodeMirror(document.body);
     var CoreMirrorOntologia = CodeMirror.fromTextArea(document.querySelector('#ontologia'));
     var CoreMirrorTestum = CodeMirror.fromTextArea(document.querySelector('#testum'));
+    var CoreMirrorTestumDot = CodeMirror.fromTextArea(document.querySelector('#testum_dot'));
     // var CoreMirrorTestum2 = CodeMirror.fromTextArea(document.querySelector('#testum2'));
 
     CoreMirrorOntologia.setOption('lineNumbers', true)
@@ -624,6 +666,10 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     // CoreMirrorTestum2.setOption('lineNumbers', true)
     // CoreMirrorTestum.setOption('mode', 'mathematica')
     CoreMirrorTestum.setOption('mode', 'text')
+    CoreMirrorTestumDot.setOption('mode', 'text')
+    CoreMirrorTestumDot.setOption('viewportMargin', true)
+    CoreMirrorTestumDot.setOption('lineNumbers', true)
+    // CoreMirrorTestumDot.setOption('readOnly', true)
   </script>
   <script>
     const ui_actionem = document.querySelector('#actionem')
@@ -633,6 +679,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     const ui_ontologia_yml = document.querySelector('#ontologia-archivum-yml')
     const ui_ontologia_json = document.querySelector('#ontologia-archivum-json')
     const ui_testum_csv = document.querySelector('#testum-archivum-csv')
+    const ui_testum_ast_dot = document.querySelector('#testum-ast-archivum-dot')
     // const ui_testum = document.querySelector('#testum')
     let testum_colloctionem = []
     // let abstractum_syntaxim_arborem = null
@@ -677,7 +724,9 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         console.log(resultatum_main.resumens.fontem)
         console.log(resultatum_main.resumens.objectivum)
         console.log(resultatum_main)
-        ui_testum_dot.value = resultatum_main.ast.dot
+        CoreMirrorTestumDot.setValue(resultatum_main.ast.dot)
+
+        CoreMirrorTestumDot.setValue(ast_in_dot_numerae(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2']), 'ast'))
       });
     });
 
@@ -699,6 +748,10 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     ui_testum_csv.addEventListener("click", function (el) {
       var blob = new Blob([CoreMirrorTestum.getValue()], { type: "text/csv;charset=utf-8" });
       saveAs(blob, "testum.csv");
+    });
+    ui_testum_ast_dot.addEventListener("click", function (el) {
+      var blob = new Blob([CoreMirrorTestumDot.getValue()], { type: "vnd.graphviz;charset=utf-8" });
+      saveAs(blob, "testum-ast.gv");
     });
 
 
