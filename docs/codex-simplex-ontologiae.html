@@ -32,6 +32,10 @@ SPDX-License-Identifier: Unlicense
       border: 1px solid #eee;
       height: auto;
     }
+
+    body {
+      padding-bottom: 4em;
+    }
   </style>
 </head>
 <!--
@@ -43,8 +47,10 @@ SPDX-License-Identifier: Unlicense
 
 <body>
   <main class="container">
-    <h1>cōdex simplex ontologiae</h1>
-    <p>cōdex simplex ontologiae Ad console.log</p>
+    <h1>Cōdex simplex ontologiae</h1>
+    <p><small><a href="https://developer.chrome.com/docs/devtools/console/log/"> console.log de web pasco</a> aperire,
+        quaeso! <kbd>Control+Shift+J</kbd> aut <kbd>Command+Option+J</kbd>.</small>
+    </p>
     <section class="ontologia">
       <h2 id="h-ontologia"><a href="#h-ontologia">§</a> Ontologia</h2>
       <textarea id="ontologia" class="c-ontologia" style="width:100%;min-height: 10em;"># https://semiceu.github.io/Core-Person-Vocabulary/releases/2.00/
@@ -122,13 +128,15 @@ SPDX-License-Identifier: Unlicense
   qaa-Zyyy:
     '0': 'Latn'
       </textarea>
-      <div>
-        <button type="button" class="btn btn-secondary" id="ontologia-archivum-yml"><i
-            class="bi bi-cloud-arrow-down"></i>
-          ontologia.yml</button>
-        <button type="button" class="btn btn-secondary" id="ontologia-archivum-json"><i
-            class="bi bi-cloud-arrow-down"></i> TODO
-          ontologia.json</button>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-success btn-sm" id="ontologia-archivum-yml">
+          <i class="bi bi-file-earmark-arrow-down"></i>
+          ontologia.yml
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="ontologia-archivum-json">
+          <i class="bi bi-file-earmark-arrow-down"></i>
+          ontologia.json
+        </button>
       </div>
     </section>
     <!--
@@ -145,6 +153,12 @@ Testum/2,mul-Latn-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2]
 Testum/3,mul-Latn-x-testum,alternative-name--12-10-34,altrrnative-nane_12-10-34
 Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام بازمانده// [12.10.34~2]","//نام شرکت// [14.56~2]"
 Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
+      <div class="btn-group" role="group" aria-label="Download">
+        <button type="button" class="btn btn-outline-success btn-sm" id="testum-archivum-csv">
+          <i class="bi bi-file-earmark-arrow-down"></i>
+          testum.csv
+        </button>
+      </div>
       <section class="ast">
         <h3 id="h-ast"><a href="#h-ast">§</a> AST</h3>
         <textarea id="testum_dot" style="width:100%; min-height: 5em; height: auto;"></textarea>
@@ -165,12 +179,16 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       </ul>
     </section>
   </main>
-  <div class="fixed-bottom">
-    <form>
-      <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn" />
-      <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="prs-Arab,qhx-Latn">
-      <button type="button" class="btn btn-primary actionem" id="actionem">āctiōnem</button>
-    </form>
+  <div class="fixed-bottom" style="background-color: darkgray;">
+    <div class="container">
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar" style="padding: 5px">
+        <form>
+          <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn" />
+          <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="prs-Arab,qhx-Latn">
+          <button type="button" class="btn btn-primary actionem" id="actionem">āctiōnem</button>
+        </form>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"
@@ -613,7 +631,8 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     const ui_agendum_linguam = document.querySelector('#agendum_linguam')
     const ui_testum_dot = document.querySelector('#testum_dot')
     const ui_ontologia_yml = document.querySelector('#ontologia-archivum-yml')
-    const ui_testum_csv = document.querySelector('#ontologia-archivum-yml')
+    const ui_ontologia_json = document.querySelector('#ontologia-archivum-json')
+    const ui_testum_csv = document.querySelector('#testum-archivum-csv')
     // const ui_testum = document.querySelector('#testum')
     let testum_colloctionem = []
     // let abstractum_syntaxim_arborem = null
@@ -645,7 +664,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       try {
         // const doc = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
         datum_temp = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-        console.log(datum_temp);
+        // console.log(datum_temp);
       } catch (e) {
         console.log(e);
       }
@@ -665,13 +684,22 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     // Uses https://github.com/eligrey/FileSaver.js
     ui_ontologia_yml.addEventListener("click", function (el) {
       var blob = new Blob([CoreMirrorOntologia.getValue()], { type: "text/x-yaml;charset=utf-8" });
-      saveAs(blob, "hello world.yml");
+      saveAs(blob, "ontologia.yml");
     });
-    ui_ontologia_yml.addEventListener("click", function (el) {
-      var blob = new Blob([CoreMirrorOntologia.getValue()], { type: "text/x-yaml;charset=utf-8" });
-      saveAs(blob, "hello world.yml");
+    ui_ontologia_json.addEventListener("click", function (el) {
+      try {
+        datum_temp = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+      } catch (e) {
+        console.log(e)
+        alert(e);
+      }
+      var blob = new Blob([JSON.stringify(datum_temp, null, 2)], { type: "application/jsonl;charset=utf-8" });
+      saveAs(blob, "ontologia.json");
     });
-
+    ui_testum_csv.addEventListener("click", function (el) {
+      var blob = new Blob([CoreMirrorTestum.getValue()], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "testum.csv");
+    });
 
 
     //*********** _[eng-Latn] User interface logic, END [eng-Latn]_ **********//
