@@ -79,6 +79,43 @@ SPDX-License-Identifier: Unlicense
     '0': Legal Entity - alternative name
   prs-Arab:
     '0': "//نهاد قانونی// - //نام جایگزین//"
+
+### '45'?
+# On 25 April 1945, 50 governments met... 24 October 1945
+'45':
+  qaa-Zyyy:
+    '0': 'https://www.wikidata.org/wiki/Q1065'
+'45.11':
+  qaa-Zyyy:
+    '0': 'https://icd.who.int/ct11'
+'45.49':
+  qaa-Zyyy:
+    '0': 'https://unstats.un.org/unsd/methodology/m49/'
+    '1': 'https://unstats.un.org/unsd/publication/SeriesM/Series_M49_(1970)_en-fr.pdf'
+
+### '47'?
+# Founded on 23 February 1947 ...
+# ...ZZZ standards are not available free of charge, but for a purchase fee,
+# which has been seen by some as unaffordable by small open source projects.[38]
+'47':
+  qaa-Zyyy:
+    '0': 'https://www.wikidata.org/wiki/Q15028'
+'47.639':
+  qaa-Zyyy:
+    '0': 'https://www.wikidata.org/wiki/Q33547'
+'47.639.3':
+  qaa-Zyyy:
+    '0': 'https://www.wikidata.org/wiki/Q845956'
+'47.15924':
+  qaa-Zyyy:
+    '0': 'https://www.wikidata.org/wiki/Q845956'
+    '1': 'https://unicode.org/iso15924/iso15924.txt'
+'47.15924.160':
+  qaa-Zyyy:
+    '0': 'Arab'
+'47.15924.215':
+  qaa-Zyyy:
+    '0': 'Latn'
   </textarea>
   <!--
   <h2>Professōrem</h2>
@@ -110,13 +147,13 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
     // const yaml = require('js-yaml');
 
     /**
-     * @exemplum
+     * @example
      * abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2'])
      *
      * @param {array} rem_collectionem - Array JavaScriptae de perfectum Rem aut vacuum
      * @returns {array}
      **/
-    const abstractum_syntaxim_arborem = (rem_collectionem) => {
+    function abstractum_syntaxim_arborem(rem_collectionem) {
       let ast = []
       let rem_crudum = []
       let coniunctum = new Set()
@@ -129,8 +166,6 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
           rem_crudum.push(_rem)
           coniunctum.add(_rem[3])
         } else {
-          // coniunctum.add(-1)
-          // rem_crudum.push('')
           coniunctum_incognitum.push(indicem)
         }
         indicem = indicem + 1
@@ -139,10 +174,8 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
       if (coniunctum_incognitum.length > 0) {
         ast.push([-1, coniunctum_incognitum])
       }
-      // console.log('test', ast, coniunctum, coniunctum.length)
       if (coniunctum.size) {
         coniunctum.forEach(coniunctum_numerum => {
-          // console.log('coniunctum_numerum', coniunctum_numerum)
           ast.push([coniunctum_numerum, ast_coniunctum(rem_crudum, coniunctum_numerum)])
         });
       }
@@ -160,7 +193,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
      * @param {number} coniunctum
      * @returns {array}
      **/
-    const ast_coniunctum = (rem_completum, coniunctum) => {
+    function ast_coniunctum(rem_completum, coniunctum) {
       let resultatum = []
       rem_completum.forEach(element => {
         // console.log('coniunctum', coniunctum, element)
@@ -177,7 +210,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
 
     // ast_in_summarium(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2']))
     // summārium, https://en.wiktionary.org/wiki/summarium
-    const ast_in_summarium = (ast) => {
+    function ast_in_summarium(ast) {
       let resultatum = {}
       if (ast && ast.length) {
         ast.forEach(coniunctum_et_rem_collectionem => {
