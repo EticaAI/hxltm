@@ -330,7 +330,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         // rem_simplex.forEach(it => {
         //   rem_simplex_q
         // });
-        resultatum.push(`  "${clavem}" -> {${rem_simplex_q}}`)
+        resultatum.push(`  subgraph "cluster_${clavem}" {${rem_simplex_q}}`)
       });
       // resultatum.push('A -> {B C}')
       resultatum.push('}')
@@ -426,6 +426,48 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       }
 
       return [indicem, codicem_completum, codicem_radicem, coniunctum, patrem]
+    }
+
+
+    /**
+     * Trivia:
+     * - significātiōnem, https://en.wiktionary.org/wiki/significatio#Latin
+     * - cōdicem, https://en.wiktionary.org/wiki/codex#Latin
+     * - aliud, https://en.wiktionary.org/wiki/alius#Latin
+     * - typum, https://en.wiktionary.org/wiki/typus#Latin
+     *
+     * @example
+     * // returns ???
+     * quod_significationem_de_textum('12.34')
+     *
+     * @example
+     * // returns ???
+     * quod_significationem_de_textum('[12.34]')
+     *
+     * @example
+     * // returns ???
+     * quod_significationem_de_textum('[12.34] //نام جایگزین//')
+     *
+     * @example
+     * // returns ???
+     * quod_significationem_de_textum('alternative-name--12-34')
+     *
+     * @example
+     * // returns ???
+     * quod_significationem_de_textum('备用名称_12-34')
+     *
+     *
+     * @param {string} [textum]
+     * @returns {array}
+     */
+    const quod_significationem_de_textum = (textum) => {
+      let typum = 0 // 0: non-codicem; 1: numerum purum; 2 [00.00];
+      let codicem = ''
+      let aliud = ''
+
+      alium = textum
+
+      return [typum, codicem, aliud]
     }
 
     // quod_significationem_de_codicem_purum()
@@ -588,11 +630,19 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         )
         index = index + 1
       });
+
+      let clavem_collectionem_purum = clavem_collectionem.map(function (clavem) {
+        let temp = quod_codicem(clavem)
+        return temp[0] || ''
+      })
+
       ast.summarium.grupum = Array.from(grupum_set).sort()
       ast.summarium.radicem = Array.from(radicem_set).sort()
       ast.collectionem = resultatum
       ast.resumens = quod_resumens(clavem_collectionem, ast.collectionem)
-      ast.ast.dot = de_codex_ast_in_dot(ast)
+      // ast.ast.dot = de_codex_ast_in_dot(ast)
+      ast.ast.numerum = abstractum_syntaxim_arborem(clavem_collectionem_purum)
+      ast.ast.dot = ast_in_dot_numerae(ast.ast.numerum, rem_titulum + ',' + rem_linguam)
       return ast
     }
 
@@ -740,7 +790,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         console.log(resultatum_main)
         CoreMirrorTestumDot.setValue(resultatum_main.ast.dot)
 
-        CoreMirrorTestumDot.setValue(ast_in_dot_numerae(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2']), 'ast'))
+        // CoreMirrorTestumDot.setValue(ast_in_dot_numerae(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2']), 'ast'))
 
         console.groupEnd(`Testum ${testum_index}`);
         testum_index = testum_index + 1
