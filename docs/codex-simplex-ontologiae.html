@@ -128,7 +128,7 @@ SPDX-License-Identifier: Unlicense
   qaa-Zyyy:
     '0': 'Latn'
       </textarea>
-      <div class="btn-group" role="group" aria-label="Basic example">
+      <div class="btn-group float-end" role="group" aria-label="Toolbar Ontologia">
         <button type="button" class="btn btn-outline-success btn-sm" id="ontologia-archivum-yml">
           <i class="bi bi-file-earmark-arrow-down"></i>
           ontologia.yml
@@ -141,7 +141,7 @@ SPDX-License-Identifier: Unlicense
     </section>
     <section class="professorem">
       <h2 id="h-professorem"><a href="#h-professorem">§</a> 2. Professōrem</h2>
-      <p>...</p>
+      <p><mark>Ad como opus</mark></p>
     </section>
     <!--
     <h2>Professōrem</h2>
@@ -151,35 +151,43 @@ SPDX-License-Identifier: Unlicense
     </textarea>
   -->
     <section class="testum">
-      <h2 id="h-testum"><a href="#h-testum">§</a> 3. Testum</h2>
+      <h2 id="h-testum"><a href="#h-testum">§</a> 3. Usum exemplis</h2>
       <textarea id="testum">Testum/1,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
 Testum/2,mul-Latn-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Company name [14.56~2]
 Testum/3,mul-Latn-x-testum,alternative-name--12-10-34,altrrnative-nane_12-10-34
 Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام بازمانده// [12.10.34~2]","//نام شرکت// [14.56~2]"
 Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
-      <div class="btn-group" role="group" aria-label="Download">
+      <div class="btn-group float-end" role="group" aria-label="Download testum">
         <button type="button" class="btn btn-outline-success btn-sm" id="testum-archivum-csv">
           <i class="bi bi-file-earmark-arrow-down"></i>
           testum.csv
         </button>
       </div>
       <section class="ast">
-        <h3 id="h-ast"><a href="#h-ast">§</a> 3.1. AST</h3>
+        <h3 id="h-ast"><a href="#h-ast">§</a> 3.1. AST de usum exemplis</h3>
         <section>
-          <h4 id="h-ast"><a href="#h-ast-dot">§</a> 3.1.1. DOT</h4>
-          <textarea id="testum_dot" readonly="1" style="width:100%; min-height: 5em; height: auto;"></textarea>
-          <button type="button" class="btn btn-outline-success btn-sm" id="testum-ast-archivum-dot">
-            <i class="bi bi-file-earmark-arrow-down"></i>
-            testum-ast.gv
-          </button>
-          <p>
-            <a href="http://www.graphviz.org/doc/info/lang.html">DOT Language</a>
-          </p>
+          <h4 id="h-ast-dot">
+            <a href="#h-ast-dot">§</a> 3.1.1. AST in DOT
+            <a target="_blank" href="http://www.graphviz.org/doc/info/lang.html"><i class="bi bi-info-circle"></i></a>
+            <a target="_blank" href="http://www.graphviz.org/theory/"><i class="bi bi-info-circle"></i></a>
+          </h4>
+          <textarea id="testum_dot" style="width:100%; min-height: 5em; height: auto;"># requīrātur: āctiōnem</textarea>
+          <div class="btn-group float-end" role="group" aria-label="Toolbar AST DOT">
+            <button type="button" class="btn btn-outline-success btn-sm float-end" id="testum-ast-archivum-dot">
+              <i class="bi bi-file-earmark-arrow-down"></i>
+              testum-ast.gv
+            </button>
+            <a target="_blank" href="#" class="btn btn-success btn-sm float-end" id="testum-ast-online-dot">
+              <i class="bi bi-globe"></i>
+              GraphvizOnline
+            </a>
+          </div>
         </section>
       </section>
     </section>
     <section class="todo">
-      <h3>@TODO</h3>
+      <hr>
+      <h2><mark>Ad como opus</mark></h2>
       <ul>
         <!-- http://www.graphviz.org/doc/info/lang.html -->
         <li>http://viz-js.com/
@@ -188,6 +196,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         <li>https://github.com/dagrejs/dagre/wiki</li>
         <li>http://webgraphviz.com/</li>
         <!-- _[eng-Latn] this one accept show via URL [eng-Latn]_  -->
+        <li>http://graphviz.it/#/gallery/nhg.gv</li>
         <li>https://dreampuf.github.io/GraphvizOnline/</li>
         <li>https://github.com/magjac/d3-graphviz</li>
       </ul>
@@ -543,7 +552,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         let est_radicem = -1
         let est_grupum = 0
         est_codicem = quod_codicem(item)
-        console.log('est_codicem', est_codicem)
+        // console.log('est_codicem', est_codicem)
         if (est_codicem && est_codicem[0]) {
           est_codicem_basim = est_codicem[0]
           est_radicem = parseInt(est_codicem[0].split('.')[0])
@@ -680,8 +689,10 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     const ui_ontologia_json = document.querySelector('#ontologia-archivum-json')
     const ui_testum_csv = document.querySelector('#testum-archivum-csv')
     const ui_testum_ast_dot = document.querySelector('#testum-ast-archivum-dot')
+    const ui_testum_ast_dot_online = document.querySelector('#testum-ast-online-dot')
+    let actionem_index = 1
     // const ui_testum = document.querySelector('#testum')
-    let testum_colloctionem = []
+    let testum_collectionem = []
     // let abstractum_syntaxim_arborem = null
     let datum_temp = null
 
@@ -697,10 +708,11 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     actionem.addEventListener("click", function (el) {
       // console.log('click', el)
       // console.log('ui_testum', ui_testum, parseCSV(ui_testum.value))
+      console.group(`āctiōnem ${actionem_index}`);
 
-      // testum_colloctionem = parseCSV(ui_testum.value)
+      // testum_collectionem = parseCSV(ui_testum.value)
       // testum_colloctionem = parseCSV(document.querySelector('#testum').value)
-      testum_colloctionem = parseCSV(CoreMirrorTestum.getValue())
+      testum_collectionem = parseCSV(CoreMirrorTestum.getValue())
       adhoc_objectivum_linguam = ui_objectivum_linguam.value
       adhoc_agendum_linguam = ui_objectivum_linguam.value.split(',')
 
@@ -715,7 +727,9 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       } catch (e) {
         console.log(e);
       }
-      testum_colloctionem.forEach(item => {
+      let testum_index = 1
+      testum_collectionem.forEach(item => {
+        console.group(`Testum ${testum_index}`);
         // console.log('loop', item)
 
         resultatum_main = main(datum_temp, item, adhoc_objectivum_linguam, adhoc_agendum_linguam)
@@ -727,7 +741,12 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         CoreMirrorTestumDot.setValue(resultatum_main.ast.dot)
 
         CoreMirrorTestumDot.setValue(ast_in_dot_numerae(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2']), 'ast'))
+
+        console.groupEnd(`Testum ${testum_index}`);
+        testum_index = testum_index + 1
       });
+      console.groupEnd(`āctiōnem ${actionem_index}`);
+      actionem_index = actionem_index + 1
     });
 
     // Uses https://github.com/eligrey/FileSaver.js
@@ -752,6 +771,15 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     ui_testum_ast_dot.addEventListener("click", function (el) {
       var blob = new Blob([CoreMirrorTestumDot.getValue()], { type: "vnd.graphviz;charset=utf-8" });
       saveAs(blob, "testum-ast.gv");
+    });
+    ui_testum_ast_dot_online.addEventListener("click", function (el) {
+      // this.href = 'https://dreampuf.github.io/GraphvizOnline/#' + encodeURI(CoreMirrorTestumDot.getValue())
+      this.href = 'https://edotor.net/?engine=dot#' + encodeURI(CoreMirrorTestumDot.getValue())
+      // console.log('oi', el, this)
+
+      // var blob = new Blob([CoreMirrorTestumDot.getValue()], { type: "vnd.graphviz;charset=utf-8" });
+      // saveAs(blob, "testum-ast.gv");
+      return false;
     });
 
 
