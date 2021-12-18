@@ -529,6 +529,9 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
      * @see https://unicode.org/reports/tr18/#General_Category_Property
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes
      *
+     * @example
+     * ['12.34~5', '[12.34~5]', '[12.34~5] lorem ipsum', ' Lorem Ipsum [12.34~5]', 'lorem-ipsum_12-34', 'lorem-ipsum--12-34'].map(quod_significationem_in_regula)
+     *
      * @param {string} textum
      * @returns {array}
      */
@@ -545,81 +548,139 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       const RegulaExtrapunctum = /\p{General_Category=Other_Punctuation}/gu
       const RegulaSymbolum = /\p{General_Category=Symbol}/gu
       const RegulaMathematicam = /\p{General_Category=Math_Symbol}/gu
+
+      // // FULL STOP U+002E https://www.compart.com/en/unicode/U+002E
+      // const SignificationemSeparatum = '.'
+      // // TILDE (U+007E) https://www.compart.com/en/unicode/charsets/containing/U+007E
+      // const SignificationemConiunctum = '~'
+
+      // Strict regex
+      // const RegulaCodicemPurum = /^(\p{General_Category=Decimal_Number}[\p{General_Category=Decimal_Number}|\.|~]*\p{General_Category=Decimal_Number})$/u
+      // const oi = /^(p{General_Category=Decimal_Number}[p{General_Category=Decimal_Number}|.|~]*p{General_Category=Decimal_Number})$/
+      // const oi = /^(\p{General_Category=Decimal_Number}[\p{General_Category=Decimal_Number}|\.|~]*\p{General_Category=Decimal_Number})$/
+      const RegulaCodicemPurum = `(\\p{General_Category=Decimal_Number}[\\p{General_Category=Decimal_Number}|\.|~]*\\p{General_Category=Decimal_Number})`
+      const RegulaCodicemInVasum = `(\\p{General_Category=Open_Punctuation}${RegulaCodicemPurum}\\p{General_Category=Close_Punctuation})`
+      // const RegulaCodicemInVasum = /^(\p{General_Category=Decimal_Number}[\p{General_Category=Decimal_Number}|\.|~]*\p{General_Category=Decimal_Number})$/u
+
       const RegulaInitiale = /^\p{General_Category=Open_Punctuation}(.*)\p{General_Category=Close_Punctuation}.?/u
       const RegulaFinale = /.?\p{General_Category=Open_Punctuation}(.*)\p{General_Category=Close_Punctuation}$/u
+      // const RegulaNumerumInitialeEtFinale = /^\p{General_Category=Decimal_Number}([\p{General_Category=Decimal_Number}|\.|~]*)\p{General_Category=Decimal_Number}$/u
 
       textum = textum.trim()
 
+      const __RegulaCodicemPurum = new RegExp('^' + RegulaCodicemPurum + '$', 'u')
+      if (__RegulaCodicemPurum.test(textum)) {
+        resultatum.push(`RegulaCodicemPurum ${textum.match(__RegulaCodicemPurum)[0]}`)
+        // resultatum.push(textum.match(RegulaCodicemPurum))
+      } else {
+        // resultatum.push('RegulaCodicemPurum')
+      }
+
+      const __RegulaCodicemPurumInVasum = new RegExp('^' + RegulaCodicemInVasum + '$', 'u')
+      if (__RegulaCodicemPurumInVasum.test(textum)) {
+        let temp = textum.match(__RegulaCodicemPurumInVasum)
+        resultatum.push(`RegulaCodicemInVasum ${temp[2]} ${temp[1]}`)
+        // resultatum.push(temp)
+      } else {
+        // resultatum.push('Non RegulaCodicemInVasum')
+      }
+
+      const __RegulaCodicemPurumInVasumInitiale = new RegExp('^' + RegulaCodicemInVasum + '(.+)$', 'u')
+      if (__RegulaCodicemPurumInVasumInitiale.test(textum)) {
+        let temp = textum.match(__RegulaCodicemPurumInVasumInitiale)
+        resultatum.push(`RegulaCodicemPurumInVasumInitiale ${temp[2]} ${temp[1]} <<${temp[3].trim()}>>`)
+        resultatum.push(temp)
+      } else {
+        // resultatum.push('Non RegulaCodicemPurumInVasumInitiale')
+      }
+
+      const __RegulaCodicemPurumInVasumFinale = new RegExp('^(.+)' + RegulaCodicemInVasum + '$', 'u')
+      if (__RegulaCodicemPurumInVasumFinale.test(textum)) {
+        let temp = textum.match(__RegulaCodicemPurumInVasumFinale)
+        resultatum.push(`RegulaCodicemPurumInVasumFinale ${temp[3]} ${temp[2]} <<${temp[1].trim()}>>`)
+        resultatum.push(temp)
+      } else {
+        // resultatum.push('Non RegulaCodicemPurumInVasumInitiale')
+      }
+
+      // if (RegulaNumerumInitialeEtFinale.test(textum)) {
+      //   resultatum.push(`RegulaNumerumInitialeEtFinale`)
+      //   resultatum.push(textum.match(RegulaNumerumInitialeEtFinale))
+      // } else {
+      //   // resultatum.push('NonRegulaNumerumInitialeEtFinale')
+      // }
+
       if (RegulaInitiale.test(textum)) {
-        resultatum.push(`RegulaInitiale ${textum.replace(/\P{General_Category=Letter}/gu, '')}`)
+        resultatum.push(`RegulaInitiale`)
         resultatum.push(textum.match(RegulaInitiale))
       } else {
-        resultatum.push('NonRegulaInitiale')
+        // resultatum.push('NonRegulaInitiale')
       }
 
       if (RegulaFinale.test(textum)) {
-        resultatum.push(`RegulaFinale ${textum.replace(/\P{General_Category=Letter}/gu, '')}`)
+        resultatum.push(`RegulaFinale`)
+        resultatum.push(textum.match(RegulaFinale))
       } else {
-        resultatum.push('NonRegulaFinale')
+        // resultatum.push('NonRegulaFinale')
       }
 
       if (RegulaSystemaScribo.test(textum)) {
         resultatum.push(`RegulaSystemaScribo ${textum.replace(/\P{General_Category=Letter}/gu, '')}`)
       } else {
-        resultatum.push('NonRegulaSystemaScribo')
+        // resultatum.push('NonRegulaSystemaScribo')
       }
 
       if (RegulaNumerum.test(textum)) {
         resultatum.push(`RegulaNumerum ${textum.replace(/\P{General_Category=Number}/gu, '')}`)
       } else {
-        resultatum.push('NonRegulaNumerum')
+        // resultatum.push('NonRegulaNumerum')
       }
 
       if (RegulaNumerumDigitum.test(textum)) {
         resultatum.push(`RegulaNumerumDigitum ${textum.replace(/\P{General_Category=Decimal_Number}/gu, '')}`)
       } else {
-        resultatum.push('NonRegulaNumerumDigitum')
+        // resultatum.push('NonRegulaNumerumDigitum')
       }
 
       if (RegulaPunctumInitiale.test(textum)) {
         resultatum.push(`RegulaPunctumInitiale ${textum.replace(/\P{General_Category=Open_Punctuation}/gu, '')}`)
       } else {
-        resultatum.push('NonRegulaPunctumInitiale')
+        // resultatum.push('NonRegulaPunctumInitiale')
       }
 
       if (RegulaPunctumFinale.test(textum)) {
         resultatum.push(`RegulaPunctumFinale ${textum.replace(/\P{General_Category=Close_Punctuation}/gu, '')}`)
       } else {
-        resultatum.push('NonRegulaPunctumFinale')
+        // resultatum.push('NonRegulaPunctumFinale')
       }
 
       if (RegulaSublineam.test(textum)) {
         resultatum.push(`RegulaSublineam ${textum.replace(/\P{General_Category=Connector_Punctuation}/gu, '')}`)
       } else {
-        resultatum.push('NonRegulaSublineam')
+        // resultatum.push('NonRegulaSublineam')
       }
       if (RegulaHuphen.test(textum)) {
         resultatum.push(`RegulaHuphen ${textum.replace(/\P{General_Category=Dash_Punctuation}/gu, '')}`)
       } else {
-        resultatum.push('NonRegulaHuphen')
+        // resultatum.push('NonRegulaHuphen')
       }
 
       if (RegulaExtrapunctum.test(textum)) {
         resultatum.push(`RegulaExtrapunctum ${textum.replace(/\P{General_Category=Other_Punctuation}/gu, '')}`)
       } else {
-        resultatum.push('NonRegulaExtrapunctum')
+        // resultatum.push('NonRegulaExtrapunctum')
       }
 
       if (RegulaSymbolum.test(textum)) {
         resultatum.push(`RegulaSymbolum ${textum.replace(/\P{General_Category=Symbol}/gu, '')}`)
       } else {
-        resultatum.push('NonRegulaSymbolum')
+        // resultatum.push('NonRegulaSymbolum')
       }
 
       if (RegulaMathematicam.test(textum)) {
         resultatum.push(`RegulaMathematicam ${textum.replace(/\P{General_Category=Math_Symbol}/gu, '')}`)
       } else {
-        resultatum.push('NonRegulaMathematicam')
+        // resultatum.push('NonRegulaMathematicam')
       }
 
       return resultatum
