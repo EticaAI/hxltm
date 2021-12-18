@@ -436,65 +436,56 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
      * - typum, https://en.wiktionary.org/wiki/typus#Latin
      * - fontem, https://en.wiktionary.org/wiki/fons#Latin
      *
-     * @example
-     * // returns ???
-     * quod_significationem_de_textum('12.34')
+     * @example <caption>00.00~0</caption>
+     * // returns [1, '12.34~5', '', '12.34~5']
+     * quod_significationem_de_textum('12.34~5')
+     *
+     * @example <caption>[00.00~0]</caption>
+     * // returns [2, '12.34~5', '', '[12.34~5]
+     * quod_significationem_de_textum('[12.34~5]')
+     *
+     * @example <caption>[00.00~0] 00=(...); []=(...);</caption>
+     * // returns [2, '12.34~5', '', '﹇١٢.٣٤~٥﹈']
+     * quod_significationem_de_textum('﹇١٢.٣٤~٥﹈')
      *
      * @example
-     * // returns ???
-     * quod_significationem_de_textum('[12.34]')
-     * @example
-     * // returns ???
-     * quod_significationem_de_textum('[١٢.٣٥]')
-     *
-     * @example
-     * // returns ???
+     * // returns [3, '12.34', '//نام جایگزین//', '[12.34] //نام جایگزین//']
      * quod_significationem_de_textum('[12.34] //نام جایگزین//')
      *
      * @example
-     * // returns ???
+     * // returns @TODO
      * quod_significationem_de_textum('alternative-name--12-34')
      *
      * @example
-     * // returns ???
+     * // returns @TODO
      * quod_significationem_de_textum('备用名称_12-34')
-     *
      *
      * @param {string} [textum]
      * @returns {array}
      */
     const quod_significationem_de_textum = (textum) => {
-      let typum = 0 // 0: non-codicem; 1: numerum purum; 2 [00.00];
+      let typum = -1 // -1: non-codicem; 1: numerum purum; 2 [00.00];
       let codicem = ''
       let aliud = ''
       let fontem = textum
 
-      const RegulaSystemaScribo = /\p{General_Category=Letter}/gu
-      const RegulaNumerum = /\p{General_Category=Number}/gu
-      const RegulaSublineam = /\p{General_Category=Connector_Punctuation}/gu
-      // @TODO: Non-latinum terminum? https://en.wiktionary.org/wiki/hyphen
-      const RegulaHuphen = /\p{General_Category=Dash_Punctuation}/gu
+      // Full test
+      // ['12.34~5', '١٢.٣٥', '[12.34~5]', '[12.34~5] lorem ipsum', ' Lorem Ipsum [12.34~5]', '[١٢.٣٥] لوريم إيبسوم', 'lorem-ipsum_12-34', 'lorem-ipsum--12-34'].map(quod_significationem_de_textum)
 
-      if (!RegulaSystemaScribo.test(textum)) {
-        console.log('non letters')
-      } else {
-        console.log('letters')
-      }
-      if (!RegulaNumerum.test(textum)) {
-        console.log('non numerum')
-      } else {
-        console.log('numerum')
-      }
-      if (!RegulaHuphen.test(textum)) {
-        console.log('non RegulaHuphen')
-      } else {
-        console.log('RegulaHuphen')
-      }
-      if (!RegulaSublineam.test(textum)) {
-        console.log('non RegulaSublineam')
-      } else {
-        console.log('RegulaSublineam')
-      }
+      // @see https://www.unicode.org/reports/tr44/#General_Category_Values
+      // Regula cor: 00.00~0
+      const RegulaCodicemPurum = `(\\p{General_Category=Decimal_Number}[\\p{General_Category=Decimal_Number}|\.|~]*\\p{General_Category=Decimal_Number})`
+      // Regula cor: [00.00~0]
+      const RegulaCodicemInVasum = `(\\p{General_Category=Open_Punctuation}${RegulaCodicemPurum}\\p{General_Category=Close_Punctuation})`
+
+      // Regula de factum: /^00.00~0$/
+      const __RegulaCodicemPurum = new RegExp('^' + RegulaCodicemPurum + '$', 'u')
+      // Regula de factum: /^[00.00~0]$/
+      const __RegulaCodicemPurumInVasum = new RegExp('^' + RegulaCodicemInVasum + '$', 'u')
+      // Regula de factum: /^[00.00~0] aliud $/
+      const __RegulaCodicemPurumInVasumInitiale = new RegExp('^' + RegulaCodicemInVasum + '(.+)$', 'u')
+      // Regula de factum: /^ aliud [00.00~0]$/
+      const __RegulaCodicemPurumInVasumFinale = new RegExp('^(.+)' + RegulaCodicemInVasum + '$', 'u')
 
       // Punctuation, connector, 	Includes "_" underscore
       // https://www.compart.com/en/unicode/category/Pc
@@ -512,9 +503,36 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       // https://www.compart.com/en/unicode/category/Po
       // 
       // Math Symbol
-      // https://www.compart.com/en/unicode/category/Sm
 
-      // @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes
+      if (__RegulaCodicemPurum.test(textum)) {
+        typum = 1
+        codicem = quod_significationem_in_digitum(textum.match(__RegulaCodicemPurum)[0])
+        // resultatum.push(textum.match(RegulaCodicemPurum))
+
+      } else if (__RegulaCodicemPurumInVasum.test(textum)) {
+        let temp = textum.match(__RegulaCodicemPurumInVasum)
+        typum = 2
+        codicem = quod_significationem_in_digitum(temp[2])
+
+      } else if (__RegulaCodicemPurumInVasumInitiale.test(textum)) {
+        let temp = textum.match(__RegulaCodicemPurumInVasumInitiale)
+        typum = 3
+        codicem = quod_significationem_in_digitum(temp[2])
+        aliud = temp[3].trim()
+
+      } else if (__RegulaCodicemPurumInVasumFinale.test(textum)) {
+        let temp = textum.match(__RegulaCodicemPurumInVasumFinale)
+        typum = 4
+        codicem = quod_significationem_in_digitum(temp[3])
+        aliud = temp[1].trim()
+
+      } else {
+        // @TODO: implement parsing pattterns like these
+        //        - alternative-name--12-34
+        //        - altrrnative-nane_12-34
+        //        - 备用名称--12-34
+        //        - மாற்று பெயர்--12-34
+      }
 
       return [typum, codicem, aliud, fontem]
     }
@@ -550,7 +568,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       // https://www.fileformat.info/info/unicode/category/Nd/list.htm
 
       for (let NumerumSystema of datum) {
-        console.log('NumerumSystema', NumerumSystema)
+        // console.log('NumerumSystema', NumerumSystema)
         for (const [index, rem] of NumerumSystema.split('').entries()) {
           if (atom === rem) {
             return index
