@@ -199,6 +199,8 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         <li>http://graphviz.it/#/gallery/nhg.gv</li>
         <li>https://dreampuf.github.io/GraphvizOnline/</li>
         <li>https://github.com/magjac/d3-graphviz</li>
+        <li>http://magjac.com/graphviz-visual-editor/</li>
+        <li>https://dotuml.com/</li>
       </ul>
     </section>
   </main>
@@ -481,7 +483,6 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
 
       // CoreMirrorTestumDot.setValue(ast_in_dot_v2(abstractum_syntaxim_arborem_v2(['Attacker name [12.10.34~1]', '', 'Survivor name [12.10.34~2]', 'Something else', 'Company name [14.56~2]']), 'title'))
 
-
       resultatum.push(`digraph "${titulum}" {`)
 
       ast[2][0].forEach(coniunctum => {
@@ -513,10 +514,43 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     }
 
 
+    // CoreMirrorTestumDot.setValue((new Graphviz('oi')).addCluster(2, {label: 'clustername'}).addNode('a', 2, {label:'12 a'}).addNode('b', 2).addNode('c', 2).addNode('12')._render())
     class Graphviz {
-      constructor(title, type = "digraph") {
+      constructor(title, type = "digraph", options = {}) {
         this.title = title;
         this.type = type;
+        this.options = options;
+        this.clusters = {}
+        this.nodes = {}
+      }
+
+      addCluster(cluster_id, options = {}) {
+        let _cluster = {
+          'id': cluster_id,
+          'options': options || {}
+        }
+        this.clusters[cluster_id] = _cluster
+        return this
+      }
+
+      addNode(node_id, cluster = null, options = {}) {
+        let _node = {
+          'id': node_id,
+          'cluster': cluster,
+          'options': options || {}
+        }
+        this.nodes[node_id] = _node
+
+        if (cluster && !this.clusters[cluster.toString()]) {
+          this.addCluster(cluster)
+        }
+        return this
+      }
+
+      result2() {
+        return `${this.type} "${this.title}" {
+
+}`
       }
 
       result() {
@@ -544,7 +578,62 @@ subgraph "cluster_2" {
 }
 }`
       }
+
+      _render() {
+        let result = []
+        result.push(`${this.type} "${this.title}" {`)
+        if (this.options && Object.keys(this.options).length !== 0) {
+          result.push(`  ${this._renderOptions(this.options)}`)
+        }
+
+        for (let [key, value] of Object.entries(this.nodes)) {
+          if (!value.cluster) {
+            if (value.options && Object.keys(value.options).length !== 0) {
+              result.push(`  "${value.id}" [${this._renderOptions(value.options)}]`)
+            } else {
+              result.push(`  "${value.id}"`)
+            }
+          }
+        }
+        for (let [key, value] of Object.entries(this.clusters)) {
+          result.push(this._renderCluster(key))
+        }
+
+        result.push('}')
+        return result.join("\n")
+      }
+
+      _renderCluster(cluster) {
+        let result = []
+        result.push(`  subgraph "cluster_${cluster}" {`)
+        if (this.clusters[cluster.toString()].options && Object.keys(this.clusters[cluster.toString()].options).length !== 0) {
+          result.push(`    ${this._renderOptions(this.clusters[cluster.toString()].options)}`)
+        }
+
+        for (let [key, value] of Object.entries(this.nodes)) {
+          if (value.cluster && value.cluster.toString() === cluster.toString()) {
+            if (value.options && Object.keys(value.options).length !== 0) {
+              result.push(`    "${value.id}" [${this._renderOptions(value.options)}]`)
+            } else {
+              result.push(`    "${value.id}"`)
+            }
+          }
+        }
+
+        result.push('  }')
+        return result.join("\n")
+      }
+
+      _renderOptions(options) {
+        let result = []
+        for (let [key, value] of Object.entries(options)) {
+          result.push(`${key}="${value}"`)
+        }
+        return result.join(',')
+      }
     }
+
+
 
     /**
      * Trivia:
