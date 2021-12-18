@@ -449,6 +449,31 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     }
 
 
+    /**
+    digraph "title" {
+
+      "{12}" [label="{12} Person"]
+      "{12.10}" [label="{12.10} //Any type of person name//"]
+      "{14}" [label="{14} Legal Entity"]
+      "{12}" -> "{12.10}"
+      "{12.10}" -> "(1)"
+      "{12.10}" -> "(3)"
+
+      "{14}" -> "(5)"
+
+      subgraph "cluster_-1" {
+        "(2)" [label="(2)"]
+        "(4)" [label="(4)"]
+      }
+      subgraph "cluster_1" {
+        "(1)" [label="[12.10.34] Attacker name"]
+      }
+      subgraph "cluster_2" {
+        "(3)" [label="[12.10.34] Survivor name"]
+        "(5)" [label="[14.56] Company name"]
+      }
+    }
+    */
     function ast_in_dot_v2(ast, titulum) {
       let resultatum = []
       // const sumarium = ast_in_summarium(ast)
@@ -464,6 +489,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
           // console.log('caput_de_coniunctum', el)
           return el && el[6] == coniunctum
         })
+        resultatum.push(`  subgraph "cluster_${coniunctum}" {`)
         let rem_simplex_q = caput_de_coniunctum.map(function (item) {
           let _titulum = `(${item[0]})`
           if (item[5]) {
@@ -474,15 +500,50 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
           }
 
           // return `"${_titulum}"`
-          return `"${_titulum}"`
+          return `  "(${item[0]})" [label="${_titulum}"]`
           // return `"${item}" ..${_titulum}..`
-        }).join(" ");
+        }).join("\n  ");
 
-        resultatum.push(`  subgraph "cluster_${coniunctum}" {${rem_simplex_q}}`)
+        resultatum.push(`  ${rem_simplex_q}`)
+        resultatum.push(`  }`)
       });
 
       resultatum.push('}')
       return resultatum.join("\n")
+    }
+
+
+    class Graphviz {
+      constructor(title, type = "digraph") {
+        this.title = title;
+        this.type = type;
+      }
+
+      result() {
+        return `${this.type} "${this.title}" {
+
+"{12}" [label="{12} Person"]
+"{12.10}" [label="{12.10} //Any type of person name//"]
+"{14}" [label="{14} Legal Entity"]
+"{12}" -> "{12.10}"
+"{12.10}" -> "(1)"
+"{12.10}" -> "(3)"
+
+"{14}" -> "(5)"
+
+subgraph "cluster_-1" {
+  "(2)" [label="(2)"]
+  "(4)" [label="(4)"]
+}
+subgraph "cluster_1" {
+  "(1)" [label="[12.10.34] Attacker name"]
+}
+subgraph "cluster_2" {
+  "(3)" [label="[12.10.34] Survivor name"]
+  "(5)" [label="[14.56] Company name"]
+}
+}`
+      }
     }
 
     /**
