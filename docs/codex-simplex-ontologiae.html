@@ -226,8 +226,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     // const yaml = require('js-yaml');
 
     /**
-     * @example
-     * abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2'])
+     * _[eng-Latn] Generate an fully numeric abstract syntax tree [eng-Latn]_
      *
      * @param {array} rem_collectionem - Array JavaScriptae de perfectum Rem aut vacuum
      * @returns {array}
@@ -262,11 +261,62 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       return ast
     }
 
-    const ast_rem = (rem_crudum) => {
-      return rem_crudum
+    function abstractum_syntaxim_arborem_v2(rem_collectionem) {
+      let ast = []
+      let rem_crudum = []
+      let coniunctum = new Set()
+      let coniunctum_incognitum = []
+      let indicem = 1
+
+      // Tests
+      // abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2'])
+      // abstractum_syntaxim_arborem(['Attacker name [12.10.34~1]', 'Survivor name [12.10.34~2]', 'Something else', 'Company name [14.56~2]'])
+
+      // [
+      //   [ <cluster_-1>, [
+      //       [<original_index>, <original_caput>, <aliud>, <codicem_completum>, <codicem_cor>, <fontem> ]
+      //       [<original_index>, <cluster_index>, <typum_rem>, <codicem>, <aliud>, <fontem>]
+      //   ],
+      //   [ <cluster_0>, [
+      //
+      //   ],
+      //   [ <cluster_0>, [
+      //
+      //   ]
+      // ]
+
+      rem_collectionem.forEach(element => {
+        if (element) {
+          let _rem0 = quod_significationem_de_textum(element)
+          if (_rem0[0] > 0) {
+            let _rem = quod_significationem_de_codicem_purum(_rem0[1], indicem)
+            // let _rem = quod_significationem_de_codicem_purum(element, indicem)
+            rem_crudum.push(_rem)
+            coniunctum.add(_rem[3])
+          } else {
+            coniunctum_incognitum.push(indicem)
+          }
+          // console.log(_rem, _rem0)
+        } else {
+          coniunctum_incognitum.push(indicem)
+        }
+        indicem = indicem + 1
+      });
+
+      if (coniunctum_incognitum.length > 0) {
+        ast.push([-1, coniunctum_incognitum])
+      }
+      if (coniunctum.size) {
+        coniunctum.forEach(coniunctum_numerum => {
+          ast.push([coniunctum_numerum, ast_coniunctum(rem_crudum, coniunctum_numerum)])
+        });
+      }
+
+      return ast
     }
 
     /**
+     * _[eng-Latn] Return subset of variables from it's cluster number [eng-Latn]_
      *
      * @param {array}  rem_completum
      * @param {number} coniunctum
@@ -275,9 +325,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     function ast_coniunctum(rem_completum, coniunctum) {
       let resultatum = []
       rem_completum.forEach(element => {
-        // console.log('coniunctum', coniunctum, element)
         if (element[3] === coniunctum) {
-          // console.log('foi')
           resultatum.push(element)
         }
       });
@@ -287,10 +335,18 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       return resultatum
     }
 
-    // ast_in_summarium(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2']))
-    // summārium, https://en.wiktionary.org/wiki/summarium
+    /**
+     * _[eng-Latn] A rudimentar summary of Abstract Syntax Tree. Consider use
+     * the ast_in_dot_numerae()
+     * [eng-Latn]_
+     *
+     * @param {array}  ast
+     * @returns {object}
+     **/
     function ast_in_summarium(ast) {
       let resultatum = {}
+
+      // ast_in_summarium(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2']))
       if (ast && ast.length) {
         ast.forEach(coniunctum_et_rem_collectionem => {
           let coniunctum = "" + coniunctum_et_rem_collectionem[0]
@@ -746,9 +802,9 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       return resultatum
     }
 
-    // quod_significationem_de_codicem_purum()
-
-    // @TODO: too simplistic. Need deal with more cases
+    /**
+     * @deprecated
+     **/
     const quod_codicem = (textum) => {
       // @see https://stackoverflow.com/questions/14891129
       //      /regular-expression-pl-and-pn/14891168
@@ -811,14 +867,6 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       });
 
       return resultatum
-    }
-
-    // @TODO https://renenyffenegger.ch/notes/tools/Graphviz/elems/subgraph/index
-    const de_codex_ast_in_dot = (ast) => {
-      let titulum = ast.summarium.titulum + ',' + ast.summarium.linguam
-      return `digraph "${titulum}" {
-  A -> {B C}
-}`
     }
 
     /**
@@ -916,7 +964,6 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       ast.summarium.radicem = Array.from(radicem_set).sort()
       ast.collectionem = resultatum
       ast.resumens = quod_resumens(clavem_collectionem, ast.collectionem)
-      // ast.ast.dot = de_codex_ast_in_dot(ast)
       ast.ast.numerum = abstractum_syntaxim_arborem(clavem_collectionem_purum)
       ast.ast.dot = ast_in_dot_numerae(ast.ast.numerum, rem_titulum + ',' + rem_linguam)
       return ast
