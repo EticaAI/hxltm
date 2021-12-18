@@ -435,6 +435,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
      * - cōdicem, https://en.wiktionary.org/wiki/codex#Latin
      * - aliud, https://en.wiktionary.org/wiki/alius#Latin
      * - typum, https://en.wiktionary.org/wiki/typus#Latin
+     * - fontem, https://en.wiktionary.org/wiki/fons#Latin
      *
      * @example
      * // returns ???
@@ -443,6 +444,9 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
      * @example
      * // returns ???
      * quod_significationem_de_textum('[12.34]')
+     * @example
+     * // returns ???
+     * quod_significationem_de_textum('[١٢.٣٥]')
      *
      * @example
      * // returns ???
@@ -464,10 +468,43 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       let typum = 0 // 0: non-codicem; 1: numerum purum; 2 [00.00];
       let codicem = ''
       let aliud = ''
+      let fontem = textum
 
-      alium = textum
+      const RegulaSystemaScribo = /\p{Letter}/gu
+      const RegulaNumerum = /\p{Number}/gu
 
-      return [typum, codicem, aliud]
+      if (!RegulaSystemaScribo.test(textum)) {
+        console.log('non letters')
+      } else {
+        console.log('letters')
+      }
+      if (!RegulaNumerum.test(textum)) {
+        console.log('non numerum')
+      } else {
+        console.log('numerum')
+      }
+
+      // Punctuation, connector, 	Includes "_" underscore
+      // https://www.compart.com/en/unicode/category/Pc
+      //
+      // Punctuation, dash, 	Includes "-" dash
+      // https://www.compart.com/en/unicode/category/Pd
+      //
+      // Punctuation, open [, {, ﹇
+      // https://www.compart.com/en/unicode/category/Ps
+      //
+      // Punctuation, close ], }, ﹈
+      // https://www.compart.com/en/unicode/category/Pe
+      //
+      // Punctuation, other . , * ! ?
+      // https://www.compart.com/en/unicode/category/Po
+      // 
+      // Math Symbol
+      // https://www.compart.com/en/unicode/category/Sm
+
+      // @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes
+
+      return [typum, codicem, aliud, fontem]
     }
 
     // quod_significationem_de_codicem_purum()
