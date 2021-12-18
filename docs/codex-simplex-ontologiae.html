@@ -525,6 +525,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
      * (using JavaScript Engine) regexes?
      * [eng-Latn]_
      *
+     * @see https://www.unicode.org/reports/tr44/#General_Category_Values
      * @see https://unicode.org/reports/tr18/#General_Category_Property
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes
      *
@@ -535,24 +536,64 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       let resultatum = []
       const RegulaSystemaScribo = /\p{General_Category=Letter}/gu
       const RegulaNumerum = /\p{General_Category=Number}/gu
+      const RegulaNumerumDigitum = /\p{General_Category=Decimal_Number}/gu
+      const RegulaPunctumInitiale = /\p{General_Category=Open_Punctuation}/gu
+      const RegulaPunctumFinale = /\p{General_Category=Close_Punctuation}/gu
       const RegulaSublineam = /\p{General_Category=Connector_Punctuation}/gu
       // @TODO: Non-latinum terminum? https://en.wiktionary.org/wiki/hyphen
       const RegulaHuphen = /\p{General_Category=Dash_Punctuation}/gu
       const RegulaExtrapunctum = /\p{General_Category=Other_Punctuation}/gu
+      const RegulaSymbolum = /\p{General_Category=Symbol}/gu
+      const RegulaMathematicam = /\p{General_Category=Math_Symbol}/gu
+      const RegulaInitiale = /^\p{General_Category=Open_Punctuation}(.*)\p{General_Category=Close_Punctuation}.?/u
+      const RegulaFinale = /.?\p{General_Category=Open_Punctuation}(.*)\p{General_Category=Close_Punctuation}$/u
+
+      textum = textum.trim()
+
+      if (RegulaInitiale.test(textum)) {
+        resultatum.push(`RegulaInitiale ${textum.replace(/\P{General_Category=Letter}/gu, '')}`)
+        resultatum.push(textum.match(RegulaInitiale))
+      } else {
+        resultatum.push('NonRegulaInitiale')
+      }
+
+      if (RegulaFinale.test(textum)) {
+        resultatum.push(`RegulaFinale ${textum.replace(/\P{General_Category=Letter}/gu, '')}`)
+      } else {
+        resultatum.push('NonRegulaFinale')
+      }
 
       if (RegulaSystemaScribo.test(textum)) {
         resultatum.push(`RegulaSystemaScribo ${textum.replace(/\P{General_Category=Letter}/gu, '')}`)
       } else {
         resultatum.push('NonRegulaSystemaScribo')
       }
+
       if (RegulaNumerum.test(textum)) {
-        // resultatum.push('RegulaNumerum')
         resultatum.push(`RegulaNumerum ${textum.replace(/\P{General_Category=Number}/gu, '')}`)
       } else {
         resultatum.push('NonRegulaNumerum')
       }
+
+      if (RegulaNumerumDigitum.test(textum)) {
+        resultatum.push(`RegulaNumerumDigitum ${textum.replace(/\P{General_Category=Decimal_Number}/gu, '')}`)
+      } else {
+        resultatum.push('NonRegulaNumerumDigitum')
+      }
+
+      if (RegulaPunctumInitiale.test(textum)) {
+        resultatum.push(`RegulaPunctumInitiale ${textum.replace(/\P{General_Category=Open_Punctuation}/gu, '')}`)
+      } else {
+        resultatum.push('NonRegulaPunctumInitiale')
+      }
+
+      if (RegulaPunctumFinale.test(textum)) {
+        resultatum.push(`RegulaPunctumFinale ${textum.replace(/\P{General_Category=Close_Punctuation}/gu, '')}`)
+      } else {
+        resultatum.push('NonRegulaPunctumFinale')
+      }
+
       if (RegulaSublineam.test(textum)) {
-        // resultatum.push('RegulaSublineam')
         resultatum.push(`RegulaSublineam ${textum.replace(/\P{General_Category=Connector_Punctuation}/gu, '')}`)
       } else {
         resultatum.push('NonRegulaSublineam')
@@ -562,10 +603,23 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       } else {
         resultatum.push('NonRegulaHuphen')
       }
+
       if (RegulaExtrapunctum.test(textum)) {
         resultatum.push(`RegulaExtrapunctum ${textum.replace(/\P{General_Category=Other_Punctuation}/gu, '')}`)
       } else {
         resultatum.push('NonRegulaExtrapunctum')
+      }
+
+      if (RegulaSymbolum.test(textum)) {
+        resultatum.push(`RegulaSymbolum ${textum.replace(/\P{General_Category=Symbol}/gu, '')}`)
+      } else {
+        resultatum.push('NonRegulaSymbolum')
+      }
+
+      if (RegulaMathematicam.test(textum)) {
+        resultatum.push(`RegulaMathematicam ${textum.replace(/\P{General_Category=Math_Symbol}/gu, '')}`)
+      } else {
+        resultatum.push('NonRegulaMathematicam')
       }
 
       return resultatum
