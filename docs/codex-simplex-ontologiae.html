@@ -481,47 +481,36 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       // const sumarium = ast_in_summarium(ast)
       // return sumarium
 
-      // CoreMirrorTestumDot.setValue(ast_in_dot_v2(abstractum_syntaxim_arborem_v2(['Attacker name [12.10.34~1]', '', 'Survivor name [12.10.34~2]', 'Something else', 'Company name [14.56~2]']), 'title'))
+      let dot = new Graphviz(titulum)
 
-      resultatum.push(`digraph "${titulum}" {`)
+      console.log(ast)
 
-      ast[2][0].forEach(coniunctum => {
-        let caput_de_coniunctum = ast[0].filter(function (el, index) {
-          // console.log('caput_de_coniunctum', el)
-          return el && el[6] == coniunctum
-        })
-        resultatum.push(`  subgraph "cluster_${coniunctum}" {`)
-        let rem_simplex_q = caput_de_coniunctum.map(function (item) {
-          let _titulum = `(${item[0]})`
-          if (item[5]) {
-            _titulum = `[${item[5]}]`
-          }
-          if (item[3]) {
-            _titulum = _titulum + ` ${item[3]}`
-          }
+      for (let lineam of ast[0]) {
+        if (!lineam) {
+          continue
+        }
+        let label = (lineam[5] ? `[${lineam[5]}]` : `(${lineam[0]})`)
+        if (lineam[3]) {
+          label = label + ' ' + lineam[3]
+        }
 
-          // return `"${_titulum}"`
-          return `  "(${item[0]})" [label="${_titulum}"]`
-          // return `"${item}" ..${_titulum}..`
-        }).join("\n  ");
+        dot.addNode(`_${lineam[0]}`, lineam[6], { 'label': label })
+        console.log(lineam)
+      }
 
-        resultatum.push(`  ${rem_simplex_q}`)
-        resultatum.push(`  }`)
-      });
-
-      resultatum.push('}')
-      return resultatum.join("\n")
+      return dot.render()
     }
 
-
-    // CoreMirrorTestumDot.setValue((new Graphviz('oi')).addCluster(2, {label: 'clustername'}).addNode('a', 2, {label:'12 a'}).addNode('b', 2).addNode('c', 2).addNode('12')._render())
+    // CoreMirrorTestumDot.setValue(ast_in_dot_v2(abstractum_syntaxim_arborem_v2(['Attacker name [12.10.34~1]', '', 'Survivor name [12.10.34~2]', 'Something else', 'Company name [14.56~2]']), 'title'))
     class Graphviz {
-      constructor(title, type = "digraph", options = {}) {
+      constructor(title, type = "strict graph", options = {}) {
         this.title = title;
         this.type = type;
         this.options = options;
         this.clusters = {}
         this.nodes = {}
+        this.reldirect = {}
+        this.relindirect = {}
       }
 
       addCluster(cluster_id, options = {}) {
@@ -547,41 +536,37 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         return this
       }
 
-      result2() {
-        return `${this.type} "${this.title}" {
 
-}`
+      addRelDirect(source_id, target_ids) {
+        if (!this.type.indexOf('digraph') > -1) {
+          throw "Graphviz: addRelDirect != type digraph [" + this.type + ']'
+        }
+        source_id = source_id.toString()
+        if (!this.reldirect[source_id]) {
+          this.reldirect[source_id] = new Set()
+        }
+        // this.reldirect[source_id] = this.reldirect[source_id].concat(target_ids)
+        target_ids.forEach(item => this.reldirect[source_id].add(item))
+        return this
       }
 
-      result() {
-        return `${this.type} "${this.title}" {
-
-"{12}" [label="{12} Person"]
-"{12.10}" [label="{12.10} //Any type of person name//"]
-"{14}" [label="{14} Legal Entity"]
-"{12}" -> "{12.10}"
-"{12.10}" -> "(1)"
-"{12.10}" -> "(3)"
-
-"{14}" -> "(5)"
-
-subgraph "cluster_-1" {
-  "(2)" [label="(2)"]
-  "(4)" [label="(4)"]
-}
-subgraph "cluster_1" {
-  "(1)" [label="[12.10.34] Attacker name"]
-}
-subgraph "cluster_2" {
-  "(3)" [label="[12.10.34] Survivor name"]
-  "(5)" [label="[14.56] Company name"]
-}
-}`
+      addRelIndirect(source_id, target_ids = []) {
+        if (this.type.indexOf('digraph') > -1) {
+          throw "Graphviz: addRelIndirect != type digraph. [" + this.type + ']'
+        }
+        source_id = source_id.toString()
+        if (!this.relindirect[source_id]) {
+          this.relindirect[source_id] = new Set()
+        }
+        // target_ids.forEach(this.relindirect[source_id].add, target)
+        target_ids.forEach(item => this.relindirect[source_id].add(item))
+        // this.relindirect[source_id] = this.relindirect[source_id].concat(target_ids)
+        return this
       }
 
-      _render() {
+      render() {
         let result = []
-        result.push(`${this.type} "${this.title}" {`)
+        result.push(`${this.type} ${this._q(this.title)} {`)
         if (this.options && Object.keys(this.options).length !== 0) {
           result.push(`  ${this._renderOptions(this.options)}`)
         }
@@ -589,12 +574,14 @@ subgraph "cluster_2" {
         for (let [key, value] of Object.entries(this.nodes)) {
           if (!value.cluster) {
             if (value.options && Object.keys(value.options).length !== 0) {
-              result.push(`  "${value.id}" [${this._renderOptions(value.options)}]`)
+              result.push(`  ${this._q(value.id)} [${this._renderOptions(value.options)}]`)
             } else {
-              result.push(`  "${value.id}"`)
+              result.push(`  ${this._q(value.id)}`)
             }
           }
         }
+        result.push(this._renderRels())
+
         for (let [key, value] of Object.entries(this.clusters)) {
           result.push(this._renderCluster(key))
         }
@@ -613,9 +600,9 @@ subgraph "cluster_2" {
         for (let [key, value] of Object.entries(this.nodes)) {
           if (value.cluster && value.cluster.toString() === cluster.toString()) {
             if (value.options && Object.keys(value.options).length !== 0) {
-              result.push(`    "${value.id}" [${this._renderOptions(value.options)}]`)
+              result.push(`    ${this._q(value.id)} [${this._renderOptions(value.options)}]`)
             } else {
-              result.push(`    "${value.id}"`)
+              result.push(`    ${this._q(value.id)}`)
             }
           }
         }
@@ -630,6 +617,40 @@ subgraph "cluster_2" {
           result.push(`${key}="${value}"`)
         }
         return result.join(',')
+      }
+
+      _renderRels() {
+        let result = []
+        let _q = this._q
+        for (let [key, value] of Object.entries(this.reldirect)) {
+          if (value.size > 1) {
+            let temp = [...value].map(function (item) {
+              return _q(item)
+            }).join(" ");
+            result.push(`  ${_q(key)} -> { ${temp} }`)
+          } else {
+            result.push(`  ${_q(key)} -> ${_q(value[0])}`)
+          }
+        }
+        for (let [key, value] of Object.entries(this.relindirect)) {
+          console.log('oi', value)
+          if (value.size > 1) {
+            let temp = [...value].map(function (item) {
+              return _q(item)
+            }).join(" ");
+            result.push(`  ${_q(key)} -- { ${temp} }`)
+          } else {
+            result.push(`  ${_q(key)} -- ${_q(value[0])}`)
+          }
+        }
+        return result.join("\n")
+      }
+
+      _q(item) {
+        if (/^[\p{General_Category=Letter}].*$/i.test(item)) {
+          return item
+        }
+        return `"${item}"`
       }
     }
 
