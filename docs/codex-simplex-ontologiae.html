@@ -49,7 +49,8 @@ SPDX-License-Identifier: Unlicense
   <main class="container">
     <h1>Cōdex simplex ontologiae</h1>
     <p>
-      <img title="Dominium publicum" alt="Dominium publicum" src="https://i.creativecommons.org/p/zero/1.0/88x31.png" class="float-end">
+      <img title="Dominium publicum" alt="Dominium publicum" src="https://i.creativecommons.org/p/zero/1.0/88x31.png"
+        class="float-end">
       <small><a href="https://developer.chrome.com/docs/devtools/console/log/"> console.log de web pasco</a> aperire,
         quaeso! <kbd>Control+Shift+J</kbd> aut <kbd>Command+Option+J</kbd>.</small>
     </p>
@@ -154,11 +155,12 @@ SPDX-License-Identifier: Unlicense
   -->
     <section class="testum">
       <h2 id="h-testum"><a href="#h-testum">§</a> 3. Usum exemplis</h2>
-      <textarea id="testum">Testum/1,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
+      <textarea
+        id="testum">Testum/1,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
 Testum/2,mul-Latn-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Company name [14.56~2]
 Testum/3,mul-Latn-x-testum,alternative-name--12-10-34,altrrnative-nane_12-10-34
 Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام بازمانده// [12.10.34~2]","//نام شرکت// [14.56~2]"
-Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
+Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Something else,,Company name [14.56~2]</textarea>
       <div class="btn-group float-end" role="group" aria-label="Download testum">
         <button type="button" class="btn btn-outline-success btn-sm" id="testum-archivum-csv">
           <i class="bi bi-file-earmark-arrow-down"></i>
@@ -205,16 +207,13 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         <li>https://dotuml.com/</li>
       </ul>
     </section>
-    <footer>
-      <img src="https://i.creativecommons.org/p/zero/1.0/88x31.png">
-    </footer>
   </main>
   <div class="fixed-bottom" style="background-color: darkgray;">
     <div class="container">
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar" style="padding: 5px">
         <form>
           <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn" />
-          <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="prs-Arab,qhx-Latn">
+          <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="prs-Arab,qhx-Latn,*">
           <button type="button" class="btn btn-primary actionem" id="actionem">āctiōnem</button>
         </form>
       </div>
@@ -329,7 +328,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
           crudum_abstractum_nodum.push(
             [aindex, item, -100, item, item, item, null, []]
           )
-          aindex = aindex -1
+          aindex = aindex - 1
         }
 
         let _etal = _argumented.concat(crudum_abstractum_nodum)
@@ -472,13 +471,13 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         }
         let label = (lineam[5] ? `[${lineam[5]}]` : `(${lineam[0]})`)
         if (lineam[3]) {
-          label = label + ' ' + lineam[3]
+          label = label + ' \\n' + lineam[3]
         }
 
-        dot.addNode(`_${lineam[0]}`, lineam[6], { 'label': label })
-        // console.log('lineam', lineam)
-
-        dot.addRelIndirect(`_${lineam[0]}`, lineam[7].map(x => '_' + x))
+        dot.addNode(`_${lineam[0]}`, lineam[6], { 'label': label, style: 'dotted' })
+        if (lineam[7]) {
+          dot.addRelIndirect(`_${lineam[0]}`, lineam[7].map(x => '_' + x))
+        }
       }
 
       for (let lineam of ast[0]) {
@@ -487,12 +486,17 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         }
         let label = (lineam[5] ? `[${lineam[5]}]` : `(${lineam[0]})`)
         if (lineam[3]) {
-          label = label + ' ' + lineam[3]
+          label = label + ' \\n' + lineam[3]
         }
 
         dot.addNode(`_${lineam[0]}`, lineam[6], { 'label': label })
         // console.log(lineam)
       }
+      if (dot.hasCluster('-1')) {
+        console.log('tem')
+        dot.addCluster('-1', { 'label': '?' })
+      }
+
 
       return dot.render()
     }
@@ -561,6 +565,12 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         return this
       }
 
+      hasCluster(cluster_id) {
+        let keys = Object.keys(this.clusters)
+        console.log('hasCluster', cluster_id)
+        return keys.includes(cluster_id)
+      }
+
       render() {
         let result = []
         result.push(`${this.type} ${this._q(this.title)} {`)
@@ -613,7 +623,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         for (let [key, value] of Object.entries(options)) {
           result.push(`${key}="${value}"`)
         }
-        return result.join(',')
+        return result.join(' ')
       }
 
       _renderRels() {
@@ -651,36 +661,61 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       }
     }
 
-
-
     /**
-     * Trivia:
-     * - atomum, https://en.wiktionary.org/wiki/atomus#Latin
-     * @param {string} rem_crudum
-     * @returns {[array|null]}
-     */
-    const atomum = (rem_crudum) => {
-      let resultatum = []
-
-      resultatum = quod_codicem(rem_crudum)
-      // console.log('atomum', rem_crudum, resultatum)
-      if (resultatum && resultatum[0]) {
-        return resultatum
-      }
-      return null
-    }
-
-    /**
-     * Trivia:
-     * - coniūnctum, https://en.wiktionary.org/wiki/coniunctus#Latin
+     * 
+     * @example
      *
-     * @param {string} [rem_crudum]
-     * @param {number} [indicem]
-     * @returns {object}
+     * quod_cognitionem(scientia_basi, {codicem:'12'})
      **/
-    const abstractum_syntaxim_arborem_coniunctum = (rem_crudum, indicem) => {
+    function quod_cognitionem(scientia_basi, optionem = {}) {
+      // codicem, objectivum_linguam, agendum_linguam, terminum_indicem
+      if (!scientia_basi || !optionem || !optionem.codicem || !scientia_basi[optionem.codicem]) {
+        return false
+      }
+      let terminum_indicem = optionem.terminum_indicem || "0"
+      let clavem_optionem = Object.keys(scientia_basi[optionem.codicem])
+      let clavem = quod_linguam(clavem_optionem, optionem.objectivum_linguam, optionem.agendum_linguam)
+      console.log(clavem)
 
+      if (!scientia_basi[optionem.codicem][clavem][terminum_indicem]) {
+        return false
+      }
+
+      return [scientia_basi[optionem.codicem][clavem][terminum_indicem], clavem, terminum_indicem]
     }
+
+    function quod_linguam(optionem = [], objectivum_linguam = null, agendum_linguam = []) {
+      // @TODO create javascript version of bcp47_langtag
+      //       https://github.com/EticaAI/tico-19-hxltm/blob/main/scripts/fn/linguacodex.py#L1064
+      let aliquid = false
+      if (!objectivum_linguam || !agendum_linguam) {
+        return optionem[0]
+      }
+      if (objectivum_linguam) {
+        for (let opt of optionem) {
+          if (opt.toLowerCase() == objectivum_linguam) {
+            return opt
+          }
+        }
+      } else if (agendum_linguam) {
+        for (agendum in agendum_linguam) {
+          if (agendum === '*') {
+            aliquid = true
+          }
+          for (let opt of optionem) {
+            if (opt.toLowerCase() == agendum) {
+              return opt
+            }
+          }
+        }
+      }
+      if (aliquid) {
+        return optionem[0]
+      }
+
+      return false
+    }
+
 
     /**
      * Trivia:
@@ -1343,12 +1378,12 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     // const ui_testum = document.querySelector('#testum')
     let testum_collectionem = []
     // let abstractum_syntaxim_arborem = null
-    let datum_temp = null
+    let scientia_basi = null
 
     try {
       // const doc = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-      datum_temp = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-      // console.log(datum_temp);
+      scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+      // console.log(scientia_basi);
     } catch (e) {
       console.log(e);
     }
@@ -1367,12 +1402,12 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
 
       // jsyaml.load(CoreMirrorOntologia.getValue(), function (doc) {
       //   console.log('oi')
-      //   datum_temp = doc
+      //   scientia_basi = doc
       // });
       try {
         // const doc = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-        datum_temp = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-        // console.log(datum_temp);
+        scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+        // console.log(scientia_basi);
       } catch (e) {
         console.log(e);
       }
@@ -1381,7 +1416,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         console.group(`Testum ${testum_index}`);
         // console.log('loop', item)
 
-        resultatum_main = main(datum_temp, item, adhoc_objectivum_linguam, adhoc_agendum_linguam)
+        resultatum_main = main(scientia_basi, item, adhoc_objectivum_linguam, adhoc_agendum_linguam)
         // console.log(abstractum_syntaxim_arborem)
         // console.log(abstractum_syntaxim_arborem)
         console.log(resultatum_main.resumens.fontem)
@@ -1405,12 +1440,12 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
     });
     ui_ontologia_json.addEventListener("click", function (el) {
       try {
-        datum_temp = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+        scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
       } catch (e) {
         console.log(e)
         alert(e);
       }
-      var blob = new Blob([JSON.stringify(datum_temp, null, 2)], { type: "application/jsonl;charset=utf-8" });
+      var blob = new Blob([JSON.stringify(scientia_basi, null, 2)], { type: "application/jsonl;charset=utf-8" });
       saveAs(blob, "ontologia.json");
     });
     ui_testum_csv.addEventListener("click", function (el) {
