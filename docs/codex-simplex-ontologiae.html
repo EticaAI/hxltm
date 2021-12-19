@@ -450,32 +450,6 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       return resultatum.join("\n")
     }
 
-
-    /**
-    digraph "title" {
-
-      "{12}" [label="{12} Person"]
-      "{12.10}" [label="{12.10} //Any type of person name//"]
-      "{14}" [label="{14} Legal Entity"]
-      "{12}" -> "{12.10}"
-      "{12.10}" -> "(1)"
-      "{12.10}" -> "(3)"
-
-      "{14}" -> "(5)"
-
-      subgraph "cluster_-1" {
-        "(2)" [label="(2)"]
-        "(4)" [label="(4)"]
-      }
-      subgraph "cluster_1" {
-        "(1)" [label="[12.10.34] Attacker name"]
-      }
-      subgraph "cluster_2" {
-        "(3)" [label="[12.10.34] Survivor name"]
-        "(5)" [label="[14.56] Company name"]
-      }
-    }
-    */
     function ast_in_dot_v2(ast, titulum) {
       let resultatum = []
       // const sumarium = ast_in_summarium(ast)
@@ -647,9 +621,9 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       }
 
       _q(item) {
-        if (/^[\p{General_Category=Letter}].*$/i.test(item)) {
-          return item
-        }
+        // if (/^[\p{General_Category=Letter}].*$/i.test(item)) {
+        //   return item
+        // }
         return `"${item}"`
       }
     }
@@ -1236,12 +1210,15 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         return temp[0] || ''
       })
 
+      let ast2 = abstractum_syntaxim_arborem_v2(clavem_collectionem)
+
       ast.summarium.grupum = Array.from(grupum_set).sort()
       ast.summarium.radicem = Array.from(radicem_set).sort()
       ast.collectionem = resultatum
       ast.resumens = quod_resumens(clavem_collectionem, ast.collectionem)
       ast.ast.numerum = abstractum_syntaxim_arborem(clavem_collectionem_purum)
-      ast.ast.dot = ast_in_dot_numerae(ast.ast.numerum, rem_titulum + ',' + rem_linguam)
+      // ast.ast.dot = ast_in_dot_numerae(ast.ast.numerum, rem_titulum + ',' + rem_linguam)
+      ast.ast.dot = ast_in_dot_v2(ast2, rem_titulum + ',' + rem_linguam)
       return ast
     }
 
