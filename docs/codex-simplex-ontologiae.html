@@ -231,41 +231,6 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
     // const yaml = require('js-yaml');
 
-    /**
-     * _[eng-Latn] Generate an fully numeric abstract syntax tree [eng-Latn]_
-     *
-     * @param {array} rem_collectionem - Array JavaScriptae de perfectum Rem aut vacuum
-     * @returns {array}
-     **/
-    function abstractum_syntaxim_arborem(rem_collectionem) {
-      let ast = []
-      let rem_crudum = []
-      let coniunctum = new Set()
-      let coniunctum_incognitum = []
-      let indicem = 1
-
-      rem_collectionem.forEach(element => {
-        if (element) {
-          let _rem = quod_significationem_de_codicem_purum(element, indicem)
-          rem_crudum.push(_rem)
-          coniunctum.add(_rem[3])
-        } else {
-          coniunctum_incognitum.push(indicem)
-        }
-        indicem = indicem + 1
-      });
-
-      if (coniunctum_incognitum.length > 0) {
-        ast.push([-1, coniunctum_incognitum])
-      }
-      if (coniunctum.size) {
-        coniunctum.forEach(coniunctum_numerum => {
-          ast.push([coniunctum_numerum, ast_coniunctum(rem_crudum, coniunctum_numerum)])
-        });
-      }
-
-      return ast
-    }
 
     /**
      * _[eng-Latn]
@@ -277,8 +242,8 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
      * @param   {array} [rem_collectionem] - JavaScript Array[Array] de datum
      * @returns {array}
      */
-    function abstractum_syntaxim_arborem_v2(caput_collectionem, rem_collectionem = null) {
-      let ast = []
+    function abstractum_syntaxim_arborem(caput_collectionem, rem_collectionem = null) {
+      let ast_crudum = []
       let rem_crudum = []
       let coniunctum = new Set()
       let abstractum_nodum = new Set()
@@ -287,9 +252,9 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
       let indicem = 1
 
       // Tests
-      // abstractum_syntaxim_arborem_v2(['Attacker name [12.10.34~1]', '', 'Survivor name [12.10.34~2]', 'Something else', 'Company name [14.56~2]'])
+      // abstractum_syntaxim_arborem(['Attacker name [12.10.34~1]', '', 'Survivor name [12.10.34~2]', 'Something else', 'Company name [14.56~2]'])
 
-      // 0: [<originale_indicem>, <originale_caput>, <typum_caput>, <aliud_caput>, <codicem_completum>, <codicem_basem>, <coniunctum>, <relationem>]
+      // 0: [<0:originale_indicem>, <1:originale_caput>, <2:typum_caput>, <3:aliud_caput>, <4:codicem_completum>, <5:codicem_basem>, <6:coniunctum>, <7:relationem>, <8:referens_nomen>]
       // 1: vacuum
       // 2: [...<coniunctum_collectionem>]
       // 3: [...<crudum_abstractum_nodum>]
@@ -304,6 +269,7 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
         coniunctum.add(adhoc[4])
         let lineam = [index + 1, caput].concat(adhoc)
         lineam.push([]) // <relationem>
+        lineam.push('') // <referens_nomen>
         _argumented.push(lineam)
 
         if (adhoc[3]) {
@@ -326,17 +292,13 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
         let aindex = -2
         for (let item of _an) {
           crudum_abstractum_nodum.push(
-            [aindex, item, -100, item, item, item, null, []]
+            [aindex, item, -100, item, item, item, null, [], '']
           )
           aindex = aindex - 1
         }
 
         let _etal = _argumented.concat(crudum_abstractum_nodum)
         // _etal = _etal.filter()
-
-        // console.log('_etal', _etal)
-        // console.log('crudum_abstractum_nodum', crudum_abstractum_nodum)
-        // console.log(typeof _etal)
 
         // relationem
         for (let [index_1, item_1] of crudum_abstractum_nodum.entries()) {
@@ -352,8 +314,6 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
                 crudum_abstractum_nodum[index_1][7].push(item_2[0])
                 // console.log('foi mesmo', index_1, item_2[0])
               }
-              // console.log('foi', index_1, crudum_abstractum_nodum[index_1])
-              // console.log('item0, item_2', item_1, item_2)
             }
           }
         }
@@ -363,19 +323,60 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
         Array.from(coniunctum).sort()
       )
 
-      ast.push(_argumented)
-      ast.push(rem_collectionem)
-      ast.push(_meta)
-      // ast.push(rem_et_codicem)
-      // ast.push(abstractum_nodum)
-      // ast.push(_an)
-      ast.push(crudum_abstractum_nodum)
-      // ast.push(_argumented.concat(crudum_abstractum_nodum))
-      // console.log('_meta', _meta)
+      ast_crudum.push(_argumented)
+      ast_crudum.push(rem_collectionem)
+      ast_crudum.push(_meta)
+      ast_crudum.push(crudum_abstractum_nodum)
 
-      console.log('abstractum_syntaxim_arborem_v2', ast)
+      // console.log('abstractum_syntaxim_arborem_v2', ast)
 
-      return ast
+      return ast_crudum
+    }
+
+    // @TODO: implement way to, via curated examples of previously tagged data
+    //        add codes on a dataset
+    function abstractum_syntaxim_arborem_de_conscientiam(ast_de_professorem, scientia_basi, optionem = {}) {
+      // Trivia: https://en.wiktionary.org/wiki/conscientia#Latin
+      let ast_finale = ast_de_professorem
+
+      // 0: [<0:originale_indicem>, <1:originale_caput>, <2:typum_caput>, <3:aliud_caput>, <4:codicem_completum>, <5:codicem_basem>, <6:coniunctum>, <7:relationem>, <8:referens_nomen>]
+      if (ast_finale[0]) {
+        for (let index = 1; index < ast_finale[0].length; index++) {
+          if (ast_finale[0][index][5]) {
+            let referens_nomen = quod_cognitionem(scientia_basi, { codicem: ast_finale[0][index][5] })
+            if (referens_nomen && referens_nomen[0]) {
+              ast_finale[0][index][8] = referens_nomen[0]
+              // console.log('deu', referens_nomen[0])
+            }
+          }
+        }
+      }
+
+      // 3: [...<crudum_abstractum_nodum>]
+      if (ast_finale[3]) {
+        // index de 0
+        for (let index = 0; index < ast_finale[3].length; index++) {
+          // <5:codicem_basem>
+          // <8:referens_nomen>
+          if (ast_finale[3][index][5]) {
+            let referens_nomen = quod_cognitionem(scientia_basi, { codicem: ast_finale[3][index][5] })
+            if (referens_nomen && referens_nomen[0]) {
+              ast_finale[3][index][8] = referens_nomen[0]
+              // console.log('deu2', referens_nomen[0])
+            }
+            // console.log('referens_nomen', referens_nomen)
+          }
+          // console.log('oi', ast_finale[3][index][5])
+        }
+      }
+      return ast_finale
+    }
+
+    // @TODO: implement way to, via curated examples of previously tagged data
+    //        add codes on a dataset
+    function abstractum_syntaxim_arborem_de_professorem(ast_crudum) {
+      let ast_de_professorem = ast_crudum
+      return ast_de_professorem
     }
 
     /**
@@ -456,14 +457,16 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
       return resultatum.join("\n")
     }
 
-    function ast_in_dot_v2(ast, titulum) {
+    function ast_in_dot_v2(ast, titulum, annotationem = '') {
       let resultatum = []
       // const sumarium = ast_in_summarium(ast)
       // return sumarium
 
       let dot = new Graphviz(titulum)
 
-      // console.log(ast)
+      if (annotationem) {
+        dot.addAnnotation(annotationem)
+      }
 
       for (let lineam of ast[3]) {
         if (!lineam) {
@@ -501,7 +504,7 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
       return dot.render()
     }
 
-    // CoreMirrorTestumDot.setValue(ast_in_dot_v2(abstractum_syntaxim_arborem_v2(['Attacker name [12.10.34~1]', '', 'Survivor name [12.10.34~2]', 'Something else', 'Company name [14.56~2]']), 'title'))
+    // CoreMirrorTestumDot.setValue(ast_in_dot_v2(abstractum_syntaxim_arborem(['Attacker name [12.10.34~1]', '', 'Survivor name [12.10.34~2]', 'Something else', 'Company name [14.56~2]']), 'title'))
     class Graphviz {
       constructor(title, type = "strict graph", options = {}) {
         this.title = title;
@@ -511,6 +514,12 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
         this.nodes = {}
         this.reldirect = {}
         this.relindirect = {}
+        this.annotations = []
+      }
+
+      addAnnotation(annotation) {
+        this.annotations.push(annotation)
+        return this
       }
 
       addCluster(cluster_id, options = {}) {
@@ -573,6 +582,14 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
 
       render() {
         let result = []
+
+        if (this.annotations.length) {
+          for (let annotation of this.annotations) {
+            result.push('# ' + annotation)
+          }
+          result.push('')
+        }
+
         result.push(`${this.type} ${this._q(this.title)} {`)
         if (this.options && Object.keys(this.options).length !== 0) {
           result.push(`  ${this._renderOptions(this.options)}`)
@@ -675,12 +692,12 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
       let terminum_indicem = optionem.terminum_indicem || "0"
       let clavem_optionem = Object.keys(scientia_basi[optionem.codicem])
       let clavem = quod_linguam(clavem_optionem, optionem.objectivum_linguam, optionem.agendum_linguam)
-      console.log(clavem)
+      // console.log(clavem)
 
       if (!scientia_basi[optionem.codicem][clavem][terminum_indicem]) {
         return false
       }
-
+      // [<0:referens_nomen>, <1:linguam>, <2:terminum_indicem>]
       return [scientia_basi[optionem.codicem][clavem][terminum_indicem], clavem, terminum_indicem]
     }
 
@@ -1182,6 +1199,13 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
      */
     const main = (datum, clavem_collectionem, objectivum_linguam, agendum_linguam) => {
       // console.log('main', clavem_collectionem)
+
+      let originale = clavem_collectionem.map(function (el) {
+        return el.indexOf(',') > -1 ? `"${el}"` : el
+      }).join(',')
+
+      console.log(originale)
+
       datum_globum = datum
       let rem_titulum = clavem_collectionem.shift()
       let rem_linguam = clavem_collectionem.shift()
@@ -1268,15 +1292,17 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
         return temp[0] || ''
       })
 
-      let ast2 = abstractum_syntaxim_arborem_v2(clavem_collectionem)
+      let ast_crudum = abstractum_syntaxim_arborem(clavem_collectionem)
+      let ast_de_professorem = abstractum_syntaxim_arborem_de_professorem(ast_crudum)
+      let ast_finale = abstractum_syntaxim_arborem_de_conscientiam(ast_crudum, scientia_basi)
 
       ast.summarium.grupum = Array.from(grupum_set).sort()
       ast.summarium.radicem = Array.from(radicem_set).sort()
       ast.collectionem = resultatum
       ast.resumens = quod_resumens(clavem_collectionem, ast.collectionem)
-      ast.ast.numerum = abstractum_syntaxim_arborem(clavem_collectionem_purum)
+      // ast.ast.numerum = abstractum_syntaxim_arborem(clavem_collectionem_purum)
       // ast.ast.dot = ast_in_dot_numerae(ast.ast.numerum, rem_titulum + ',' + rem_linguam)
-      ast.ast.dot = ast_in_dot_v2(ast2, rem_titulum + ',' + rem_linguam)
+      ast.ast.dot = ast_in_dot_v2(ast_finale, rem_titulum + ',' + rem_linguam, originale)
       return ast
     }
 
