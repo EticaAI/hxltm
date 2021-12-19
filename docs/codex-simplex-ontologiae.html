@@ -343,11 +343,17 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         for (let [index_1, item_1] of crudum_abstractum_nodum.entries()) {
           // console.log('item0', item_0)
           for (let item_2 of _etal) {
+            // console.log('item_1[5]', item_1[5])
             // if (item_2 && item_2[5] && item_2[5].indexOf(item_1 + '.') === 0) {
             if (item_2 && item_2[5] && item_2[5].indexOf(item_1[5] + '.') === 0) {
               // console.log(crudum_abstractum_nodum[index_1])
-              crudum_abstractum_nodum[index_1][7].push(item_2[0])
-              // console.log('foi')
+              let _parts = item_2[5].replace(item_1[5] + '.', '').split('.')
+              // console.log('_parts', _parts, item_2[5], item_1[5], item_2[5].replace(item_1[5] + '.', ''), '')
+              if (_parts.length === 1) {
+                crudum_abstractum_nodum[index_1][7].push(item_2[0])
+                // console.log('foi mesmo', index_1, item_2[0])
+              }
+              // console.log('foi', index_1, crudum_abstractum_nodum[index_1])
               // console.log('item0, item_2', item_1, item_2)
             }
           }
@@ -367,6 +373,8 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
       ast.push(crudum_abstractum_nodum)
       // ast.push(_argumented.concat(crudum_abstractum_nodum))
       // console.log('_meta', _meta)
+
+      console.log('abstractum_syntaxim_arborem_v2', ast)
 
       return ast
     }
@@ -468,7 +476,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         }
 
         dot.addNode(`_${lineam[0]}`, lineam[6], { 'label': label })
-        // console.log(lineam)
+        // console.log('lineam', lineam)
 
         dot.addRelIndirect(`_${lineam[0]}`, lineam[7].map(x => '_' + x))
       }
@@ -548,6 +556,7 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
         }
         // target_ids.forEach(this.relindirect[source_id].add, target)
         target_ids.forEach(item => this.relindirect[source_id].add(item))
+        // console.log('addRelIndirect', source_id, target_ids, this.relindirect)
         // this.relindirect[source_id] = this.relindirect[source_id].concat(target_ids)
         return this
       }
@@ -617,18 +626,18 @@ Testum/555,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2</textarea>
             }).join(" ");
             result.push(`  ${_q(key)} -> { ${temp} }`)
           } else {
-            result.push(`  ${_q(key)} -> ${_q(value[0])}`)
+            result.push(`  ${_q(key)} -> ${_q([...value][0])}`)
           }
         }
         for (let [key, value] of Object.entries(this.relindirect)) {
-          console.log('oi', value)
+          // console.log('oi', value)
           if (value.size > 1) {
             let temp = [...value].map(function (item) {
               return _q(item)
             }).join(" ");
             result.push(`  ${_q(key)} -- { ${temp} }`)
           } else {
-            result.push(`  ${_q(key)} -- ${_q(value[0])}`)
+            result.push(`  ${_q(key)} -- ${_q([...value][0])}`)
           }
         }
         return result.join("\n")
