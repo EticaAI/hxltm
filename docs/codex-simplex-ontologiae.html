@@ -71,7 +71,7 @@ SPDX-License-Identifier: Unlicense
     '0': "//نهاد قانونی//"
 '12.10':
   eng-Latn:
-    '0': Person - //Any type of person name//
+    '0': //Any type of person name//
   prs-Arab:
     '0': "//شخص// - //هر نوع نام شخصی//"
   qhx-Latn:
@@ -159,8 +159,9 @@ SPDX-License-Identifier: Unlicense
         id="testum">Testum/1,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
 Testum/2,mul-Latn-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Company name [14.56~2]
 Testum/3,mul-Latn-x-testum,alternative-name--12-10-34,altrrnative-nane_12-10-34
-Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام بازمانده// [12.10.34~2]","//نام شرکت// [14.56~2]"
-Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Something else,,Company name [14.56~2]</textarea>
+Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Something else,,Company name [14.56~2]
+Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام بازمانده// [12.10.34~2]","مثال","//نام شرکت// [14.56~2]","لورم اپیسوم"
+</textarea>
       <div class="btn-group float-end" role="group" aria-label="Download testum">
         <button type="button" class="btn btn-outline-success btn-sm" id="testum-archivum-csv">
           <i class="bi bi-file-earmark-arrow-down"></i>
@@ -472,10 +473,23 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
         if (!lineam) {
           continue
         }
+
+        // Habesne codicem? [00.00]
+        // Nom codicem? Indicem (0)
         let label = (lineam[5] ? `[${lineam[5]}]` : `(${lineam[0]})`)
-        if (lineam[3]) {
-          label = label + ' \\n' + lineam[3]
+
+        // <8:referens_nomen>?
+        if (lineam[8]) {
+          label = label + '\\n' + lineam[8]
+        } else {
+          label = label + '\\n---'
         }
+        // // <3:aliud_caput> ?
+        // if (lineam[3]) {
+        //   label = label + ' \\n' + lineam[3]
+        // } else {
+        //   label = label + '\\n---'
+        // }
 
         dot.addNode(`_${lineam[0]}`, lineam[6], { 'label': label, style: 'dotted' })
         if (lineam[7]) {
@@ -487,19 +501,29 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
         if (!lineam) {
           continue
         }
+
         let label = (lineam[5] ? `[${lineam[5]}]` : `(${lineam[0]})`)
+
+        // <8:referens_nomen>?
+        if (lineam[8]) {
+          label = label + '\\n' + lineam[8]
+        } else {
+          label = label + '\\n---'
+        }
+        // <3:aliud_caput> ?
         if (lineam[3]) {
           label = label + ' \\n' + lineam[3]
+        } else {
+          label = label + '\\n---'
         }
 
         dot.addNode(`_${lineam[0]}`, lineam[6], { 'label': label })
         // console.log(lineam)
       }
       if (dot.hasCluster('-1')) {
-        console.log('tem')
+        // console.log('tem')
         dot.addCluster('-1', { 'label': '?' })
       }
-
 
       return dot.render()
     }
@@ -914,7 +938,11 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
           codicem_coniunctum = 0
         }
       }
+      if (codicem_coniunctum === -1) {
+        aliud = textum
+      }
 
+      // console.log([typum, aliud, codicem_completum, codicem_radicem, codicem_coniunctum])
       return [typum, aliud, codicem_completum, codicem_radicem, codicem_coniunctum]
     }
 
@@ -1302,6 +1330,7 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
       ast.resumens = quod_resumens(clavem_collectionem, ast.collectionem)
       // ast.ast.numerum = abstractum_syntaxim_arborem(clavem_collectionem_purum)
       // ast.ast.dot = ast_in_dot_numerae(ast.ast.numerum, rem_titulum + ',' + rem_linguam)
+      ast.ast.finale = ast_finale
       ast.ast.dot = ast_in_dot_v2(ast_finale, rem_titulum + ',' + rem_linguam, originale)
       return ast
     }
@@ -1495,6 +1524,9 @@ Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~
 
     //*********** _[eng-Latn] User interface logic, END [eng-Latn]_ **********//
   </script>
+  <!-- https://stackoverflow.com/questions/35454245/how-to-mix-rtl-and-ltr-text-directions-in-the-same-option-element/35491589#35491589
+  <textarea dir="RTL" style="width: 100%; height: 5em; unicode-bidi: embed">
+Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام بازمانده// [12.10.34~2]""لورم اپیسوم","//نام شرکت// [14.56~2]","لورم اپیسوم"</textarea> -->
 </body>
 
 </html>
