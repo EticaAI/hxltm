@@ -36,6 +36,27 @@ SPDX-License-Identifier: Unlicense
     body {
       padding-bottom: 4em;
     }
+
+    /* Color blind palette from here https://davidmathlogic.com/colorblind/#%23648FFF-%23785EF0-%23DC267F-%23FE6100-%23FFB000*/
+    .cm-num0 {
+      color: #648FFF !important;
+    }
+
+    .cm-num1 {
+      color: #785EF0 !important;
+    }
+
+    .cm-num2 {
+      color: #DC267F !important;
+    }
+
+    .cm-num3 {
+      color: #FE6100 !important;
+    }
+
+    .cm-num4 {
+      color: #FFB000 !important;
+    }
   </style>
 </head>
 <!--
@@ -155,8 +176,7 @@ SPDX-License-Identifier: Unlicense
   -->
     <section class="testum">
       <h2 id="h-testum"><a href="#h-testum">§</a> 3. Usum exemplis</h2>
-      <textarea
-        id="testum">Testum/1,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
+      <textarea id="testum">Testum/1,mul-Zmth-x-testum,12.10.34,12.10.34~2,14.56,14.56,14.56~2
 Testum/2,mul-Latn-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Company name [14.56~2]
 Testum/3,mul-Latn-x-testum,alternative-name--12-10-34,altrrnative-nane_12-10-34
 Testum/555,mul-Zmth-x-testum,Attacker name [12.10.34~1],Survivor name [12.10.34~2],Something else,,Company name [14.56~2]
@@ -1393,6 +1413,71 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
       }
       return arr;
     }
+
+    /* CodeMirror rainbow CSV mode, START
+    Author https://gist.github.com/rooks/6a13affb544ef8bc338b49af7d018318  */
+    const DELIM = ','
+    const QUOTE = '"'
+
+    const MAX_LENGTH = 5
+    const tokenRainbow = state => `string num${state.num}`
+    const tokenPlain = () => 'string'
+
+    CodeMirror.defineMode('csv', function modeCsv(opts, modeOpts) {
+      let { delimiter = DELIM, rainbow = false } = modeOpts
+      let token = rainbow ? tokenRainbow : tokenPlain
+
+      function tokenMain(stream, state) {
+        if (stream.sol()) {
+          state.num = 0
+        }
+
+        let ch = stream.next()
+
+        if (ch === QUOTE) {
+          state.tokenize = tokenQuotes
+          return token(state)
+        }
+
+        if (ch === delimiter) {
+          state.num = (state.num + 1) % MAX_LENGTH
+          return 'delim'
+        }
+
+        return token(state)
+      }
+
+      function tokenQuotes(stream, state) {
+        let ch = stream.next()
+        if (ch === QUOTE) {
+          let next = stream.peek()
+          // escaped quotaion mark
+          if (next === QUOTE) {
+            stream.next()
+          }
+          // end of the record
+          else {
+            state.tokenize = tokenMain
+          }
+        }
+
+        return token(state)
+      }
+
+      return {
+        startState() {
+          return {
+            num: 0,
+            tokenize: tokenMain
+          }
+        },
+        token(stream, state) {
+          let style = state.tokenize(stream, state)
+          return style
+        }
+      }
+    })
+    /* CodeMirror rainbow CSV mode, END */
   </script>
 
   <script>
@@ -1415,7 +1500,8 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
     CoreMirrorTestum.setOption('viewportMargin', true)
     // CoreMirrorTestum2.setOption('lineNumbers', true)
     // CoreMirrorTestum.setOption('mode', 'mathematica')
-    CoreMirrorTestum.setOption('mode', 'text')
+    // CoreMirrorTestum.setOption('mode', 'csv')
+    CoreMirrorTestum.setOption('mode', { name: 'csv', rainbow: true })
     CoreMirrorTestum.setOption('rtlMoveVisually', false)
     CoreMirrorTestumDot.setOption('mode', 'text')
     CoreMirrorTestumDot.setOption('viewportMargin', true)
