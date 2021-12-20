@@ -43,7 +43,7 @@ SPDX-License-Identifier: Unlicense
     }
 
     .cm-num1 {
-      color: #785EF0 !important;
+      color: #FFB000 !important;
     }
 
     .cm-num2 {
@@ -51,11 +51,11 @@ SPDX-License-Identifier: Unlicense
     }
 
     .cm-num3 {
-      color: #FE6100 !important;
+      color: #785EF0 !important;
     }
 
     .cm-num4 {
-      color: #FFB000 !important;
+      color: #FE6100 !important;
     }
   </style>
 </head>
@@ -164,6 +164,10 @@ SPDX-License-Identifier: Unlicense
         <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="ontologia-ast-online-dot">
           <i class="bi bi-globe"></i>
           ontologia-numerae.gv
+        </a>
+        <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="ontologia-ast-online-dot-verbosum">
+          <i class="bi bi-globe"></i>
+          ontologia-verbosum.gv
         </a>
       </div>
     </section>
@@ -515,7 +519,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         //   label = label + '\\n---'
         // }
 
-        dot.addNode(`_${lineam[0]}`, {'cluster': lineam[6]}, { 'label': label, style: 'dotted' })
+        dot.addNode(`_${lineam[0]}`, {'cluster': lineam[6], 'rank':__codicem_rank(lineam[5])}, { 'label': label, style: 'dotted' })
         if (lineam[7]) {
           dot.addRelIndirect(`_${lineam[0]}`, lineam[7].map(x => '_' + x))
         }
@@ -541,7 +545,8 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
           label = label + '\\n---'
         }
 
-        dot.addNode(`_${lineam[0]}`, {'cluster': lineam[6]}, { 'label': label })
+        // dot.addNode(`_${lineam[0]}`, {'cluster': lineam[6]}, { 'label': label })
+        dot.addNode(`_${lineam[0]}`, {'cluster': lineam[6], 'rank':__codicem_rank(lineam[5])}, { 'label': label })
         // console.log(lineam)
       }
       if (dot.hasCluster('-1')) {
@@ -586,14 +591,16 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
           'id': node_id,
           'cluster': (meta && meta.cluster ? meta.cluster : null),
           'options': options || {},
-          'rank': (meta && meta.rank ? meta.rank : null)
+          'rank': (meta && meta.rank ? meta.rank : null),
+          'verbose': (meta && meta.verbose ? meta.verbose : null)
         }
         this.nodes[node_id] = _node
 
         if (meta && meta.cluster && !this.clusters[meta.cluster.toString()]) {
           this.addCluster(meta.cluster)
-        }
-        if (meta && meta.rank) {
+
+        // Only try add rank for non clusterized (this seems to disable cluster view)
+        } else if (meta && meta.rank) {
           if (!this.ranks[meta.rank.toString()]) {
             this.ranks[meta.rank.toString()] = new Set()
           }
@@ -601,7 +608,6 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         }
         return this
       }
-
 
       addRelDirect(source_id, target_ids) {
         if (!this.type.indexOf('digraph') > -1) {
@@ -639,6 +645,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
 
       render() {
         let result = []
+        let _q = this._q
 
         if (this.annotations.length) {
           for (let annotation of this.annotations) {
@@ -654,10 +661,20 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
 
         for (let [key, value] of Object.entries(this.nodes)) {
           if (!value.cluster) {
+            let __verbose = ''
+            if (value.verbose && value.verbose.length > 0) {
+              let __varr = []
+              value.verbose.forEach(item => {
+                __varr.push(_q(item))
+              });
+
+              __verbose = ' -- {' + __varr.join(' ') + '}'
+            }
+
             if (value.options && Object.keys(value.options).length !== 0) {
-              result.push(`  ${this._q(value.id)} [${this._renderOptions(value.options)}]`)
+              result.push(`  ${this._q(value.id)} [${this._renderOptions(value.options)}]${__verbose}`)
             } else {
-              result.push(`  ${this._q(value.id)}`)
+              result.push(`  ${this._q(value.id)}${__verbose}`)
             }
           }
         }
@@ -714,6 +731,9 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
             // No sense in rank only one item
             // result.push(`  ${_q(key)} -> ${_q([...value][0])}`)
           }
+        }
+        if (result.length > 0) {
+          result.unshift('  newrank=true;')
         }
         return result.join("\n")
       }
@@ -1225,11 +1245,11 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
 
     // @TODO deal with order of apperance https://stackoverflow.com/questions/44274518/how-can-i-control-within-level-node-order-in-graphvizs-dot
     function scientia_basi_in_ast_dot_numerum(scientia) {
-      let resultatum = '# TODO'
+      // let resultatum = '# TODO'
 
       let dot = new Graphviz('ontologia-numerae')
 
-      console.log(scientia, scientia)
+      // console.log(scientia, scientia)
 
       if (scientia && Object.keys(scientia).length !== 0) {
         let _opt = Object.keys(scientia)
@@ -1246,25 +1266,29 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         })
 
       } {
-        dot.addAnnotation('vacuum?')
+        // dot.addAnnotation('vacuum?')
       }
 
       return dot.render()
     }
 
+    function scientia_basi_in_ast_dot_verbosum(scientia) {
+      console.log('TODO: scientia_basi_in_ast_dot_verbosum')
+      return scientia_basi_in_ast_dot_numerum(scientia)
+    }
 
 
     function __direct_children(code, all_options) {
       let resultatum = []
       let code_level = code.split('.').length
-      console.log('code', code)
+      // console.log('code', code)
       if (all_options) {
         all_options.forEach(item => {
           // console.log('item', item)
           if (item.indexOf(`${code}`) > -1) {
             let option_level = item.split('.').length
-            console.log('oi  code, code_level, item, option_level', code, code_level, item, option_level)
-            console.log(code_level, option_level, code_level === (option_level + 1))
+            // console.log('oi  code, code_level, item, option_level', code, code_level, item, option_level)
+            // console.log(code_level, option_level, code_level === (option_level + 1))
             if (code_level === (option_level - 1)) {
               resultatum.push(item)
             }
@@ -1609,6 +1633,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
     // CoreMirrorTestum.setOption('mode', 'csv')
     CoreMirrorTestum.setOption('mode', { name: 'csv', rainbow: true })
     CoreMirrorTestum.setOption('rtlMoveVisually', false)
+    CoreMirrorTestum.setOption('theme', 'dracula')
     CoreMirrorTestumDot.setOption('mode', 'text')
     CoreMirrorTestumDot.setOption('viewportMargin', true)
     CoreMirrorTestumDot.setOption('lineNumbers', true)
@@ -1622,6 +1647,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
     const ui_ontologia_yml = document.querySelector('#ontologia-archivum-yml')
     const ui_ontologia_json = document.querySelector('#ontologia-archivum-json')
     const ui_ontologia_ast_dot_online = document.querySelector('#ontologia-ast-online-dot')
+    const ui_ontologia_ast_dot_verbosum_online = document.querySelector('#ontologia-ast-online-dot-verbosum')
     const ui_testum_csv = document.querySelector('#testum-archivum-csv')
     const ui_testum_ast_dot = document.querySelector('#testum-ast-archivum-dot')
     const ui_testum_ast_dot_online = document.querySelector('#testum-ast-online-dot')
@@ -1692,6 +1718,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
       var blob = new Blob([CoreMirrorOntologia.getValue()], { type: "text/x-yaml;charset=utf-8" });
       saveAs(blob, "ontologia.yml");
     });
+
     ui_ontologia_json.addEventListener("click", function (el) {
       try {
         scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
@@ -1702,31 +1729,45 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
       var blob = new Blob([JSON.stringify(scientia_basi, null, 2)], { type: "application/jsonl;charset=utf-8" });
       saveAs(blob, "ontologia.json");
     });
+
     ui_ontologia_ast_dot_online.addEventListener("click", function (el) {
       try {
         scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
         scientia = scientia_basi_de_crudum(scientia_basi)
       } catch (e) {
         console.log(e)
-        // alert(e);
+        alert(e);
       }
-      console.log('scientia', scientia)
+      // console.log('scientia', scientia)
       let scientia_numerum_dot = scientia_basi_in_ast_dot_numerum(scientia)
       this.href = 'https://edotor.net/?engine=dot#' + encodeURI(scientia_numerum_dot)
-      // console.log('oi', el, this)
-
-      // var blob = new Blob([CoreMirrorTestumDot.getValue()], { type: "vnd.graphviz;charset=utf-8" });
-      // saveAs(blob, "testum-ast.gv");
       return false;
     });
+
+    ui_ontologia_ast_dot_verbosum_online.addEventListener("click", function (el) {
+      try {
+        scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+        scientia = scientia_basi_de_crudum(scientia_basi)
+      } catch (e) {
+        console.log(e)
+        alert(e);
+      }
+      // console.log('scientia', scientia)
+      let scientia_numerum_dot = scientia_basi_in_ast_dot_verbosum(scientia)
+      this.href = 'https://edotor.net/?engine=dot#' + encodeURI(scientia_numerum_dot)
+      return false;
+    });
+
     ui_testum_csv.addEventListener("click", function (el) {
       var blob = new Blob([CoreMirrorTestum.getValue()], { type: "text/csv;charset=utf-8" });
       saveAs(blob, "testum.csv");
     });
+
     ui_testum_ast_dot.addEventListener("click", function (el) {
       var blob = new Blob([CoreMirrorTestumDot.getValue()], { type: "vnd.graphviz;charset=utf-8" });
       saveAs(blob, "testum-ast.gv");
     });
+
     ui_testum_ast_dot_online.addEventListener("click", function (el) {
       // this.href = 'https://dreampuf.github.io/GraphvizOnline/#' + encodeURI(CoreMirrorTestumDot.getValue())
       this.href = 'https://edotor.net/?engine=dot#' + encodeURI(CoreMirrorTestumDot.getValue())
