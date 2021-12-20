@@ -519,7 +519,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         //   label = label + '\\n---'
         // }
 
-        dot.addNode(`_${lineam[0]}`, {'cluster': lineam[6], 'rank':__codicem_rank(lineam[5])}, { 'label': label, style: 'dotted' })
+        dot.addNode(`_${lineam[0]}`, { 'cluster': lineam[6], 'rank': __codicem_rank(lineam[5]) }, { 'label': label, style: 'dotted' })
         if (lineam[7]) {
           dot.addRelIndirect(`_${lineam[0]}`, lineam[7].map(x => '_' + x))
         }
@@ -546,7 +546,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         }
 
         // dot.addNode(`_${lineam[0]}`, {'cluster': lineam[6]}, { 'label': label })
-        dot.addNode(`_${lineam[0]}`, {'cluster': lineam[6], 'rank':__codicem_rank(lineam[5])}, { 'label': label })
+        dot.addNode(`_${lineam[0]}`, { 'cluster': lineam[6], 'rank': __codicem_rank(lineam[5]) }, { 'label': label })
         // console.log(lineam)
       }
       if (dot.hasCluster('-1')) {
@@ -599,7 +599,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         if (meta && meta.cluster && !this.clusters[meta.cluster.toString()]) {
           this.addCluster(meta.cluster)
 
-        // Only try add rank for non clusterized (this seems to disable cluster view)
+          // Only try add rank for non clusterized (this seems to disable cluster view)
         } else if (meta && meta.rank) {
           if (!this.ranks[meta.rank.toString()]) {
             this.ranks[meta.rank.toString()] = new Set()
@@ -656,7 +656,10 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
 
         result.push(`${this.type} ${this._q(this.title)} {`)
         if (this.options && Object.keys(this.options).length !== 0) {
-          result.push(`  ${this._renderOptions(this.options)}`)
+          if (this.options.node) {
+            result.push(`  node [${this._renderOptions(this.options.node)}]`)
+          }
+          // result.push(`  ${this._renderOptions(this.options)}`)
         }
 
         for (let [key, value] of Object.entries(this.nodes)) {
@@ -667,8 +670,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
               value.verbose.forEach(item => {
                 __varr.push(_q(item))
               });
-
-              __verbose = ' -- {' + __varr.join(' ') + '}'
+              __verbose = ' -- {node [shape=none style=""] ' + __varr.join(' ') + '}'
             }
 
             if (value.options && Object.keys(value.options).length !== 0) {
@@ -718,7 +720,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
       }
 
       // https://stackoverflow.com/questions/25734244/how-do-i-place-nodes-on-the-same-level-in-dot
-      _renderRanks(){
+      _renderRanks() {
         let result = []
         let _q = this._q
         for (let [key, value] of Object.entries(this.ranks)) {
@@ -1255,7 +1257,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         let _opt = Object.keys(scientia)
         for (let [codicem_basim, signifo] of Object.entries(scientia)) {
           // dot.addNode(codicem_basim)
-          dot.addNode(codicem_basim, {rank:__codicem_rank(codicem_basim)})
+          dot.addNode(codicem_basim, { rank: __codicem_rank(codicem_basim) })
         }
 
         _opt.forEach(item => {
@@ -1273,8 +1275,36 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
     }
 
     function scientia_basi_in_ast_dot_verbosum(scientia) {
-      console.log('TODO: scientia_basi_in_ast_dot_verbosum')
-      return scientia_basi_in_ast_dot_numerum(scientia)
+      let dot = new Graphviz('ontologia-verbosum', 'strict graph', {
+        'node': { 'style': 'filled' }
+      })
+
+      // console.log(scientia, scientia)
+      // node [style=filled]
+
+      if (scientia && Object.keys(scientia).length !== 0) {
+        let _opt = Object.keys(scientia)
+        for (let [codicem_basim, signifo] of Object.entries(scientia)) {
+          // dot.addNode(codicem_basim)
+          // console.log(signifo)
+          dot.addNode(codicem_basim, {
+            'rank': __codicem_rank(codicem_basim),
+            'verbose': __linearize(signifo)
+          })
+        }
+
+        _opt.forEach(item => {
+          let __rels = __direct_children(item, _opt)
+          if (__rels && __rels.length > 0) {
+            dot.addRelIndirect(item, __rels)
+          }
+        })
+
+      } {
+        // dot.addAnnotation('vacuum?')
+      }
+
+      return dot.render()
     }
 
 
@@ -1303,6 +1333,26 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         return codicem_purum.split('.').length
       }
       return -1
+    }
+
+    /**
+     * Flat a deep object into single line array with keys and arrays
+     **/
+    function __linearize(obiectum) {
+      let resultatum = []
+
+      const getEntries = (o, prefix = '') =>
+        Object.entries(o).flatMap(([k, v]) =>
+          Object(v) === v ? getEntries(v, `${prefix}${k}.`) : [[`${prefix}${k}`, v]]
+        )
+
+      // return Object.fromEntries(getEntries(obiectum))
+      Object.entries(Object.fromEntries(getEntries(obiectum))).forEach(pair => {
+
+        resultatum.push(`${pair[0]}::${pair[1]}`)
+      });
+
+      return resultatum
     }
 
     /**

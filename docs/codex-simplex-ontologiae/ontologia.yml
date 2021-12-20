@@ -1,0 +1,74 @@
+# https://semiceu.github.io/Core-Person-Vocabulary/releases/2.00/
+'12':
+  eng-Latn:
+    '0': Person
+  prs-Arab:
+    '0': "//شخص//"
+  qhx-Latn:
+    '0': "#item+personam"
+'14':
+  eng-Latn:
+    '0': Legal Entity
+  prs-Arab:
+    '0': "//نهاد قانونی//"
+'12.10':
+  eng-Latn:
+    '0': //Any type of person name//
+  prs-Arab:
+    '0': "//شخص// - //هر نوع نام شخصی//"
+  qhx-Latn:
+    '0': "#item+personam+nomen+co_12_10"
+'12.10.34':
+  eng-Latn:
+    '0': Person - alternative name
+  prs-Arab:
+    '0': "//شخص// - //نام جایگزین//"
+  qhx-Latn:
+    '0': "#item+personam+nomen+co_12_10_34"
+'12.10.34.5.99':
+  eng-Latn:
+    '0': Person - nickname from workplace
+  prs-Arab:
+    '0': "//شخص// - //نام مستعار از محل کار//"
+'14.56':
+  eng-Latn:
+    '0': Legal Entity - alternative name
+  prs-Arab:
+    '0': "//نهاد قانونی// - //نام جایگزین//"
+
+### '45'?
+# On 25 April 1945, 50 governments met... 24 October 1945
+'45':
+  qaa-Zyyy:
+    '0': 'https://www.wikidata.org/wiki/Q1065'
+'45.11':
+  qaa-Zyyy:
+    '0': 'https://icd.who.int/ct11'
+'45.49':
+  qaa-Zyyy:
+    '0': 'https://unstats.un.org/unsd/methodology/m49/'
+    '1': 'https://unstats.un.org/unsd/publication/SeriesM/Series_M49_(1970)_en-fr.pdf'
+
+### '47'?
+# Founded on 23 February 1947 ...
+# ...ZZZ standards are not available free of charge, but for a purchase fee,
+# which has been seen by some as unaffordable by small open source projects.[38]
+'47':
+  qaa-Zyyy:
+    '0': 'https://www.wikidata.org/wiki/Q15028'
+'47.639':
+  qaa-Zyyy:
+    '0': 'https://www.wikidata.org/wiki/Q33547'
+'47.639.3':
+  qaa-Zyyy:
+    '0': 'https://www.wikidata.org/wiki/Q845956'
+'47.15924':
+  qaa-Zyyy:
+    '0': 'https://www.wikidata.org/wiki/Q845956'
+    '1': 'https://unicode.org/iso15924/iso15924.txt'
+'47.15924.160':
+  qaa-Zyyy:
+    '0': 'Arab'
+'47.15924.215':
+  qaa-Zyyy:
+    '0': 'Latn'
