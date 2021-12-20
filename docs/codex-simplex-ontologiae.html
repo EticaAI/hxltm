@@ -153,7 +153,7 @@ SPDX-License-Identifier: Unlicense
     '0': 'Latn'
       </textarea>
       <div class="btn-group float-end" role="group" aria-label="Toolbar Ontologia">
-        <button type="button" class="btn btn-outline-success btn-sm" id="ontologia-archivum-yml">
+        <button type="button" class="btn btn-success btn-sm" id="ontologia-archivum-yml">
           <i class="bi bi-file-earmark-arrow-down"></i>
           ontologia.yml
         </button>
@@ -161,6 +161,10 @@ SPDX-License-Identifier: Unlicense
           <i class="bi bi-file-earmark-arrow-down"></i>
           ontologia.json
         </button>
+        <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="ontologia-ast-online-dot">
+          <i class="bi bi-globe"></i>
+          ontologia-numerae.gv
+        </a>
       </div>
     </section>
     <section class="professorem">
@@ -1176,6 +1180,75 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
     }
 
     /**
+     * _[eng-Latn]
+     * The main ontology edited by humans can have special keywords which
+     * actually create internal aliases (so we create a more advanced version
+     * in memory). Another point is create implicit nodes
+     * [eng-Latn]_
+     * 
+     **/
+    function scientia_basi_de_crudum(scientia_basi_crudum) {
+      let scientia = {}
+
+      // @TODO
+      scientia = scientia_basi_crudum
+
+      return scientia
+    }
+
+    function scientia_basi_in_ast_dot_numerum(scientia) {
+      let resultatum = '# TODO'
+
+      let dot = new Graphviz('ontologia-numerae')
+
+      console.log(scientia, scientia)
+
+      if (scientia && Object.keys(scientia).length !== 0 ) {
+        let _opt = Object.keys(scientia)
+        for (let [codicem_basim, signifo] of Object.entries(scientia)) {
+          dot.addNode(codicem_basim)
+        }
+
+        _opt.forEach(item => {
+          let __rels = __direct_children(item, _opt)
+          if (__rels && __rels.length > 0) {
+            dot.addRelIndirect(item, __rels)
+          }
+        })
+
+      } {
+        dot.addAnnotation('vacuum?')
+      }
+
+      return dot.render()
+    }
+
+    function __direct_children(code, all_options) {
+      let resultatum = []
+      let code_level = code.split('.').length
+      console.log('code', code)
+      if (all_options) {
+        all_options.forEach(item => {
+          // console.log('item', item)
+          if (item.indexOf(`${code}`) > -1) {
+            let option_level = item.split('.').length
+            console.log('oi  code, code_level, item, option_level', code, code_level, item, option_level)
+            console.log(code_level, option_level, code_level === (option_level + 1))
+            if (code_level === (option_level - 1)) {
+              resultatum.push(item)
+            }
+          }
+        });
+        // for (let item in all_options) {
+        //   if (item.indexOf(`${code}.`) > -1) {
+        //     resultatum.push(item)
+        //   }
+        // }
+      }
+      return resultatum
+    }
+
+    /**
      * @deprecated
      **/
     const quod_codicem = (textum) => {
@@ -1515,6 +1588,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
     const ui_testum_dot = document.querySelector('#testum_dot')
     const ui_ontologia_yml = document.querySelector('#ontologia-archivum-yml')
     const ui_ontologia_json = document.querySelector('#ontologia-archivum-json')
+    const ui_ontologia_ast_dot_online = document.querySelector('#ontologia-ast-online-dot')
     const ui_testum_csv = document.querySelector('#testum-archivum-csv')
     const ui_testum_ast_dot = document.querySelector('#testum-ast-archivum-dot')
     const ui_testum_ast_dot_online = document.querySelector('#testum-ast-online-dot')
@@ -1523,10 +1597,13 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
     let testum_collectionem = []
     // let abstractum_syntaxim_arborem = null
     let scientia_basi = null
+    let scientia = null
 
     try {
       // const doc = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
       scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+
+      scientia = scientia_basi_de_crudum(scientia_basi)
       // console.log(scientia_basi);
     } catch (e) {
       console.log(e);
@@ -1591,6 +1668,23 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
       }
       var blob = new Blob([JSON.stringify(scientia_basi, null, 2)], { type: "application/jsonl;charset=utf-8" });
       saveAs(blob, "ontologia.json");
+    });
+    ui_ontologia_ast_dot_online.addEventListener("click", function (el) {
+      try {
+        scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+        scientia = scientia_basi_de_crudum(scientia_basi)
+      } catch (e) {
+        console.log(e)
+        // alert(e);
+      }
+      console.log('scientia', scientia)
+      let scientia_numerum_dot = scientia_basi_in_ast_dot_numerum(scientia)
+      this.href = 'https://edotor.net/?engine=dot#' + encodeURI(scientia_numerum_dot)
+      // console.log('oi', el, this)
+
+      // var blob = new Blob([CoreMirrorTestumDot.getValue()], { type: "vnd.graphviz;charset=utf-8" });
+      // saveAs(blob, "testum-ast.gv");
+      return false;
     });
     ui_testum_csv.addEventListener("click", function (el) {
       var blob = new Blob([CoreMirrorTestum.getValue()], { type: "text/csv;charset=utf-8" });
