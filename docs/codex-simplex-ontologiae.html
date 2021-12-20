@@ -515,7 +515,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         //   label = label + '\\n---'
         // }
 
-        dot.addNode(`_${lineam[0]}`, lineam[6], { 'label': label, style: 'dotted' })
+        dot.addNode(`_${lineam[0]}`, {'cluster': lineam[6]}, { 'label': label, style: 'dotted' })
         if (lineam[7]) {
           dot.addRelIndirect(`_${lineam[0]}`, lineam[7].map(x => '_' + x))
         }
@@ -541,7 +541,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
           label = label + '\\n---'
         }
 
-        dot.addNode(`_${lineam[0]}`, lineam[6], { 'label': label })
+        dot.addNode(`_${lineam[0]}`, {'cluster': lineam[6]}, { 'label': label })
         // console.log(lineam)
       }
       if (dot.hasCluster('-1')) {
@@ -560,6 +560,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         this.options = options;
         this.clusters = {}
         this.nodes = {}
+        this.ranks = {}
         this.reldirect = {}
         this.relindirect = {}
         this.annotations = []
@@ -579,16 +580,24 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
         return this
       }
 
-      addNode(node_id, cluster = null, options = {}) {
+      // addNode(node_id, cluster = null, options = {}) {
+      addNode(node_id, meta = {}, options = {}) {
         let _node = {
           'id': node_id,
-          'cluster': cluster,
-          'options': options || {}
+          'cluster': (meta && meta.cluster ? meta.cluster : null),
+          'options': options || {},
+          'rank': (meta && meta.rank ? meta.rank : null)
         }
         this.nodes[node_id] = _node
 
-        if (cluster && !this.clusters[cluster.toString()]) {
-          this.addCluster(cluster)
+        if (meta && meta.cluster && !this.clusters[meta.cluster.toString()]) {
+          this.addCluster(meta.cluster)
+        }
+        if (meta && meta.rank) {
+          if (!this.ranks[meta.rank.toString()]) {
+            this.ranks[meta.rank.toString()] = new Set()
+          }
+          this.ranks[meta.rank.toString()].add(node_id)
         }
         return this
       }
@@ -652,11 +661,11 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
             }
           }
         }
-        result.push(this._renderRels())
-
         for (let [key, value] of Object.entries(this.clusters)) {
           result.push(this._renderCluster(key))
         }
+        result.push(this._renderRels())
+        result.push(this._renderRanks())
 
         result.push('}')
         return result.join("\n")
@@ -689,6 +698,24 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
           result.push(`${key}="${value}"`)
         }
         return result.join(' ')
+      }
+
+      // https://stackoverflow.com/questions/25734244/how-do-i-place-nodes-on-the-same-level-in-dot
+      _renderRanks(){
+        let result = []
+        let _q = this._q
+        for (let [key, value] of Object.entries(this.ranks)) {
+          if (value.size > 1) {
+            let temp = [...value].map(function (item) {
+              return _q(item)
+            }).join(" ");
+            result.push(`  { rank=same ${temp} }`)
+          } else {
+            // No sense in rank only one item
+            // result.push(`  ${_q(key)} -> ${_q([...value][0])}`)
+          }
+        }
+        return result.join("\n")
       }
 
       _renderRels() {
@@ -1196,6 +1223,7 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
       return scientia
     }
 
+    // @TODO deal with order of apperance https://stackoverflow.com/questions/44274518/how-can-i-control-within-level-node-order-in-graphvizs-dot
     function scientia_basi_in_ast_dot_numerum(scientia) {
       let resultatum = '# TODO'
 
@@ -1203,10 +1231,11 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
 
       console.log(scientia, scientia)
 
-      if (scientia && Object.keys(scientia).length !== 0 ) {
+      if (scientia && Object.keys(scientia).length !== 0) {
         let _opt = Object.keys(scientia)
         for (let [codicem_basim, signifo] of Object.entries(scientia)) {
-          dot.addNode(codicem_basim)
+          // dot.addNode(codicem_basim)
+          dot.addNode(codicem_basim, {rank:__codicem_rank(codicem_basim)})
         }
 
         _opt.forEach(item => {
@@ -1222,6 +1251,8 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
 
       return dot.render()
     }
+
+
 
     function __direct_children(code, all_options) {
       let resultatum = []
@@ -1239,13 +1270,15 @@ Testum/4,prs-Arab-x-testum,"//نام مهاجم// [12.10.34~1]","//نام باز
             }
           }
         });
-        // for (let item in all_options) {
-        //   if (item.indexOf(`${code}.`) > -1) {
-        //     resultatum.push(item)
-        //   }
-        // }
       }
       return resultatum
+    }
+
+    function __codicem_rank(codicem_purum) {
+      if (codicem_purum) {
+        return codicem_purum.split('.').length
+      }
+      return -1
     }
 
     /**
