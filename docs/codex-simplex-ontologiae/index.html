@@ -170,7 +170,8 @@ SPDX-License-Identifier: Unlicense
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar" style="padding: 5px">
         <form>
           <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn" />
-          <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="prs-Arab,qhx-Latn,*">
+          <input type="text" id="auxilium_linguam" placeholder="auxilium_linguam" value="prs-Arab,qhx-Latn,*">
+          <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="*">
           <button type="button" class="btn btn-primary actionem" id="actionem">āctiōnem</button>
         </form>
       </div>
@@ -531,7 +532,6 @@ SPDX-License-Identifier: Unlicense
       return codex.resultatum()
     }
 
-
     class CodexBasim {
       constructor() {
         this.datum_de_factum = {};
@@ -540,6 +540,83 @@ SPDX-License-Identifier: Unlicense
         this.auxilium_linguam = [];
         this.agendum_linguam = ['*']; // All languages are working languages
         // objectivum_linguam = null, agendum_linguam = []
+        // Trivia: ignārum, https://en.wiktionary.org/wiki/ignarus#Latin
+        this.ignarum_linguam = new Set()
+      }
+
+      _estHocLinguamAgendae(linguam) {
+        if (this.agendum_linguam.indexOf('*') > -1) {
+          return true
+        }
+        if (this.objectivum_linguam.indexOf(linguam) > -1) {
+          return true
+        }
+        if (this.auxilium_linguam.indexOf(linguam) > -1) {
+          return true
+        }
+        return false
+      }
+
+      /**
+       * Est hoc linguam objectivae aut linguam auxilio?
+       **/
+      _estHocLinguamAuxilio(linguam, strictum = true) {
+        if (!strictum && this.auxilium_linguam.indexOf('*') > -1) {
+          return true
+        }
+        if (this.auxilium_linguam.indexOf(linguam) > -1) {
+          return true
+        }
+        return false
+      }
+
+      /**
+       * Est hoc linguam objectivae aut linguam auxilio?
+       **/
+      _estHocLinguamObjectivae(linguam, strictum = true) {
+        // console.log('_estHocLinguamObjectivae', linguam)
+        if (!strictum && this.objectivum_linguam.indexOf('*') > -1) {
+          return true
+        }
+        if (this.objectivum_linguam.indexOf(linguam) > -1) {
+          return true
+        }
+        return false
+      }
+
+      /**
+       * Quod linguam ideae?
+       * @param {array} linguam_collectionem
+       * @returns {string} codicem collēctiōnem
+       */
+      _quodLinguamIdeae(linguam_collectionem) {
+        let _temp_obj = []
+        let _temp_age = []
+
+        // console.log('linguam_collectionem', linguam_collectionem)
+        for (let item of linguam_collectionem) {
+          if (this._estHocLinguamObjectivae(item)) {
+            _temp_obj.push(item)
+          }
+          if (this._estHocLinguamAuxilio(item)) {
+            _temp_age.push(item)
+          }
+          // @TODO: implement preference by longer language codes with x-private
+          // @TODO: implement order user defined on interface
+          if (_temp_obj.length > 0) {
+            return _temp_obj[0]
+          }
+          if (_temp_age.length > 0) {
+            return _temp_age[0]
+          }
+        }
+        // console.log('_temp_obj, _temp_age', _temp_obj, _temp_age)
+        // console.log('this.objectivum_linguam', this.objectivum_linguam.indexOf('eng-Latn'))
+        // console.log('this.objectivum_linguam', this.objectivum_linguam.indexOf('eng-Latn') > -1)
+        if (this._estHocLinguamObjectivae('', false) || this._estHocLinguamAuxilio('', false)) {
+          return linguam_collectionem[0]
+        }
+        return false
       }
 
       /**
@@ -595,16 +672,21 @@ SPDX-License-Identifier: Unlicense
         if (!this.datum_de_factum[codicem_basim]) {
           this.datum_de_factum[codicem_basim] = {}
         }
-        if (!this.datum_de_factum[codicem_basim][linguam]) {
-          this.datum_de_factum[codicem_basim][linguam] = {}
-        }
-        if (terminum) {
-          let _itemnum = 0
-          while (this.datum_de_factum[codicem_basim][linguam][`${_itemnum.toString()}`]) {
-            _itemnum = _itemnum + 1
+        if (this._estHocLinguamAgendae(linguam)) {
+          if (!this.datum_de_factum[codicem_basim][linguam]) {
+            this.datum_de_factum[codicem_basim][linguam] = {}
           }
-          this.datum_de_factum[codicem_basim][linguam][`${_itemnum.toString()}`] = terminum
+          if (terminum) {
+            let _itemnum = 0
+            while (this.datum_de_factum[codicem_basim][linguam][`${_itemnum.toString()}`]) {
+              _itemnum = _itemnum + 1
+            }
+            this.datum_de_factum[codicem_basim][linguam][`${_itemnum.toString()}`] = terminum
+          }
+        } else {
+          this.ignarum_linguam.add(linguam)
         }
+
         return this
       }
 
@@ -650,11 +732,23 @@ SPDX-License-Identifier: Unlicense
 
       quod_terminum(codicem_basim) {
         // quod_linguam
-        return this.quod_conceptum(codicem_basim)
+        let terminum = []
+        let conceptum = this.quod_conceptum(codicem_basim)
+        if (!conceptum) {
+          return false
+        }
+        let linguam_collectionem = Object.keys(conceptum)
+        let linguam_ideae = this._quodLinguamIdeae(linguam_collectionem)
+        // console.log('linguam_ideae', linguam_ideae)
+        if (!linguam_ideae) {
+          return null
+        }
+        for (let [index, terminum_item] of Object.entries(conceptum[linguam_ideae])) {
+          terminum.push([terminum_item, linguam_ideae, index])
+        }
+        return terminum
       }
-
     }
-
 
     /**
 scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
