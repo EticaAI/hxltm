@@ -175,8 +175,8 @@ SPDX-License-Identifier: Unlicense
       -->
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar" style="padding: 5px">
         <form>
-          <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn-x-semiceu" />
-          <!-- <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn-150-x-semiceu" /> -->
+          <!-- <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn-x-semiceu" /> -->
+          <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn-150-x-semiceu" />
           <input type="text" id="auxilium_linguam" placeholder="auxilium_linguam" value="prs-Arab,qhx-Latn,*">
           <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="*">
           <button type="button" class="btn btn-primary actionem" id="actionem">āctiōnem</button>
@@ -543,6 +543,8 @@ SPDX-License-Identifier: Unlicense
       constructor() {
         this.datum_de_factum = {};
         this.datum_reconstructum = {};
+
+        // @TODO: convert languages to new Set()
         this.objectivum_linguam = [];
         this.auxilium_linguam = [];
         this.agendum_linguam = ['*']; // All languages are working languages
@@ -637,6 +639,25 @@ SPDX-License-Identifier: Unlicense
         return false
       }
 
+      _quodLinguamPartem(linguam_bcp47) {
+        // TODO: port bcp47_langtag from linguacodex.py to javascript
+        let resultatum = []
+        let adhoc = linguam_bcp47.replace('_', '-')
+        resultatum.push(adhoc)
+
+        if (adhoc.indexOf('-x-') > -1) {
+          let _temp = adhoc.split('-x-')
+          resultatum.push(_temp[0])
+          adhoc = adhoc.replace('-x-' + _temp[0], '')
+        }
+        let _temp2 = adhoc.split('-')
+        while (_temp2.length > 0) {
+          resultatum.push(_temp2.join('-'))
+          _temp2.pop()
+        }
+        return resultatum
+      }
+
       /**
        * _[eng-Latn] Return all parent codes from a code[eng-Latn]_
        *
@@ -659,12 +680,8 @@ SPDX-License-Identifier: Unlicense
        **/
       estLinguamAgendae(agendum_linguam = []) {
         this.agendum_linguam = []
-        for (let item of agendum_linguam){
-          this.agendum_linguam.push(item)
-          if (item.indexOf('-x-') > -1) {
-            let _temp = item.split('-x-')
-            this.agendum_linguam.push(_temp[0])
-          }
+        for (let item of agendum_linguam) {
+          this.agendum_linguam.push(...this._quodLinguamPartem(item))
         }
         return this
       }
@@ -674,12 +691,8 @@ SPDX-License-Identifier: Unlicense
        **/
       estLinguamAuxilio(auxilium_linguam = []) {
         this.auxilium_linguam = []
-        for (let item of auxilium_linguam){
-          this.auxilium_linguam.push(item)
-          if (item.indexOf('-x-') > -1) {
-            let _temp = item.split('-x-')
-            this.auxilium_linguam.push(_temp[0])
-          }
+        for (let item of auxilium_linguam) {
+          this.auxilium_linguam.push(...this._quodLinguamPartem(item))
         }
         return this
       }
@@ -690,12 +703,8 @@ SPDX-License-Identifier: Unlicense
       estLinguamObjectivae(objectivum_linguam) {
         this.objectivum_linguam = objectivum_linguam
         this.objectivum_linguam = []
-        for (let item of objectivum_linguam){
-          this.objectivum_linguam.push(item)
-          if (item.indexOf('-x-') > -1) {
-            let _temp = item.split('-x-')
-            this.objectivum_linguam.push(_temp[0])
-          }
+        for (let item of objectivum_linguam) {
+          this.objectivum_linguam.push(...this._quodLinguamPartem(item))
         }
         return this
       }
@@ -759,8 +768,12 @@ SPDX-License-Identifier: Unlicense
             this.datum_reconstructum[item] = this.datum_de_factum[item]
           }
         }
-        // console.log('this.datum_reconstructum', this.datum_reconstructum)
+        console.log('this.datum_reconstructum', this.datum_reconstructum)
         return this
+      }
+
+      quod_completum() {
+        return this.datum_reconstructum
       }
 
       quod_conceptum(codicem_basim) {
@@ -808,17 +821,15 @@ scientia.quod_terminum('12')
         this.datum_de_factum = datum_de_factum;
         this.datum_reconstructum = {};
       }
-      praeparare() {
-        // console.log('this.datum_reconstructum', this.datum_reconstructum)
-        this.datum_reconstructum = this.datum_de_factum
-        return this
-      }
+      // praeparare() {
+      //   // console.log('this.datum_reconstructum', this.datum_reconstructum)
+      //   this.datum_reconstructum = this.datum_de_factum
+      //   return this
+      // }
       quod_de_factum() {
         return this.datum_de_factum
       }
-      quod_completum() {
-        return this.datum_reconstructum
-      }
+
     }
 
     class CodexDeTabulam extends CodexBasim {
@@ -827,7 +838,6 @@ scientia.quod_terminum('12')
         this.datum_de_factum = datum_de_factum;
         this.datum_reconstructum = {};
       }
-
 
       resultatum() {
         return this.datum_reconstructum
@@ -1514,6 +1524,7 @@ scientia.quod_terminum('12')
      * 
      **/
     function scientia_basi_de_crudum(scientia_basi_crudum) {
+      throw "deprecated. Use new CodexDeObiectum()"
       let scientia = {}
 
       // @TODO
@@ -1526,13 +1537,15 @@ scientia.quod_terminum('12')
     function scientia_basi_in_ast_dot_numerum(scientia) {
       // let resultatum = '# TODO'
 
+      scientia_datum = scientia.quod_completum()
+
       let dot = new Graphviz('ontologia-numerae')
 
       // console.log(scientia, scientia)
 
-      if (scientia && Object.keys(scientia).length !== 0) {
-        let _opt = Object.keys(scientia)
-        for (let [codicem_basim, signifo] of Object.entries(scientia)) {
+      if (scientia_datum && Object.keys(scientia_datum).length !== 0) {
+        let _opt = Object.keys(scientia_datum)
+        for (let [codicem_basim, signifo] of Object.entries(scientia_datum)) {
           // dot.addNode(codicem_basim)
           dot.addNode(codicem_basim, { rank: __codicem_rank(codicem_basim) })
         }
@@ -1556,12 +1569,16 @@ scientia.quod_terminum('12')
         'node': { 'style': 'filled' }
       })
 
+      scientia_datum = scientia.quod_completum()
+
+      // console.log('scientia_datum', scientia_datum)
+
       // console.log(scientia, scientia)
       // node [style=filled]
 
-      if (scientia && Object.keys(scientia).length !== 0) {
-        let _opt = Object.keys(scientia)
-        for (let [codicem_basim, signifo] of Object.entries(scientia)) {
+      if (scientia_datum && Object.keys(scientia_datum).length !== 0) {
+        let _opt = Object.keys(scientia_datum)
+        for (let [codicem_basim, signifo] of Object.entries(scientia_datum)) {
           // dot.addNode(codicem_basim)
           // console.log(signifo)
           dot.addNode(codicem_basim, {
@@ -1995,16 +2012,6 @@ scientia.quod_terminum('12')
     // let scientia_basi = null
     // let scientia = null
 
-    try {
-      // const doc = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-      scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-
-      scientia = scientia_basi_de_crudum(scientia_basi)
-      // console.log(scientia_basi);
-    } catch (e) {
-      console.log(e);
-    }
-
     // Load usum-professori.csv
     let usum_professori = 'usum-professori.csv'
     fetch(usum_professori).then(function (response) {
@@ -2025,6 +2032,41 @@ scientia.quod_terminum('12')
       });
     });
 
+    function prepare_scientia() {
+      try {
+        // const doc = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+        scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+
+        scientia = new CodexDeObiectum(scientia_basi)
+        scientia.estLinguamObjectivae(document.querySelector('#objectivum_linguam').value.split(','))
+        scientia.estLinguamAuxilio(document.querySelector('#auxilium_linguam').value.split(','))
+        scientia.estLinguamAgendae(document.querySelector('#agendum_linguam').value.split(','))
+        scientia.praeparare()
+        // console.log(scientia_basi);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    function prepare_usum_professori() {
+      try {
+        usum_professori_tabulam = parseCSV(CoreMirrorProfessorem.getValue())
+        let _usum_professori_obiectum = codex_de_tabulam_in_obiectum(usum_professori_tabulam)
+        usum_professori_obiectum = new CodexDeObiectum(_usum_professori_obiectum)
+        usum_professori_obiectum.estLinguamObjectivae(document.querySelector('#objectivum_linguam').value.split(','))
+        usum_professori_obiectum.estLinguamAuxilio(document.querySelector('#auxilium_linguam').value.split(','))
+        usum_professori_obiectum.estLinguamAgendae(document.querySelector('#agendum_linguam').value.split(','))
+        // scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+        // scientia_datum_reconstructum = scientia_basi_de_crudum(usum_professori_obiectum)
+        console.log('usum_professori_obiectum', usum_professori_obiectum)
+        usum_professori_obiectum.praeparare()
+
+        console.log('usum_professori_obiectum', usum_professori_obiectum)
+        // console.log('scientia_datum_reconstructum', scientia_datum_reconstructum)
+      } catch (e) {
+        console.log(e)
+        alert(e);
+      }
+    }
 
     actionem.addEventListener("click", function (el) {
       // console.log('click', el)
@@ -2088,13 +2130,18 @@ scientia.quod_terminum('12')
     });
 
     ui_ontologia_ast_dot_online.addEventListener("click", function (el) {
-      try {
-        scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-        scientia = scientia_basi_de_crudum(scientia_basi)
-      } catch (e) {
-        console.log(e)
-        alert(e);
-      }
+      // try {
+      //   scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+      //   scientia = new CodexDeObiectum(scientia_basi)
+      //   scientia.estLinguamObjectivae(document.querySelector('#objectivum_linguam').value.split(','))
+      //   scientia.estLinguamAuxilio(document.querySelector('#auxilium_linguam').value.split(','))
+      //   scientia.estLinguamAgendae(document.querySelector('#agendum_linguam').value.split(','))
+      //   scientia.praeparare()
+      // } catch (e) {
+      //   console.log(e)
+      //   alert(e);
+      // }
+      prepare_scientia()
       // console.log('scientia', scientia)
       let scientia_numerum_dot = scientia_basi_in_ast_dot_numerum(scientia)
       this.href = 'https://edotor.net/?engine=dot#' + encodeURI(scientia_numerum_dot)
@@ -2102,13 +2149,18 @@ scientia.quod_terminum('12')
     });
 
     ui_ontologia_ast_dot_verbosum_online.addEventListener("click", function (el) {
-      try {
-        scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-        scientia = scientia_basi_de_crudum(scientia_basi)
-      } catch (e) {
-        console.log(e)
-        alert(e);
-      }
+      // try {
+      //   scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+      //   scientia = new CodexDeObiectum(scientia_basi)
+      //   scientia.estLinguamObjectivae(document.querySelector('#objectivum_linguam').value.split(','))
+      //   scientia.estLinguamAuxilio(document.querySelector('#auxilium_linguam').value.split(','))
+      //   scientia.estLinguamAgendae(document.querySelector('#agendum_linguam').value.split(','))
+      //   scientia.praeparare()
+      // } catch (e) {
+      //   console.log(e)
+      //   alert(e);
+      // }
+      prepare_scientia()
       // console.log('scientia', scientia)
       let scientia_numerum_dot = scientia_basi_in_ast_dot_verbosum(scientia)
       this.href = 'https://edotor.net/?engine=dot#' + encodeURI(scientia_numerum_dot)
@@ -2116,20 +2168,23 @@ scientia.quod_terminum('12')
     });
 
     ui_professorem_ast_dot_verbosum_online.addEventListener("click", function (el) {
-      try {
-        usum_professori_tabulam = parseCSV(CoreMirrorProfessorem.getValue())
-        usum_professori_obiectum = codex_de_tabulam_in_obiectum(usum_professori_tabulam)
-        // scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-        scientia_datum_reconstructum = scientia_basi_de_crudum(usum_professori_obiectum)
+      // prepare_scientia()
+      prepare_usum_professori()
+      // try {
+      //   usum_professori_tabulam = parseCSV(CoreMirrorProfessorem.getValue())
+      //   usum_professori_obiectum = codex_de_tabulam_in_obiectum(usum_professori_tabulam)
+      //   // scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+      //   scientia_datum_reconstructum = scientia_basi_de_crudum(usum_professori_obiectum)
 
-        console.log('usum_professori_obiectum', usum_professori_obiectum)
-        console.log('scientia_datum_reconstructum', scientia_datum_reconstructum)
-      } catch (e) {
-        console.log(e)
-        alert(e);
-      }
+      //   console.log('usum_professori_obiectum', usum_professori_obiectum)
+      //   console.log('scientia_datum_reconstructum', scientia_datum_reconstructum)
+      // } catch (e) {
+      //   console.log(e)
+      //   alert(e);
+      // }
       // console.log('scientia', scientia)
-      let usum_professori_dot = scientia_basi_in_ast_dot_verbosum(scientia_datum_reconstructum)
+      // let usum_professori_dot = scientia_basi_in_ast_dot_verbosum(scientia_datum_reconstructum)
+      let usum_professori_dot = scientia_basi_in_ast_dot_verbosum(usum_professori_obiectum)
       this.href = 'https://edotor.net/?engine=dot#' + encodeURI(usum_professori_dot)
       return false;
     });
