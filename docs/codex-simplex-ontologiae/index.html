@@ -28,7 +28,8 @@ SPDX-License-Identifier: Unlicense
 
   <style>
     /* https://codemirror.net/demo/resize.html */
-    .testum .CodeMirror, .professorem .CodeMirror {
+    .testum .CodeMirror,
+    .professorem .CodeMirror {
       border: 1px solid #eee;
       height: auto;
     }
@@ -105,6 +106,12 @@ SPDX-License-Identifier: Unlicense
       <textarea id="professorem">
 # Loading...
       </textarea>
+      <div class="btn-group float-end" role="group" aria-label="Toolbar Professōrem">
+        <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="professorem-ast-online-dot-verbosum">
+          <i class="bi bi-globe"></i>
+          usum-professori-verbosum.gv
+        </a>
+      </div>
     </section>
     <section class="testum">
       <h2 id="h-testum"><a href="#h-testum">§</a> 3. Usum exemplis</h2>
@@ -177,6 +184,8 @@ SPDX-License-Identifier: Unlicense
     const debug = false
     let datum_globum = {}
     let testum = {}
+    let usum_professori_tabulam = [] // CSV
+    let usum_professori_obiectum = {} // CSV
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
     // const yaml = require('js-yaml');
 
@@ -475,6 +484,116 @@ SPDX-License-Identifier: Unlicense
       }
 
       return dot.render()
+    }
+
+    /**
+     * _[eng-Latn]Convert from tabular format to object format. Mostly used
+     * to use example tables already labeled with codes trying to merge
+     * everything as if was a planned ontology
+     * [eng-Latn]_
+     */
+    function codex_de_tabulam_in_obiectum(usum_professori_tabulam) {
+      let obiectum = {}
+
+      codex = new CodexDeTabulam()
+
+      usum_professori_tabulam.forEach(lineam => {
+        // console.log('lineam', lineam)
+        let titulum = lineam.shift()
+        let linguam = lineam.shift()
+        // console.log('lineam', lineam)
+
+        while (lineam.length > 0) {
+          let sig = null
+          if (lineam[0]) {
+            sig = quod_significationem_de_caput_item(lineam[0])
+            // console.log('sig', sig)
+            if (sig[3]) {
+              // console.log('foi', sig)
+              codex.addereRem(sig[3], linguam, sig[1])
+            }
+          }
+          lineam.shift()
+        }
+      });
+
+      // quod_significationem_de_caput_item()
+
+      codex.praeparare()
+
+      // console.log('codex resultatum', codex.resultatum())
+
+      // return usum_professori_tabulam
+      return codex.resultatum()
+    }
+
+    class CodexDeTabulam {
+      constructor() {
+        this.datum_de_factum = {};
+        this.datum_reconstructum = {};
+      }
+
+      _parentem(codicem_radix) {
+        let resultatum = []
+        let temp = codicem_radix.split('.')
+        temp.pop()
+        while (temp.length) {
+          resultatum.push(temp.join('.'))
+          temp.pop()
+        }
+        return resultatum
+      }
+
+      addereRem(codicem_basim, linguam = 'und-Zyyy', terminum = '') {
+        if (!this.datum_de_factum[codicem_basim]) {
+          this.datum_de_factum[codicem_basim] = {}
+        }
+        if (!this.datum_de_factum[codicem_basim][linguam]) {
+          this.datum_de_factum[codicem_basim][linguam] = {}
+        }
+        if (terminum) {
+          let _itemnum = 0
+          while (this.datum_de_factum[codicem_basim][linguam][`${_itemnum.toString()}`]) {
+            // console.log('not yet')
+            _itemnum = _itemnum + 1
+          }
+          this.datum_de_factum[codicem_basim][linguam][`${_itemnum.toString()}`] = terminum
+        }
+        return this
+      }
+
+      praeparare() {
+        console.log('praeparare')
+        let non_clavem = new Set()
+        let est_clavem = []
+        let praefectum = []
+        for (let clavem of Object.keys(this.datum_de_factum)) {
+          est_clavem.push(clavem)
+          let parentem = this._parentem(clavem)
+          for (let item of parentem) {
+            if (!this.datum_de_factum[item]) {
+              non_clavem.add(item)
+            }
+          }
+        }
+        praefectum = [...est_clavem, ...non_clavem].sort()
+        // console.log('est_clavem', est_clavem)
+        // console.log('non_clavem', non_clavem)
+        // console.log('praefectum', praefectum)
+        for (let item of praefectum){
+          if (!this.datum_de_factum[item]) {
+            this.datum_reconstructum[item] = {}
+          } else {
+            this.datum_reconstructum[item] = this.datum_de_factum[item]
+          }
+        }
+        // console.log('this.datum_reconstructum', this.datum_reconstructum)
+        return this
+      }
+
+      resultatum() {
+        return this.datum_reconstructum
+      }
     }
 
     // CoreMirrorTestumDot.setValue(ast_in_dot_v2(abstractum_syntaxim_arborem(['Attacker name [12.10.34~1]', '', 'Survivor name [12.10.34~2]', 'Something else', 'Company name [14.56~2]']), 'title'))
@@ -926,7 +1045,7 @@ SPDX-License-Identifier: Unlicense
           codicem_radicem = temp[0]
           codicem_coniunctum = parseInt(temp[1])
         } else {
-          console.log('codicem_completum.length', codicem_completum.length, codicem_completum)
+          // console.log('codicem_completum.length', codicem_completum.length, codicem_completum)
           codicem_radicem = codicem_completum
           codicem_coniunctum = 0
         }
@@ -1276,7 +1395,7 @@ SPDX-License-Identifier: Unlicense
     }
 
     /**
-     * @deprecated
+     * @deprecated use quod_significationem_de_caput_item()
      **/
     const quod_codicem = (textum) => {
       // @see https://stackoverflow.com/questions/14891129
@@ -1627,6 +1746,7 @@ SPDX-License-Identifier: Unlicense
     const ui_ontologia_json = document.querySelector('#ontologia-archivum-json')
     const ui_ontologia_ast_dot_online = document.querySelector('#ontologia-ast-online-dot')
     const ui_ontologia_ast_dot_verbosum_online = document.querySelector('#ontologia-ast-online-dot-verbosum')
+    const ui_professorem_ast_dot_verbosum_online = document.querySelector('#professorem-ast-online-dot-verbosum')
     const ui_testum_csv = document.querySelector('#testum-archivum-csv')
     const ui_testum_ast_dot = document.querySelector('#testum-ast-archivum-dot')
     const ui_testum_ast_dot_online = document.querySelector('#testum-ast-online-dot')
@@ -1649,20 +1769,20 @@ SPDX-License-Identifier: Unlicense
 
     // Load usum-professori.csv
     let usum_professori = 'usum-professori.csv'
-    fetch(usum_professori).then(function(response) {
-      response.text().then(function(text) {
+    fetch(usum_professori).then(function (response) {
+      response.text().then(function (text) {
         CoreMirrorProfessorem.setValue(text)
       });
     });
     let usum_exemplis = 'usum-exemplis.csv'
-    fetch(usum_exemplis).then(function(response) {
-      response.text().then(function(text) {
+    fetch(usum_exemplis).then(function (response) {
+      response.text().then(function (text) {
         CoreMirrorTestum.setValue(text)
       });
     });
     let ontologia_referens = 'ontologia.yml'
-    fetch(ontologia_referens).then(function(response) {
-      response.text().then(function(text) {
+    fetch(ontologia_referens).then(function (response) {
+      response.text().then(function (text) {
         CoreMirrorOntologia.setValue(text)
       });
     });
@@ -1754,6 +1874,25 @@ SPDX-License-Identifier: Unlicense
       // console.log('scientia', scientia)
       let scientia_numerum_dot = scientia_basi_in_ast_dot_verbosum(scientia)
       this.href = 'https://edotor.net/?engine=dot#' + encodeURI(scientia_numerum_dot)
+      return false;
+    });
+
+    ui_professorem_ast_dot_verbosum_online.addEventListener("click", function (el) {
+      try {
+        usum_professori_tabulam = parseCSV(CoreMirrorProfessorem.getValue())
+        usum_professori_obiectum = codex_de_tabulam_in_obiectum(usum_professori_tabulam)
+        // scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+        scientia_datum_reconstructum = scientia_basi_de_crudum(usum_professori_obiectum)
+
+        console.log('usum_professori_obiectum', usum_professori_obiectum)
+        console.log('scientia_datum_reconstructum', scientia_datum_reconstructum)
+      } catch (e) {
+        console.log(e)
+        alert(e);
+      }
+      // console.log('scientia', scientia)
+      let usum_professori_dot = scientia_basi_in_ast_dot_verbosum(scientia_datum_reconstructum)
+      this.href = 'https://edotor.net/?engine=dot#' + encodeURI(usum_professori_dot)
       return false;
     });
 
