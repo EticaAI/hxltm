@@ -125,9 +125,9 @@ SPDX-License-Identifier: Unlicense
         </button>
       </div>
       <section class="ast">
-        <h3 id="h-ast"><a href="#h-ast">§</a> 3.1. AST de usum exemplis</h3>
+        <h3 id="h-ast" style="padding-left: 1em;"><a href="#h-ast">§</a> 3.1. AST de usum exemplis</h3>
         <section>
-          <h4 id="h-ast-dot">
+          <h4 id="h-ast-dot" style="padding-left: 2em;">
             <a href="#h-ast-dot">§</a> 3.1.1. AST in DOT
             <a target="_blank" href="http://www.graphviz.org/doc/info/lang.html"><i class="bi bi-info-circle"></i></a>
             <a target="_blank" href="http://www.graphviz.org/theory/"><i class="bi bi-info-circle"></i></a>
@@ -143,6 +143,41 @@ SPDX-License-Identifier: Unlicense
               GraphvizOnline
             </a>
           </div>
+        </section>
+      </section>
+    </section>
+    <section class="w-reversum-logicae">
+      <h2 id="reversum-logicae"><a href="#reversum-logicae">§</a> 4. Reversum logicae (terminum simplicī)</h2>
+      <mark>Ad como opus</mark>
+      <!-- <textarea id="t_reversum_logicae"># Loading...</textarea> -->
+      <div class="btn-group float-end" role="group" aria-label="Download testum">
+        <button type="button" class="btn btn-outline-success btn-sm" id="testum-archivum-csv">
+          <i class="bi bi-file-earmark-arrow-down"></i>
+          testum.csv
+        </button>
+      </div>
+      <section class="w-reversum-logicae-ast">
+        <h3 id="reversum-logicae-ast" style="padding-left: 1em;"><a href="#reversum-logicae-ast">§</a> 4.1 AST de
+          reversum logicae (terminum simplicī).</h3>
+        <mark>Ad como opus</mark>
+        <section>
+          <h4 id="h-ast-dot" style="padding-left: 2em;">
+            <a href="#h-ast-dot">§</a> 4.1.1. AST in DOT
+            <a target="_blank" href="http://www.graphviz.org/doc/info/lang.html"><i class="bi bi-info-circle"></i></a>
+            <a target="_blank" href="http://www.graphviz.org/theory/"><i class="bi bi-info-circle"></i></a>
+          </h4>
+          <mark>Ad como opus</mark>
+          <!-- <textarea id="t_reversum_logicae_dot" style="width:100%; min-height: 5em; height: auto;"># Ad como opus</textarea> -->
+          <!-- <div class="btn-group float-end" role="group" aria-label="Toolbar AST DOT">
+            <button type="button" class="btn btn-outline-success btn-sm float-end" id="testum-ast-archivum-dot">
+              <i class="bi bi-file-earmark-arrow-down"></i>
+              testum-ast.gv
+            </button>
+            <a target="_blank" href="#" class="btn btn-success btn-sm float-end" id="testum-ast-online-dot">
+              <i class="bi bi-globe"></i>
+              GraphvizOnline
+            </a>
+          </div> -->
         </section>
       </section>
     </section>
@@ -553,6 +588,10 @@ SPDX-License-Identifier: Unlicense
         this.ignarum_linguam = new Set()
       }
 
+      _adNormale(terminum){
+        return terminum
+      }
+
       _estHocLinguamAgendae(linguam) {
         if (this.agendum_linguam.indexOf('*') > -1) {
           return true
@@ -792,7 +831,7 @@ SPDX-License-Identifier: Unlicense
         }
         let linguam_collectionem = Object.keys(conceptum)
         let linguam_ideae = this._quodLinguamIdeae(linguam_collectionem, multilinguae)
-        console.log('linguam_ideae', linguam_ideae)
+        // console.log('linguam_ideae', linguam_ideae)
         if (!linguam_ideae) {
           return null
         }
@@ -804,6 +843,28 @@ SPDX-License-Identifier: Unlicense
 
         return terminum
       }
+
+      reversumLogicae(terminum, linguam_collectionem) {
+        this.datum_reconstructum
+        let resultatum = []
+        let terminum_normali = this._adNormale(terminum)
+        for (let [codicem, conceptum_significatini] of Object.entries(this.datum_reconstructum)) {
+          // console.log('reversumLogicae', codicem, conceptum_significatini)
+          if (conceptum_significatini) {
+            for (let [linguam, terminum_collectionem] of Object.entries(conceptum_significatini)) {
+              // console.log('reversumLogicae linguam, terminum', linguam, terminum_normali, terminum_collectionem)
+              for (let [terminum_indicem, terminum_referens] of Object.entries(terminum_collectionem)) {
+                console.log('reversumLogicae terminum_normali, this._adNormale(terminum_referens)', terminum_normali, this._adNormale(terminum_referens))
+                if (terminum_normali == this._adNormale(terminum_referens)) {
+                  resultatum.push([codicem, linguam, terminum_referens])
+                }
+              }
+            }
+          }
+          // terminum.push([terminum_item, linguam_ideae_item, index])
+        }
+        return resultatum
+      }
     }
 
     /**
@@ -814,6 +875,7 @@ scientia.estLinguamAuxilio(document.querySelector('#auxilium_linguam').value.spl
 scientia.estLinguamAgendae(document.querySelector('#agendum_linguam').value.split(','))
 scientia.praeparare()
 scientia.quod_terminum('12')
+// scientia.reversumLogicae('alternative name')
     */
     class CodexDeObiectum extends CodexBasim {
       constructor(datum_de_factum) {
@@ -1515,24 +1577,6 @@ scientia.quod_terminum('12')
       return resultatum
     }
 
-    /**
-     * _[eng-Latn]
-     * The main ontology edited by humans can have special keywords which
-     * actually create internal aliases (so we create a more advanced version
-     * in memory). Another point is create implicit nodes
-     * [eng-Latn]_
-     * 
-     **/
-    function scientia_basi_de_crudum(scientia_basi_crudum) {
-      throw "deprecated. Use new CodexDeObiectum()"
-      let scientia = {}
-
-      // @TODO
-      scientia = scientia_basi_crudum
-
-      return scientia
-    }
-
     // @TODO deal with order of apperance https://stackoverflow.com/questions/44274518/how-can-i-control-within-level-node-order-in-graphvizs-dot
     function scientia_basi_in_ast_dot_numerum(scientia) {
       // let resultatum = '# TODO'
@@ -1721,6 +1765,9 @@ scientia.quod_terminum('12')
      */
     const main = (datum, clavem_collectionem, objectivum_linguam, agendum_linguam) => {
       // console.log('main', clavem_collectionem)
+
+      // @TODO most work on main() already is done in other parts. Eventually
+      //       some clean up can start.
 
       let originale = clavem_collectionem.map(function (el) {
         return el.indexOf(',') > -1 ? `"${el}"` : el
@@ -2130,17 +2177,6 @@ scientia.quod_terminum('12')
     });
 
     ui_ontologia_ast_dot_online.addEventListener("click", function (el) {
-      // try {
-      //   scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-      //   scientia = new CodexDeObiectum(scientia_basi)
-      //   scientia.estLinguamObjectivae(document.querySelector('#objectivum_linguam').value.split(','))
-      //   scientia.estLinguamAuxilio(document.querySelector('#auxilium_linguam').value.split(','))
-      //   scientia.estLinguamAgendae(document.querySelector('#agendum_linguam').value.split(','))
-      //   scientia.praeparare()
-      // } catch (e) {
-      //   console.log(e)
-      //   alert(e);
-      // }
       prepare_scientia()
       // console.log('scientia', scientia)
       let scientia_numerum_dot = scientia_basi_in_ast_dot_numerum(scientia)
@@ -2149,17 +2185,6 @@ scientia.quod_terminum('12')
     });
 
     ui_ontologia_ast_dot_verbosum_online.addEventListener("click", function (el) {
-      // try {
-      //   scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-      //   scientia = new CodexDeObiectum(scientia_basi)
-      //   scientia.estLinguamObjectivae(document.querySelector('#objectivum_linguam').value.split(','))
-      //   scientia.estLinguamAuxilio(document.querySelector('#auxilium_linguam').value.split(','))
-      //   scientia.estLinguamAgendae(document.querySelector('#agendum_linguam').value.split(','))
-      //   scientia.praeparare()
-      // } catch (e) {
-      //   console.log(e)
-      //   alert(e);
-      // }
       prepare_scientia()
       // console.log('scientia', scientia)
       let scientia_numerum_dot = scientia_basi_in_ast_dot_verbosum(scientia)
@@ -2170,18 +2195,6 @@ scientia.quod_terminum('12')
     ui_professorem_ast_dot_verbosum_online.addEventListener("click", function (el) {
       // prepare_scientia()
       prepare_usum_professori()
-      // try {
-      //   usum_professori_tabulam = parseCSV(CoreMirrorProfessorem.getValue())
-      //   usum_professori_obiectum = codex_de_tabulam_in_obiectum(usum_professori_tabulam)
-      //   // scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
-      //   scientia_datum_reconstructum = scientia_basi_de_crudum(usum_professori_obiectum)
-
-      //   console.log('usum_professori_obiectum', usum_professori_obiectum)
-      //   console.log('scientia_datum_reconstructum', scientia_datum_reconstructum)
-      // } catch (e) {
-      //   console.log(e)
-      //   alert(e);
-      // }
       // console.log('scientia', scientia)
       // let usum_professori_dot = scientia_basi_in_ast_dot_verbosum(scientia_datum_reconstructum)
       let usum_professori_dot = scientia_basi_in_ast_dot_verbosum(usum_professori_obiectum)
