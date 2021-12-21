@@ -29,6 +29,7 @@ SPDX-License-Identifier: Unlicense
   <style>
     /* https://codemirror.net/demo/resize.html */
     .testum .CodeMirror,
+    .w-reversum-logicae .CodeMirror,
     .professorem .CodeMirror {
       border: 1px solid #eee;
       height: auto;
@@ -146,27 +147,36 @@ SPDX-License-Identifier: Unlicense
         </section>
       </section>
     </section>
+    <!-- <hr class="clearfix"> -->
     <section class="w-reversum-logicae">
       <h2 id="reversum-logicae"><a href="#reversum-logicae">§</a> 4. Reversum logicae (terminum simplicī)</h2>
-      <mark>Ad como opus</mark>
-      <!-- <textarea id="t_reversum_logicae"># Loading...</textarea> -->
-      <div class="btn-group float-end" role="group" aria-label="Download testum">
-        <button type="button" class="btn btn-outline-success btn-sm" id="testum-archivum-csv">
-          <i class="bi bi-file-earmark-arrow-down"></i>
-          testum.csv
-        </button>
-      </div>
+      <!-- <form class="row g-3 needs-validation" novalidate> -->
+      <form class="row g-3 needs-validation">
+        <div class="input-group mb-3">
+          <!-- <input type="text" class="form-control" id="i_reversum_logicae" placeholder="Exemplum: alternative name" value=""> -->
+          <input type="text" class="form-control" id="i_reversum_logicae" placeholder="Exemplum: alternative name"
+            value="alternative name" aria-label="terminum simplici" required>
+          <!-- <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+          <div class="input-group-text">
+            <!-- <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input"> -->
+            <input class="form-check-input mt-0" type="checkbox" id="i_reversum_logicae_strictum" checked>
+            <label class="form-check-label" for="i_reversum_logicae_strictum">Strictum</label>
+          </div>
+          <button class="btn btn-primary" type="submit" id="i_reversum_logicae_actionem">Reversum</button>
+        </div>
+      </form>
       <section class="w-reversum-logicae-ast">
         <h3 id="reversum-logicae-ast" style="padding-left: 1em;"><a href="#reversum-logicae-ast">§</a> 4.1 AST de
           reversum logicae (terminum simplicī).</h3>
-        <mark>Ad como opus</mark>
+        <!-- <mark>Ad como opus</mark> -->
         <section>
-          <h4 id="h-ast-dot" style="padding-left: 2em;">
-            <a href="#h-ast-dot">§</a> 4.1.1. AST in DOT
+          <h4 id="h-reversum-logicae-ast" style="padding-left: 2em;">
+            <a href="#h-reversum-logicae-ast">§</a> 4.1.1. AST in DOT
             <a target="_blank" href="http://www.graphviz.org/doc/info/lang.html"><i class="bi bi-info-circle"></i></a>
             <a target="_blank" href="http://www.graphviz.org/theory/"><i class="bi bi-info-circle"></i></a>
           </h4>
-          <mark>Ad como opus</mark>
+          <!-- <mark>Ad como opus</mark> -->
+          <textarea id="i_reversum_logicae_ast" style="width:100%; height: auto;"># Ad como opus</textarea>
           <!-- <textarea id="t_reversum_logicae_dot" style="width:100%; min-height: 5em; height: auto;"># Ad como opus</textarea> -->
           <!-- <div class="btn-group float-end" role="group" aria-label="Toolbar AST DOT">
             <button type="button" class="btn btn-outline-success btn-sm float-end" id="testum-ast-archivum-dot">
@@ -206,7 +216,7 @@ SPDX-License-Identifier: Unlicense
         https://data.humdata.org/dataset/countries-and-territories
         https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596
 
-        $ /workspace/git/EticaAI/tico-19-hxltm/scripts/fn/linguacodex.py --de_codex eng-Latn-150-x-semiceu | jq
+        $ /workspace/git/EticaAI/tico-19-hxltm/scripts/fn/linguacodex.py \-\-de_codex eng-Latn-150-x-semiceu | jq
       -->
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar" style="padding: 5px">
         <form>
@@ -588,8 +598,13 @@ SPDX-License-Identifier: Unlicense
         this.ignarum_linguam = new Set()
       }
 
-      _adNormale(terminum){
-        return terminum
+      _adNormale(terminum) {
+        let normale = ''
+        if (!terminum || terminum.length === 0) {
+          return 'errorem'
+        }
+        normale = terminum.trim().toLowerCase().normalize("NFC")
+        return normale
       }
 
       _estHocLinguamAgendae(linguam) {
@@ -2010,6 +2025,7 @@ scientia.quod_terminum('12')
     var CoreMirrorTestum = CodeMirror.fromTextArea(document.querySelector('#testum'));
     var CoreMirrorTestumDot = CodeMirror.fromTextArea(document.querySelector('#testum_dot'));
     var CoreMirrorProfessorem = CodeMirror.fromTextArea(document.querySelector('#professorem'));
+    var CoreMirroReversumAst = CodeMirror.fromTextArea(document.querySelector('#i_reversum_logicae_ast'));
 
     CoreMirrorOntologia.setOption('lineNumbers', true)
     CoreMirrorOntologia.setOption('theme', 'dracula')
@@ -2037,6 +2053,10 @@ scientia.quod_terminum('12')
     CoreMirrorTestumDot.setOption('mode', 'text')
     CoreMirrorTestumDot.setOption('viewportMargin', true)
     CoreMirrorTestumDot.setOption('lineNumbers', true)
+
+    CoreMirroReversumAst.setOption('mode', 'text')
+    CoreMirroReversumAst.setOption('viewportMargin', true)
+    CoreMirroReversumAst.setOption('lineNumbers', true)
     // CoreMirrorTestumDot.setOption('readOnly', true)
   </script>
   <script>
@@ -2052,6 +2072,7 @@ scientia.quod_terminum('12')
     const ui_testum_csv = document.querySelector('#testum-archivum-csv')
     const ui_testum_ast_dot = document.querySelector('#testum-ast-archivum-dot')
     const ui_testum_ast_dot_online = document.querySelector('#testum-ast-online-dot')
+    const ui_reversum_logicae_actionem = document.querySelector('#i_reversum_logicae_actionem')
     let actionem_index = 1
     // const ui_testum = document.querySelector('#testum')
     let testum_collectionem = []
@@ -2220,6 +2241,25 @@ scientia.quod_terminum('12')
       // var blob = new Blob([CoreMirrorTestumDot.getValue()], { type: "vnd.graphviz;charset=utf-8" });
       // saveAs(blob, "testum-ast.gv");
       return false;
+    });
+
+    ui_reversum_logicae_actionem.addEventListener("click", function (el) {
+      const ui_reversum_logicae = document.querySelector('#i_reversum_logicae')
+      const ui_reversum_logicae_strictum = document.querySelector('#i_reversum_logicae_strictum')
+      // alert('oi', ui_reversum_logicae.value)
+
+      scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+      scientia = new CodexDeObiectum(scientia_basi)
+      scientia.estLinguamObjectivae(document.querySelector('#objectivum_linguam').value.split(','))
+      scientia.estLinguamAuxilio(document.querySelector('#auxilium_linguam').value.split(','))
+      scientia.estLinguamAgendae(document.querySelector('#agendum_linguam').value.split(','))
+      scientia.praeparare()
+      scientia.quod_terminum('12')
+      let __result = scientia.reversumLogicae(document.querySelector('#i_reversum_logicae').value)
+
+      // console.log(ui_reversum_logicae, ui_reversum_logicae.value)
+      CoreMirroReversumAst.setValue('# @TODO ' + JSON.stringify(__result))
+      // return false;
     });
 
 
