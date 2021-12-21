@@ -102,7 +102,8 @@ SPDX-License-Identifier: Unlicense
     </section>
     <section class="professorem">
       <h2 id="h-professorem"><a href="#h-professorem">§</a> 2. Professōrem</h2>
-      <p><mark>Ad como opus</mark></p>
+      <!-- <p><mark>Ad como opus</mark></p> -->
+      <!-- <p><mark>Ad como opus</mark></p> -->
       <textarea id="professorem">
 # Loading...
       </textarea>
@@ -183,6 +184,9 @@ SPDX-License-Identifier: Unlicense
     /****** _[eng-Latn] Edit this section [eng-Latn]_ ******/
     const debug = false
     let datum_globum = {}
+    let scientia_basi = null // crude ontology.yml, _as it is_
+    let scientia_basi_mutatum_est = null // last change on ontology.yml
+    let scientia = null // computed result
     let testum = {}
     let usum_professori_tabulam = [] // CSV
     let usum_professori_obiectum = {} // CSV
@@ -527,12 +531,23 @@ SPDX-License-Identifier: Unlicense
       return codex.resultatum()
     }
 
-    class CodexDeTabulam {
+
+    class CodexBasim {
       constructor() {
         this.datum_de_factum = {};
         this.datum_reconstructum = {};
+        this.objectivum_linguam = [];
+        this.auxilium_linguam = [];
+        this.agendum_linguam = ['*']; // All languages are working languages
+        // objectivum_linguam = null, agendum_linguam = []
       }
 
+      /**
+       * _[eng-Latn] Return all parent codes from a code[eng-Latn]_
+       *
+       * @param {string} codicem_radix
+       * @returns {array} codicem collēctiōnem
+       */
       _parentem(codicem_radix) {
         let resultatum = []
         let temp = codicem_radix.split('.')
@@ -544,6 +559,38 @@ SPDX-License-Identifier: Unlicense
         return resultatum
       }
 
+      /**
+       * Trivia: agendae, https://en.wiktionary.org/wiki/agendus#Latin
+       **/
+      estLinguamAgendae(agendum_linguam = []) {
+        this.agendum_linguam = agendum_linguam
+        return this
+      }
+
+      /**
+       * Trivia: auxiliō, https://en.wiktionary.org/wiki/auxilium
+       **/
+      estLinguamAuxilio(auxilium_linguam = []) {
+        this.auxilium_linguam = auxilium_linguam
+        return this
+      }
+
+      /**
+       * Trivia: objectīvae, https://en.wiktionary.org/wiki/auxilium
+       **/
+      estLinguamObjectivae(objectivum_linguam) {
+        this.objectivum_linguam = objectivum_linguam
+        return this
+      }
+
+      /**
+        * _[eng-Latn]Add manually one item to the base[eng-Latn]_
+        *
+        * @param {string} codicem_basim
+        * @param {string} [linguam]
+        * @param {string} [terminum]
+        * @returns {object} this
+        */
       addereRem(codicem_basim, linguam = 'und-Zyyy', terminum = '') {
         if (!this.datum_de_factum[codicem_basim]) {
           this.datum_de_factum[codicem_basim] = {}
@@ -554,7 +601,6 @@ SPDX-License-Identifier: Unlicense
         if (terminum) {
           let _itemnum = 0
           while (this.datum_de_factum[codicem_basim][linguam][`${_itemnum.toString()}`]) {
-            // console.log('not yet')
             _itemnum = _itemnum + 1
           }
           this.datum_de_factum[codicem_basim][linguam][`${_itemnum.toString()}`] = terminum
@@ -562,8 +608,12 @@ SPDX-License-Identifier: Unlicense
         return this
       }
 
+      /**
+       * _[eng-Latn]Rebuild internal object before be able to be usable[eng-Latn]_
+       * @returns {object} this
+       */
       praeparare() {
-        console.log('praeparare')
+        // console.log('praeparare')
         let non_clavem = new Set()
         let est_clavem = []
         let praefectum = []
@@ -580,7 +630,7 @@ SPDX-License-Identifier: Unlicense
         // console.log('est_clavem', est_clavem)
         // console.log('non_clavem', non_clavem)
         // console.log('praefectum', praefectum)
-        for (let item of praefectum){
+        for (let item of praefectum) {
           if (!this.datum_de_factum[item]) {
             this.datum_reconstructum[item] = {}
           } else {
@@ -590,6 +640,54 @@ SPDX-License-Identifier: Unlicense
         // console.log('this.datum_reconstructum', this.datum_reconstructum)
         return this
       }
+
+      quod_conceptum(codicem_basim) {
+        if (this.datum_reconstructum[codicem_basim]) {
+          return this.datum_reconstructum[codicem_basim]
+        }
+        return false
+      }
+
+      quod_terminum(codicem_basim) {
+        // quod_linguam
+        return this.quod_conceptum(codicem_basim)
+      }
+
+    }
+
+
+    /**
+scientia_basi = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
+scientia = new CodexDeObiectum(scientia_basi)
+scientia.praeparare().estLinguamObjectivae(['eng-Latn']).estLinguamAuxilio(['qhx-Latn']).estLinguamAgendae(['*'])
+scientia.quod_completum()
+    */
+    class CodexDeObiectum extends CodexBasim {
+      constructor(datum_de_factum) {
+        super();
+        this.datum_de_factum = datum_de_factum;
+        this.datum_reconstructum = {};
+      }
+      praeparare() {
+        // console.log('this.datum_reconstructum', this.datum_reconstructum)
+        this.datum_reconstructum = this.datum_de_factum
+        return this
+      }
+      quod_de_factum() {
+        return this.datum_de_factum
+      }
+      quod_completum() {
+        return this.datum_reconstructum
+      }
+    }
+
+    class CodexDeTabulam extends CodexBasim {
+      constructor(datum_de_factum = {}) {
+        super();
+        this.datum_de_factum = datum_de_factum;
+        this.datum_reconstructum = {};
+      }
+
 
       resultatum() {
         return this.datum_reconstructum
@@ -1754,8 +1852,8 @@ SPDX-License-Identifier: Unlicense
     // const ui_testum = document.querySelector('#testum')
     let testum_collectionem = []
     // let abstractum_syntaxim_arborem = null
-    let scientia_basi = null
-    let scientia = null
+    // let scientia_basi = null
+    // let scientia = null
 
     try {
       // const doc = jsyaml.load(CoreMirrorOntologia.getValue(), 'utf8');
