@@ -26,6 +26,7 @@ docs/*.epub
 docs/**/*.epub
 !docs/**/ontologia-regulam.html
 !docs/**/codex-simplex-ontologiae.html
+!docs/**/codex-simplex-ontologiae/index.html
 
 temp-external-references
 
