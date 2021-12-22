@@ -167,6 +167,9 @@ SPDX-License-Identifier: Unlicense
         <h3 id="h-testum"><a href="#h-testum">§</a> 2.2. Reversum logicae de collēctiōnem (singula collectio per lineam)</h3>
         <textarea id="testum"># Loading...
         </textarea>
+
+        <button type="button" class="btn btn-primary actionem" id="actionem" style="width: 100%;">āctiōnem</button>
+
         <div class="btn-group float-end" role="group" aria-label="Download testum">
           <button type="button" class="btn btn-outline-success btn-sm" id="testum-archivum-csv">
             <i class="bi bi-file-earmark-arrow-down"></i>
@@ -218,24 +221,43 @@ SPDX-License-Identifier: Unlicense
       </ul>
     </section>
   </main>
-  <div class="fixed-bottom" style="background-color: darkgray;">
-    <div class="container">
-      <!--
-        https://data.humdata.org/dataset/countries-and-territories
-        https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596
 
-        $ /workspace/git/EticaAI/tico-19-hxltm/scripts/fn/linguacodex.py \-\-de_codex eng-Latn-150-x-semiceu | jq
-      -->
+  <nav class="navbar navbar-light fixed-bottom" style="background-color: #e3f2fd; border-top: solid #0d6efd;">
+    <div class="container-xxl">
+      <!-- <a class="navbar-brand" href="#">Fixed bottom</a> -->
+      <!-- <form class="d-flex"> -->
+      <form class="row">
+        <div class="col-3 col-md-4  col-sm-6">
+          <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn-150-x-semiceu" />
+        </div>
+        <div class="col-3 col-md-4 col-sm-6">
+          <input type="text" id="auxilium_linguam" placeholder="auxilium_linguam" value="prs-Arab,qhx-Latn,*">
+        </div>
+        <div class="col-6 col-md-4 col-sm-12">
+          <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="*">
+        </div>
+        <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button> -->
+      </form>
+    </div>
+  </nav>
+  <!--
+    https://data.humdata.org/dataset/countries-and-territories
+    https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596
+
+    $ /workspace/git/EticaAI/tico-19-hxltm/scripts/fn/linguacodex.py \-\-de_codex eng-Latn-150-x-semiceu | jq
+  -->
+  <!-- <div class="fixed-bottom" style="background-color: darkgray;">
+    <div class="container">
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar" style="padding: 5px">
         <form>
-          <!-- <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn-x-semiceu" /> -->
           <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn-150-x-semiceu" />
           <input type="text" id="auxilium_linguam" placeholder="auxilium_linguam" value="prs-Arab,qhx-Latn,*">
           <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="*">
           <button type="button" class="btn btn-primary actionem" id="actionem">āctiōnem</button>
         </form>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"
