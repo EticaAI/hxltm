@@ -130,26 +130,27 @@ SPDX-License-Identifier: Unlicense
 
     <section id="w-scientiam" class="clearfix">
       <h2 id="h-scientiam"><a href="#h-scientiam">§</a> 1. Scientiam</h2>
-      <!-- <p>
-        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#peritumModum"
-          aria-expanded="false" aria-controls="peritumModum">
-          🛠️<span>Peritum modum est?</span>🛠️
-        </button>
-      </p> -->
-
-      <!-- <p>
-        <a class="btn btn-primary" data-bs-toggle="collapse" href="#peritumModum" role="button" aria-expanded="false" aria-controls="peritumModum">
-          Link with href
-        </a>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#peritumModum" aria-expanded="false" aria-controls="peritumModum">
-          Button with data-bs-target
-        </button>
-      </p> -->
       <div class="collapse" id="peritumModum">
         <div class="card card-body">
           <mark>Ad como opus</mark>
-          <!-- Some placeholder content for the collapse component. This panel is hidden by default but revealed when the
-          user activates the relevant trigger. -->
+          <div class="mb-3">
+            <label for="of" class="form-label">Fontem ontologia (YAML aut JSON)</label>
+            <textarea class="form-control" id="of" rows="3">ontologia.yml</textarea>
+          </div>
+          <div class="mb-3">
+            <label for="ef" class="form-label">Exemplum bonō (CSV)</label>
+            <textarea class="form-control" id="ef" rows="3">usum-exemplis.csv</textarea>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="minimae">
+            <label class="form-check-label" for="minimae">
+              Memoriam usum minimae
+            </label>
+          </div>
+          Neo URL: <a target="_blank" id="expertum-url"
+            href="http://git.workspace.localhost/EticaAI/hxltm/docs/codex-simplex-ontologiae/#?expertum='%7B%22ontologia%22:%5B%22ontologia.yml%22%5D,%22exemplum%22:%5B%22usum-exemplis.csv%22%5D,%22minimam%22:1%7D'">http://git.workspace.localhost/EticaAI/hxltm/docs/codex-simplex-ontologiae/#?expertum='%7B%22ontologia%22:%5B%22ontologia.yml%22%5D,%22exemplum%22:%5B%22usum-exemplis.csv%22%5D,%22minimam%22:1%7D'</a>
+        </div>
+        <div>
         </div>
       </div>
     </section>
@@ -2234,6 +2235,58 @@ scientia.quod_terminum('12')
     // let scientia_basi = null
     // let scientia = null
 
+    function scientia_fontem() {
+      let resultatum = {
+        'ontologia': [],
+        'exemplum': [],
+        'minimam': true,
+        'url': ''
+      }
+      let de_hash = {}
+      if (document.location.hash.indexOf('#?expertum=') > -1) {
+        let crudum = document.location.hash.replace('#?expertum=', '')
+        let decodedURI = ''
+        // console.log(crudum, decodeURI(crudum))
+        try {
+          decodedURI = decodeURI(crudum).replace(/^\'+|\'+$/g, '')
+          console.log('decodedURI', decodedURI)
+          de_hash = JSON.parse(decodedURI)
+
+          resultatum.ontologia = de_hash.ontologia
+          resultatum.exemplum = de_hash.exemplum
+          resultatum.minimam = de_hash.minimam
+        } catch (error) {
+          alert('scientia_fontem (URL) ' + error)
+          console.log('scientia_fontem crudum', crudum)
+          console.log('scientia_fontem decodedURI', decodedURI)
+        }
+
+        document.querySelector('#of').value = resultatum.ontologia.join('\n')
+        document.querySelector('#ef').value = resultatum.exemplum.join('\n')
+        document.querySelector('#minimae').checked = resultatum.minimam
+
+        // console.log(de_hash)
+      } else {
+        let of = document.querySelector('#of').value.split(/\r?\n/);
+        let ef = document.querySelector('#ef').value.split(/\r?\n/);
+        resultatum.ontologia = of
+        resultatum.exemplum = ef
+      }
+
+      resultatum.url = window.location.href.replace(location.hash, '') + '#?expertum=' + JSON.stringify({
+        ontologia: resultatum.ontologia,
+        exemplum: resultatum.exemplum,
+        minimam: resultatum.minimam,
+      })
+
+      let _base = window.location.href.replace(location.hash, '')
+
+      document.querySelector('#expertum-url').innerHTML = resultatum.url
+      document.querySelector('#expertum-url').href = resultatum.url
+
+      return resultatum
+    }
+
     // Load usum-professori.csv
     let usum_professori = 'usum-professori.csv'
     fetch(usum_professori).then(function (response) {
@@ -2289,6 +2342,7 @@ scientia.quod_terminum('12')
         alert(e);
       }
     }
+
 
     actionem.addEventListener("click", function (el) {
       // console.log('click', el)
