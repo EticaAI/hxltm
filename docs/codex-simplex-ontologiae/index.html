@@ -162,16 +162,22 @@ SPDX-License-Identifier: Unlicense
       <div class="clearfix" style="margin-bottom: 1em;">
         <div class="btn-group float-end" role="group" aria-label="Toolbar Ontologia">
           <button type="button" class="btn btn-success btn-sm" id="ontologia-archivum-yml">
-            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
               <use xlink:href="#bi-file-earmark-arrow-down" />
             </svg>
             ontologia.yml
           </button>
           <button type="button" class="btn btn-outline-secondary btn-sm" id="ontologia-archivum-json">
-            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
               <use xlink:href="#bi-file-earmark-arrow-down" />
             </svg>
             ontologia.json
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" id="ontologia-archivum-csv">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+              <use xlink:href="#bi-file-earmark-arrow-down" />
+            </svg>
+            ontologia.csv
           </button>
           <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="ontologia-ast-online-dot">
             <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
@@ -940,15 +946,88 @@ SPDX-License-Identifier: Unlicense
         return this
       }
 
-      exportareObiectum(reconstructum = false){
+      exportareObiectum(reconstructum = false) {
         if (reconstructum) {
           return this.quod_completum()
         } else {
-          return this.datum_de_factum()
+          return this.datum_de_factum
         }
       }
-      exportareTabulam(reconstructum = false){
 
+      exportareTabulam(reconstructum = false) {
+        let obiectum = this.exportareObiectum(reconstructum)
+        let csv_columns = 0
+        let csv_data = []
+        let csv_data2 = []
+        let csv_data_by_linguam = {}
+        let resultatum = []
+        for (let [codicem, conceptum_significatini] of Object.entries(obiectum)) {
+          if (conceptum_significatini) {
+            for (let [linguam, terminum_collectionem] of Object.entries(conceptum_significatini)) {
+              let csv_column__now = 0
+              let lineam = []
+              if (!csv_data_by_linguam[linguam]) {
+                csv_data_by_linguam[linguam] = {}
+              }
+              if (!csv_data_by_linguam[linguam][codicem]) {
+                csv_data_by_linguam[linguam][codicem] = {}
+              }
+              lineam.push('_') // Underline is used as fallback for no name
+              lineam.push(linguam) // Underline is used as fallback for no name
+              for (let [terminum_indicem, terminum_referens] of Object.entries(terminum_collectionem)) {
+                csv_column__now = csv_column__now + 1
+                lineam.push(`[${codicem}] ${terminum_referens}`)
+                csv_data_by_linguam[linguam][codicem][terminum_indicem] = terminum_referens
+              }
+              if (csv_column__now > csv_columns) {
+                csv_columns = csv_column__now
+              }
+              csv_data.push(lineam)
+            }
+          }
+        }
+
+        for (let [linguam, codicem_e_linguam] of Object.entries(csv_data_by_linguam)) {
+          let csv_column__now = 2
+          let lineam = []
+          lineam.push('_') // Underline is used as fallback for no name
+          lineam.push(linguam)
+          for (let [codicem, indicem_et_significatini] of Object.entries(codicem_e_linguam)) {
+            // console.log('codicem, indicem', codicem, indicem_et_significatini)
+            for (let [indicem, terminum_referens] of Object.entries(indicem_et_significatini)) {
+              lineam.push(`[${codicem}] ${terminum_referens}`)
+              csv_column__now = csv_column__now + 1
+            }
+          }
+          if (csv_column__now > csv_columns) {
+            csv_columns = csv_column__now
+          }
+          csv_data2.push(lineam)
+        }
+
+        for (let lineam of csv_data2) {
+          let neo_lineam = []
+          for (let indicem of [...Array(csv_columns).keys()]) {
+            if (lineam[indicem]) {
+              neo_lineam.push(lineam[indicem])
+            } else {
+              neo_lineam.push('')
+            }
+          }
+          // lineam.fill('', lineam.length + 1, csv_columns + 1)
+          resultatum.push(neo_lineam)
+
+        }
+
+        // resultatum
+
+        // console.log('csv_columns', csv_columns)
+        // console.log('csv_data', csv_data)
+        // console.log('csv_data_by_linguam', csv_data_by_linguam)
+        // console.log('csv_data2', csv_data2)
+        // console.log('resultatum', resultatum)
+
+        return resultatum
       }
 
       /**
@@ -1027,7 +1106,7 @@ SPDX-License-Identifier: Unlicense
             for (let [linguam, terminum_collectionem] of Object.entries(conceptum_significatini)) {
               // console.log('reversumLogicae linguam, terminum', linguam, terminum_normali, terminum_collectionem)
               for (let [terminum_indicem, terminum_referens] of Object.entries(terminum_collectionem)) {
-                console.log('reversumLogicae terminum_normali, this._adNormale(terminum_referens)', terminum_normali, this._adNormale(terminum_referens))
+                // console.log('reversumLogicae terminum_normali, this._adNormale(terminum_referens)', terminum_normali, this._adNormale(terminum_referens))
                 if (terminum_normali == this._adNormale(terminum_referens)) {
                   resultatum.push([codicem, linguam, terminum_referens])
                 }
@@ -2427,8 +2506,14 @@ scientia.quod_terminum('12')
         console.log(e)
         alert(e);
       }
-      var blob = new Blob([JSON.stringify(scientia_basi, null, 2)], { type: "application/jsonl;charset=utf-8" });
+      var blob = new Blob([JSON.stringify(scientia_basi, null, 2)], { type: "application/json;charset=utf-8" });
       saveAs(blob, "ontologia.json");
+    });
+
+    document.querySelector('#ontologia-archivum-csv').addEventListener("click", function (el) {
+      let scientia_tabulam = scientia.exportareTabulam()
+      var blob = new Blob([JSON.stringify(scientia_tabulam, null, 2)], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "ontologia.csv");
     });
 
     ui_ontologia_ast_dot_online.addEventListener("click", function (el) {
