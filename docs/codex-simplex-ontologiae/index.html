@@ -233,6 +233,26 @@ SPDX-License-Identifier: Unlicense
         <div class="btn-group float-end">
           <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+              <use xlink:href="#bi-file-earmark-arrow-down" />
+            </svg>
+            ontologia.{tmx}
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <button type="button" class="dropdown-item" id="ontologia-archivum-tmx">
+                <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+                  <use xlink:href="#bi-file-earmark-arrow-down" />
+                </svg>
+                ontologia.tmx
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="btn-group float-end">
+          <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
             AST de ontologia
           </button>
           <ul class="dropdown-menu">
@@ -316,6 +336,26 @@ SPDX-License-Identifier: Unlicense
             <li><a class="dropdown-item" href="#">Separated link</a></li> -->
           </ul>
         </div>
+
+        <div class="btn-group float-end">
+          <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+              <use xlink:href="#bi-file-earmark-arrow-down" />
+            </svg>
+            usum-professori.{tmx}
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <button type="button" class="dropdown-item" id="usum-professori-archivum-tmx">
+                <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+                  <use xlink:href="#bi-file-earmark-arrow-down" />
+                </svg>
+                usum-professori.tmx
+              </button>
+            </li>
+          </ul>
+
         <div class="btn-group float-end">
           <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false">
@@ -1097,7 +1137,7 @@ SPDX-License-Identifier: Unlicense
         let csv_data_by_linguam = {}
         let resultatum = []
         for (let [codicem, conceptum_significatini] of Object.entries(obiectum)) {
-          if (conceptum_significatini) {
+          if (conceptum_significatini && Object.keys(conceptum_significatini).length > 0) {
             for (let [linguam, terminum_collectionem] of Object.entries(conceptum_significatini)) {
               let csv_column__now = 0
               let lineam = []
@@ -1185,19 +1225,7 @@ SPDX-License-Identifier: Unlicense
         let obiectum = this.exportareObiectum(reconstructum)
         let tmx = new TMX()
         tmx.setAST(obiectum)
-        // let hxl_caput = []
-        // let indicem = 1
-        // let totale = tabulam[0].length - 1
-        // hxl_caput.push('#meta+name')
-        // hxl_caput.push('#item+linguam')
-
-        // while (indicem < totale) {
-        //   hxl_caput.push(`#item+ordonumerae+indicem_${indicem}`)
-        //   indicem = indicem + 1
-        // }
-        // tabulam.unshift(hxl_caput)
-        console.log('obiectum', obiectum)
-
+        // console.log('obiectum', obiectum)
         return tmx.export()
       }
 
@@ -1273,7 +1301,7 @@ SPDX-License-Identifier: Unlicense
         let terminum_normali = this._adNormale(terminum)
         for (let [codicem, conceptum_significatini] of Object.entries(this.datum_reconstructum)) {
           // console.log('reversumLogicae', codicem, conceptum_significatini)
-          if (conceptum_significatini) {
+          if (conceptum_significatini && Object.keys(conceptum_significatini).length > 0) {
             for (let [linguam, terminum_collectionem] of Object.entries(conceptum_significatini)) {
               // console.log('reversumLogicae linguam, terminum', linguam, terminum_normali, terminum_collectionem)
               for (let [terminum_indicem, terminum_referens] of Object.entries(terminum_collectionem)) {
@@ -1563,13 +1591,13 @@ scientia.quod_terminum('12')
 <!DOCTYPE tmx SYSTEM "tmx14.dtd">
 <tmx version="1.4">
   <header
-  creationtool="${this.creationtool}"
-  creationtoolversion="${this.creationtoolversion}"
-  segtype="${this.segtype}"
-  o-tmf="UTF-8"
-  adminlang="${this.adminlang}"
-  srclang="${this.srclang}"
-  datatype="${this.datatype}"
+    creationtool="${this.creationtool}"
+    creationtoolversion="${this.creationtoolversion}"
+    segtype="${this.segtype}"
+    o-tmf="UTF-8"
+    adminlang="${this.adminlang}"
+    srclang="${this.srclang}"
+    datatype="${this.datatype}"
   />
   <body>`
       }
@@ -1577,14 +1605,21 @@ scientia.quod_terminum('12')
       _corporeum() {
         let tmx_concepts = []
         for (let [codicem, conceptum_significatini] of Object.entries(this.ast)) {
-          if (conceptum_significatini) {
-            tmx_concepts.push(`      <tu tuid="${codicem}">`)
+          if (conceptum_significatini && Object.keys(conceptum_significatini).length > 0) {
+            tmx_concepts.push(`    <tu tuid="${codicem}">`)
             for (let [linguam, terminum_collectionem] of Object.entries(conceptum_significatini)) {
               tmx_concepts.push(`      <tuv xml:lang="${linguam}">`)
-              for (let [terminum_indicem, terminum_referens] of Object.entries(terminum_collectionem)) {
-                // tmx_concepts.push(`[${codicem}] ${terminum_referens}`)
-                tmx_concepts.push(`      <seg>${terminum_referens}</seg>`)
+              let tmx_seg = []
+              if (Object.keys(terminum_collectionem).length > 1) {
+                for (let [terminum_indicem, terminum_referens] of Object.entries(terminum_collectionem)) {
+                  // tmx_concepts.push(`[${codicem}] ${terminum_referens}`)
+                  tmx_seg.push(`{[(${terminum_referens})]}`)
+                }
+              } else {
+                tmx_seg.push(`${Object.values(terminum_collectionem)[0]}`)
               }
+              tmx_concepts.push(`        <seg>${tmx_seg.join("\n")}</seg>`)
+
               tmx_concepts.push(`      </tuv>`)
             }
             tmx_concepts.push(`    </tu>`)
@@ -2723,9 +2758,9 @@ scientia.quod_terminum('12')
         resultatum_main = main(scientia_basi, item, adhoc_objectivum_linguam, adhoc_agendum_linguam)
         // console.log(abstractum_syntaxim_arborem)
         // console.log(abstractum_syntaxim_arborem)
-        console.log(resultatum_main.resumens.fontem)
-        console.log(resultatum_main.resumens.objectivum)
-        console.log(resultatum_main)
+        // console.log(resultatum_main.resumens.fontem)
+        // console.log(resultatum_main.resumens.objectivum)
+        // console.log(resultatum_main)
         CoreMirrorTestumDot.setValue(resultatum_main.ast.dot)
 
         // CoreMirrorTestumDot.setValue(ast_in_dot_numerae(abstractum_syntaxim_arborem(['12.10.34', '12.10.34~2', '', '14.56', '14.56', '14.56~2']), 'ast'))
@@ -2754,9 +2789,15 @@ scientia.quod_terminum('12')
       saveAs(blob, "ontologia.json");
     });
 
+    document.querySelector('#ontologia-archivum-tmx').addEventListener("click", function (el) {
+      prepare_scientia()
+      var blob = new Blob([scientia.exportareXmlTmx()], { type: "application/x-tmx;charset=utf-8" });
+      saveAs(blob, "ontologia.tmx");
+    });
+
     document.querySelector('#ontologia-archivum-csv').addEventListener("click", function (el) {
       prepare_scientia()
-      let scientia_tabulam = scientia.exportareTabulam()
+      let scientia_tabulam = scientia.exportareXmlTmx()
       let csv_data = Papa.unparse(scientia_tabulam)
 
       var blob = new Blob([csv_data], { type: "text/csv;charset=utf-8" });
@@ -2814,6 +2855,12 @@ scientia.quod_terminum('12')
       let _obiectum = usum_professori_obiectum.exportareObiectum()
       var blob = new Blob([JSON.stringify(_obiectum, null, 2)], { type: "application/json;charset=utf-8" });
       saveAs(blob, "usum-professori.json");
+    });
+
+    document.querySelector('#usum-professori-archivum-tmx').addEventListener("click", function (el) {
+      prepare_usum_professori()
+      var blob = new Blob([usum_professori_obiectum.exportareXmlTmx()], { type: "application/x-tmx;charset=utf-8" });
+      saveAs(blob, "usum-professori.tmx");
     });
 
     document.querySelector('#usum-professori-archivum-csv').addEventListener("click", function (el) {
