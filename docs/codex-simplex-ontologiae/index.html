@@ -77,8 +77,8 @@ SPDX-License-Identifier: Unlicense
           aria-label="Linguam objectivae" value="eng-Latn-150-x-semiceu">
         <input class="form-control me-auto" type="text" id="auxilium_linguam" placeholder="auxilium_linguam"
           value="prs-Arab,qhx-Latn,*" aria-label="Linguam auxilio">
-        <input class="form-control me-auto" type="text" id="agendum_linguam" placeholder="agendum_linguam" value="*"
-          aria-label="Add your item here...">
+        <input class="form-control me-auto" type="text" id="agendum_linguam" placeholder="Linguam agendae" value="*"
+          aria-label="Linguam agendae">
         <div class="vr"></div>
         <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#peritumModum"
           aria-expanded="false" aria-controls="peritumModum" title="Peritum modum est?">
@@ -135,14 +135,14 @@ SPDX-License-Identifier: Unlicense
           <mark>Ad como opus</mark>
           <div class="mb-3">
             <label for="of" class="form-label">Fontem ontologia (YAML aut JSON)</label>
-            <textarea class="form-control" id="of" rows="3">ontologia.yml</textarea>
+            <textarea class="form-control instrumentum-optionem" id="of" rows="3">ontologia.yml</textarea>
           </div>
           <div class="mb-3">
             <label for="ef" class="form-label">Exemplum bonō (CSV)</label>
-            <textarea class="form-control" id="ef" rows="3">usum-exemplis.csv</textarea>
+            <textarea class="form-control instrumentum-optionem" id="ef" rows="3">usum-exemplis.csv</textarea>
           </div>
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="minimae">
+            <input class="form-check-input instrumentum-optionem" type="checkbox" role="switch" id="minimae">
             <label class="form-check-label" for="minimae">
               Memoriam usum minimae
             </label>
@@ -343,10 +343,6 @@ SPDX-License-Identifier: Unlicense
       </ul>
     </section>
   </main>
-
-  <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
-    <use xlink:href="#info-fill" />
-  </svg>
 
   <!-- @see https://getbootstrap.com/docs/5.1/components/alerts/#icons -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -942,6 +938,17 @@ SPDX-License-Identifier: Unlicense
         }
 
         return this
+      }
+
+      exportareObiectum(reconstructum = false){
+        if (reconstructum) {
+          return this.quod_completum()
+        } else {
+          return this.datum_de_factum()
+        }
+      }
+      exportareTabulam(reconstructum = false){
+
       }
 
       /**
@@ -2173,7 +2180,63 @@ scientia.quod_terminum('12')
 
   <script>
     //********* _[eng-Latn] User interface logic, START [eng-Latn]_ **********//
-    // TODO: implement any basic raibow only for testcases https://packagecontrol.io/packages/rainbow_csv
+
+    // Initial author note: here be dragons (e.g. no design patterns to glue the
+    //                      logic with the interface)
+
+    /** Hackish user interface helper to get things working **/
+    function scientia_fontem(externus = true) {
+      let resultatum = {
+        'ontologia': [],
+        'exemplum': [],
+        'minimam': true,
+        'url': ''
+      }
+      let de_hash = {}
+      if (externus && document.location.hash.indexOf('#?expertum=') > -1) {
+        let crudum = document.location.hash.replace('#?expertum=', '')
+        let decodedURI = ''
+        // console.log(crudum, decodeURI(crudum))
+        try {
+          decodedURI = decodeURI(crudum).replace(/^\'+|\'+$/g, '')
+          // console.log('decodedURI', decodedURI)
+          de_hash = JSON.parse(decodedURI)
+
+          resultatum.ontologia = de_hash.ontologia
+          resultatum.exemplum = de_hash.exemplum
+          resultatum.minimam = de_hash.minimam
+        } catch (error) {
+          alert('scientia_fontem (URL) ' + error)
+          console.log('scientia_fontem crudum', crudum)
+          console.log('scientia_fontem decodedURI', decodedURI)
+        }
+
+        document.querySelector('#of').value = resultatum.ontologia.join('\n')
+        document.querySelector('#ef').value = resultatum.exemplum.join('\n')
+        document.querySelector('#minimae').checked = resultatum.minimam
+
+        // console.log(de_hash)
+      } else {
+        let of = document.querySelector('#of').value.split(/\r?\n/);
+        let ef = document.querySelector('#ef').value.split(/\r?\n/);
+        resultatum.ontologia = of
+        resultatum.exemplum = ef
+        resultatum.minimam = document.querySelector('#minimae').checked
+      }
+
+      resultatum.url = window.location.href.replace(location.hash, '') + '#?expertum=' + JSON.stringify({
+        ontologia: resultatum.ontologia,
+        exemplum: resultatum.exemplum,
+        minimam: resultatum.minimam,
+      })
+
+      let _base = window.location.href.replace(location.hash, '')
+
+      document.querySelector('#expertum-url').innerHTML = resultatum.url
+      document.querySelector('#expertum-url').href = resultatum.url
+
+      return resultatum
+    }
 
     // var myCodeMirror = CodeMirror(document.body);
     var CoreMirrorOntologia = CodeMirror.fromTextArea(document.querySelector('#ontologia'));
@@ -2213,8 +2276,7 @@ scientia.quod_terminum('12')
     CoreMirroReversumAst.setOption('viewportMargin', true)
     CoreMirroReversumAst.setOption('lineNumbers', true)
     // CoreMirrorTestumDot.setOption('readOnly', true)
-  </script>
-  <script>
+
     const ui_actionem = document.querySelector('#actionem')
     const ui_objectivum_linguam = document.querySelector('#objectivum_linguam')
     const ui_agendum_linguam = document.querySelector('#agendum_linguam')
@@ -2235,61 +2297,19 @@ scientia.quod_terminum('12')
     // let scientia_basi = null
     // let scientia = null
 
-    function scientia_fontem() {
-      let resultatum = {
-        'ontologia': [],
-        'exemplum': [],
-        'minimam': true,
-        'url': ''
-      }
-      let de_hash = {}
-      if (document.location.hash.indexOf('#?expertum=') > -1) {
-        let crudum = document.location.hash.replace('#?expertum=', '')
-        let decodedURI = ''
-        // console.log(crudum, decodeURI(crudum))
-        try {
-          decodedURI = decodeURI(crudum).replace(/^\'+|\'+$/g, '')
-          console.log('decodedURI', decodedURI)
-          de_hash = JSON.parse(decodedURI)
+    const scientia_fontem_initiale = scientia_fontem(true)
 
-          resultatum.ontologia = de_hash.ontologia
-          resultatum.exemplum = de_hash.exemplum
-          resultatum.minimam = de_hash.minimam
-        } catch (error) {
-          alert('scientia_fontem (URL) ' + error)
-          console.log('scientia_fontem crudum', crudum)
-          console.log('scientia_fontem decodedURI', decodedURI)
-        }
-
-        document.querySelector('#of').value = resultatum.ontologia.join('\n')
-        document.querySelector('#ef').value = resultatum.exemplum.join('\n')
-        document.querySelector('#minimae').checked = resultatum.minimam
-
-        // console.log(de_hash)
-      } else {
-        let of = document.querySelector('#of').value.split(/\r?\n/);
-        let ef = document.querySelector('#ef').value.split(/\r?\n/);
-        resultatum.ontologia = of
-        resultatum.exemplum = ef
-      }
-
-      resultatum.url = window.location.href.replace(location.hash, '') + '#?expertum=' + JSON.stringify({
-        ontologia: resultatum.ontologia,
-        exemplum: resultatum.exemplum,
-        minimam: resultatum.minimam,
-      })
-
-      let _base = window.location.href.replace(location.hash, '')
-
-      document.querySelector('#expertum-url').innerHTML = resultatum.url
-      document.querySelector('#expertum-url').href = resultatum.url
-
-      return resultatum
+    if (scientia_fontem_initiale.minimam) {
+      CoreMirrorOntologia.toTextArea()
+      CoreMirrorProfessorem.toTextArea()
+      document.querySelector('#ontologia').style.display = 'none'
+      document.querySelector('#professorem').style.display = 'none'
     }
 
     // Load usum-professori.csv
-    let usum_professori = 'usum-professori.csv'
-    fetch(usum_professori).then(function (response) {
+    // let usum_professori = 'usum-professori.csv'
+    // fetch(usum_professori).then(function (response) {
+    fetch(scientia_fontem_initiale.exemplum[0]).then(function (response) {
       response.text().then(function (text) {
         CoreMirrorProfessorem.setValue(text)
       });
@@ -2300,8 +2320,9 @@ scientia.quod_terminum('12')
         CoreMirrorTestum.setValue(text)
       });
     });
-    let ontologia_referens = 'ontologia.yml'
-    fetch(ontologia_referens).then(function (response) {
+    // let ontologia_referens = 'ontologia.yml'
+    // fetch(ontologia_referens).then(function (response) {
+    fetch(scientia_fontem_initiale.ontologia[0]).then(function (response) {
       response.text().then(function (text) {
         CoreMirrorOntologia.setValue(text)
       });
@@ -2343,6 +2364,11 @@ scientia.quod_terminum('12')
       }
     }
 
+    document.querySelectorAll('.instrumentum-optionem').forEach(function (el) {
+      el.addEventListener("click", function (el) {
+        scientia_fontem(false)
+      });
+    });
 
     actionem.addEventListener("click", function (el) {
       // console.log('click', el)

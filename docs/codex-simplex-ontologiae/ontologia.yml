@@ -1,4 +1,10 @@
 # https://semiceu.github.io/Core-Person-Vocabulary/releases/2.00/
+'0':
+  qaa-Zyyy:
+    '0': "eng-Latn::eng-Latn::English; Latin writing system"
+    '1': "prs-Arab::eng-Latn::Afghan Persian, Dari; Arab writing system"
+    '2': "qhx-Latn::eng-Latn::HXLStandard"
+    '3': "qaa-Zyyy::eng-Latn::Generic fallback"
 '12':
   eng-Latn:
     '0': Person
