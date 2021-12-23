@@ -65,27 +65,54 @@ SPDX-License-Identifier: Unlicense
   @see
   - https://github.com/HXL-CPLP/forum/issues/60
   - https://github.com/SEMICeu/Core-Person-Vocabulary/issues/39
-
 -->
 
 <body>
   <nav class="navbar navbar-light fixed-bottom" style="background-color: #e3f2fd; border-top: solid #0d6efd;">
-    <h2 class="visually-hidden">Instrumentum archa</h2>
-    <form class="row">
-      <div class="col-3 col-md-4  col-sm-6">
-        <label for="objectivum_linguam" class="form-label">Linguam objectivae</label>
-        <input type="text" id="objectivum_linguam" placeholder="objectivum_linguam" value="eng-Latn-150-x-semiceu" />
+    <div class="container">
+      <h2 class="visually-hidden">Instrumentum archa</h2>
+
+      <div class="hstack gap-3">
+        <input class="form-control me-auto" type="text" id="objectivum_linguam" placeholder="zzz-Zzzz,yyy-Yyyy"
+          aria-label="Linguam objectivae" value="eng-Latn-150-x-semiceu">
+        <input class="form-control me-auto" type="text" id="auxilium_linguam" placeholder="auxilium_linguam"
+          value="prs-Arab,qhx-Latn,*" aria-label="Linguam auxilio">
+        <input class="form-control me-auto" type="text" id="agendum_linguam" placeholder="agendum_linguam" value="*"
+          aria-label="Add your item here...">
+        <div class="vr"></div>
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#peritumModum"
+          aria-expanded="false" aria-controls="peritumModum" title="Peritum modum est?">
+          🛠️
+        </button>
+        <div class="vr"></div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <svg class="bi-patch-question" width="16" height="16" role="img" aria-label="Info:">
+            <use xlink:href="#bi-patch-question" />
+          </svg>
+        </button>
       </div>
-      <div class="col-3 col-md-4 col-sm-6">
-        <label for="auxilium_linguam" class="form-label">Linguam auxilio</label>
-        <input type="text" id="auxilium_linguam" placeholder="auxilium_linguam" value="prs-Arab,qhx-Latn,*">
-      </div>
-      <div class="col-6 col-md-4 col-sm-12">
-        <label for="auxilium_linguam" class="form-label">Linguam agendae</label>
-        <input type="text" id="agendum_linguam" placeholder="agendum_linguam" value="*">
-      </div>
-    </form>
+    </div>
   </nav>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Simplex auxilium</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Exitus"></button>
+        </div>
+        <div class="modal-body">
+          <mark>Ad como opus</mark>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Exitus</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main class="container">
     <h1>Cōdex simplex ontologiae</h1>
 
@@ -100,42 +127,64 @@ SPDX-License-Identifier: Unlicense
           quaeso! <kbd>Control+Shift+J</kbd> aut <kbd>Command+Option+J</kbd>.</small>
       </div>
     </div>
-    <p>
 
-    </p>
     <section id="w-scientiam" class="clearfix">
       <h2 id="h-scientiam"><a href="#h-scientiam">§</a> 1. Scientiam</h2>
+      <!-- <p>
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#peritumModum"
+          aria-expanded="false" aria-controls="peritumModum">
+          🛠️<span>Peritum modum est?</span>🛠️
+        </button>
+      </p> -->
+
+      <!-- <p>
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#peritumModum" role="button" aria-expanded="false" aria-controls="peritumModum">
+          Link with href
+        </a>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#peritumModum" aria-expanded="false" aria-controls="peritumModum">
+          Button with data-bs-target
+        </button>
+      </p> -->
+      <div class="collapse" id="peritumModum">
+        <div class="card card-body">
+          <mark>Ad como opus</mark>
+          <!-- Some placeholder content for the collapse component. This panel is hidden by default but revealed when the
+          user activates the relevant trigger. -->
+        </div>
+      </div>
     </section>
     <section class="ontologia">
       <h3 id="h-ontologia"><a href="#h-ontologia">§</a> 1.1. Ontologia</h3>
       <textarea id="ontologia" class="c-ontologia" style="width:100%;min-height: 10em;">
 # Loading...
       </textarea>
-      <div class="btn-group float-end" role="group" aria-label="Toolbar Ontologia">
-        <button type="button" class="btn btn-success btn-sm" id="ontologia-archivum-yml">
-          <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
-            <use xlink:href="#bi-file-earmark-arrow-down" />
-          </svg>
-          ontologia.yml
-        </button>
-        <button type="button" class="btn btn-outline-secondary btn-sm" id="ontologia-archivum-json">
-          <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
-            <use xlink:href="#bi-file-earmark-arrow-down" />
-          </svg>
-          ontologia.json
-        </button>
-        <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="ontologia-ast-online-dot">
-          <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
-            <use xlink:href="#bi-globe" />
-          </svg>
-          ontologia-numerae.gv
-        </a>
-        <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="ontologia-ast-online-dot-verbosum">
-          <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
-            <use xlink:href="#bi-globe" />
-          </svg>
-          ontologia-verbosum.gv
-        </a>
+      <div class="clearfix" style="margin-bottom: 1em;">
+        <div class="btn-group float-end" role="group" aria-label="Toolbar Ontologia">
+          <button type="button" class="btn btn-success btn-sm" id="ontologia-archivum-yml">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
+              <use xlink:href="#bi-file-earmark-arrow-down" />
+            </svg>
+            ontologia.yml
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" id="ontologia-archivum-json">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
+              <use xlink:href="#bi-file-earmark-arrow-down" />
+            </svg>
+            ontologia.json
+          </button>
+          <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="ontologia-ast-online-dot">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
+              <use xlink:href="#bi-globe" />
+            </svg>
+            ontologia-numerae.gv
+          </a>
+          <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="ontologia-ast-online-dot-verbosum">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
+              <use xlink:href="#bi-globe" />
+            </svg>
+            ontologia-verbosum.gv
+          </a>
+        </div>
       </div>
     </section>
     <section class="professorem">
@@ -145,13 +194,15 @@ SPDX-License-Identifier: Unlicense
       <textarea id="professorem">
 # Loading...
       </textarea>
-      <div class="btn-group float-end" role="group" aria-label="Toolbar Professōrem">
-        <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="professorem-ast-online-dot-verbosum">
-          <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
-            <use xlink:href="#bi-globe" />
-          </svg>
-          usum-professori-verbosum.gv
-        </a>
+      <div class="clearfix" style="margin-bottom: 1em;">
+        <div class="btn-group float-end" role="group" aria-label="Toolbar Professōrem">
+          <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="professorem-ast-online-dot-verbosum">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
+              <use xlink:href="#bi-globe" />
+            </svg>
+            usum-professori-verbosum.gv
+          </a>
+        </div>
       </div>
     </section>
 
@@ -194,14 +245,16 @@ SPDX-License-Identifier: Unlicense
           <section>
             <h5 id="h-reversum-logicae-ast" style="padding-left: 2em;">
               <a href="#h-reversum-logicae-ast">§</a> 2.1.1.1 AST in DOT
-              <a target="_blank" href="http://www.graphviz.org/doc/info/lang.html"><svg class="bi-patch-question"
-                  width="16" height="16" role="img" aria-label="Info:">
+              <a target="_blank" href="http://www.graphviz.org/doc/info/lang.html">
+                <svg class="bi-patch-question" width="16" height="16" role="img" aria-label="Info:">
                   <use xlink:href="#bi-patch-question" />
-                </svg></a>
-              <a target="_blank" href="http://www.graphviz.org/theory/"><svg class="bi-patch-question" width="16"
-                  height="16" role="img" aria-label="Info:">
+                </svg>
+              </a>
+              <a target="_blank" href="http://www.graphviz.org/theory/">
+                <svg class="bi-patch-question" width="16" height="16" role="img" aria-label="Info:">
                   <use xlink:href="#bi-patch-question" />
-                </svg></a>
+                </svg>
+              </a>
               <sup><mark>Ad como opus</mark></sup>
             </h5>
             <textarea id="i_reversum_logicae_ast" style="width:100%; height: auto;"># Ad como opus</textarea>
@@ -237,14 +290,16 @@ SPDX-License-Identifier: Unlicense
           <section>
             <h5 id="h-ast-dot" style="padding-left: 2em;">
               <a href="#h-ast-dot">§</a> 2.2.1.1. AST in DOT
-              <a target="_blank" href="http://www.graphviz.org/doc/info/lang.html"><svg class="bi-patch-question"
-                  width="16" height="16" role="img" aria-label="Info:">
+              <a target="_blank" href="http://www.graphviz.org/doc/info/lang.html">
+                <svg class="bi-patch-question" width="16" height="16" role="img" aria-label="Info:">
                   <use xlink:href="#bi-patch-question" />
-                </svg></a>
-              <a target="_blank" href="http://www.graphviz.org/theory/"><svg class="bi-patch-question" width="16"
-                  height="16" role="img" aria-label="Info:">
+                </svg>
+              </a>
+              <a target="_blank" href="http://www.graphviz.org/theory/">
+                <svg class="bi-patch-question" width="16" height="16" role="img" aria-label="Info:">
                   <use xlink:href="#bi-patch-question" />
-                </svg></a>
+                </svg>
+              </a>
             </h5>
             <textarea id="testum_dot"
               style="width:100%; min-height: 5em; height: auto;"># requīrātur: āctiōnem</textarea>
