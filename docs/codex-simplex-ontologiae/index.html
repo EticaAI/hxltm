@@ -236,9 +236,17 @@ SPDX-License-Identifier: Unlicense
             <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
               <use xlink:href="#bi-file-earmark-arrow-down" />
             </svg>
-            ontologia.{tmx}
+            ontologia.{tbx,tmx}
           </button>
           <ul class="dropdown-menu">
+            <li>
+              <button type="button" class="dropdown-item" id="ontologia-archivum-tbx">
+                <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+                  <use xlink:href="#bi-file-earmark-arrow-down" />
+                </svg>
+                ontologia.tbx
+              </button>
+            </li>
             <li>
               <button type="button" class="dropdown-item" id="ontologia-archivum-tmx">
                 <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
@@ -343,9 +351,17 @@ SPDX-License-Identifier: Unlicense
             <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
               <use xlink:href="#bi-file-earmark-arrow-down" />
             </svg>
-            usum-professori.{tmx}
+            usum-professori.{tbx,tmx}
           </button>
           <ul class="dropdown-menu">
+            <li>
+              <button type="button" class="dropdown-item" id="usum-professori-archivum-tbx">
+                <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+                  <use xlink:href="#bi-file-earmark-arrow-down" />
+                </svg>
+                usum-professori.tbx
+              </button>
+            </li>
             <li>
               <button type="button" class="dropdown-item" id="usum-professori-archivum-tmx">
                 <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
@@ -355,6 +371,7 @@ SPDX-License-Identifier: Unlicense
               </button>
             </li>
           </ul>
+        </div>
 
         <div class="btn-group float-end">
           <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
@@ -1221,12 +1238,18 @@ SPDX-License-Identifier: Unlicense
         return tabulam
       }
 
-      exportareXmlTmx(reconstructum = false) {
+      exportareTMX(reconstructum = false) {
         let obiectum = this.exportareObiectum(reconstructum)
         let tmx = new TMX()
         tmx.setAST(obiectum)
-        // console.log('obiectum', obiectum)
         return tmx.export()
+      }
+
+      exportareTBXBasic2008(reconstructum = false) {
+        let obiectum = this.exportareObiectum(reconstructum)
+        let tbx = new TBXBasic2008()
+        tbx.setAST(obiectum)
+        return tbx.export()
       }
 
       /**
@@ -1575,6 +1598,7 @@ scientia.quod_terminum('12')
       }
     }
 
+    // https://www.gala-global.org/tmx-14b
     class TMX {
       constructor(options = {}) {
         this.creationtool = options.creationtool || 'hxltm-ontologiae.js';
@@ -1583,12 +1607,14 @@ scientia.quod_terminum('12')
         this.adminlang = options.adminlang || 'lat-Latn';
         this.srclang = options.srclang || 'lat-Latn';
         this.datatype = options.datatype || 'PlainText';
+        this.system = options.system || 'tmx14.dtd';
+        // this.system = options.system || 'https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd';
         this.ast = {}
       }
 
       _initiale() {
         return `<?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE tmx SYSTEM "tmx14.dtd">
+<!DOCTYPE tmx SYSTEM "${this.system}">
 <tmx version="1.4">
   <header
     creationtool="${this.creationtool}"
@@ -1606,7 +1632,7 @@ scientia.quod_terminum('12')
         let tmx_concepts = []
         for (let [codicem, conceptum_significatini] of Object.entries(this.ast)) {
           if (conceptum_significatini && Object.keys(conceptum_significatini).length > 0) {
-            tmx_concepts.push(`    <tu tuid="${codicem}">`)
+            tmx_concepts.push(`    <tu tuid="__${codicem}__">`)
             for (let [linguam, terminum_collectionem] of Object.entries(conceptum_significatini)) {
               tmx_concepts.push(`      <tuv xml:lang="${linguam}">`)
               let tmx_seg = []
@@ -1634,8 +1660,7 @@ scientia.quod_terminum('12')
 
       _finale() {
         return `  </body>
-</tmx>
-`
+</tmx>`
       }
 
       setAST(ast) {
@@ -1650,6 +1675,95 @@ scientia.quod_terminum('12')
         return initiale + "\n" + corporeum + "\n" + finale
       }
     }
+
+    // http://www.ttt.org/oscarStandards/tbx/tbx_oscar.pdf
+    // http://www.ttt.org/oscarStandards/tbx/
+    // http://www.ttt.org/oscarStandards/tbx/TBXcoreStructV02.dtd
+    class TBXBasic2008 {
+      constructor(options = {}) {
+        this.title = options.title || 'ordonumerae';
+        this.note = options.note || '';
+        this.sourceDesc = options.sourceDesc || '';
+        this.lang = options.lang || 'lat-Latn';
+        this.system = options.system || 'TBXcoreStructV02.dtd';
+        // this.system = options.system || 'http://www.ttt.org/oscarStandards/tbx/TBXcoreStructV02.dtd';
+        // this.srclang = options.srclang || 'lat-Latn';
+        // this.datatype = options.datatype || 'PlainText';
+        this.ast = {}
+      }
+
+      // http://www.ttt.org/oscarStandards/tbx/TBXcoreStructV02.dtd
+      // TBXBasiccoreStructV02.dtd"
+      _initiale() {
+        return `<?xml version='1.0'?>
+<!DOCTYPE martif SYSTEM "${this.system}">
+<martif type="TBX-Basic" xml:lang="${this.lang}">
+  <martifHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>${this.title}</title>
+        <note>${this.note}</note>
+      </titleStmt>
+      <sourceDesc>
+        <p>${this.sourceDesc}</p>
+      </sourceDesc>
+    </fileDesc>
+  </martifHeader>
+  <text>
+    <body>`
+      }
+
+      _corporeum() {
+        let tbx_concepts = []
+        for (let [codicem, conceptum_significatini] of Object.entries(this.ast)) {
+          if (conceptum_significatini && Object.keys(conceptum_significatini).length > 0) {
+            tbx_concepts.push(`      <termEntry id="__${codicem}__">`)
+            for (let [linguam, terminum_collectionem] of Object.entries(conceptum_significatini)) {
+              tbx_concepts.push(`        <langSet xml:lang="${linguam}">`)
+              for (let [terminum_indicem, terminum_referens] of Object.entries(terminum_collectionem)) {
+                tbx_concepts.push(`          <tig>`)
+                tbx_concepts.push(`            <term>${terminum_referens}</term>`)
+                tbx_concepts.push(`          </tig>`)
+              }
+              // tbx_concepts.push(`        <seg>${tmx_seg.join("\n")}</seg>`)
+
+              // tbx_concepts.push(`          </tig>`)
+              tbx_concepts.push(`        </langSet>`)
+            }
+            tbx_concepts.push(`      </termEntry>`)
+          }
+        }
+
+        return tbx_concepts.join("\n")
+      }
+      _corporeum_rem() {
+        return ''
+      }
+
+      _finale() {
+        return `    </body>
+  </text>
+</martif>`
+      }
+
+      setAST(ast) {
+        this.ast = ast
+        return this
+      }
+
+      export() {
+        let initiale = this._initiale()
+        let finale = this._finale()
+        let corporeum = this._corporeum()
+        return initiale + "\n" + corporeum + "\n" + finale
+      }
+    }
+
+    // https://github.com/bpmlod/report
+    // https://github.com/cimiano/tbx2rdf
+    // https://github.com/liderproject/tbx2rdfservice
+    // http://tbx2rdf.lider-project.eu/converter/
+    class RDF {}
 
     /**
      * 
@@ -2791,13 +2905,18 @@ scientia.quod_terminum('12')
 
     document.querySelector('#ontologia-archivum-tmx').addEventListener("click", function (el) {
       prepare_scientia()
-      var blob = new Blob([scientia.exportareXmlTmx()], { type: "application/x-tmx;charset=utf-8" });
+      var blob = new Blob([scientia.exportareTMX()], { type: "application/x-tmx;charset=utf-8" });
+      saveAs(blob, "ontologia.tmx");
+    });
+    document.querySelector('#ontologia-archivum-tbx').addEventListener("click", function (el) {
+      prepare_scientia()
+      var blob = new Blob([scientia.exportareTBXBasic2008()], { type: "application/x-tbx;charset=utf-8" });
       saveAs(blob, "ontologia.tmx");
     });
 
     document.querySelector('#ontologia-archivum-csv').addEventListener("click", function (el) {
       prepare_scientia()
-      let scientia_tabulam = scientia.exportareXmlTmx()
+      let scientia_tabulam = scientia.exportareTabulam()
       let csv_data = Papa.unparse(scientia_tabulam)
 
       var blob = new Blob([csv_data], { type: "text/csv;charset=utf-8" });
@@ -2859,7 +2978,13 @@ scientia.quod_terminum('12')
 
     document.querySelector('#usum-professori-archivum-tmx').addEventListener("click", function (el) {
       prepare_usum_professori()
-      var blob = new Blob([usum_professori_obiectum.exportareXmlTmx()], { type: "application/x-tmx;charset=utf-8" });
+      var blob = new Blob([usum_professori_obiectum.exportareTMX()], { type: "application/x-tmx;charset=utf-8" });
+      saveAs(blob, "usum-professori.tmx");
+    });
+
+    document.querySelector('#usum-professori-archivum-tbx').addEventListener("click", function (el) {
+      prepare_usum_professori()
+      var blob = new Blob([usum_professori_obiectum.exportareTBXBasic2008()], { type: "application/x-tbx;charset=utf-8" });
       saveAs(blob, "usum-professori.tmx");
     });
 
