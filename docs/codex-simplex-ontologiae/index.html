@@ -1181,6 +1181,26 @@ SPDX-License-Identifier: Unlicense
         return tabulam
       }
 
+      exportareXmlTmx(reconstructum = false) {
+        let obiectum = this.exportareObiectum(reconstructum)
+        let tmx = new TMX()
+        tmx.setAST(obiectum)
+        // let hxl_caput = []
+        // let indicem = 1
+        // let totale = tabulam[0].length - 1
+        // hxl_caput.push('#meta+name')
+        // hxl_caput.push('#item+linguam')
+
+        // while (indicem < totale) {
+        //   hxl_caput.push(`#item+ordonumerae+indicem_${indicem}`)
+        //   indicem = indicem + 1
+        // }
+        // tabulam.unshift(hxl_caput)
+        console.log('obiectum', obiectum)
+
+        return tmx.export()
+      }
+
       /**
        * _[eng-Latn]Rebuild internal object before be able to be usable[eng-Latn]_
        * @returns {object} this
@@ -1524,6 +1544,75 @@ scientia.quod_terminum('12')
         //   return item
         // }
         return `"${item}"`
+      }
+    }
+
+    class TMX {
+      constructor(options = {}) {
+        this.creationtool = options.creationtool || 'hxltm-ontologiae.js';
+        this.creationtoolversion = options.creationtoolversion || '2021-12-23';
+        this.segtype = options.segtype || 'sentence';
+        this.adminlang = options.adminlang || 'lat-Latn';
+        this.srclang = options.srclang || 'lat-Latn';
+        this.datatype = options.datatype || 'PlainText';
+        this.ast = {}
+      }
+
+      _initiale() {
+        return `<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE tmx SYSTEM "tmx14.dtd">
+<tmx version="1.4">
+  <header
+  creationtool="${this.creationtool}"
+  creationtoolversion="${this.creationtoolversion}"
+  segtype="${this.segtype}"
+  o-tmf="UTF-8"
+  adminlang="${this.adminlang}"
+  srclang="${this.srclang}"
+  datatype="${this.datatype}"
+  />
+  <body>`
+      }
+
+      _corporeum() {
+        let tmx_concepts = []
+        for (let [codicem, conceptum_significatini] of Object.entries(this.ast)) {
+          if (conceptum_significatini) {
+            tmx_concepts.push(`      <tu tuid="${codicem}">`)
+            for (let [linguam, terminum_collectionem] of Object.entries(conceptum_significatini)) {
+              tmx_concepts.push(`      <tuv xml:lang="${linguam}">`)
+              for (let [terminum_indicem, terminum_referens] of Object.entries(terminum_collectionem)) {
+                // tmx_concepts.push(`[${codicem}] ${terminum_referens}`)
+                tmx_concepts.push(`      <seg>${terminum_referens}</seg>`)
+              }
+              tmx_concepts.push(`      </tuv>`)
+            }
+            tmx_concepts.push(`    </tu>`)
+          }
+        }
+
+        return tmx_concepts.join("\n")
+      }
+      _corporeum_rem() {
+        return ''
+      }
+
+      _finale() {
+        return `  </body>
+</tmx>
+`
+      }
+
+      setAST(ast) {
+        this.ast = ast
+        return this
+      }
+
+      export() {
+        let initiale = this._initiale()
+        let finale = this._finale()
+        let corporeum = this._corporeum()
+        return initiale + "\n" + corporeum + "\n" + finale
       }
     }
 
