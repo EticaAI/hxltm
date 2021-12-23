@@ -219,6 +219,14 @@ SPDX-License-Identifier: Unlicense
                 ontologia.csv
               </button>
             </li>
+            <li>
+              <button type="button" class="dropdown-item" id="ontologia-archivum-hxl-csv">
+                <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+                  <use xlink:href="#bi-file-earmark-arrow-down" />
+                </svg>
+                ontologia.hxl.csv
+              </button>
+            </li>
           </ul>
         </div>
 
@@ -248,41 +256,6 @@ SPDX-License-Identifier: Unlicense
           </ul>
         </div>
 
-        <!--
-        <div class="btn-group float-end" role="group" aria-label="Toolbar Ontologia">
-          <button type="button" class="btn btn-success btn-sm" id="ontologia-archivum-yml">
-            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
-              <use xlink:href="#bi-file-earmark-arrow-down" />
-            </svg>
-            ontologia.yml
-          </button>
-          <button type="button" class="btn btn-outline-secondary btn-sm" id="ontologia-archivum-json">
-            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
-              <use xlink:href="#bi-file-earmark-arrow-down" />
-            </svg>
-            ontologia.json
-          </button> 
-          <button type="button" class="btn btn-outline-secondary btn-sm" id="ontologia-archivum-csv">
-            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
-              <use xlink:href="#bi-file-earmark-arrow-down" />
-            </svg>
-            ontologia.csv
-          </button>
-          <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="ontologia-ast-online-dot">
-            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
-              <use xlink:href="#bi-globe" />
-            </svg>
-            ontologia-numerae.gv
-          </a>
-          <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="ontologia-ast-online-dot-verbosum">
-            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
-              <use xlink:href="#bi-globe" />
-            </svg>
-            ontologia-verbosum.gv
-          </a>
-        </div>
-      </div>
-      -->
     </section>
     <section class="professorem">
       <h3 id="h-professorem"><a href="#h-professorem">§</a> 1.2. Exemplum bonō</h3>
@@ -343,18 +316,36 @@ SPDX-License-Identifier: Unlicense
             <li><a class="dropdown-item" href="#">Separated link</a></li> -->
           </ul>
         </div>
-
-        <!--
-        <div class="btn-group float-end" role="group" aria-label="Toolbar Professōrem">
-          <a target="_blank" href="#" class="btn btn-outline-secondary btn-sm" id="professorem-ast-online-dot-verbosum">
-            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Globe:">
-              <use xlink:href="#bi-globe" />
+        <div class="btn-group float-end">
+          <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+              <use xlink:href="#bi-file-earmark-arrow-down" />
             </svg>
-            usum-professori-verbosum.gv
-          </a>
+            usum-professori.{csv,hxl.csv}
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <button type="button" class="dropdown-item" id="usum-professori-archivum-csv">
+                <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+                  <use xlink:href="#bi-file-earmark-arrow-down" />
+                </svg>
+                usum-professori.csv
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item" id="usum-professori-archivum-hxl-csv">
+                <svg class="bi bi-globe" width="16" height="16" role="img" aria-label="Archivum:">
+                  <use xlink:href="#bi-file-earmark-arrow-down" />
+                </svg>
+                usum-professori.hxl.csv
+              </button>
+            </li>
+          </ul>
         </div>
-      -->
       </div>
+
+
     </section>
 
     <hr style="margin-top: 2em; margin-bottom: 2em;">
@@ -1172,6 +1163,22 @@ SPDX-License-Identifier: Unlicense
         // console.log('resultatum', resultatum)
 
         return resultatum
+      }
+
+      exportareTabulamHXL(reconstructum = false) {
+        let tabulam = this.exportareTabulam(reconstructum)
+        let hxl_caput = []
+        let indicem = 1
+        let totale = tabulam[0].length - 1
+        hxl_caput.push('#meta+name')
+        hxl_caput.push('#item+linguam')
+
+        while (indicem < totale) {
+          hxl_caput.push(`#item+ordonumerae+indicem_${indicem}`)
+          indicem = indicem + 1
+        }
+        tabulam.unshift(hxl_caput)
+        return tabulam
       }
 
       /**
@@ -2667,6 +2674,15 @@ scientia.quod_terminum('12')
       saveAs(blob, "ontologia.csv");
     });
 
+    document.querySelector('#ontologia-archivum-hxl-csv').addEventListener("click", function (el) {
+      prepare_scientia()
+      let scientia_tabulam = scientia.exportareTabulamHXL()
+      let hxl_data = Papa.unparse(scientia_tabulam)
+
+      var blob = new Blob([hxl_data], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "ontologia.hxl.csv");
+    });
+
     ui_ontologia_ast_dot_online.addEventListener("click", function (el) {
       prepare_scientia()
       // console.log('scientia', scientia)
@@ -2698,7 +2714,7 @@ scientia.quod_terminum('12')
       prepare_usum_professori()
 
       let _obiectum = usum_professori_obiectum.exportareObiectum()
-      let _yaml = jsyaml.dump(_obiectum, {forceQuotes: true})
+      let _yaml = jsyaml.dump(_obiectum, { forceQuotes: true })
 
       var blob = new Blob([_yaml], { type: "text/x-yaml;charset=utf-8" });
       saveAs(blob, "usum-professori.yml");
@@ -2709,6 +2725,26 @@ scientia.quod_terminum('12')
       let _obiectum = usum_professori_obiectum.exportareObiectum()
       var blob = new Blob([JSON.stringify(_obiectum, null, 2)], { type: "application/json;charset=utf-8" });
       saveAs(blob, "usum-professori.json");
+    });
+
+    document.querySelector('#usum-professori-archivum-csv').addEventListener("click", function (el) {
+      prepare_usum_professori()
+      let professori = usum_professori_obiectum.exportareTabulam()
+      let csv_data = Papa.unparse(professori)
+
+      var blob = new Blob([csv_data], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "usum-professori.csv");
+    });
+
+    document.querySelector('#usum-professori-archivum-hxl-csv').addEventListener("click", function (el) {
+      prepare_usum_professori()
+      let professori = usum_professori_obiectum.exportareTabulamHXL()
+      console.log('usum_professori_obiectum', usum_professori_obiectum)
+      console.log(professori)
+      let csv_data = Papa.unparse(professori)
+
+      var blob = new Blob([csv_data], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "usum-professori.hxl.csv");
     });
 
     ui_testum_csv.addEventListener("click", function (el) {
