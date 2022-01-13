@@ -5933,16 +5933,18 @@ HXLTMLinguam()
         """
 
         term = self.crudum
+
+        # print('term', term)
         # Hackysh way to discover if private use is the linguam
         # tag or if is the BCP47 x-private use tag
         # Good example '4.4.2.  Truncation of Language Tags'
         # at https://tools.ietf.org/search/bcp47
-        if self.crudum.find('x-') > -1:
+        if self.crudum.find('-x-') > -1:
             # print('Do exist a private-use tag')
             if self.crudum.find('@') > -1:
                 parts = self.crudum.split('@')
                 # print('parte1', parts)
-                if parts[0].find('x-') > -1:
+                if parts[0].find('-x-') > -1:
                     # _, privatumtext = parts[0].split('-x-')
                     part0, privatumtext = parts[0].split('-x-')
                     self.privatum = privatumtext.split('-')
