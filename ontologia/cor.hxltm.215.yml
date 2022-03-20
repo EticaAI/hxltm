@@ -607,7 +607,7 @@ normam:
             <fileDesc>
               <titleStmt>
                 <title>{{- ____.glossarium_titulum -}}</title>
-                <note>Lorem ipsum dolor semet</note>
+                <note>{{- ____.glossarium_annotationem -}}</note>
               </titleStmt>
               <sourceDesc>
                 <p>{{ ____.glossarium_fontem }}</p>

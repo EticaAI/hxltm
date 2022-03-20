@@ -1064,6 +1064,10 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
             hxlated_input = pyargs.outfile
 
+            # with open(hxlated_input) as _file:
+            #     print(_file.read())
+            # print(hxlated_input)
+
             # _[eng-Latn]
             # This step will do raw analysis of the hxlated_input on a
             # temporary on the disk.
@@ -2986,7 +2990,14 @@ True
             # if columnam_collectionem is not None and item_num in
             if columnam_collectionem is not None:
                 col_meta = columnam_collectionem[item_num]
-                # print('acerto')
+
+                # Corner case: checking before if index exist.
+                # # Need with XLSX source. Need more testing
+                # if item_num in columnam_collectionem:
+                #     col_meta = columnam_collectionem[item_num]
+                # else:
+                #     continue
+
             else:
                 # print('erro')
                 col_meta = None
@@ -3277,6 +3288,13 @@ class HXLTMDatumColumnam:
                         (rem_num <= limitem_quantitatem):
                     resultatum.append(datum[rem_num][columnam])
 
+                    # # Corner case: checking before if index exist.
+                    # # Need with XLSX source. Need more testing
+                    # if columnam in datum[rem_num]:
+                    #    resultatum.append(datum[rem_num][columnam])
+                    # else:
+                    #     continue
+
         return resultatum
 
     def v(self, _verbosum: bool = False):  # pylint: disable=invalid-name
@@ -3536,6 +3554,11 @@ HXLTMASA()
             # in: columnam de lineam
             for conceptum_indicem in cci:
                 # print(conceptum_indicem)
+
+                # # Corner case: checking before if index exist.
+                # # Need with XLSX source. Need more testing
+                # if conceptum_indicem not in lineam:
+                #     continue
 
                 # in: conceptum (columnam de lineam)
                 if lineam[conceptum_indicem]:
