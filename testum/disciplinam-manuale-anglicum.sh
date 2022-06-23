@@ -752,7 +752,7 @@ hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf \
     rursum/XLIFF/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv \
     --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
-# TODO: this command is generating invalid CSV since early v0.9.0-rc1
+# TODO: this command is generating invalid CSV since early v0.9.1
 cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es > rursum/XLIFF/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
 

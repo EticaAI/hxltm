@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - TODO
 
+## [v0.9.1] - 2022-06-22
+
+> Note: this version may require you to install additional dependencies. Varies
+        by cli tool you plan to install. Can do all then with
+        `pip install libhxl pyyaml defusedxml langcodes python-liquid`
+
+### Added
+- Improved documentation
+
+### Fixed
+- Changed references from `hxl.io` to `hxl.input` to work with lastest libhxl
+  version
+- Fixed issue with unpublished RC version of `hxltmcli` being released as
+  `hxltmdexml`
+
 ## [v0.8.10] - 2020-11-26
 
 ### Added

@@ -189,13 +189,13 @@ import yaml
 # # Do not import hxl, to avoid circular imports
 # import hxl.converters
 # import hxl.filters
-# import hxl.io
+# import hxl.input
 
 # @see https://github.com/rspeer/langcodes
 # pip3 install langcodes
 # import langcodes
 
-__VERSION__ = "v0.9.0-rc1"
+__VERSION__ = "v0.9.1"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize

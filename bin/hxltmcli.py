@@ -223,7 +223,7 @@ import yaml
 # Do not import hxl, to avoid circular imports
 import hxl.converters
 import hxl.filters
-import hxl.io
+import hxl.input
 import hxl.datatypes
 
 # @see https://github.com/rspeer/langcodes
@@ -254,7 +254,7 @@ from liquid.token import Token as LiquidToken
 from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
-__VERSION__ = "v0.9.0-rc1"
+__VERSION__ = "v0.9.1"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -1059,7 +1059,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 # Save the HXL TM locally. It will be used by either in_csv
                 # or in_csv + in_xliff
                 # [eng-Latn]_
-                hxl.io.write_hxl(output.output, source,
+                hxl.input.write_hxl(output.output, source,
                                  show_tags=not pyargs.strip_tags)
 
             hxlated_input = pyargs.outfile
@@ -7880,7 +7880,7 @@ class HXLUtils:
 
         # construct the input object
         input = self.make_input(args, stdin)
-        return hxl.io.data(input)
+        return hxl.input.data(input)
 
     def make_input(self, args, stdin=sys.stdin, url_or_filename=None):
         """Create an input object"""
@@ -7898,7 +7898,7 @@ class HXLUtils:
 
         http_headers = self.make_headers(args)
 
-        return hxl.io.make_input(
+        return hxl.input.make_input(
             url_or_filename or stdin,
             sheet_index=sheet_index,
             selector=selector,
