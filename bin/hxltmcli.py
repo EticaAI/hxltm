@@ -255,7 +255,7 @@ from liquid.token import Token as LiquidToken
 from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
-__VERSION__ = "v0.9.1"
+__VERSION__ = "v0.9.2rc1"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -566,6 +566,39 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             ),
             metavar='agendum_attributum',
             action='append',
+            nargs='?',
+        )
+
+        # @TODO implement first test of this
+        # dispositiōnī, s, f, dativus, en.wiktionary.org/wiki/dispositio#Latin
+        parser.add_argument(
+            '--rdf-conceptum-dispositioni',
+            help='(Draft, not implemented) '
+            '(simplistic use, no ASA support, but okay huge dataset). '
+            'Inject given information on '
+            'all rows in a column called #item+conceptum+dispositioni. '
+            'Requires HXLTM input and HXLTM output. Use | as separator. '
+            'http://purl.obolibrary.org/obo/BFO_0000016',
+            metavar='rdf_conceptum_dispositioni',
+            # action='append',
+            type=lambda x: x.split('|'),
+            nargs='?',
+        )
+
+        # @TODO implement first test of this
+        # fūnctiō, s, f, nominativus, en.wiktionary.org/wiki/functio#Latin
+        # fūnctiōnī, s, f, dativus, ...
+        parser.add_argument(
+            '--rdf-conceptum-functioni',
+            help='(Draft, not implemented) '
+            '(simplistic use, no ASA support, but okay huge dataset). '
+            'Inject given information on '
+            'all rows in a column called #item+conceptum+functioni. '
+            'Requires HXLTM input and HXLTM output. Use | as separator. '
+            'http://purl.obolibrary.org/obo/BFO_0000034',
+            metavar='rdf_conceptum_functioni',
+            # action='append',
+            type=lambda x: x.split('|'),
             nargs='?',
         )
 

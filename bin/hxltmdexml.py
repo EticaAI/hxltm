@@ -195,7 +195,7 @@ import yaml
 # pip3 install langcodes
 # import langcodes
 
-__VERSION__ = "v0.9.1"
+__VERSION__ = "v0.9.2rc1"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
