@@ -878,7 +878,22 @@ cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml --font
 # cat resultatum/schemam-un-htcds_eng-Latn--por-Latn.DONE.obsoletum.xlf | hxltmdexml 
 
 
-
 ### Real test usage, end -------------------------------------------------------
+### Temp, to organize, start ---------------------------------------------------
+# 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv was on EticaAI/lexicographi-sine-finibus
+
+# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17' | hxltmcli  --rdf-conceptum-typo='obo:BFO_0000029|p:P18'
+# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17' > 999999/0/wikidata-p17-a.csv
+
+# hxltmcli 999999/0/wikidata-p17-a.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P18'
+
+# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17'
+
+# @see https://www.wikidata.org/wiki/Help:Frequently_used_properties
+#      - located in the administrative territorial entity (P131)
+
+# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17' --rdf-relatio-ad='p:P131 <urn:unm49:1>|rdf:type owl:Thing' --rdf-relatio-ab='rdf:type <urn:example:lat-Latn:ab-ovo>'
+
+### Temp, to organize, end -----------------------------------------------------
 
 exit 0

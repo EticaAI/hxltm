@@ -576,8 +576,27 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             help='(simplistic use, no ASA support, but okay huge dataset). '
             'Inject given information on '
             'all rows in a column called #item+conceptum+typo. '
-            'Requires HXLTM input and HXLTM output. Use | as separator.',
+            'Requires HXLTM input and HXLTM output. Use | as separator. '
+            'Trivia: yes, would be possible to create this with '
+            '--rdf-relatio-ab/--rdf-relatio-ad and rdf:type',
             metavar='rdf_conceptum_typo',
+            # action='append',
+            type=lambda x: x.split('|'),
+            nargs='?',
+        )
+
+        # (... see --rdf-relatio-ad)
+        # ad (+ accusative) https://en.wiktionary.org/wiki/ad#Latin
+        #  - 1. (direction) toward, to
+        parser.add_argument(
+            '--rdf-relatio-ab',
+            help='(simplistic use, no ASA support, but okay huge dataset). '
+            'Inject given information on '
+            'all rows in a column called #item+relatio+ab. '
+            'Requires HXLTM input and HXLTM output. Use | as separator. '
+            'Means relation away from (the currenct concept is <object> '
+            'of RDF Triple [<subject> <predicate> <object>] of these relations',
+            metavar='rdf_relatio_ab',
             # action='append',
             type=lambda x: x.split('|'),
             nargs='?',
@@ -594,26 +613,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'Inject given information on '
             'all rows in a column called #item+relatio+ad. '
             'Requires HXLTM input and HXLTM output. Use | as separator. '
-            'Means relation toward (the currenct concept is subject '
-            'of RDF [<subject> <predicate> <object>]',
+            'Means relation toward (the currenct concept is <subject> '
+            'of RDF Triple [<subject> <predicate> <object>] of these relations',
             metavar='rdf_relatio_ad',
-            # action='append',
-            type=lambda x: x.split('|'),
-            nargs='?',
-        )
-
-        # (... see --rdf-relatio-ad)
-        # ad (+ accusative) https://en.wiktionary.org/wiki/ad#Latin
-        #  - 1. (direction) toward, to
-        parser.add_argument(
-            '--rdf-relatio-ab',
-            help='(simplistic use, no ASA support, but okay huge dataset). '
-            'Inject given information on '
-            'all rows in a column called #item+relatio+ab. '
-            'Requires HXLTM input and HXLTM output. Use | as separator. '
-            'Means relation away from (the currenct concept is object '
-            'of RDF [<subject> <predicate> <object>] of this relation(s)',
-            metavar='rdf_relatio_ab',
             # action='append',
             type=lambda x: x.split('|'),
             nargs='?',
@@ -1313,7 +1315,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             # print('rdf_conceptum_typo2', rdf_conceptum_typo)
 
             hxltmr = HXLTMCrudoAdRDF(
-                caput, rdf_conceptum_typo, rdf_relatio_ad, rdf_relatio_ab)
+                caput, rdf_conceptum_typo, rdf_relatio_ab, rdf_relatio_ad)
             # caput = next(csv_reader)
             # print('caput2', caput)
 
@@ -2188,13 +2190,6 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
         return resultatum
 
 
-# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17' | hxltmcli  --rdf-conceptum-typo='obo:BFO_0000029|p:P18'
-# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17' > 999999/0/wikidata-p17-a.csv
-
-# hxltmcli 999999/0/wikidata-p17-a.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P18'
-
-# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17'
-
 class HXLTMCrudoAdRDF:
     """HXLTMCrudoAdRDF
 
@@ -2205,39 +2200,39 @@ class HXLTMCrudoAdRDF:
 
     caput: list
     rdf_conceptum_typo: list
-    rdf_relatio_ad: list
     rdf_relatio_ab: list
+    rdf_relatio_ad: list
     _rdf_conceptum_typo: str
-    _rdf_relatio_ad: str
     _rdf_relatio_ab: str
+    _rdf_relatio_ad: str
     _index_codicem: int = -1
     _index_typo: int = -1
     _index_typo__addere: bool = False
-    _rdf_ad: int = -1
-    _rdf_ad__addere: bool = False
-    _rdf_ab: int = -1
-    _rdf_ab__addere: bool = False
+    _index_ab: int = -1
+    _index_ab__addere: bool = False
+    _index_ad: int = -1
+    _index_ad__addere: bool = False
 
     def __init__(
         self,
         caput: list,
         rdf_conceptum_typo: list = None,
-        rdf_relatio_ad: list = None,
         rdf_relatio_ab: list = None,
+        rdf_relatio_ad: list = None,
     ):
         self.caput = caput
         if rdf_conceptum_typo:
             self.rdf_conceptum_typo = sorted(
                 list(map(str.strip, rdf_conceptum_typo)))
             self._rdf_conceptum_typo = '|'.join(self.rdf_conceptum_typo)
-        if rdf_relatio_ad:
-            self.rdf_relatio_ad = sorted(
-                list(map(str.strip, rdf_relatio_ad)))
-            self._rdf_relatio_ad = '|'.join(self.rdf_relatio_ad)
         if rdf_relatio_ab:
             self.rdf_relatio_ab = sorted(
                 list(map(str.strip, rdf_relatio_ab)))
             self._rdf_relatio_ab = '|'.join(self.rdf_relatio_ab)
+        if rdf_relatio_ad:
+            self.rdf_relatio_ad = sorted(
+                list(map(str.strip, rdf_relatio_ad)))
+            self._rdf_relatio_ad = '|'.join(self.rdf_relatio_ad)
 
         # self.rdf_relatio_ad = rdf_relatio_ad
         # self.rdf_relatio_ab = rdf_relatio_ab
@@ -2263,6 +2258,38 @@ class HXLTMCrudoAdRDF:
                 self.caput.insert(self._index_typo, '#item+conceptum+typo')
                 self._index_typo__addere = True
 
+        if self._rdf_relatio_ab:
+            if '#item+relatio+ab' in self.caput:
+                self._index_ab = self.caput.index(
+                    '#item+relatio+ab')
+            else:
+                if self._index_typo > -1:
+                    self._index_ab = self._index_typo + 1
+                else:
+                    self._index_ab = self._index_codicem + 1
+                # if self._index_typo == -1:
+                #     self._index_ab = self._index_codicem + 1
+                # else:
+                #     self._index_ab = self._index_typo + 1
+
+                self.caput.insert(self._index_ab, '#item+relatio+ab')
+                self._index_ab__addere = True
+
+        if self._rdf_relatio_ad:
+            if '#item+relatio+ad' in self.caput:
+                self._index_ad = self.caput.index(
+                    '#item+relatio+ad')
+            else:
+                if self._index_ab > -1:
+                    self._index_ad = self._index_ab + 1
+                elif self._index_typo > -1:
+                    self._index_ad = self._index_typo + 1
+                else:
+                    self._index_ad = self._index_codicem + 1
+
+                self.caput.insert(self._index_ad, '#item+relatio+ad')
+                self._index_ad__addere = True
+
     def quod_caput(self) -> list:
         return self.caput
 
@@ -2271,24 +2298,50 @@ class HXLTMCrudoAdRDF:
         # print('      quod_linea ', linea, self._rdf_conceptum_typo)
         # print('      quod_linea ',  self._rdf_conceptum_typo, linea[self._index_typo])
 
+        # :concept a {<>}
         if self._index_typo__addere is True:
             linea.insert(self._index_typo, self._rdf_conceptum_typo)
 
         elif self._rdf_conceptum_typo:
             if len(linea[self._index_typo]) == 0:
-                # print('not empty')
                 linea[self._index_typo] = self._rdf_conceptum_typo
             else:
-
                 res_novo = linea[self._index_typo].strip().split('|')
-                # print('  empty', list(self.rdf_conceptum_typo), res_novo)
-
                 for item in self.rdf_conceptum_typo:
                     if item not in res_novo:
                         res_novo.append(item)
                 res_novo.sort()
-
                 linea[self._index_typo] = '|'.join(res_novo)
+
+        # {<> <>} :concept
+        if self._index_ab__addere is True:
+            linea.insert(self._index_ab, self._rdf_relatio_ab)
+
+        elif self._rdf_relatio_ab:
+            if len(linea[self._index_ab]) == 0:
+                linea[self._index_ab] = self._rdf_relatio_ab
+            else:
+                res_novo = linea[self._index_ab].strip().split('|')
+                for item in self.rdf_relatio_ab:
+                    if item not in res_novo:
+                        res_novo.append(item)
+                res_novo.sort()
+                linea[self._index_ab] = '|'.join(res_novo)
+
+        # :concept {<> <>}
+        if self._index_ad__addere is True:
+            linea.insert(self._index_ad, self._rdf_relatio_ad)
+
+        elif self._rdf_relatio_ad:
+            if len(linea[self._index_ad]) == 0:
+                linea[self._index_ad] = self._rdf_relatio_ad
+            else:
+                res_novo = linea[self._index_ad].strip().split('|')
+                for item in self.rdf_relatio_ad:
+                    if item not in res_novo:
+                        res_novo.append(item)
+                res_novo.sort()
+                linea[self._index_ad] = '|'.join(res_novo)
 
         return linea
 
