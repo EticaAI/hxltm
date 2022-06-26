@@ -578,7 +578,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'all rows in a column called #item+conceptum+typo. '
             'Requires HXLTM input and HXLTM output. Use | as separator.',
             metavar='rdf_conceptum_typo',
-            action='append',
+            # action='append',
             type=lambda x: x.split('|'),
             nargs='?',
         )
@@ -597,7 +597,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'Means relation toward (the currenct concept is subject '
             'of RDF [<subject> <predicate> <object>]',
             metavar='rdf_relatio_ad',
-            action='append',
+            # action='append',
             type=lambda x: x.split('|'),
             nargs='?',
         )
@@ -614,7 +614,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'Means relation away from (the currenct concept is object '
             'of RDF [<subject> <predicate> <object>] of this relation(s)',
             metavar='rdf_relatio_ab',
-            action='append',
+            # action='append',
             type=lambda x: x.split('|'),
             nargs='?',
         )
@@ -1309,6 +1309,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             if not caput[0].startswith('#'):
                 caput = next(csv_reader)
             # print('caput', caput)
+
+            # print('rdf_conceptum_typo2', rdf_conceptum_typo)
 
             hxltmr = HXLTMCrudoAdRDF(
                 caput, rdf_conceptum_typo, rdf_relatio_ad, rdf_relatio_ab)
@@ -2186,6 +2188,13 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
         return resultatum
 
 
+# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17' | hxltmcli  --rdf-conceptum-typo='obo:BFO_0000029|p:P18'
+# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17' > 999999/0/wikidata-p17-a.csv
+
+# hxltmcli 999999/0/wikidata-p17-a.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P18'
+
+# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17'
+
 class HXLTMCrudoAdRDF:
     """HXLTMCrudoAdRDF
 
@@ -2198,6 +2207,16 @@ class HXLTMCrudoAdRDF:
     rdf_conceptum_typo: list
     rdf_relatio_ad: list
     rdf_relatio_ab: list
+    _rdf_conceptum_typo: str
+    _rdf_relatio_ad: str
+    _rdf_relatio_ab: str
+    _index_codicem: int = -1
+    _index_typo: int = -1
+    _index_typo__addere: bool = False
+    _rdf_ad: int = -1
+    _rdf_ad__addere: bool = False
+    _rdf_ab: int = -1
+    _rdf_ab__addere: bool = False
 
     def __init__(
         self,
@@ -2207,17 +2226,71 @@ class HXLTMCrudoAdRDF:
         rdf_relatio_ab: list = None,
     ):
         self.caput = caput
-        self.rdf_conceptum_typo = rdf_conceptum_typo
-        self.rdf_relatio_ad = rdf_relatio_ad
-        self.rdf_relatio_ab = rdf_relatio_ab
+        if rdf_conceptum_typo:
+            self.rdf_conceptum_typo = sorted(
+                list(map(str.strip, rdf_conceptum_typo)))
+            self._rdf_conceptum_typo = '|'.join(self.rdf_conceptum_typo)
+        if rdf_relatio_ad:
+            self.rdf_relatio_ad = sorted(
+                list(map(str.strip, rdf_relatio_ad)))
+            self._rdf_relatio_ad = '|'.join(self.rdf_relatio_ad)
+        if rdf_relatio_ab:
+            self.rdf_relatio_ab = sorted(
+                list(map(str.strip, rdf_relatio_ab)))
+            self._rdf_relatio_ab = '|'.join(self.rdf_relatio_ab)
+
+        # self.rdf_relatio_ad = rdf_relatio_ad
+        # self.rdf_relatio_ab = rdf_relatio_ab
+
+        self._prepare()
+
+    def _prepare(self):
+        if '#item+conceptum+codicem' not in self.caput:
+            raise SyntaxError(
+                'Table without #item+conceptum+codicem <{0}>'.format(
+                    self.caput
+                ))
+
+        self._index_codicem = self.caput.index(
+            '#item+conceptum+codicem')
+
+        if self._rdf_conceptum_typo:
+            if '#item+conceptum+typo' in self.caput:
+                self._index_typo = self.caput.index(
+                    '#item+conceptum+typo')
+            else:
+                self._index_typo = self._index_codicem + 1
+                self.caput.insert(self._index_typo, '#item+conceptum+typo')
+                self._index_typo__addere = True
 
     def quod_caput(self) -> list:
         return self.caput
 
     def quod_linea(self, linea: list) -> list:
-        # @TODO
-        linea_novae = linea
-        return linea_novae
+
+        # print('      quod_linea ', linea, self._rdf_conceptum_typo)
+        # print('      quod_linea ',  self._rdf_conceptum_typo, linea[self._index_typo])
+
+        if self._index_typo__addere is True:
+            linea.insert(self._index_typo, self._rdf_conceptum_typo)
+
+        elif self._rdf_conceptum_typo:
+            if len(linea[self._index_typo]) == 0:
+                # print('not empty')
+                linea[self._index_typo] = self._rdf_conceptum_typo
+            else:
+
+                res_novo = linea[self._index_typo].strip().split('|')
+                # print('  empty', list(self.rdf_conceptum_typo), res_novo)
+
+                for item in self.rdf_conceptum_typo:
+                    if item not in res_novo:
+                        res_novo.append(item)
+                res_novo.sort()
+
+                linea[self._index_typo] = '|'.join(res_novo)
+
+        return linea
 
 
 @dataclass
