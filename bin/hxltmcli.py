@@ -65,6 +65,7 @@
 #                 2021-10-15 17:08 UTC v0.8.8 --objectivum-formulam, allow
 #                      save result to file (was working for stdout)
 #                 2021-11-17 02:37 UTC v0.8.9 Use cor.hxltm.215.yml
+#                 2022-06-22 22:26 UTC v0.9.1 Minor bugfixes; better tested
 # ==============================================================================
 """hxltmcli.py: Humanitarian Exchange Language Trānslātiōnem Memoriam CLI
 
@@ -568,6 +569,34 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             nargs='?',
         )
 
+        # https://en.wikipedia.org/wiki/Ontology_components
+        # https://en.wiktionary.org/wiki/typus#Latin
+        parser.add_argument(
+            '--rdf-conceptum-typo',
+            help='(simplistic use, no ASA support, but okay huge dataset). '
+            'Inject given information on '
+            'all rows in a column called #item+conceptum+typo. '
+            'Requires HXLTM input and HXLTM output. Use | as separator.',
+            metavar='rdf_conceptum_typo',
+            action='append',
+            type=lambda x: x.split('|'),
+            nargs='?',
+        )
+
+        # https://en.wikipedia.org/wiki/Ontology_components
+        # relātiōnī, s, f, dativus, https://en.wiktionary.org/wiki/relatio#Latin
+        parser.add_argument(
+            '--rdf-conceptum-relationi',
+            help='(simplistic use, no ASA support, but okay huge dataset). '
+            'Inject given information on '
+            'all rows in a column called #item+conceptum+relationi. '
+            'Requires HXLTM input and HXLTM output. Use | as separator',
+            metavar='rdf_conceptum_relationi',
+            action='append',
+            type=lambda x: x.split('|'),
+            nargs='?',
+        )
+
         parser.add_argument(
             '--fontem-normam',
             help='(For data exchange) Source of data convention ' +
@@ -1060,7 +1089,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 # or in_csv + in_xliff
                 # [eng-Latn]_
                 hxl.input.write_hxl(output.output, source,
-                                 show_tags=not pyargs.strip_tags)
+                                    show_tags=not pyargs.strip_tags)
 
             hxlated_input = pyargs.outfile
 
