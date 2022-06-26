@@ -585,13 +585,35 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         # https://en.wikipedia.org/wiki/Ontology_components
         # relātiōnī, s, f, dativus, https://en.wiktionary.org/wiki/relatio#Latin
+        # relātiō, s, f, nominativus,
+        # ad (+ accusative) https://en.wiktionary.org/wiki/ad#Latin
+        #  - 1. (direction) toward, to
         parser.add_argument(
-            '--rdf-conceptum-relationi',
+            '--rdf-relatio-ad',
             help='(simplistic use, no ASA support, but okay huge dataset). '
             'Inject given information on '
-            'all rows in a column called #item+conceptum+relationi. '
-            'Requires HXLTM input and HXLTM output. Use | as separator',
-            metavar='rdf_conceptum_relationi',
+            'all rows in a column called #item+relatio+ad. '
+            'Requires HXLTM input and HXLTM output. Use | as separator. '
+            'Means relation toward (the currenct concept is subject '
+            'of RDF [<subject> <predicate> <object>]',
+            metavar='rdf_relatio_ad',
+            action='append',
+            type=lambda x: x.split('|'),
+            nargs='?',
+        )
+
+        # (... see --rdf-relatio-ad)
+        # ad (+ accusative) https://en.wiktionary.org/wiki/ad#Latin
+        #  - 1. (direction) toward, to
+        parser.add_argument(
+            '--rdf-relatio-ab',
+            help='(simplistic use, no ASA support, but okay huge dataset). '
+            'Inject given information on '
+            'all rows in a column called #item+relatio+ab. '
+            'Requires HXLTM input and HXLTM output. Use | as separator. '
+            'Means relation away from (the currenct concept is object '
+            'of RDF [<subject> <predicate> <object>] of this relation(s)',
+            metavar='rdf_relatio_ab',
             action='append',
             type=lambda x: x.split('|'),
             nargs='?',
@@ -1113,8 +1135,18 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
             if self.hxltm_asa.argumentum.objectivum_formatum == 'HXLTM':
                 # TODO: make it work with elf.in_archivum_formatum
-                self.in_noop(hxlated_input, self.original_outfile,
-                             self.original_outfile_is_stdout)
+
+                if pyargs.rdf_conceptum_typo or \
+                        pyargs.rdf_relatio_ad or pyargs.rdf_relatio_ab:
+                    self.in_noop_rdf(
+                        hxlated_input, self.original_outfile,
+                        self.original_outfile_is_stdout,
+                        pyargs.rdf_conceptum_typo,
+                        pyargs.rdf_relatio_ad,
+                        pyargs.rdf_relatio_ab)
+                else:
+                    self.in_noop(hxlated_input, self.original_outfile,
+                                 self.original_outfile_is_stdout)
             else:
 
                 if self.original_outfile_is_stdout:
@@ -1259,6 +1291,50 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     txt_writer = csv.writer(new_txt)
                     for line in csv_reader:
                         txt_writer.writerow(line)
+
+    def in_noop_rdf(self, hxlated_input, tab_output, is_stdout,
+                    rdf_conceptum_typo, rdf_relatio_ad, rdf_relatio_ab
+                    ):
+        """
+        in_noop only export whatever the initial HXL input was.
+
+        Requires that the input must be a valid HXLated file
+        """
+        # pylint: disable=no-self-use
+
+        with open(hxlated_input, 'r') as csv_file:
+            csv_reader = csv.reader(csv_file)
+
+            caput = next(csv_reader)
+            if not caput[0].startswith('#'):
+                caput = next(csv_reader)
+            # print('caput', caput)
+
+            hxltmr = HXLTMCrudoAdRDF(
+                caput, rdf_conceptum_typo, rdf_relatio_ad, rdf_relatio_ab)
+            # caput = next(csv_reader)
+            # print('caput2', caput)
+
+            if is_stdout:
+                # txt_writer = csv.writer(sys.stdout, delimiter='\t')
+                txt_writer = csv.writer(sys.stdout)
+                # txt_writer.writerow(header_new)
+                txt_writer.writerow(hxltmr.quod_caput())
+                for line in csv_reader:
+                    txt_writer.writerow(hxltmr.quod_linea(line))
+                    # txt_writer.writerow(line)
+            else:
+
+                tab_output_cleanup = open(tab_output, 'w')
+                tab_output_cleanup.truncate()
+                tab_output_cleanup.close()
+
+                with open(tab_output, 'a') as new_txt:
+                    txt_writer = csv.writer(new_txt)
+                    txt_writer.writerow(hxltmr.quod_caput())
+                    for line in csv_reader:
+                        txt_writer.writerow(hxltmr.quod_linea(line))
+                        # txt_writer.writerow(line)
 
 
 @dataclass
@@ -2108,6 +2184,40 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
 
         # return self.__dict__
         return resultatum
+
+
+class HXLTMCrudoAdRDF:
+    """HXLTMCrudoAdRDF
+
+    Simple helper class to convert add/edit on demand RDF relations to a plain
+    HXLTM dataset.
+
+    """
+
+    caput: list
+    rdf_conceptum_typo: list
+    rdf_relatio_ad: list
+    rdf_relatio_ab: list
+
+    def __init__(
+        self,
+        caput: list,
+        rdf_conceptum_typo: list = None,
+        rdf_relatio_ad: list = None,
+        rdf_relatio_ab: list = None,
+    ):
+        self.caput = caput
+        self.rdf_conceptum_typo = rdf_conceptum_typo
+        self.rdf_relatio_ad = rdf_relatio_ad
+        self.rdf_relatio_ab = rdf_relatio_ab
+
+    def quod_caput(self) -> list:
+        return self.caput
+
+    def quod_linea(self, linea: list) -> list:
+        # @TODO
+        linea_novae = linea
+        return linea_novae
 
 
 @dataclass
