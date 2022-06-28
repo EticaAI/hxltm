@@ -2232,12 +2232,12 @@ class HXLTMCrudoAdRDF:
     """
 
     caput: list
-    rdf_conceptum_typo: list
-    rdf_relatio_ab: list
-    rdf_relatio_ad: list
-    _rdf_conceptum_typo: str
-    _rdf_relatio_ab: str
-    _rdf_relatio_ad: str
+    rdf_conceptum_typo: list = None
+    rdf_relatio_ab: list = None
+    rdf_relatio_ad: list = None
+    _rdf_conceptum_typo: str = None
+    _rdf_relatio_ab: str = None
+    _rdf_relatio_ad: str = None
     _index_codicem: int = -1
     _index_typo: int = -1
     _index_typo__addere: bool = False
@@ -2291,6 +2291,7 @@ class HXLTMCrudoAdRDF:
                 self.caput.insert(self._index_typo, '#item+conceptum+typo')
                 self._index_typo__addere = True
 
+        # print(self.__dict__)
         if self._rdf_relatio_ab:
             if '#item+relatio+ab' in self.caput:
                 self._index_ab = self.caput.index(
