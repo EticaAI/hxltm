@@ -8,6 +8,11 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--non-agendum-linguam non_agendum_linguam]
                 [--auxilium-linguam auxilium_linguam]
                 [--agendum-attributum [agendum_attributum]]
+                [--rdf-conceptum-dispositioni [rdf_conceptum_dispositioni]]
+                [--rdf-conceptum-functioni [rdf_conceptum_functioni]]
+                [--rdf-conceptum-typo [rdf_conceptum_typo]]
+                [--rdf-relatio-ab [rdf_relatio_ab]]
+                [--rdf-relatio-ad [rdf_relatio_ad]]
                 [--fontem-normam [fontem_normam]]
                 [--tmeta-archivum [tmeta_archivum]]
                 [--objectivum-normam [objectivum_normam]]
@@ -37,7 +42,7 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--venandum-insectum-est] [--versionem]
                 [infile] [outfile]
 
-_[eng-Latn] hxltmcli v0.9.1 is an example of implementation of the
+_[eng-Latn] hxltmcli v0.9.2rc1 is an example of implementation of the
 Multilingual Terminology in Humanitarian Language Exchange (HXLTM).
 For XML processing, use hxltmdexml.
 [eng-Latn]_"
@@ -92,6 +97,43 @@ optional arguments:
                         annotationem_terminum codicem codicem_conceptum
                         dominium indicem_de_terminum meta meta_conceptum
                         meta_linguam meta_terminum rem]
+  --rdf-conceptum-dispositioni [rdf_conceptum_dispositioni]
+                        (Draft, not implemented) (simplistic use, no ASA
+                        support, but okay huge dataset). Inject given
+                        information on all rows in a column called
+                        #item+conceptum+dispositioni. Requires HXLTM input and
+                        HXLTM output. Use | as separator.
+                        http://purl.obolibrary.org/obo/BFO_0000016
+  --rdf-conceptum-functioni [rdf_conceptum_functioni]
+                        (Draft, not implemented) (simplistic use, no ASA
+                        support, but okay huge dataset). Inject given
+                        information on all rows in a column called
+                        #item+conceptum+functioni. Requires HXLTM input and
+                        HXLTM output. Use | as separator.
+                        http://purl.obolibrary.org/obo/BFO_0000034
+  --rdf-conceptum-typo [rdf_conceptum_typo]
+                        (simplistic use, no ASA support, but okay huge
+                        dataset). Inject given information on all rows in a
+                        column called #item+conceptum+typo. Requires HXLTM
+                        input and HXLTM output. Use | as separator. Trivia:
+                        yes, would be possible to create this with --rdf-
+                        relatio-ab/--rdf-relatio-ad and rdf:type
+  --rdf-relatio-ab [rdf_relatio_ab]
+                        (simplistic use, no ASA support, but okay huge
+                        dataset). Inject given information on all rows in a
+                        column called #item+relatio+ab. Requires HXLTM input
+                        and HXLTM output. Use | as separator. Means relation
+                        away from (the currenct concept is <object> of RDF
+                        Triple [<subject> <predicate> <object>] of these
+                        relations
+  --rdf-relatio-ad [rdf_relatio_ad]
+                        (simplistic use, no ASA support, but okay huge
+                        dataset). Inject given information on all rows in a
+                        column called #item+relatio+ad. Requires HXLTM input
+                        and HXLTM output. Use | as separator. Means relation
+                        toward (the currenct concept is <subject> of RDF
+                        Triple [<subject> <predicate> <object>] of these
+                        relations
   --fontem-normam [fontem_normam]
                         (For data exchange) Source of data convention
                         Recommended convention: use "{UN M49}_{P-Code}" when

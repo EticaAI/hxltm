@@ -216,6 +216,8 @@ from dataclasses import dataclass, InitVar
 # from copy import deepcopy
 from collections import OrderedDict
 
+from importlib.metadata import version
+
 import json
 import yaml
 
@@ -255,11 +257,11 @@ from liquid.token import Token as LiquidToken
 from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
-__VERSION__ = "v0.9.2rc1"
+__version__ = "0.9.2rc1"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
-# __SYSTEMA_VARIANS__, even if the __VERSION__ keeps the same
+# __SYSTEMA_VARIANS__, even if the __version__ keeps the same
 # [eng-Latn]_
 __SYSTEMA_VARIANS__ = "hxltmcli.py;EticaAI+voluntārium-commūne"
 # Trivia:
@@ -274,7 +276,7 @@ _[eng-Latn] hxltmcli {0} is an example of implementation of the
 Multilingual Terminology in Humanitarian Language Exchange (HXLTM).
 For XML processing, use hxltmdexml.
 [eng-Latn]_"
-""".format(__VERSION__)
+""".format(__version__)
 
 __ATTRIBUTUM_OPTIONEM__ = {
     # No annotationem (text notes) at concept level: please use meta_conceptum
@@ -1129,9 +1131,11 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         # sys.exit()
 
         if self._argumentum.versionem:
-            # print(sys.argv[0] + " " + __VERSION__
+            # print(sys.argv[0] + " " + __version__
             # + "[" + __SYSTEMA_VARIANS__ + "]")
-            print(sys.argv[0] + " " + __VERSION__)
+            print(sys.argv[0] + " " + __version__)
+
+            print('libhxl {0}'.format(version('libhxl')))
             sys.exit(0)
 
         try:
@@ -1553,7 +1557,7 @@ True
             '__ASA__': {
                 'asa_nomen': 'HXLTM Abstractum Syntaxim Arborem',
                 'instrumentum_varians': __SYSTEMA_VARIANS__,
-                'instrumentum_versionem': __VERSION__,
+                'instrumentum_versionem': __version__,
             },
             # Somewhat portable reference of how the HXLTM ASA was generate
             # from souce input. This can be used by each tool to define

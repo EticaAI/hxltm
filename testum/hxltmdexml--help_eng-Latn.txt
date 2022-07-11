@@ -7,7 +7,7 @@ usage: hxltmdexml [-h] [--agendum-linguam [agendum_linguam]]
                   [infile] [outfile]
 
 _[eng-Latn]
-hxltmdexml v0.9.1 is an example of implementation of the
+hxltmdexml v0.9.2rc1 is an example of implementation of the
 Multilingual Terminology in Humanitarian Language Exchange (HXLTM)
 focused on convert XML files to the pivot format HXLTM.
 [eng-Latn]_"

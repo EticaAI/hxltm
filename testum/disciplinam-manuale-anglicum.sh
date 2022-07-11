@@ -894,6 +894,10 @@ cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml --font
 
 # hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17' --rdf-relatio-ad='p:P131 <urn:unm49:1>|rdf:type owl:Thing' --rdf-relatio-ab='rdf:type <urn:example:lat-Latn:ab-ovo>'
 
+# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17' --rdf-relatio-ad='p:P131 <urn:unm49:1>|rdf:type owl:Thing' --rdf-relatio-ab='rdf:type <urn:example:lat-Latn:ab-ovo>' | hxltmcli --rdf-conceptum-typo='obo:BFO_0000029|p:P17' --rdf-relatio-ad='p:P131 <urn:unm49:1>|rdf:type owl:Thing' --rdf-relatio-ab='rdf:type <urn:example:lat-Latn:ab-ovo>'
+
+# hxltmcli 999999999/1568346/data/wikidata-p17-without-typum.tm.hxl.csv --rdf-conceptum-typo='obo:BFO_0000029|p:P17' --rdf-relatio-ad='p:P131 <urn:unm49:1>|rdf:type owl:Thing' --rdf-relatio-ab='rdf:type <urn:example:lat-Latn:ab-ovo>' | hxltmcli --rdf-conceptum-typo='obo:BFO_0000029|p:P17222' --rdf-relatio-ad='p:P131 <urn:unm49:1222>|rdf:type owl:Thing' --rdf-relatio-ab='rdf:type <urn:example:lat-Latn:ab-ovo22>'
+
 ### Temp, to organize, end -----------------------------------------------------
 
 exit 0

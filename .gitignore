@@ -68,6 +68,7 @@ __pycache__
 ### temp
 # tox.ini
 Dockerfile
+.ipynb_checkpoints
 
 # asciidoctor
 # @see https://asciidoctor.org/#bundler
