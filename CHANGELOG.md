@@ -6,8 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
 ### Added
-- TODO
+- hxltmcli now implement libhxl `--expand-merged` option
+- hxltmcli now implement libhxl `--scan-ckan-resources` option
+
+### Changed
+- #14 updated to be compatible with libhxl 4.25.1. **Note: previous versions
+  are know to not work if used with libhxl newer than 4.25 (which is default
+  behavior for newer installations**
+
+### Removed
+- #14 removed option to run with libhxl < 4.25.1. Behavior: raises exception
+  documenting version compatibilities.
 
 ## [v0.9.1] - 2022-06-22
 

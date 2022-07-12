@@ -33,6 +33,7 @@
 #===============================================================================
 # _[eng-Latn]Comment next line if not want to stop on first error[eng-Latn]_
 set -e
+set -x
 
 # _[eng-Latn] Output hxltmcli --help to a file (used on online documentation
 # [eng-Latn]_
@@ -900,4 +901,5 @@ cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml --font
 
 ### Temp, to organize, end -----------------------------------------------------
 
+set +x
 exit 0

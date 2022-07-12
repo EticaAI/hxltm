@@ -167,6 +167,7 @@ import re
 import xml.etree.ElementTree as XMLElementTree
 
 from importlib.metadata import version
+# from pkg_resources import parse_version
 
 import csv
 # import tempfile
@@ -197,7 +198,7 @@ import yaml
 # pip3 install langcodes
 # import langcodes
 
-__version__ = "0.9.2rc1"
+__version__ = "0.9.2rc2"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize

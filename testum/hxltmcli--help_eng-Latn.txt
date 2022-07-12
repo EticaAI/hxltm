@@ -1,6 +1,7 @@
-usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
-                [--http-header header] [--remove-headers] [--strip-tags]
-                [--ignore-certs]
+usage: hxltmcli [-h] [--encoding [string]] [--sheet [number]]
+                [--selector [path]] [--http-header header] [--remove-headers]
+                [--strip-tags] [--ignore-certs] [--expand-merged]
+                [--scan-ckan-resources]
                 [--log debug|info|warning|error|critical|none]
                 [--fontem-linguam [fontem_linguam]]
                 [--objectivum-linguam [objectivum_linguam]]
@@ -42,7 +43,7 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--venandum-insectum-est] [--versionem]
                 [infile] [outfile]
 
-_[eng-Latn] hxltmcli v0.9.2rc1 is an example of implementation of the
+_[eng-Latn] hxltmcli 0.9.2rc2 is an example of implementation of the
 Multilingual Terminology in Humanitarian Language Exchange (HXLTM).
 For XML processing, use hxltmdexml.
 [eng-Latn]_"
@@ -53,12 +54,18 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --encoding [string]   Specify the character encoding of the input
   --sheet [number]      Select sheet from a workbook (1 is first sheet)
   --selector [path]     JSONPath expression for starting point in JSON input
   --http-header header  Custom HTTP header to send with request
   --remove-headers      Strip text headers from the CSV output
   --strip-tags          Strip HXL tags from the CSV output
   --ignore-certs        Don't verify SSL connections (useful for self-signed)
+  --expand-merged       Expand merged areas by repeating the value (Excel
+                        only)
+  --scan-ckan-resources
+                        For a CKAN dataset URL, scan all CKAN resources for
+                        one that's HXLated
   --log debug|info|warning|error|critical|none
                         Set minimum logging level
   --fontem-linguam [fontem_linguam], -FL [fontem_linguam]

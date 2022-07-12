@@ -217,6 +217,7 @@ from dataclasses import dataclass, InitVar
 from collections import OrderedDict
 
 from importlib.metadata import version
+from pkg_resources import parse_version
 
 import json
 import yaml
@@ -257,7 +258,7 @@ from liquid.token import Token as LiquidToken
 from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
-__version__ = "0.9.2rc1"
+__version__ = "0.9.2rc2"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -355,6 +356,15 @@ HXLTM_TESTUM = os.getenv(
 
 HXLTM_SYSTEMA_DIR = str(Path(__file__).parent.resolve())
 HXLTM_RUNNING_DIR = str(Path().resolve())
+
+# pip install 'libhxl==4.25' --force-reinstall
+if parse_version(version('libhxl')) < parse_version('4.25.1'):
+    # if parse_version(version('libhxl')) < parse_version('4.25.2'):
+    raise RuntimeError(
+        'libhxl version [{0}] is lower than miminal version '
+        'know to work with this tool [{1}]. '
+        'Use {3} version <{2} for libhxl version <{1}'.format(
+            version('libhxl'), '4.25.1', '0.9.2rc2', __SYSTEMA_VARIANS__))
 
 
 class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
@@ -8107,6 +8117,12 @@ class HXLUtils:
                 nargs='?'
             )
         parser.add_argument(
+            '--encoding',
+            help='Specify the character encoding of the input',
+            metavar='string',
+            nargs='?'
+        )
+        parser.add_argument(
             '--sheet',
             help='Select sheet from a workbook (1 is first sheet)',
             metavar='number',
@@ -8143,6 +8159,21 @@ class HXLUtils:
         parser.add_argument(
             "--ignore-certs",
             help="Don't verify SSL connections (useful for self-signed)",
+            action='store_const',
+            const=True,
+            default=False
+        )
+        parser.add_argument(
+            "--expand-merged",
+            help="Expand merged areas by repeating the value (Excel only)",
+            action='store_const',
+            const=True,
+            default=False
+        )
+        parser.add_argument(
+            "--scan-ckan-resources",
+            help="For a CKAN dataset URL, "
+            "scan all CKAN resources for one that's HXLated",
             action='store_const',
             const=True,
             default=False
@@ -8191,23 +8222,41 @@ class HXLUtils:
         if url_or_filename is None:
             url_or_filename = args.infile
 
-        # sheet index
+        # # JSONPath selector
+        # selector = args.selector
+
+        return hxl.input.make_input(
+            url_or_filename or stdin,
+            self.make_input_options(args),
+        )
+
+    def make_input_options(self, args):
+        """make_input_options
+
+        Added after libhxl 4.25.1
+
+        Args:
+            args (argparse.ArgumentParser): args
+
+        Returns:
+            hxl.input.InputOptions:
+        """
+
         sheet_index = args.sheet
         if sheet_index is not None:
             sheet_index -= 1
 
-        # JSONPath selector
-        selector = args.selector
-
         http_headers = self.make_headers(args)
 
-        return hxl.input.make_input(
-            url_or_filename or stdin,
+        return hxl.input.InputOptions(
             sheet_index=sheet_index,
-            selector=selector,
-            allow_local=True,  # TODO: consider change this for execute_web
+            selector=args.selector,
+            allow_local=True,
             http_headers=http_headers,
-            verify_ssl=(not args.ignore_certs)
+            verify_ssl=(not args.ignore_certs),
+            encoding=args.encoding,
+            expand_merged=args.expand_merged,
+            scan_ckan_resources=args.scan_ckan_resources,
         )
 
     def make_output(self, args, stdout=sys.stdout):
