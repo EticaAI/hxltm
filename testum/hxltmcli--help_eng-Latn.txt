@@ -43,7 +43,7 @@ usage: hxltmcli [-h] [--encoding [string]] [--sheet [number]]
                 [--venandum-insectum-est] [--versionem]
                 [infile] [outfile]
 
-_[eng-Latn] hxltmcli 0.9.2rc2 is an example of implementation of the
+_[eng-Latn] hxltmcli 0.9.2rc3 is an example of implementation of the
 Multilingual Terminology in Humanitarian Language Exchange (HXLTM).
 For XML processing, use hxltmdexml.
 [eng-Latn]_"

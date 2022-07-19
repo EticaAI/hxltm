@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - #14 updated to be compatible with libhxl 4.25.1. **Note: previous versions
   are know to not work if used with libhxl newer than 4.25 (which is default
-  behavior for newer installations**
+  behavior for newer installations)**
+- Upgraded to libhxl 4.25.2
 
 ### Removed
 - #14 removed option to run with libhxl < 4.25.1. Behavior: raises exception

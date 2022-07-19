@@ -258,7 +258,7 @@ from liquid.token import Token as LiquidToken
 from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
-__version__ = "0.9.2rc2"
+__version__ = "0.9.2rc3"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -364,7 +364,7 @@ if parse_version(version('libhxl')) < parse_version('4.25.1'):
         'libhxl version [{0}] is lower than miminal version '
         'know to work with this tool [{1}]. '
         'Use {3} version <{2} for libhxl version <{1}'.format(
-            version('libhxl'), '4.25.1', '0.9.2rc2', __SYSTEMA_VARIANS__))
+            version('libhxl'), '4.25.1', '0.9.2rc3', __SYSTEMA_VARIANS__))
 
 
 class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
