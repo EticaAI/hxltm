@@ -1,0 +1,14 @@
+codicem,linguam maximum codicem,linguam (HXL attributum),linguam,Glottocode,BCP47 code,BCP47 transformed (RFC 6497),ISO 15924 alpha code,terminum
+#item+conceptum+codicem,#item+terminum+est_linguam+v_linguam_maximum,#item+terminum+est_linguam+v_linguam_a,#item+terminum+est_linguam+v_linguam,#item+terminum+est_linguam+v_glotto,#item+terminum+est_linguam+v_bc47,#item+terminum+est_linguam+v_bc47_t,#item+terminum+est_linguam+v_iso15924a,#item+terminum+de_linguam
+1,eng-Latn-g-stan1293,i_en+i_eng+ig_stan1293+is_latn,eng-Latn,stan1293,en,en,Latn,UN
+2,eng-Latn-g-stan1293,i_en+i_eng+ig_stan1293+is_latn,eng-Latn,stan1293,en,en,Latn,United Nations
+3,eng-Latn-g-stan1293,i_en+i_eng+ig_stan1293+is_latn,eng-Latn,stan1293,en,en,Latn,IFRC
+4,eng-Latn-g-stan1293,i_en+i_eng+ig_stan1293+is_latn,eng-Latn,stan1293,en,en,Latn,International Federation of Red Cross and Red Crescent Societies
+5,eng-Latn-g-stan1293,i_en+i_eng+ig_stan1293+is_latn,eng-Latn,stan1293,en,en,Latn,AI
+6,por-Latn-g-port1283-t-eng,i_pt+i_por+ig_port1283+is_latn,por-Latn,port1283,pt,pt-t-en,Latn,Amnistia Internacional
+1,por-Latn-g-port1283-t-eng,i_pt+i_por+ig_port1283+is_latn,por-Latn,port1283,pt,pt-t-en,Latn,ONU
+2,por-Latn-g-port1283-t-eng,i_pt+i_por+ig_port1283+is_latn,por-Latn,port1283,pt,pt-t-en,Latn,Organização das Nações Unidas
+3,por-Latn-g-port1283-t-eng,i_pt+i_por+ig_port1283+is_latn,por-Latn,port1283,pt,pt-t-en,Latn,FICV/CV
+4,por-Latn-g-port1283-t-eng,i_pt+i_por+ig_port1283+is_latn,por-Latn,port1283,pt,pt-t-en,Latn,Federação Internacional das Sociedades da Cruz Vermelha e do Crescente Vermelho
+5,por-Latn-g-port1283-t-eng,i_pt+i_por+ig_port1283+is_latn,por-Latn,port1283,pt,pt-t-en,Latn,AI
+6,por-Latn-g-port1283-t-eng,i_pt+i_por+ig_port1283+is_latn,por-Latn,port1283,pt,pt-t-en,Latn,Amnistia Internacional

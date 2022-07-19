@@ -1,0 +1,36 @@
+<glossarium _="Latium" __="hxltmcli.py" ___="">
+  <caput>
+    <titulum>Salve mundi!</titulum>
+  </caput>
+  <datum>
+    <librarium>
+      <conceptum _="L10N_ego_codicem">
+        <linguam _="lat-Latn">
+          <terminum>
+            <accuratum>10</accuratum>
+            <annotationem></annotationem>
+            <partem-orationis>nomen_substantivum</partem-orationis>
+            <rem>lat-Latn</rem>
+            <meta></meta>
+          </terminum>
+          <terminum>
+            <accuratum>6</accuratum>
+            <rem>lat</rem>
+            <partem-orationis>nomen_substantivum</partem-orationis>
+            <meta></meta>
+          </terminum>
+          <meta></meta>
+        </linguam>
+        <linguam _="arb-Arab">
+          <definitionem></definitionem>
+          <terminum>
+            <accuratum>10</accuratum>
+            <rem>arb-Arab</rem>
+          </terminum>
+          <meta></meta>
+        </linguam>
+        <meta></meta>
+      </conceptum>
+    </librarium>
+  </datum>
+</glossarium>

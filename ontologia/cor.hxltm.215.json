@@ -1,0 +1,1925 @@
+{
+  "__ontologia_cor_versionem__": "v0.9.2rc3+EticaAI+voluntārium-commūne",
+  "fontem_archivum_extensionem": {
+    ".tm.hxl.csv": "HXLTM",
+    ".xliff.hxl.csv": "CSV-HXL-XLIFF",
+    ".asa.hxltm.json": "HXLTM-ASA-JSON",
+    ".asa.hxltm.yml": "HXLTM-ASA-YAML",
+    ".hxl.csv": "HXLTM",
+    ".csv": "HXLTM",
+    ".json": "JSON-kv",
+    ".tmx": "TMX",
+    ".utx": "UTX",
+    ".tab": "TSV-3",
+    ".tsv": "TSV-3",
+    ".tbx": "TBX-Basic",
+    ".xlf": "XLIFF",
+    ".xlf2": "XLIFF",
+    ".xliff": "XLIFF"
+  },
+  "fontem_archivum_extensionem_regex": {
+    "[a-z]{2}.csv": "CSV-3"
+  },
+  "normam": {
+    "Ad-Hoc": {
+      "__meta": {
+        "archivum": {
+          "extensionem": null
+        },
+        "descriptionem": "_[eng-Latn]\nAd Hoc template\n[eng-Latn]_\n",
+        "normam": [
+          "<https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/wiki/Index>"
+        ],
+        "nomen": {
+          "eng-Latn": "Ad Hoc template"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/wiki/Index>"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": []
+      },
+      "formatum": {
+        "initiale": false,
+        "corporeum": false,
+        "finale": false
+      }
+    },
+    "CSV-3": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".csv"
+        },
+        "descriptionem": "_[eng-Latn]\nThe hxltm \"CSV-3\" export format is a somewhat basic (but at worst case\naccpted by several tools) with the following column order:\n\n>    \"source-language\",\"target-language\",comment\n>    \"verbum\", \"كلمة\",\"Arabic translationem de latin verbum\"\n\nSome references of tools that allow conversions using this format:\n\n- Okapi Framework\n  - <https://okapiframework.org/wiki/index.php/Table_Filter>\n- MateCat\n  - <https://site.matecat.com/support/managing-language-resources/add-glossary/>\n[eng-Latn]_\n",
+        "normam": [
+          "<https://datatracker.ietf.org/doc/html/rfc4180>"
+        ],
+        "nomen": {
+          "eng-Latn": "CSV 3 bilingual Source + Objective + Comment"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://datatracker.ietf.org/doc/html/rfc4180>"
+          ],
+          "vicipaedia": [
+            "<https://en.wikipedia.org/wiki/Comma-separated_values>"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
+      },
+      "formatum": {
+        "initiale": "{{ globum.fontem_linguam.bcp47 | default: 'la' | quotum_rem }},{{ globum.objectivum_linguam.bcp47 | default: 'ar' | quotum_rem }},commentarium",
+        "corporeum": "{{ rem.de_fontem_linguam.rem | quotum_rem }},{{ rem.de_objectivum_linguam.rem | quotum_rem }},\"\"",
+        "finale": false
+      }
+    },
+    "CSV-HXL-XLIFF": {
+      "__meta": {
+        "archivum_extensionem": ".xliff.hxl.csv",
+        "normam": [
+          "<https://hdp.etica.ai/hxltm/archivum/>"
+        ],
+        "nomen": {
+          "eng-Latn": "HXLated bilingual CSV (+ up to 5 source alt) for XLIFF"
+        },
+        "situs_interretialis": {
+          "referens_officinale": []
+        }
+      },
+      "exportandum_hxl_sortem": [
+        "#x_xliff +unit +id",
+        "#x_xliff +source",
+        "#x_xliff +target",
+        "#x_xliff +segment +state",
+        "#x_xliff +unit +note +note_category__sourcestatus",
+        "#x_xliff +unit +note +note_category__termtype",
+        "#x_xliff +group +group_0",
+        "#x_xliff +unit +note +note_category__altsource1",
+        "#x_xliff +unit +note +note_category__definitionalt1",
+        "#x_xliff +unit +note +note_category__contextalt1",
+        "#x_xliff +unit +note +note_category__altsource2",
+        "#x_xliff +unit +note +note_category__definitionalt2",
+        "#x_xliff +unit +note +note_category__contextalt2",
+        "#x_xliff +unit +note +note_category__altsource3",
+        "#x_xliff +unit +note +note_category__definitionalt3",
+        "#x_xliff +unit +note +note_category__contextalt3",
+        "#x_xliff +unit +note +note_category__altsource4",
+        "#x_xliff +unit +note +note_category__definitionalt4",
+        "#x_xliff +unit +note +note_category__contextalt4",
+        "#x_xliff +unit +note +note_category__altsource5",
+        "#x_xliff +unit +note +note_category__definitionalt5",
+        "#x_xliff +unit +note +note_category__contextalt5",
+        "#x_xliff +unit +note +note_category__wikidata",
+        "#x_xliff +unit +note +note_category__iate",
+        "#x_xliff +unit +note +note_category__unterm"
+      ],
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
+      }
+    },
+    "GSheets": {
+      "__meta": {
+        "archivum": {
+          "extensionem": null
+        },
+        "descriptionem": "_[eng-Latn]\nBoth URL GSheets and local/remote file of Microsoft Excel have built\nread-only access in support for reference cli implementation\nas container for data source without intermediate file transformation\nto CSV container of HXLTM. This means humans don't need to edit CSV\nfiles directly.\n\nThe support on `hxltmcli` to write directly to GSheets and\nMicrosoft Excel is unlikely to be implemented.\n[eng-Latn]_\n",
+        "normam": [
+          "<https://developers.google.com/sheets/api>"
+        ],
+        "nomen": {
+          "eng-Latn": "Google Sheets, HXLTM container (read-only; native support as data source)"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://www.google.com/sheets/about/>"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      }
+    },
+    "HXL-Proxy": {
+      "__meta": {
+        "archivum": {
+          "extensionem": null
+        },
+        "descriptionem": "_[eng-Latn]\nHXL Proxy, a tool for cleaning, transforming, merging, and\nvalidating data tagged using the Humanitarian Exchange Language (HXL)\nstandard.\n\nIn the context of HXLTM, HXL-Proxy is recommended to use for:\n\n  - HXLate (e.g. add HXL hashtags, like the ones required by HXLTM) to\n    any supported data input by HXL-Proxy (which is a lot)\n  - Do more advanced filter (like removing columns) or merging\n    different datasets by HXLTM concept value with friendly user\n    interface\n\nWhen use HXL cli tools (including hxltmcli) and when use HXL-Proxy?\n\n  While hxl cli tools (see\n  <https://github.com/HXLStandard/libhxl-python/wiki/Command-line-tools>\n  and <https://pypi.org/project/libhxl/>) have almost all features\n  of HXL-proxy (in special with use of JSON spec) in real world, under\n  urgency, still faster to set up a private Docker instance than use\n  teach everyone to use the cli tools.\n\n  The HXLTM reference tooling will intentionally NOT implement features\n  that would be possible do with HXL-Proxy. Some viable using HXL\n  Standard cli tools (that would be too complex to explain) may\n  be added either as hxltmcli / hxltmdexml CLI options or via\n  `ontologia:normam.​HXLTM-TMETA`.\n[eng-Latn]_\n",
+        "normam": [
+          "<https://github.com/HXLStandard/hxl-proxy/wiki>"
+        ],
+        "nomen": {
+          "eng-Latn": "HXL-Proxy (read-only; native support as data source)"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://github.com/HXLStandard/hxl-proxy>",
+            "<https://proxy.hxlstandard.org/>",
+            "<https://hub.docker.com/r/unocha/hxl-proxy>"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      }
+    },
+    "HXLTM": {
+      "__meta": {
+        "archivum": {
+          "extensionem": [
+            ".tm.hxl.csv",
+            ".tm.hxl.xlsx",
+            ".hxltm.xml"
+          ]
+        },
+        "descriptionem": "_[eng-Latn]\n`ontologia:normam.HXLTM` is an abstraction to several data containers\nof HXLTM implementation able to store multilingual data without loss.\n\nSome general notes:\n\n  - The most feature-complete are the HXLTM implementation using\n    tabular storage (plain HXLTM in CSV, or Google Sheets, or Excel,\n    or HXL-proxy, or...), which is able to preserve valid HXL HXLated\n    columns, but unknown to documented HXLTM implementation.\n  - The `ontologia:normam.XML`, while not tabular implementation,\n    contains information that allow data be exportable with\n    `hxltmcli --objectivum-XML` and importable with\n    `hxltmdexml` with more features than would be possible with other\n    data standards that could be close to what HXLTM is, TBX, TMX and\n    the tabular UTX.\n    - Valid HXLated HXL columns (but unknown HXLTM), even if the\n      templating engine know the undocumented HXL tags, are not\n      intended to be exported. The idea is the generic XML format still\n      designed to only export what could be imported back using the\n      same ontologia.\n    - If you plan to do VERY long-term data storage consider save\n      together with the data the ontologia that generated it.\n      - A cor.hxltm.yml with 3000 lines exported to PDF (which could be\n        printed if you data already is printed) takes around 48 pages\n        (A4 format).\n      - Is it possible to also change the tags from latin to your natural\n        language. While still have better ways to save more compact\n        export, if you plan to save a backup on some library on a\n        physical book, then at least customize it.\n[eng-Latn]_\n",
+        "normam": [
+          "<https://github.com/HXL-CPLP/forum/issues/58>"
+        ],
+        "nomen": {
+          "eng-Latn": "HXLTM: Terminologia Multilinguae (Datum ideam)"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://hdp.etica.ai/hxltm>"
+          ]
+        }
+      }
+    },
+    "HXLTM-TMETA": {
+      "__meta": {
+        "archivum": {
+          "extensionem": [
+            ".tmeta.json",
+            ".tmeta.yml"
+          ]
+        },
+        "descriptionem": "_[eng-Latn]\nTo be documented.\n[eng-Latn]_\n",
+        "normam": [
+          "<https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA>"
+        ],
+        "nomen": {
+          "eng-Latn": "HXLTM Terminologia Multilinguae Meta"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://hdp.etica.ai/hxltm>",
+            "<https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM>",
+            "<https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/24>"
+          ]
+        }
+      }
+    },
+    "HXLTM-ASA": {
+      "__meta": {
+        "archivum": {
+          "extensionem": [
+            ".asa.hxltm.json",
+            ".asa.hxltm.yml"
+          ]
+        },
+        "normam": [
+          "<https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA>"
+        ],
+        "descriptionem": "_[eng-Latn]\nThe HXLTM-ASA is an not strictly documented Abstract Syntax Tree\nof an data conversion operation.\n\nThis format, different from the HXLTM permanent storage, is not\nmeant to be used by end users. And, in fact, either JSON (or other\nformats, like YAML) are more a tool for users debugging the initial\nreference implementation hxltmcli OR developers using JSON\nas more advanced input than the end user permanent storage.\n\nWarning: The HXLTM-ASA is not meant to be an stricly documented format\neven if HXLTM eventually get used by large public. If necessary,\nsome special format could be created, but this would require feedback\nfrom community or some work already done by implementers.\n[eng-Latn]_\n\nTrivia:\n  - abstractum, <https://en.wiktionary.org/wiki/abstractus#Latin>\n  - syntaxim, <https://en.wiktionary.org/wiki/syntaxis#Latin>\n  - arborem, <https://en.wiktionary.org/wiki/arbor#Latin>\n  - conceptum de Abstractum Syntaxim Arborem\n    - <https://www.wikidata.org/wiki/Q127380>\n",
+        "nomen": {
+          "eng-Latn": "HXLTM Abstractum Syntaxim Arborem"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://hdp.etica.ai/hxltm>",
+            "<https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM>",
+            "<https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/22>"
+          ]
+        }
+      }
+    },
+    "JSON-kv": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".json"
+        },
+        "descriptionem": "_[eng-Latn]\nThis export/importer needs to be created. One level is trivial, but 2\nor more nested levels would be simpler for end user just use\n**HXLTM Ad Hoc Fōrmulam (HXLTM templated export)** to have full\ncontrol.\n[eng-Latn]_\n",
+        "normam": [
+          "<https://angular.io/guide/i18n#change-the-source-language-file-location>",
+          "<https://www.i18next.com/misc/json-format>",
+          "<https://lokalise.com/blog/how-to-internationalize-react-application-using-i18next/>"
+        ],
+        "nomen": {
+          "eng-Latn": "JSON key: val; id/source -> target (draft)"
+        },
+        "situs_interretialis": {
+          "referens_officinale": []
+        }
+      },
+      "exemplum": [
+        "<https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json>"
+      ],
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
+      }
+    },
+    "TSV-3": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".tab"
+        },
+        "descriptionem": "_[eng-Latn]\nThe hxltm \"TSV-3\" is que version of the \"CSV-3\" with tabs.\n\nIt will exportl tools) with the following column order:\n\n>    source-language\ttarget-language\tcomment\n>    verbum\tكلمة\tArabic translationem de latin verbum\n\nThis format is less common than CSV-3, but may be useful when tab\nis never used inside the fields.\n\n[eng-Latn]_\n",
+        "normam": [
+          "<https://datatracker.ietf.org/doc/html/rfc4180>",
+          "<https://www.iana.org/assignments/media-types/text/tab-separated-values>"
+        ],
+        "nomen": {
+          "eng-Latn": "TSV-3 bilingual Source + Objective + Comment"
+        },
+        "situs_interretialis": {
+          "vicipaedia": [
+            "<https://en.wikipedia.org/wiki/Tab-separated_values>"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
+      },
+      "formatum": {
+        "initiale": "{{ globum.fontem_linguam.bcp47 | default: 'la' }}\t{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\tcommentarium",
+        "corporeum": "{{ rem.de_fontem_linguam.rem | quotum_rem: '\t' }}\t{{ rem.de_objectivum_linguam.rem | quotum_rem: '\t' }}\t",
+        "finale": false
+      }
+    },
+    "TBX-Basim": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".tbx"
+        },
+        "descriptionem": "_[eng-Latn]\nSee the links\n[eng-Latn]_\n- <http://www.terminorgs.net/Terminology-Starter-Guide.html>\n- <https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf>\n- <http://www.ttt.org/oscarStandards/tbx/tbx-basic.html>\n",
+        "exemplum": [
+          "<http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip>"
+        ],
+        "normam": [
+          "<http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf>"
+        ],
+        "nomen": {
+          "eng-Latn": "TermBase eXchange (TBX) Basic 2.1"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<http://www.terminorgs.net/TBX-Basic.html>",
+            "<http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip>",
+            "<http://www.ttt.org/oscarStandards/tbx/tbx-basic.html>"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "martif"
+        },
+        "glossarium_titulum": {
+          "signum": "title",
+          "trivium": [
+            "martifHeader",
+            "fileDesc"
+          ]
+        },
+        "conceptum_codicem": {
+          "signum": "termEntry",
+          "de_attributum": "id",
+          "trivium": [
+            "text",
+            "body"
+          ]
+        },
+        "linguam_codicem": {
+          "signum": "langSet",
+          "de_attributum": "lang",
+          "trivium": []
+        },
+        "terminum_habendum_accuratum": true,
+        "terminum_habendum_multum": true,
+        "terminum_habendum_fontem": false,
+        "terminum_habendum_objectivum": false,
+        "terminum_accuratum": {
+          "ad": "XML-nodum-textum",
+          "de_signum": "descrip",
+          "de_attributum": {
+            "type": "reliabilityCode"
+          },
+          "viam_trivium": []
+        },
+        "terminum_valorem": {
+          "signum": "term",
+          "trivium": [
+            "tig"
+          ]
+        }
+      },
+      "formatum": {
+        "initiale": "<?xml version='1.0'?>\n<!DOCTYPE martif SYSTEM \"TBXBasiccoreStructV02.dtd\">\n<martif type=\"TBX-Basic\" xml:lang=\"{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}\">\n  <martifHeader>\n    <fileDesc>\n      <titleStmt>\n        <title>{{- ____.glossarium_titulum -}}</title>\n        <note>{{- ____.glossarium_annotationem -}}</note>\n      </titleStmt>\n      <sourceDesc>\n        <p>{{ ____.glossarium_fontem }}</p>\n      </sourceDesc>\n    </fileDesc>\n  </martifHeader>\n  <text>\n    <body>\n",
+        "corporeum": "      <termEntry id=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}\">\n        {% for item in rem.de_linguam %}\n        {% if item[1].rem != '' -%}\n        <langSet xml:lang=\"{{ item[1].bcp47 }}\">\n          <tig>\n            <term>{{- item[1].rem -}}</term>\n          </tig>\n        </langSet>\n        {%- endif -%}\n        {%- endfor %}\n      </termEntry>\n",
+        "finale": "    </body>\n  </text>\n</martif>\n"
+      }
+    },
+    "TBX-2008": {
+      "archivum": {
+        "extensionem": ".tbx"
+      },
+      "normam": [
+        "<https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf>"
+      ],
+      "situs_interretialis": {
+        "referens_officinale": [
+          "<https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards>"
+        ],
+        "_temporarium": [
+          "<https://www.termbases.eu/>",
+          "<http://www.tbxinfo.net/>",
+          "<https://byutrg.github.io/TBX-Implementor/>",
+          "<https://github.com/byutrg/baseterm>",
+          "<https://github.com/LTAC-Global/TBX-Basic_ImplementationGuide>"
+        ]
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      }
+    },
+    "TBX-2019": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".tbx"
+        },
+        "descriptionem": "- <https://www.tbxinfo.net/about/>\n- <https://www.iso.org/standard/62510.html>\n\n## TBX-IATE\nTrivia: <https://iate.europa.eu/fields-explained>\n\n### `hxltmdexml` --agendum-linguam\n- bul-Latn@bg\n  - Bulgarian: bg; <https://iso639-3.sil.org/code/bul>\n- ces-Latn@cs\n  - Czech: cs; <https://iso639-3.sil.org/code/ces>\n- dan-Latn@da\n  - Danish: da; <https://iso639-3.sil.org/code/dan>\n- dut-Latn@nl\n  - Dutch: nl; <https://iso639-3.sil.org/code/dut>\n- ell-Latn@el\n  - Greek: el; <https://iso639-3.sil.org/code/ell>\n- eng-Latn@en\n  - English: en; <https://iso639-3.sil.org/code/eng>\n- est-Latn@et\n  - Estonian: et; <https://iso639-3.sil.org/code/est>\n- fin-Latn@fi\n  - Finnish: fi; <https://iso639-3.sil.org/code/fin>\n- fra-Latn@fr\n  - French: fr; <https://iso639-3.sil.org/code/fra>\n- ger-Latn@de\n  - German: de; <https://iso639-3.sil.org/code/ger>\n- gle-Latn@ga\n  - Irish: ga; <https://iso639-3.sil.org/code/gle>\n- hun-Latn@hu\n  - Hungarian: hu; <https://iso639-3.sil.org/code/hun>\n- ita-Latn@it\n  - Italian: it; <https://iso639-3.sil.org/code/ita>\n- lav-Latn@lv\n  - Latvian: lv; <https://iso639-3.sil.org/code/lav>\n- lit-Latn@lt\n  - Lithuanian: lt; <https://iso639-3.sil.org/code/lit>\n- mlt-Latn@mt\n  - Maltese: mt; <https://iso639-3.sil.org/code/mlt>\n- pol-Latn@pl\n  - Polish: pl; <https://iso639-3.sil.org/code/pol>\n- por-Latn@pt\n  - Portuguese: pt; <https://iso639-3.sil.org/code/por>\n- ron-Latn@ro\n  - Romanian: ro; <https://iso639-3.sil.org/code/ron>\n- scr-Latn@hr\n  - Croatian: hr; <https://iso639-3.sil.org/code/scr>\n- slk-Latn@sk\n  - Slovak: sk; <https://iso639-3.sil.org/code/slk>\n- slv-Latn@sl\n  - Slovene: sl; <https://iso639-3.sil.org/code/slv>\n- spa-Latn@es\n  - Spanish: es; <https://iso639-3.sil.org/code/spa>\n- swe-Latn@sv\n  - Swedish: sv; <https://iso639-3.sil.org/code/swe>\n",
+        "normam": [
+          "proprietary format",
+          "¯\\_(ツ)_/¯"
+        ],
+        "nomen": {
+          "eng-Latn": "TermBase eXchange (TBX) ISO 30042:2019 proprietary format"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "proprietary format",
+            "¯\\_(ツ)_/¯"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "tbx"
+        },
+        "glossarium_titulum": {
+          "signum": "title",
+          "trivium": [
+            "tbxHeader",
+            "fileDesc"
+          ]
+        },
+        "conceptum_codicem": {
+          "signum": "conceptEntry",
+          "de_attributum": "id",
+          "trivium": [
+            "text",
+            "body"
+          ]
+        },
+        "linguam_codicem": {
+          "signum": "langSec",
+          "de_attributum": "lang",
+          "trivium": [
+            "termSec"
+          ]
+        },
+        "terminum_habendum_accuratum": true,
+        "terminum_habendum_multum": true,
+        "terminum_habendum_fontem": false,
+        "terminum_habendum_objectivum": false,
+        "terminum_habendum_typum": true,
+        "terminum_accuratum": {
+          "ad": "XML-nodum-textum",
+          "signum": "descrip",
+          "de_attributum": {
+            "type": "reliabilityCode"
+          },
+          "trivium": [
+            "termSec"
+          ]
+        },
+        "terminum_fontem": false,
+        "terminum_objectivum": false,
+        "terminum_valorem": {
+          "signum": "term",
+          "trivium": [
+            "tig"
+          ]
+        },
+        "terminum_typum": {
+          "ad": "XML-nodum-textum",
+          "signum": "termNote",
+          "de_attributum": {
+            "type": "termType"
+          },
+          "in_praefixum": "TBX_",
+          "in_suffixum": "",
+          "trivium": []
+        }
+      },
+      "formatum": {
+        "initiale": false,
+        "corporeum": false,
+        "finale": false
+      }
+    },
+    "TMX": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".tmx"
+        },
+        "normam": [
+          "https://www.gala-global.org/tmx-14b",
+          "https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd"
+        ],
+        "nomen": {
+          "eng-Latn": "Translation Memory eXchange format (TMX)"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "tmx"
+        },
+        "glossarium_titulum": false,
+        "conceptum_codicem": {
+          "signum": "tu",
+          "de_attributum": "tuid",
+          "trivium": [
+            "body"
+          ]
+        },
+        "linguam_codicem": {
+          "signum": "tuv",
+          "de_attributum": "lang",
+          "trivium": []
+        },
+        "terminum_habendum_multum": true,
+        "terminum_habendum_fontem": false,
+        "terminum_habendum_objectivum": false,
+        "terminum_valorem": {
+          "signum": "seg",
+          "trivium": []
+        }
+      },
+      "formatum": {
+        "initiale": "<?xml version='1.0' encoding='utf-8'?>\n<!DOCTYPE tmx SYSTEM \"tmx14.dtd\">\n<tmx version=\"1.4\">\n  <header\n    creationtool=\"hxltmcli.py\"\n    creationtoolversion=\"{{ globum.instrumentum_versionem }}\"\n    segtype=\"sentence\"\n    o-tmf=\"UTF-8\"\n    adminlang=\"{{ globum.instrumentum_versionem }}\"\n    srclang=\"{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}\"\n    datatype=\"PlainText\"\n  />\n  <body>\n",
+        "corporeum": "    <tu tuid=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      {%- if conceptum.conceptum_codicem_wikidata %}\n      <prop type=\"wikidata\">{{ conceptum.conceptum_codicem_wikidata }}</prop>\n      {% endif -%}\n      {% for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <tuv xml:lang=\"{{ item[1].bcp47 }}\">\n        <seg>{{- item[1].rem -}}</seg>\n      </tuv>\n      {%- endif -%}\n      {%- endfor %}\n    </tu>\n",
+        "finale": "  </body>\n</tmx>\n"
+      }
+    },
+    "UTX": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".utx"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<http://www.aamt.info/english/utx/>"
+          ],
+          "vicipaedia": [
+            "<https://en.wikipedia.org/wiki/Universal_Terminology_eXchange>"
+          ]
+        },
+        "normam": [
+          "<https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf>",
+          "<https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx>"
+        ],
+        "nomen": {
+          "eng-Latn": "Universal Terminology eXchange (UTX) (working draft)"
+        },
+        "exemplum": [
+          "<https://aamt.info/english/download/#UTX_Glossaries> - <https://docs.google.com/spreadsheets/d/13gBCYAd3tbty10W2W6GX9rA-3oT2LnI2u0UG1dpIEkI/pubhtml?widget=true&headers=false> - <https://docs.google.com/spreadsheets/d/1YONjd_pb7iXJvGlYBeFtZCTCUrDxRfbvKf-OLbCw3LE/pubhtml?widget=true&headers=false>",
+          "<https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx>"
+        ]
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam",
+          "bilingue"
+        ]
+      },
+      "formatum": {
+        "initiale": "#UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};",
+        "corporeum": "{%- if tabulam.lineam_indicem contains 1 -%}\n  #{%- for item in rem.de_linguam -%}\n    term:{{ item[1].bcp47 | quotum_rem }},\n  {%- endfor %}\n{% endif -%}\n{%- for item in rem.de_linguam -%}\n  {% if item[1].rem != '' -%}\n    {{- item[1].rem | quotum_rem -}},\n  {%- endif -%}\n{%- endfor -%}",
+        "finale": false
+      }
+    },
+    "XML": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".hxltm.xml"
+        },
+        "descriptionem": "_[eng-Latn]\nThe .hxltm.xml named 'XML Glōssārium' is an example of multilingual\nglossary exported to XML format that can be imported back.\n\nWith help of the reference cli tool, hxltmdexml, the\nontologia:normam.XML.de_xml explains how to convert back from the\nXML file to an HXLTM CSV working file to be able to work with reference\ncli tool hxltmcli.\n[eng-Latn]_\n",
+        "normam": [
+          "<https://hdp.etica.ai/hxltm/archivum/#XML>",
+          "<https://terminator.readthedocs.io/en/latest/_images/TBX_termEntry_structure.png>"
+        ],
+        "nomen": {
+          "eng-Latn": "XML Glōssārium (generic multilingual XML)"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://hdp.etica.ai/hxltm/archivum/#XML>"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "glossarium"
+        },
+        "glossarium_titulum": false,
+        "conceptum_codicem": {
+          "signum": "conceptum",
+          "de_attributum": "_",
+          "trivium": [
+            "datum"
+          ]
+        },
+        "linguam_codicem": {
+          "signum": "linguam",
+          "de_attributum": "_",
+          "trivium": []
+        },
+        "linguam_linguam": {
+          "ad": "XML-nodum-attributum:_",
+          "de_signum": "linguam",
+          "trivium": []
+        },
+        "terminum_habendum_accuratum": true,
+        "terminum_habendum_type": true,
+        "terminum_habendum_multum": true,
+        "terminum_habendum_fontem": false,
+        "terminum_habendum_objectivum": false,
+        "terminum_accuratum": {
+          "ad": "XML-nodum-textum",
+          "de_signum": "accuratum",
+          "trivium": []
+        },
+        "terminum_valorem": {
+          "signum": "rem",
+          "trivium": [
+            "terminum"
+          ]
+        }
+      },
+      "formatum": {
+        "__": {
+          "___": "Latium",
+          "glossarium": "glossarium",
+          "datum": "datum",
+          "caput": "caput",
+          "conceptum": "conceptum",
+          "definitionem": "definitionem",
+          "contextum": "contextum",
+          "titulum": "titulum",
+          "linguam": "linguam",
+          "librarium": "librarium",
+          "partem_orationis": "partem_orationis",
+          "terminum": "terminum",
+          "fontem": "fontem",
+          "objectivum": "objectivum",
+          "rem": "rem"
+        },
+        "initiale": "<glossarium _=\"Latium\" __=\"hxltmcli.py\" ___=\"{{ globum.instrumentum_versionem }}\">\n  <caput>\n    <titulum>{{- globum.glossarium_titulum -}}</titulum>\n  </caput>\n  <datum>\n    <!-- _[eng-Latn]@TODO Use librarium as XLIFF file / Excel worksheets. The \"_\" is (an non-Latin) script neutral default ID [eng-Latn]_ -->\n    <librarium _=\"_\">",
+        "corporeum": "      <conceptum _=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}\">\n        {%- for item in rem.de_linguam %}\n        {% if item[1].rem != '' -%}\n        <linguam _=\"{{ item[1].linguam }}\">\n          <definitionem></definitionem>\n          <terminum>\n            {% if item[1].accuratum -%}\n            <accuratum>{{- item[1].accuratum -}}</accuratum>\n            {%- endif %}\n            <rem>{{- item[1].rem -}}</rem>\n          </terminum>\n          <!-- <terminum-fontem></terminum-fontem> -->\n          <!-- <terminum-objectivum></terminum-objectivum> -->\n        </linguam>\n        {%- endif -%}\n        {%- endfor %}\n      </conceptum>\n",
+        "finale": "    </librarium>\n  </datum>\n</glossarium>\n"
+      }
+    },
+    "XLIFF": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".xlf"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://www.oasis-open.org/committees/xliff/>"
+          ],
+          "vicipaedia": [
+            "<https://en.wikipedia.org/wiki/XLIFF>"
+          ]
+        },
+        "exemplum": [
+          "<https://github.com/oasis-tcs/xliff-xliff-22>",
+          "<https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/allExtensions.xlf>",
+          "<https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/everything-core.xlf>"
+        ],
+        "normam": [
+          "<https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html>",
+          "<https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/catalog.xml>"
+        ],
+        "nomen": {
+          "eng-Latn": "XML Localization Interchange File Format (XLIFF) v2.1"
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
+      },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "xliff"
+        },
+        "glossarium_titulum": false,
+        "conceptum_codicem": {
+          "signum": "unit",
+          "de_attributum": "id",
+          "trivium": [
+            "file"
+          ]
+        },
+        "linguam_codicem": false,
+        "linguam_fontem_codicem": {
+          "signum": "source",
+          "de_attributum": "lang",
+          "trivium": []
+        },
+        "linguam_objectivum_codicem": {
+          "signum": "target",
+          "de_attributum": "lang",
+          "trivium": []
+        },
+        "terminum_accuratum": false,
+        "terminum_multum": false,
+        "terminum_habendum_fontem": true,
+        "terminum_habendum_objectivum": true,
+        "terminum_fontem_valorem": {
+          "signum": "source",
+          "trivium": []
+        },
+        "terminum_objectivum_valorem": {
+          "signum": "target",
+          "trivium": []
+        }
+      },
+      "formatum": {
+        "initiale": "<?xml version=\"1.0\"?>\n<xliff version=\"2.0\"\n  xmlns=\"urn:oasis:names:tc:xliff:document:2.0\"\n  xmlns:fs=\"urn:oasis:names:tc:xliff:fs:2.0\"\n  xmlns:val=\"urn:oasis:names:tc:xliff:validation:2.0\"\n  srcLang=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n  trgLang=\"{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\">\n  <file id=\"f1\">\n",
+        "corporeum": "    {% if rem.de_fontem_linguam -%}\n    <unit id=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}\">\n      {% if rem.de_auxilium_linguam or rem.de_nomen_breve.referens_situs_interretialis.size > 0 -%}\n      <notes>\n        {%- for item in rem.de_auxilium_linguam -%}\n        <note appliesTo=\"source\" priority=\"3\"\n          category=\"de_auxilium_linguam\">\n          _[{{- item.linguam -}}]\n          {{- item.rem -}}\n          [{{- item.linguam -}}]_\n        </note>\n        {%- endfor %}\n        {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}\n        <note appliesTo=\"source\" priority=\"1\"\n          category=\"referens_situs_interretialis\">\n          {{- item -}}\n        </note>\n        {% endfor -%}\n      </notes>\n      {% else -%}\n      <!--\n        non rem.de_auxilium_linguam aut rem.de_nomen_breve.referens_situs_interretialis\n      -->\n      {% endif -%}\n      <segment state=\"{{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'initial' }}\">\n        <source>{{- rem.de_fontem_linguam.rem -}}</source>\n        {%- if rem.de_objectivum_linguam and rem.de_objectivum_linguam.rem != '' %}\n        <target>{{- rem.de_objectivum_linguam.rem -}}</target>\n        {%- else %}\n        <!-- non rem.de_objectivum_linguam -->\n        {%- endif  %}\n      </segment>\n    </unit>\n    {%- else -%}\n      <!-- non rem.de_fontem_linguam -->\n    {%- endif  %}\n",
+        "finale": "  </file>\n</xliff>\n"
+      }
+    },
+    "XLIFF-obsoletum": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".xlf"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://www.oasis-open.org/committees/xliff/>"
+          ],
+          "vicipaedia": [
+            "<https://en.wikipedia.org/wiki/XLIFF>"
+          ]
+        },
+        "normam": [
+          "<https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html>",
+          "<https://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd>",
+          "<http://docs.oasis-open.org/xliff/v1.2/cs02/xliff-core-1.2-transitional.xsd>"
+        ],
+        "nomen": {
+          "eng-Latn": "XML Localization Interchange File Format (XLIFF) v1.2"
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
+      },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "xliff"
+        },
+        "glossarium_titulum": false,
+        "conceptum_codicem": {
+          "signum": "trans-unit",
+          "de_attributum": "id",
+          "trivium": [
+            "file"
+          ]
+        },
+        "linguam_codicem": false,
+        "linguam_fontem_codicem": {
+          "signum": "source",
+          "de_attributum": "lang",
+          "trivium": []
+        },
+        "linguam_objectivum_codicem": {
+          "signum": "target",
+          "de_attributum": "lang",
+          "trivium": []
+        },
+        "terminum_habendum_accuratum": false,
+        "terminum_habendum_multum": false,
+        "terminum_habendum_fontem": true,
+        "terminum_habendum_objectivum": true,
+        "terminum_fontem_valorem": {
+          "signum": "source",
+          "trivium": []
+        },
+        "terminum_objectivum_valorem": {
+          "signum": "target",
+          "trivium": []
+        }
+      },
+      "formatum": {
+        "initiale": "<?xml version=\"1.0\"?>\n<xliff version=\"1.2\"\n  xmlns=\"urn:oasis:names:tc:xliff:document:1.2\">\n  <file\n    source-language=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n    target-language=\"{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\"\n    datatype=\"plaintext\"\n    original=\"exemplum.ext\">\n    <body>\n",
+        "corporeum": "    {% if rem.de_fontem_linguam and rem.de_fontem_linguam.rem != '' -%}\n      {%- comment -%}\n        _[eng-Latn]\n          Since we're targeting XLIFF 2.1 and this is XLIFF 1.2, we will hardcode\n          Some variables directly on this Liquid template instead of waste time\n          doing on the Python code.\n\n          If this template seems ugly, is uglier who, as 2021, still have shitty\n          support for XLIFF 2.X.\n\n          state: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state\n          state-qualifier: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state-qualifier\n        [eng-Latn]_\n      {%- endcomment -%}\n\n    {% capture rem_fontem_linguam_attr -%}\n        xml:lang=\"{{ rem.de_fontem_linguam.bcp47 }}\"\n    {%- endcapture -%}\n\n    {% if rem.de_objectivum_linguam.rem and if rem.de_objectivum_linguam.rem != '' %}\n\n      {% capture XLIFF_obsoletum_state -%}\n        {{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'new' }}\n      {%- endcapture -%}\n\n      {% capture rem_objectivum_linguam_attr -%}\n         xml:lang=\"{{ rem.de_objectivum_linguam.bcp47 }}\"\n      {%- endcapture -%}\n\n      {%- if XLIFF_obsoletum_state == 'initial' -%}\n        {%- assign XLIFF_obsoletum_state = 'new' -%}\n        {%- assign XLIFF_obsoletum_approved = 'no' -%}\n        {%- assign XLIFF_obsoletum_statequalifier_attr = '' -%}\n        {%- assign XLIFF_obsoletum_approved_attr = '' -%}\n      {%- endif -%}\n      {%- if XLIFF_obsoletum_state == 'final' -%}\n        {%- assign XLIFF_obsoletum_state = 'final' -%}\n        {%- assign XLIFF_obsoletum_approved = 'yes' -%}\n        {%- assign XLIFF_obsoletum_translatesource_attr = ' translate=\"no\"' -%}\n        {%- assign XLIFF_obsoletum_statequalifier_attr = ' state-qualifier=\"id-match\"' -%}\n        {%- assign XLIFF_obsoletum_approved_attr = ' approved=\"yes\"' -%}\n      {%- endif -%}\n    {%- endif -%}\n\n    <trans-unit id=\"{{- conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' -}}\"\n      {{- XLIFF_obsoletum_translatesource_attr -}}\n      {{- XLIFF_obsoletum_approved_attr -}}>\n      <source {{ rem_fontem_linguam_attr }}>\n        {{- rem.de_fontem_linguam.rem -}}\n      </source>\n      {%- if rem.de_objectivum_linguam.rem != '' %}\n      <target {{ rem_objectivum_linguam_attr }} state=\"{{ XLIFF_obsoletum_state }}\"{{ XLIFF_obsoletum_statequalifier_attr }}>\n        {{- rem.de_objectivum_linguam.rem -}}\n      </target>\n      {%- else -%}\n        <!-- non rem.de_objectivum_linguam.rem -->\n      {%- endif %}\n      {% if rem.de_auxilium_linguam %}\n        {%- for item in rem.de_auxilium_linguam -%}\n          {%- if item.rem -%}\n      <note annotates=\"source\" priority=\"2\">\n        _[{{- item.linguam -}}]{{- item.rem -}}[{{- item.linguam -}}]_\n      </note>\n          {%- endif -%}\n        {%- endfor %}\n      {%- else -%}\n      <!--\n        non rem.de_auxilium_linguam\n      -->\n      {%- endif  %}\n      {% if rem.de_nomen_breve.referens_situs_interretialis.size > 0 -%}\n      {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}\n      <note annotates=\"source\" priority=\"1\"\n        from=\"referens_situs_interretialis\">\n        {{- item -}}\n      </note>\n      {%- endfor %}\n      {%- else -%}\n      <!--\n        non rem.de_nomen_breve.referens_situs_interretialis\n      -->\n      {%- endif  %}\n    </trans-unit>\n    {%- else -%}\n      <!-- non rem.de_fontem_linguam -->\n    {%- endif  %}\n",
+        "finale": "    </body>\n  </file>\n</xliff>\n"
+      }
+    },
+    "XLSX": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".xlsx"
+        },
+        "descriptionem": "_[eng-Latn]\nBoth URL GSheets and local/remote file of Microsoft Excel have built\nread-only access in support for reference cli implementation\nas container for data source without intermediate file transformation\nto CSV container of HXLTM. This means humans don't need to edit CSV\nfiles directly.\n\nThe support on `hxltmcli` to write directly to GSheets and\nMicrosoft Excel is unlikely to be implemented.\n[eng-Latn]_\n",
+        "nomen": {
+          "eng-Latn": "Microsoft Excel, HXLTM container (read-only; native support as data source)"
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      }
+    },
+    "YAML": {
+      "__meta": {
+        "archivum": {
+          "extensionem": ".yml"
+        },
+        "normam": [
+          "<https://guides.rubyonrails.org/i18n.html>"
+        ],
+        "nomen": {
+          "eng-Latn": "YAML (planned, but no draft)"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://guides.rubyonrails.org/i18n.html>"
+          ]
+        },
+        "exemplum": [
+          "<https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json>"
+        ]
+      },
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
+      }
+    }
+  },
+  "formatum_excerptum": {
+    "exemplum": "{{ #_1 }},{{ #_2 }}\n"
+  },
+  "libellam": {
+    "glossarium": null,
+    "conceptum": {
+      "_TBX": "entry-level"
+    },
+    "linguam": {
+      "_TBX": "language-level"
+    },
+    "terminum": {
+      "_TBX": "term-level"
+    }
+  },
+  "ontologia": {
+    "commune": {
+      "conceptum": {
+        "accuratum": {
+          "__HXL": "#status +conceptum +accuratum",
+          "__nomen_breve": "accuratum",
+          "__id": "ontologia.commune.conceptum.accuratum",
+          "__libellam": "conceptum",
+          "__valorem_optionem": "ontologia_aliud.accuratum",
+          "__valorem_maximum": 10,
+          "__valorem_minimum": 0,
+          "__valorem_typum": "numerum",
+          "_TBX": {
+            "_nomen": "reliabilityCode",
+            "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
+            "_xml": "<descrip type='reliabilityCode'>__valorem__</descrip>"
+          }
+        },
+        "codicem": {
+          "__HXL": "#item +conceptum +codicem",
+          "__nomen_breve": "codicem",
+          "__id": "ontologia.commune.conceptum.codicem",
+          "__libellam": "conceptum",
+          "_XLIFF": {
+            "__HXL_bilingue": "#x_xliff +unit +id"
+          },
+          "deprecatum": {
+            "__HXL": "#meta +conceptum +codicem +deprecatum",
+            "__nomen_breve": "codicem_deprecatum",
+            "__id": "ontologia.commune.conceptum.codicem.deprecatum",
+            "__libellam": "conceptum",
+            "__valorem_typum": "compactum_textum - exemplum_codicem_a|exemplum_codicem_b|123456"
+          },
+          "alternativum": {
+            "__HXL": "#meta +conceptum +codicem +alternativum",
+            "__nomen_breve": "codicem_alternativum",
+            "__id": "ontologia.commune.conceptum.codicem.alternativum",
+            "__libellam": "conceptum",
+            "__valorem_typum": "compactum_textum",
+            "_exemplum": [
+              "Q1065|UNTERM5f40d95f1d17bf8c85256a01000080af|IATE787725"
+            ]
+          }
+        },
+        "dominium": {
+          "__HXL": "#item +conceptum +dominium",
+          "__nomen_breve": "dominium",
+          "__id": "ontologia.commune.conceptum.dominium",
+          "__libellam": "conceptum",
+          "_TBX": {
+            "_id": "DC-489",
+            "_descriptionem": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
+            "_nomen": "Subject field",
+            "_level": "Concept",
+            "_xml": "<descrip type='subjectField'>"
+          },
+          "_TMX": {
+            "_descriptionem": "Property - The <prop> element is used to define the various\nproperties of the parent element (or of the document when\n<prop> is used in the <header> element).\nThese properties are not defined by the standard.\nIt is the responsibility of each tool provider to publish the\ntypes and values of the properties it uses.\nIf the tool exports unpublished properties types, their\nvalues should begin with the prefix \"x-\".\n\nExample:\n<prop type='user-defined'>name:domain value:Computer science</prop>\n<prop type='x-domain'>Computer science</prop> \n"
+          },
+          "_UTX": {
+            "_nomen": "domain property",
+            "_descriptionem": "The domain property is a text string that indicates the domain of\nthe glossary. This property is used when you need to group multiple\nglossaries into a domain. If you use glossary IDs as domain names,\nthe domain property is not necessary.\nExample\n  domain: Aerospace\n",
+            "_XLIFF": {
+              "__HXL_bilingue": "#x_xliff +group +group_0"
+            }
+          }
+        },
+        "compactum_json": {
+          "__HXL": "#meta +conceptum +json",
+          "__id": "ontologia.commune.conceptum.compactum_json"
+        },
+        "referens": {
+          "situs_interretialis": {
+            "__HXL": "#meta +item +url +list",
+            "__nomen_breve": "referens_situs_interretialis",
+            "__id": "ontologia.commune.conceptum.referens.situs_interretialis",
+            "__libellam": "conceptum"
+          }
+        },
+        "typum": {
+          "__HXL": "#item +conceptum +typum",
+          "__nomen_breve": "typum",
+          "__id": "ontologia.commune.conceptum.typum",
+          "__libellam": "rem",
+          "_TBX": {
+            "_id": "DC-2677",
+            "_nomen": "Term type",
+            "_xml": "<termNote type='termType'>",
+            "_descriptionem": "Permissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nfullForm     www.isocat.org/datcat/DC-321\nacronym      www.isocat.org/datcat/DC-334\nabbreviation www.isocat.org/datcat/DC-331\nshortForm    www.isocat.org/datcat/DC-332\nvariant      www.isocat.org/datcat/DC-330\nphrase       www.isocat.org/datcat/DC-339\n"
+          },
+          "_XLIFF": {
+            "__HXL_bilingue": "#x_xliff +unit +note +note_category__termtype"
+          }
+        }
+      },
+      "rem": {
+        "__linguam__": {
+          "__HXL": "#item +rem __linguam__",
+          "__HXL_deprecatum": [
+            "#item +terminum +__linguam__ +rem"
+          ],
+          "__nomen_breve": "rem__L__",
+          "__id": "ontologia.commune.rem.__linguam__",
+          "__libellam": "rem",
+          "_TBX": {
+            "_id": "DC-1823",
+            "_nomen": "Term",
+            "_descriptionem": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
+            "_xml": "<term>"
+          },
+          "_UTX": {
+            "_nomen": "Term",
+            "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
+          },
+          "_XLIFF": {
+            "__HXL_fontem": "#x_xliff +source __linguam__",
+            "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__altsource1 __linguam__",
+            "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__altsource2 __linguam__",
+            "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__altsource3 __linguam__",
+            "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__altsource4 __linguam__",
+            "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__altsource5 __linguam__",
+            "__HXL_objectivum": "#x_xliff +target __linguam__"
+          }
+        },
+        "__linguam_de_imperium__": {
+          "__HXL": "#item +rem __linguam_de_imperium__",
+          "__nomen_breve": "rem__L_I__",
+          "__id": "ontologia.commune.rem.__linguam_de_imperium__",
+          "__libellam": "rem",
+          "_TBX": {
+            "_id": "DC-1823",
+            "_nomen": "Term",
+            "_descriptionem": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
+            "_xml": "<term>"
+          },
+          "_UTX": {
+            "_nomen": "Term",
+            "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
+          },
+          "_XLIFF": {
+            "__HXL_fontem": "#x_xliff +source __linguam_de_imperium__",
+            "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__altsource1 __linguam_de_imperium__",
+            "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__altsource2 __linguam_de_imperium__",
+            "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__altsource3 __linguam_de_imperium__",
+            "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__altsource4 __linguam_de_imperium__",
+            "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__altsource5 __linguam_de_imperium__",
+            "__HXL_objectivum": "#x_xliff +target __linguam_de_imperium__"
+          }
+        },
+        "accuratum": {
+          "__linguam__": {
+            "__HXL": "#status +rem +accuratum __linguam__",
+            "__nomen_breve": "accuratum__L__",
+            "__id": "ontologia.commune.rem.__linguam__.accuratum",
+            "__libellam": "rem",
+            "__valorem_optionem": "ontologia_aliud.accuratum",
+            "__valorem_maximum": 10,
+            "__valorem_minimum": 0,
+            "__valorem_typum": "numerum",
+            "_TBX": {
+              "_nomen": "reliabilityCode",
+              "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
+              "_xml": "<descrip type='reliabilityCode'>__valorem__</descrip>"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#status +rem +accuratum __linguam_de_imperium__",
+            "__nomen_breve": "accuratum__L_I__",
+            "__id": "ontologia.commune.rem.accuratum.__linguam_de_imperium__",
+            "__libellam": "rem",
+            "__valorem_optionem": "ontologia_aliud.accuratum",
+            "__valorem_maximum": 10,
+            "__valorem_minimum": 0,
+            "__valorem_typum": "numerum",
+            "_TBX": {
+              "_nomen": "reliabilityCode",
+              "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
+              "_xml": "<descrip type='reliabilityCode'>__valorem__</descrip>"
+            }
+          }
+        },
+        "compactum_json": {
+          "__linguam__": {
+            "__HXL": "#meta +rem +json __linguam__",
+            "__nomen_breve": "json__L__",
+            "__id": "ontologia.commune.rem.compactum_json.__linguam__",
+            "__libellam": "rem"
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#meta +rem +json __linguam_de_imperium__",
+            "__nomen_breve": "json__L_I__",
+            "__id": "ontologia.commune.rem.compactum_json.__linguam_de_imperium__",
+            "__libellam": "rem"
+          }
+        },
+        "statum": {
+          "compactum_json": {
+            "__linguam__": {
+              "__HXL": "#status +rem +json __linguam__",
+              "__id": "ontologia.commune.rem.status.compactum_json.__linguam__",
+              "__libellam": "rem",
+              "__nomen_breve": "statum_rem_json__L__"
+            },
+            "__linguam_de_imperium__": {
+              "__HXL": "#status +rem +json __linguam_de_imperium__",
+              "__id": "ontologia.commune.rem.compactum_json.__linguam_de_imperium__",
+              "__libellam": "rem"
+            }
+          },
+          "compactum_textum": {
+            "__linguam__": {
+              "__HXL": "#status +rem +textum __linguam__",
+              "__id": "ontologia.commune.rem.__linguam__.status.compactum_textum",
+              "__libellam": "rem",
+              "__nomen_breve": "statum_rem_textum__L__",
+              "_XLIFF": {
+                "__HXL_fontem": "#x_xliff +unit +note +note_category__sourcestatus  __linguam__",
+                "__HXL_objectivum": "#x_xliff +segment +state __linguam__"
+              }
+            },
+            "__linguam_de_imperium__": {
+              "__HXL": "#status +rem +textum __linguam_de_imperium__",
+              "__id": "ontologia.commune.rem.compactum_textum.__linguam_de_imperium__"
+            },
+            "_XLIFF": {
+              "__HXL_fontem": "#x_xliff +unit +note +note_category__sourcestatus __linguam_de_imperium__",
+              "__HXL_objectivum": "#x_xliff +segment +state __linguam_de_imperium__"
+            }
+          }
+        },
+        "genus_grammaticum": {
+          "__linguam__": {
+            "__HXL": "#item +rem +genus_grammaticum __linguam__",
+            "__id": "ontologia.commune.rem.genus_grammaticum.__linguam__",
+            "_TBX": {
+              "_id": "DC-245",
+              "_descriptionem": "Picklist, with permissible values as follows:\n  • masculine\n  • feminine\n  • neuter\n  • other\n",
+              "_nomen": "Gender",
+              "_level": "Term",
+              "_xml": "<termNote type='grammaticalGender'>"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +genus_grammaticum __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.genus_grammaticum.__linguam_de_imperium__",
+            "_TBX": {
+              "_id": "DC-245",
+              "_descriptionem": "Picklist, with permissible values as follows:\n  • masculine\n  • feminine\n  • neuter\n  • other\n",
+              "_nomen": "Gender",
+              "_level": "Term",
+              "_xml": "<termNote type='grammaticalGender'>"
+            }
+          }
+        },
+        "annotationem": {
+          "__linguam__": {
+            "__HXL": "#meta +rem +annotationem __linguam__",
+            "__id": "ontologia.commune.rem.annotationem.__linguam__",
+            "__valorem_typum": "textum",
+            "_TBX": {
+              "_id": "DC-382",
+              "_descriptionem": "Any kind of note, such as a usage note, explanation,\nor instruction\n",
+              "_nomen": "Note",
+              "_level": "Concept, Language, Term",
+              "_xml": "<note>"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#meta +rem +annotationem __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.annotationem.__linguam_de_imperium__",
+            "__valorem_typum": "textum",
+            "_TBX": {
+              "_id": "DC-382",
+              "_descriptionem": "Any kind of note, such as a usage note, explanation,\nor instruction\n",
+              "_nomen": "Note",
+              "_level": "Concept, Language, Term",
+              "_xml": "<note>"
+            }
+          }
+        },
+        "partem_orationis": {
+          "__linguam__": {
+            "__HXL": "#item +rem +partem_orationis __linguam__",
+            "__id": "ontologia.commune.rem.partem_orationis.__linguam__",
+            "_TBX": {
+              "_id": "DC-396",
+              "_nomen": "Part of speech",
+              "_descriptionem": "Content type picklist\nPermissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nnoun         www.isocat.org/datcat/DC-1333\nverb         www.isocat.org/datcat/DC-1424\nadjective    www.isocat.org/datcat/DC-1230\nadverb       www.isocat.org/datcat/DC-1232\nproperNoun   www.isocat.org/datcat/DC-384\nother        www.isocat.org/datcat/DC-4336\n\nIn TBX-Default, the data type for part of speech is plainText.\nTBX-Basic's use of picklist is in compliance with TBX-Default\nbecause picklist is more constrained than plainText.\n\nThe other value can be used for terms of the phrase type.\n",
+              "_xml": "<termNote type='partOfSpeech'>"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +partem_orationis __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.partem_orationis.__linguam_de_imperium__",
+            "_TBX": {
+              "_id": "DC-396",
+              "_nomen": "Part of speech",
+              "_descriptionem": "Content type picklist\nPermissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nnoun         www.isocat.org/datcat/DC-1333\nverb         www.isocat.org/datcat/DC-1424\nadjective    www.isocat.org/datcat/DC-1230\nadverb       www.isocat.org/datcat/DC-1232\nproperNoun   www.isocat.org/datcat/DC-384\nother        www.isocat.org/datcat/DC-4336\n\nIn TBX-Default, the data type for part of speech is plainText.\nTBX-Basic's use of picklist is in compliance with TBX-Default\nbecause picklist is more constrained than plainText.\n\nThe other value can be used for terms of the phrase type.\n",
+              "_xml": "<termNote type='partOfSpeech'>"
+            }
+          }
+        }
+      }
+    },
+    "glossarium": {
+      "rem": {
+        "contextum": {
+          "__linguam__": {
+            "__HXL": "#item +rem +contextum __linguam__",
+            "__nomen_breve": "contextum__L__",
+            "__id": "ontologia.glossarium.rem.contextum.__linguam__",
+            "__libellam": "linguam",
+            "_TBX": {
+              "_id": "DC-149",
+              "_descriptionem": "A sample sentence that contains the term.",
+              "_xml": "<descrip type='context'>"
+            },
+            "_XLIFF": {
+              "__HXL_fontem": "#x_xliff +unit +note +note_category__context __linguam__",
+              "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__contextalt1 __linguam__",
+              "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__contextalt2 __linguam__",
+              "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__contextalt3 __linguam__",
+              "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__contextalt4 __linguam__",
+              "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__contextalt5 __linguam__"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +contextum __linguam_de_imperium__",
+            "__nomen_breve": "contextum__L_I__",
+            "__id": "ontologia.commune.rem.contextum.__linguam_de_imperium__",
+            "__libellam": "linguam",
+            "_TBX": {
+              "_id": "DC-149",
+              "_descriptionem": "A sample sentence that contains the term.",
+              "_xml": "<descrip type='context'>"
+            },
+            "_XLIFF": {
+              "__HXL_fontem": "#x_xliff +unit +note +note_category__context __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__contextalt1 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__contextalt2 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__contextalt3 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__contextalt4 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__contextalt5 __linguam_de_imperium__"
+            }
+          }
+        },
+        "definitionem": {
+          "__linguam__": {
+            "__HXL": "#item +rem +definitionem __linguam__",
+            "__nomen_breve": "definitionem__L__",
+            "__id": "ontologia.glossarium.rem.definitionem.__linguam__",
+            "__libellam": "linguam",
+            "_TBX": {
+              "_id": "DC-168",
+              "_descriptionem": null,
+              "_nomen": "Definition",
+              "_level": "Concept, Language",
+              "_xml": "<descrip type='definition'>"
+            },
+            "_XLIFF": {
+              "__HXL_fontem": "#x_xliff +unit +note +note_category__definition __linguam__",
+              "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__definitionalt1 __linguam__",
+              "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__definitionalt2 __linguam__",
+              "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__definitionalt3 __linguam__",
+              "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__definitionalt4 __linguam__",
+              "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__definitionsalt5 __linguam__"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +definitionem __linguam_de_imperium__",
+            "__nomen_breve": "definitionem__L_I__",
+            "__id": "ontologia.commune.rem.definitionem.__linguam_de_imperium__",
+            "__libellam": "linguam",
+            "_TBX": {
+              "_id": "DC-168",
+              "_descriptionem": null,
+              "_nomen": "Definition",
+              "_level": "Concept, Language",
+              "_xml": "<descrip type='definition'>"
+            },
+            "_XLIFF": {
+              "__HXL_fontem": "#x_xliff +unit +note +note_category__definition __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__definitionalt1 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__definitionalt2 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__definitionalt3 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__definitionalt4 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__definitionsalt5 __linguam_de_imperium__"
+            }
+          }
+        }
+      }
+    },
+    "extensionem": {
+      "conceptum": {
+        "codicem": {
+          "iate": {
+            "__HXL": "#meta +conceptum +codicem +iate",
+            "__nomen_breve": "codicem_iate",
+            "__id": "ontologia.extensionem.conceptum.codicem.iate",
+            "__libellam": "conceptum",
+            "_url": "https://iate.europa.eu/fields-explained",
+            "_compactum_json": [
+              {
+                "_id": "ontologia.commune.conceptum.compactum_json",
+                "_JSONPath": "codicem.iate",
+                "_exemplum": {
+                  "codicem": {
+                    "iate": 787725
+                  }
+                }
+              }
+            ],
+            "_compactum_textum": [
+              {
+                "_id": "ontologia.commune.conceptum.codicem.alternativum",
+                "_praefixum": "IATE",
+                "_suffixum": "",
+                "_exemplum": [
+                  "IATE787725"
+                ]
+              }
+            ],
+            "_XLIFF": {
+              "__HXL_bilingue": "#x_xliff +unit +note +note_category__iate"
+            }
+          },
+          "unterm": {
+            "__HXL": "#meta +conceptum +codicem +unterm",
+            "__nomen_breve": "codicem_unterm",
+            "__id": "ontologia.extensionem.conceptum.codicem.unterm",
+            "__libellam": "conceptum",
+            "_url": "https://iate.europa.eu/fields-explained",
+            "_url_rem": "https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{valorem}}",
+            "_compactum_json": [
+              {
+                "_id": "ontologia.commune.conceptum.compactum_json",
+                "_JSONPath": "codicem.unterm",
+                "_exemplum": {
+                  "codicem": {
+                    "unterm": "5f40d95f1d17bf8c85256a01000080af"
+                  }
+                }
+              }
+            ],
+            "_compactum_textum": [
+              {
+                "_id": "ontologia.commune.conceptum.codicem.alternativum",
+                "_praefixum": "UNTERM",
+                "_suffixum": "",
+                "_exemplum": "UNTERM5f40d95f1d17bf8c85256a01000080af"
+              }
+            ],
+            "_XLIFF": {
+              "__HXL_bilingue": "#x_xliff +unit +note +note_category__unterm"
+            }
+          },
+          "wikidata": {
+            "__HXL": "#meta +conceptum +codicem +wikidata",
+            "__nomen_breve": "codicem_wikidata",
+            "__id": "ontologia.extensionem.conceptum.codicem.wikidata",
+            "__libellam": "conceptum",
+            "_url": "https://www.wikidata.org/",
+            "_url_rem": "https://www.wikidata.org/wiki/{{valorem}}",
+            "_compactum_json": [
+              {
+                "_id": "ontologia.commune.conceptum.compactum_json",
+                "_JSONPath": "codicem.wikidata",
+                "_exemplum": {
+                  "codicem": {
+                    "wikidata": "Q1065"
+                  }
+                }
+              }
+            ],
+            "_compactum_textum": [
+              {
+                "_id": "ontologia.commune.conceptum.codicem.alternativum",
+                "_praefixum": "Q",
+                "_suffixum": "",
+                "_exemplum": "Q1065"
+              }
+            ],
+            "_XLIFF": {
+              "__HXL_bilingue": "#x_xliff +unit +note +note_category__wikidata"
+            }
+          }
+        }
+      },
+      "normam": {
+        "org_hxlstandard": {
+          "__HXL": "#meta +conceptum +normam +normam_org_hxlstandard",
+          "__nomen_breve": "normam_org_hxlstandard",
+          "__id": "ontologia.extensionem.conceptum.normam.org_hxlstandard",
+          "__libellam": "conceptum",
+          "_url": "https://hxlstandard.org/",
+          "_compactum_json": [
+            {
+              "_id": "ontologia.commune.conceptum.compactum_json",
+              "_JSONPath": "normam.hxlstandard",
+              "_exemplum": {
+                "normam": {
+                  "org_hxlstandard": "#meta+id"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "tm": {
+      "conceptum": {
+        "translationem": {
+          "directionem": {
+            "__HXL": "#meta +conceptum +translationem +directionem",
+            "__nomen_breve": "translationem_directionem",
+            "__id": "ontologia.tm.conceptum.translationem.directionem",
+            "__libellam": "conceptum",
+            "_compactum_json": {
+              "_id": "ontologia.commune.conceptum.compactum_json",
+              "_JSONPath": "translationem.directionem",
+              "_exemplum": {
+                "translationem": {
+                  "directionem": []
+                }
+              }
+            },
+            "_UTX": {
+              "_nomen": "Translation direction",
+              "_descriptionem": "The direction of translation from one language to another\n(translation direction) can be unidirectional, bidirectional, or\nmultidirectional. This information can be specified with\n\"3.2.14 directionality property.\"\n\nA unidirectional glossary is a glossary whose translation\ndirection is primarily one-way, i.e. from the source language to\nthe target language.\n\n> Example: unidirectional bilingual Japanese-English UTX glossary\n\n- Source language: Japanese, target language: English\n- Primary translation direction: Japanese to English\n- Note: Some terms in a unidirectional glossary may be exported\n  and used in the reverse direction in an ad-hoc manner.\n  This operation is called reverse-exporting. In this case, the\n  source language becomes the target language, and vice versa.\n  A reverse-exported unidirectional glossary may contain problems\n  because the consequence of the reversal may not be thoroughly\n  examined when compared with a full bidirectional glossary.\n\nA bidirectional glossary is a glossary that is designed to be\nused in two-way translation. Terms in one language can be\ntranslated into another, and vice versa.\n\n> Example: bidirectional bilingual Japanese-English UTX glossary\n>\n> - Language 1: Japanese, language 2: English\n> - Translation direction: Japanese ⇔ English\n\n> Example: bidirectional multilingual English-French-German\n> glossary\n>\n> - Language 1: English, language 2: French, language 3: German\n> - Translation direction: English ⇔ French, English ⇔ German\n    (but not French ⇔ German)\n\nA multidirectional glossary is a type of multilingual glossary\nthat is designed to be used in any combination of languages in the\nglossary.\n\n> Example: multidirectional multilingual English-Japanese-Chinese\n> glossary\n>\n> - Language 1: English, language 2: Japanese, language 3: Chinese\n> - Translation direction: any combination of the above\n"
+            }
+          }
+        }
+      },
+      "rem": {
+        "translationem": {
+          "directionem": {
+            "__linguam__": {
+              "__HXL": "#meta +rem +translationem +directionem __linguam__",
+              "__nomen_breve": "translationem_directionem__L__",
+              "__id": "ontologia.tm.rem.translationem.directionem.__linguam__",
+              "__libellam": "conceptum",
+              "_compactum_json": {
+                "_id": "ontologia.commune.rem.__linguam__.compactum_json",
+                "_JSONPath": "translationem.directionem",
+                "_exemplum": {
+                  "translationem": {
+                    "directionem": []
+                  }
+                }
+              },
+              "_UTX": {
+                "_nomen": "Translation direction",
+                "_descriptionem": "The direction of translation from one language to another\n(translation direction) can be unidirectional, bidirectional, or\nmultidirectional. This information can be specified with\n\"3.2.14 directionality property.\"\n\nA unidirectional glossary is a glossary whose translation\ndirection is primarily one-way, i.e. from the source language to\nthe target language.\n\n> Example: unidirectional bilingual Japanese-English UTX glossary\n\n- Source language: Japanese, target language: English\n- Primary translation direction: Japanese to English\n- Note: Some terms in a unidirectional glossary may be exported\n  and used in the reverse direction in an ad-hoc manner.\n  This operation is called reverse-exporting. In this case, the\n  source language becomes the target language, and vice versa.\n  A reverse-exported unidirectional glossary may contain problems\n  because the consequence of the reversal may not be thoroughly\n  examined when compared with a full bidirectional glossary.\n\nA bidirectional glossary is a glossary that is designed to be\nused in two-way translation. Terms in one language can be\ntranslated into another, and vice versa.\n\n> Example: bidirectional bilingual Japanese-English UTX glossary\n>\n> - Language 1: Japanese, language 2: English\n> - Translation direction: Japanese ⇔ English\n\n> Example: bidirectional multilingual English-French-German\n> glossary\n>\n> - Language 1: English, language 2: French, language 3: German\n> - Translation direction: English ⇔ French, English ⇔ German\n    (but not French ⇔ German)\n\nA multidirectional glossary is a type of multilingual glossary\nthat is designed to be used in any combination of languages in the\nglossary.\n\n> Example: multidirectional multilingual English-Japanese-Chinese\n> glossary\n>\n> - Language 1: English, language 2: Japanese, language 3: Chinese\n> - Translation direction: any combination of the above\n"
+              }
+            },
+            "__linguam_de_imperium__": {
+              "__HXL": "#item +rem +translationem +directionem __linguam_de_imperium__",
+              "__nomen_breve": "translationem_directionem__L_I__",
+              "__id": "ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__",
+              "__libellam": "conceptum",
+              "_compactum_json": {
+                "_id": "ontologia.commune.rem.__linguam_de_imperium__.compactum_json",
+                "_JSONPath": "translationem.directionem",
+                "_exemplum": {
+                  "translationem": {
+                    "directionem": ""
+                  }
+                }
+              },
+              "_UTX": {
+                "_nomen": "Translation direction",
+                "_descriptionem": "The direction of translation from one language to another\n(translation direction) can be unidirectional, bidirectional, or\nmultidirectional. This information can be specified with\n\"3.2.14 directionality property.\"\n\nA unidirectional glossary is a glossary whose translation\ndirection is primarily one-way, i.e. from the source language to\nthe target language.\n\n> Example: unidirectional bilingual Japanese-English UTX glossary\n\n- Source language: Japanese, target language: English\n- Primary translation direction: Japanese to English\n- Note: Some terms in a unidirectional glossary may be exported\n  and used in the reverse direction in an ad-hoc manner.\n  This operation is called reverse-exporting. In this case, the\n  source language becomes the target language, and vice versa.\n  A reverse-exported unidirectional glossary may contain problems\n  because the consequence of the reversal may not be thoroughly\n  examined when compared with a full bidirectional glossary.\n\nA bidirectional glossary is a glossary that is designed to be\nused in two-way translation. Terms in one language can be\ntranslated into another, and vice versa.\n\n> Example: bidirectional bilingual Japanese-English UTX glossary\n>\n> - Language 1: Japanese, language 2: English\n> - Translation direction: Japanese ⇔ English\n\n> Example: bidirectional multilingual English-French-German\n> glossary\n>\n> - Language 1: English, language 2: French, language 3: German\n> - Translation direction: English ⇔ French, English ⇔ German\n    (but not French ⇔ German)\n\nA multidirectional glossary is a type of multilingual glossary\nthat is designed to be used in any combination of languages in the\nglossary.\n\n> Example: multidirectional multilingual English-Japanese-Chinese\n> glossary\n>\n> - Language 1: English, language 2: Japanese, language 3: Chinese\n> - Translation direction: any combination of the above\n"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "ontologia_datum_typum": {
+    "formatum": {
+      "compactum_json": {
+        "_normam": "https://www.json.org/",
+        "_typum": "textum"
+      },
+      "compactum_textum": {
+        "_descriptionem": "_[eng-Latn] Note: compactum_textum is different from textum. While textum\nis a free form text, compactum_textum is meant to be used as human\neditable compact form of values that could be stored on the equivalent\ncompactum_json.\n\nMost of the time this means create controlled constants documented on\ncor.hxltm.yml->ontologia_aliud to to represent other values. So this\nmeans that compactum_textum MUST be both editable by humans and\nparseable by computers.\n\nAlso, when more than one constant is need on compactum_textum the\nseparator is the character \"|\".\n\nWhitespaces betwen start and end of a term should be ignored.\n\nUnknow values should be ignored. Errors should only stop processing\nif user ask for stricter or debugging mode.\n[eng-Latn]_\n",
+        "_typum": "textum"
+      },
+      "numerum": {
+        "_exemplum": [
+          "123456789",
+          "0123456789ABCDEF",
+          "０１２３４５６７８９ＡＢＣＤＥＦ",
+          "Ⅰ \tⅡ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ",
+          "零 壹 貳 參 肆 伍 陸 柒 捌 玖",
+          "〇 一 二 三 四 五 六 七 八 九"
+        ],
+        "_typum": "textum"
+      },
+      "numerum_digitum": {
+        "_descriptionem": "- https://en.wikipedia.org/wiki/Numerals_in_Unicode\n",
+        "_exemplum": [
+          "123456789"
+        ],
+        "_typum": "numerum_digitum"
+      },
+      "textum": {
+        "_descriptionem": "_[eng-Latn] Free text. This means allow even line breaks.\nThe only hard requeriment is a a format that can be represented on CSV\nformat (so means escaping characters).\n\nDO NOT escape non US-ASCII characters. This is annoying. Fix your\nsystem to accept Unicode and if necessary, only threat differently\ncontrol characters that are writing system neutral.\n[eng-Latn]_\n"
+      }
+    },
+    "typum": {
+      "numerum_digitum": {},
+      "textum": {}
+    }
+  },
+  "ontologia_aliud": {
+    "accuratum": {
+      "?": {
+        "_IATE_valorem_codicem": "★★",
+        "_IATE_valorem_descriptionem": "Automatically assigned to terms entered or updated by native speakers.\n",
+        "_IATE_valorem_nomen": "Minimum reliability",
+        "_IATE_valorem_numerum": 6
+      },
+      "_": {
+        "_IATE_valorem_codicem": "★",
+        "_IATE_valorem_descriptionem": "Automatically assigned to terms entered by non-native speakers.\nAlso, all lookup forms have a reliability of one.\n",
+        "_IATE_valorem_nomen": "Reliability not verified",
+        "_IATE_valorem_numerum": 1
+      },
+      "0": {
+        "_IATE_valorem_codicem": "★",
+        "_IATE_valorem_descriptionem": "Automatically assigned to terms entered by non-native speakers.\nAlso, all lookup forms have a reliability of one.\n",
+        "_IATE_valorem_nomen": "Reliability not verified",
+        "_IATE_valorem_numerum": 1
+      },
+      "1": {
+        "_IATE_valorem_codicem": "★",
+        "_IATE_valorem_descriptionem": "Automatically assigned to terms entered by non-native speakers.\nAlso, all lookup forms have a reliability of one.\n",
+        "_IATE_valorem_nomen": "Reliability not verified",
+        "_IATE_valorem_numerum": 1
+      },
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {
+        "_IATE_valorem_codicem": "★★",
+        "_IATE_valorem_descriptionem": "Automatically assigned to terms entered or updated by native speakers.\n",
+        "_IATE_valorem_nomen": "Minimum reliability",
+        "_IATE_valorem_numerum": 6
+      },
+      "7": {},
+      "8": {},
+      "9": {
+        "_IATE_valorem_codicem": "★★★",
+        "_IATE_valorem_descriptionem": "Manually assigned by a terminologist following a reliability\nassessment. Reliable terms should satisfy at least one of the\nfollowing criteria:\n\n  - having been obtained from a trusted source;\n  - having been agreed on by a representative body of same-language\n    terminologists;\n  - being the common designation of the concept in its field.\n\nN.B. This code was automatically assigned to many entries, regardless\nof their previous validation status, following the merger of existing\ndatabases to create IATE. Therefore some entries marked as ‘reliable’\nare not necessarily so.\n",
+        "_IATE_valorem_nomen": "Reliable",
+        "_IATE_valorem_numerum": 9
+      },
+      "10": {
+        "_IATE_valorem_codicem": "★★★★",
+        "_IATE_valorem_descriptionem": "Manually assigned following a reliability assessment.\nVery reliable terms are:\n\n- well-established and widely accepted by experts as the correct\n  designation, or\n- confirmed by a trusted and authoritative source, in particular a\n  reliable written source.\n",
+        "_IATE_valorem_nomen": "Very reliable",
+        "_IATE_valorem_numerum": 10
+      }
+    },
+    "genus_grammaticum": {
+      "lat_commune": {
+        "_aliud": "TBX_other",
+        "_codicem_TBX": "TBX_other",
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Common_and_neuter\n",
+        "codicem_lat": "commune"
+      },
+      "lat_animatum": {
+        "_aliud": "TBX_other",
+        "_codicem_TBX": "TBX_other",
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Animate_and_inanimate\n",
+        "codicem_lat": "animatum"
+      },
+      "lat_femininum": {
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders\n",
+        "codicem_lat": "masculinum"
+      },
+      "lat_inanimatum": {
+        "_aliud": "TBX_other",
+        "_codicem_TBX": "TBX_other",
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Animate_and_inanimate\n",
+        "codicem_lat": "inanimatum"
+      },
+      "lat_neutrum": {
+        "_aliud": "TBX_other",
+        "_codicem_TBX": "TBX_other",
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Common_and_neuter\n",
+        "codicem_lat": "neutrum"
+      },
+      "lat_masculinum": {
+        "_aliud": "TBX_masculine",
+        "_codicem_TBX": "TBX_masculine",
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders\n",
+        "codicem_lat": "masculinum"
+      },
+      "TBX_masculine": {
+        "codicem_TBX": "masculine"
+      },
+      "TBX_feminine": {
+        "codicem_TBX": "feminine"
+      },
+      "TBX_neuter": {
+        "codicem_TBX": "neuter"
+      },
+      "TBX_other": {
+        "codicem_TBX": "other"
+      }
+    },
+    "partem_orationis": {
+      "lat_adverbium": {
+        "_aliud": "TBX_adverb|UTX_adverb",
+        "_codicem": "lat_adverbium",
+        "_codicem_TBX": "TBX_adverb",
+        "_codicem_UTX": "UTX_adverb",
+        "_codicem_wikidata": "Q380057",
+        "_normam": "https://la.wikipedia.org/wiki/Adverbium",
+        "codicem_lat": "adverbium"
+      },
+      "lat_nomen_adiectivum": {
+        "_aliud": "TBX_adjective|UTX_adjective",
+        "_codicem": "lat_nomen_adiectivum",
+        "_codicem_TBX": "TBX_adjective",
+        "_codicem_UTX": "UTX_adjective",
+        "_codicem_wikidata": "Q34698",
+        "_normam": "https://la.wikipedia.org/wiki/Adiectivum",
+        "codicem_lat": "nomen_adiectivum"
+      },
+      "lat_nomen_substantivum": {
+        "_aliud": "TBX_noun|UTX_noun",
+        "_codicem": "lat_nomen_substantivum",
+        "_codicem_TBX": "TBX_noun",
+        "_codicem_UTX": "UTX_noun",
+        "_codicem_wikidata": "Q1084",
+        "_normam": "https://la.wikipedia.org/wiki/Nomen_substantivum",
+        "codicem_lat": "nomen_substantivum"
+      },
+      "lat_nomen_proprium": {
+        "_aliud": "TBX_properNoun|UTX_properNoun",
+        "_codicem": "lat_nomen_proprium",
+        "_codicem_TBX": "TBX_properNoun",
+        "_codicem_UTX": "UTX_properNoun",
+        "_codicem_wikidata": "Q147276",
+        "_normam": "https://la.wikipedia.org/wiki/Nomen_proprium",
+        "codicem_lat": "nomen_proprium"
+      },
+      "lat_verbum": {
+        "_aliud": "TBX_verb|UTX_verb",
+        "_codicem": "lat_verbum",
+        "_codicem_TBX": "TBX_verb",
+        "_codicem_UTX": "UTX_verb",
+        "_codicem_wikidata": "Q24905",
+        "_normam": "https://la.wikipedia.org/wiki/Verbum_(temporale)",
+        "codicem_lat": "verbum"
+      },
+      "TBX_noun": {
+        "_codicem": "DC-1333",
+        "codicem_TBX": "noun"
+      },
+      "TBX_verb": {
+        "_codicem": "DC-1424",
+        "codicem_TBX": "verb"
+      },
+      "TBX_adjective": {
+        "_codicem": "DC-1230",
+        "codicem_TBX": "adjective"
+      },
+      "TBX_adverb": {
+        "_codicem": "DC-1232",
+        "codicem_TBX": "adverb"
+      },
+      "TBX_properNoun": {
+        "_codicem": "DC-384",
+        "codicem_TBX": "properNoun"
+      },
+      "TBX_other": {
+        "_codicem": "DC-4336",
+        "codicem_TBX": "other"
+      },
+      "UTX_noun": {
+        "_nomen": "Noun",
+        "codicem_UTX": "noun"
+      },
+      "UTX_properNoun": {
+        "_nomen": "Proper noun",
+        "codicem_UTX": "properNoun"
+      },
+      "UTX_verb": {
+        "codicem_UTX": "verb"
+      },
+      "UTX_vt": {
+        "_nomen": "Transitive verb",
+        "codicem_UTX": "vt"
+      },
+      "UTX_vi": {
+        "_nomen": "Intransitive verb",
+        "codicem_UTX": "vi"
+      },
+      "UTX_adjective": {
+        "codicem_UTX": "adjective"
+      },
+      "UTX_prenominal": {
+        "codicem_UTX": "prenominal"
+      },
+      "UTX_adverb": {
+        "codicem_UTX": "adverb"
+      },
+      "UTX_sentence": {
+        "codicem_UTX": "sentence"
+      }
+    },
+    "rem_statum": {
+      "lat_rem_finale": {
+        "_aliud": "TBX_preferred|UTX_approved|XLIFF_final",
+        "codicem_lat": "rem_finale"
+      },
+      "lat_rem_initiale": {
+        "_aliud": "UTX_provisional|XLIFF_initial",
+        "codicem_lat": "rem_initiale"
+      },
+      "lat_rem_temporarium_de_non_nativum": {
+        "_aliud": "UTX_provisional|XLIFF_initial",
+        "codicem_lat": "rem_temporarium_de_non_nativum"
+      },
+      "lat_rem_temporarium": {
+        "_aliud": "UTX_provisional|XLIFF_initial",
+        "codicem_lat": "rem_temporarium"
+      },
+      "lat_rem_vacuum": {
+        "_aliud": "",
+        "codicem_lat": "rem_vacuum"
+      },
+      "TBX_preferred": {
+        "_codicem": "DC-72",
+        "_codicem_isocat": "preferredTerm‐admn‐sts",
+        "_descriptionem": "The term that, among a set   of synonymous terms, is most recommended\nfor use.\n",
+        "codicem_TBX": "preferred"
+      },
+      "TBX_admitted": {
+        "_codicem": "DC-73",
+        "_codicem_isocat": "admittedTerm‐admn‐sts",
+        "_descriptionem": "The term is acceptable for use",
+        "codicem_TBX": "admitted"
+      },
+      "TBX_notRecommended": {
+        "_codicem": "DC-74",
+        "_codicem_isocat": "deprecatedTerm‐admn‐sts",
+        "_descriptionem": "The term should not be used.",
+        "codicem_TBX": "notRecommended"
+      },
+      "TBX_obsolete": {
+        "_codicem": "DC-75",
+        "_codicem_isocat": "supersededTerm‐admn‐sts",
+        "_descriptionem": "The term is no longer used, usually because a more modern term has\nreplaced it.\n",
+        "codicem_TBX": "obsolete"
+      },
+      "UTX_provisional": {
+        "_descriptionem": "The term status \"provisional\" indicates that a target term is\nproposed by a contributor but not yet authorized by the glossary\nadministrator. As provisional status is temporary, the glossary\nadministrator should promptly decide the term status such as\n\"approved.\"\nNote: The glossary administrator may also choose to exclude (delete)\nthe term from the glossary, or move it to another glossary\n",
+        "codicem_UTX": "provisional"
+      },
+      "UTX_approved": {
+        "_descriptionem": "The term status \"approved\" indicates that an entry has been approved\nfor the particular glossary (domain) by the glossary administrator.\nAn approved status indicates that the term must be used with the\nhighest priority, whenever applicable. If a term has synonyms or\nalternative spellings, such as \"plugin\" and \"plugin,\" only one of\nthese should have approved status.\n\nAn approved term in one language is paired with another approved term\nin another language. If the parts of speech of these multiple entries\nare different, then they are different terms. For example, \"plot\"\ncan be a noun and a verb, and each can have approved status.\n",
+        "codicem_UTX": "approved"
+      },
+      "UTX_non-standard": {
+        "_descriptionem": "The term status \"non-standard\" indicates one or more terms that are\nless-preferred within a group of synonyms or alternative spellings.\n\nNote: The glossary administrator decides whether the term is\nless-preferred or not for a particular glossary. Therefore, this\nstatus could vary in different glossaries, or with a different\nglossary administrator.\n",
+        "codicem_UTX": "non-standard"
+      },
+      "UTX_forbidden": {
+        "_descriptionem": "The term status \"forbidden\" indicates that a term must not be used.\nA term is marked as forbidden not only for being inappropriate as a\ntranslation, but also if it is inappropriate within the context of the\nend-result document.\n\nA forbidden term, unlike a non-standard term, should not be provided\nas a translation candidate.\n\nNote: A term is “forbidden” because it is inappropriate from\nlinguistic, social, terminological, branding, or other viewpoints.\n\nUp to UTX 1.11, only a target term could be indicated as forbidden.\nUTX 1.20 allows any term (including a source term) to be indicated a\nforbidden.\n\nForbidden terms can be exported from a UTX glossary for terminological\nchecking. Based on this information, a function of a translation tool\nor a dedicated terminological checker can ascertain whether\ntranslation files contain any undesirable terms.\n",
+        "codicem_UTX": "forbidden"
+      },
+      "UTX_rejected": {
+        "_descriptionem": "The term status \"rejected\" indicates that a term is not appropriate\nfor inclusion in a glossary. Rejected terms can be kept in the glossary\nfor record keeping, moved into a separate list, or deleted at a\nlater time.\n",
+        "codicem_UTX": "rejected"
+      },
+      "UTX_obsolete": {
+        "_descriptionem": "The term status \"obsolete\" indicates that a term was previously used,\nbut should no longer be used. Obsolete terms can be kept in the\nglossary for record keeping, moved into a separate list, or deleted\nat a later time.\n",
+        "codicem_UTX": "obsolete"
+      },
+      "XLIFF_initial": {
+        "_descriptionem": "indicates the segment is in its initial state",
+        "codicem_XLIFF": "initial"
+      },
+      "XLIFF_translated": {
+        "_descriptionem": "indicates the segment has been translated",
+        "codicem_XLIFF": "translated"
+      },
+      "XLIFF_reviewed": {
+        "_descriptionem": "indicates the segment has been reviewed",
+        "codicem_XLIFF": "reviewed"
+      },
+      "XLIFF_final": {
+        "_descriptionem": "indicates the segment is finalized and ready to be used",
+        "codicem_XLIFF": "final"
+      }
+    },
+    "terminum_typum": {
+      "TBX_fullForm": {
+        "_codicem": "DC-321",
+        "codicem_TBX": "fullForm"
+      },
+      "TBX_acronym": {
+        "_codicem": "DC-334",
+        "codicem_TBX": "acronym"
+      },
+      "TBX_abbreviation": {
+        "_codicem": "DC-331",
+        "codicem_TBX": "abbreviation"
+      },
+      "TBX_formula": {
+        "codicem_TBX": "formula"
+      },
+      "TBX_shortForm": {
+        "_codicem": "DC-332",
+        "codicem_TBX": "shortForm"
+      },
+      "TBX_variant": {
+        "_codicem": "DC-330",
+        "codicem_TBX": "variant"
+      },
+      "TBX_phrase": {
+        "_codicem": "DC-339",
+        "codicem_TBX": "phrase"
+      }
+    },
+    "rem_typum": {
+      "TBX_fullForm": {
+        "_codicem": "DC-321",
+        "codicem_TBX": "fullForm"
+      },
+      "TBX_acronym": {
+        "_codicem": "DC-334",
+        "codicem_TBX": "acronym"
+      },
+      "TBX_abbreviation": {
+        "_codicem": "DC-331",
+        "codicem_TBX": "abbreviation"
+      },
+      "TBX_formula": {
+        "codicem_TBX": "formula"
+      },
+      "TBX_shortForm": {
+        "_codicem": "DC-332",
+        "codicem_TBX": "shortForm"
+      },
+      "TBX_variant": {
+        "_codicem": "DC-330",
+        "codicem_TBX": "variant"
+      },
+      "TBX_phrase": {
+        "_codicem": "DC-339",
+        "codicem_TBX": "phrase"
+      }
+    }
+  },
+  "ontologia_aliud_familiam": {
+    "lat": null,
+    "TBX": null,
+    "XLIFF": null,
+    "UTX": null
+  },
+  "ontologia_regulam": {
+    "exemplum": {
+      "hxl_caput": [
+        {
+          "hxl": "#item+conceptum+codicem",
+          "divisionem": "#item",
+          "classem": "+conceptum"
+        },
+        {
+          "hxl": "#meta+linguam+i_pt+i_por+ig_port1283+is_latn",
+          "divisionem": "#meta",
+          "classem": "+linguam"
+        },
+        {
+          "hxl": "#item+linguam+i_pt+i_por+ig_port1283+is_latn+ib_t_en_latn+rem",
+          "divisionem": "#item",
+          "classem": "+linguam"
+        },
+        {
+          "hxl": "#meta+linguam+i_en+i_eng+ig_stan1293+ir_076+is_latn+it_1_pt_por_latn+iu_1_emerrocha+iw_1_bing+ix_ambiguum+ix_periculo+v_linguam_maximum",
+          "divisionem": "#meta",
+          "classem": "+linguam"
+        }
+      ]
+    },
+    "structuram": {
+      "basim": {
+        "javascript": "(?<divisionem>(\\#item|\\#meta))(?<classem>(\\+conceptum|\\+linguam|\\+terminum))((?<!conceptum)((?<linguam_implicitum_de>(\\+ii_de_linguam[a-z_]*))|(?<linguam_implicitum_est>(\\+ii_est_linguam[a-z_]*)))|((?<linguam_iso639_1_a>(\\+i_\\w\\w))?(?<linguam_iso639_3_a>(\\+i_\\w\\w\\w))(?<linguam_glotto>(\\+ig_[a-z]{4}\\d{4}))?((?<linguam_iso3166_2_a>(\\+ir_[a-z]{2}))|(?<linguam_iso3166_3_a>(\\+ir_[a-z]{3}))|(?<linguam_unm49>(\\+ir_[0-9]{3})))?(((?<linguam_iso15924_a>(\\+is_[a-z]{4})))|((?<linguam_iso15924_n>(\\+is_[0-9]{3}))))((?<linguam_translationem_de_linguam>((\\+it_[1,9]{1}_[a-z0-9_]*){1,})))?(((?<linguam_translationem_humanum>((\\+iu_[1,9]{1}_[a-z0-9_]*){1,}){1,})))?(((?<linguam_translationem_machinam>((\\+iw_[1,9]{1}_[a-z0-9_]*){1,}){1,})))?(((?<linguam_privatum>((\\+ix_[a-z0-9]{2,8})){1,})))?))?.*(?<datum_vocabularium>(\\+v_[a-z_]*))?",
+        "python": "# I: Abstractum (#meta) aut concretum (#item)\n(?P<divisionem>\n  (\\#item|\\#meta)\n)\n# II: Classem: +conceptum, +linguam aut +terminum\n(?P<classem>\n  (\\+conceptum|\\+linguam|\\+terminum)\n)\n# III: +linguam et +terminum; quod linguam?\n# _[eng-Lant]Know non-enforcement: this will tolerate if classem =+conceptum[eng-Latn]_\n((?<!conceptum)\n  # III.I: implicitum aut explicitum\n  ## implicitum est\n  (\n    (?P<linguam_implicitum_de>(\\+ii_de_linguam[a-z_]*))\n    |\n    (?P<linguam_implicitum_est>(\\+ii_est_linguam[a-z_]*))\n  )\n  | # ...aut...\n  ## explicitum est\n  (\n    (?P<linguam_iso639_1_a>(\\+i_\\w\\w))?\n    (?P<linguam_iso639_3_a>(\\+i_\\w\\w\\w))         # ISO 639-3 requisitum!\n    (?P<linguam_glotto>(\\+ig_[a-z]{4}\\d{4}))?\n    (  # Locum\n      (?P<linguam_iso3166_2_a>(\\+ir_[a-z]{2}))\n      |\n      (?P<linguam_iso3166_3_a>(\\+ir_[a-z]{3}))\n      |\n      (?P<linguam_unm49>(\\+ir_[0-9]{3}))\n    )?\n    (  # Scriptum codicem: requisitum!\n      ((?P<linguam_iso15924_a>(\\+is_[a-z]{4})))\n      |\n      ((?P<linguam_iso15924_n>(\\+is_[0-9]{3})))\n    )\n    (  # BCP 47  Extension T style, de linguam\n      (?P<linguam_translationem_de_linguam>((\\+it_[1,9]{1}_[a-z0-9_]*){1,}))\n    )?\n    (  # Humam translator, list\n      ((?P<linguam_translationem_humanum>((\\+iu_[1,9]{1}_[a-z0-9_]*){1,}){1,}))\n    )?\n      # +iv_ not used\n    (  # _machinam translator, list\n      ((?P<linguam_translationem_machinam>((\\+iw_[1,9]{1}_[a-z0-9_]*){1,}){1,}))\n    )?\n    (  # BCP 47 Private attribute\n      ((?P<linguam_privatum>((\\+ix_[a-z0-9]{2,8})){1,}))\n    )?\n  )\n)?\n#(?P<etcetera>\n#  (\\+[0-9a-z_]*)\n#)?\n.* # TODO: remove this\n(?P<datum_vocabularium>\n  (\\+v_[a-z_]*)\n)?\n"
+      }
+    },
+    "abstractum": {
+      "python": "^#meta"
+    },
+    "conceptum_classem": {
+      "python": "(^#item|^#meta)\\+conceptum"
+    },
+    "concretum": {
+      "python": "^#item"
+    },
+    "glotto": {
+      "python": "(?<=ig_)([\\w]{4}[\\d]{4})"
+    },
+    "hxltm_basim": {
+      "python": "(^#item|^#meta)(\\+conceptum|\\+linguam|\\+terminum)"
+    },
+    "hxl_v": {
+      "python": "(?<=\\+)(v_[\\w|\\d]+)"
+    },
+    "iso639_1": {
+      "python": "(?<=i_)([\\w]{2})\\+"
+    },
+    "iso639_3": {
+      "python": "(?<=i_)([\\w]{3})\\+"
+    },
+    "iso15924": {
+      "python": "TODO"
+    },
+    "iso15924_a": {
+      "python": "(?<=is_)([\\w]{4})"
+    },
+    "iso15924_n": {
+      "python": "(?<=is_)([\\d]{3})"
+    },
+    "linguam_classem": {
+      "python": "(^#item|^#meta)\\+linguam"
+    },
+    "linguam_basim_explicitum": {
+      "python": "(\\+i_([\\w]{2}))([\\w]{4}[\\d]{4})?.*(\\+is_[\\w]{4}|\\+is_[\\d]{3}){1}"
+    },
+    "linguam_basim_implicitum_de": {
+      "python": "(\\+de_linguam_fontem|\\+de_linguam_objectivum|\\+de_linguam)"
+    },
+    "linguam_basim_implicitum_est": {
+      "python": "(\\+est_linguam_fontem|\\+est_linguam_objectivum|\\+est_linguam)"
+    },
+    "terminum_classem": {
+      "python": "(^#item|^#meta)\\+terminum"
+    }
+  }
+}

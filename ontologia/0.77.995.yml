@@ -1,0 +1,43 @@
+# @ARCHIVUM       0.77.995.yml
+# @LICENTIAM      Dominium publicum
+# @DESCRIPTIONEM  _[eng-Latn] Early draft. Concept. NOT implemented [eng-Latn]_
+
+# @see https://www.youtube.com/watch?v=2fhP_fk2wNQ
+
+# TODO: make hxltmdecli and hxltmdexml at least read this file and load
+#       default paths from here.
+
+# @seee https://github.com/EticaAI/hxltm/issues/7
+___0: 995   # 995 = Zmth, Mathematical notation
+___1: 77    # hxltm; h + x +l + t + m = 77 (modern latin alphabet; old latin alphabet = 71)
+___2: 0     # 0; bootstrapping, https://en.wiktionary.org/wiki/bootstrap#English
+
+
+# HXLTM_DORMUM
+___995.77.0.0[215]: ~/.config/hxltm
+___995.77.0.1[215]: hxltm
+___995.77.0.1.0[215]: cor # ~/.config/hxltm/cor.hxltm.215.yml
+
+# HXLTM_TESTUM
+
+# h = 8
+# x = 24
+# l = 12
+# t = 20
+# m = 13
+# h + x +l + t + m = 77 (if modern latin alphabet)
+# c = 3
+# o = 15
+# r = 18
+# c + o + r = = 36 (if modern latin alphabet)
+
+# - https://en.wikipedia.org/wiki/History_of_the_Latin_script#Archaic_Latin_alphabet
+# - Original Latin alphabet, in the modern equivalent letters
+#   - A B C D E F Z H I K L M N O P Q R S T V X
+# h = 8
+# x = 21 (not 24)
+# l = 11 (not 12)
+# t = 19 (not 20)
+# m = 12 (not 13)
+# h + x +l + t + m = 71 (if old latin alphabet)
+

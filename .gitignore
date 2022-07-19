@@ -1,0 +1,79 @@
+### symbolic links _____________________________________________________________
+# This allow preview documentation locally. The GitHub Actions will
+# copy the contents to the docs/ folder before generate it
+
+# cd docs/
+# ln -s ../bin bin
+docs/bin
+# cd docs/
+# ln -s ../ontologia ontologia
+docs/ontologia
+# cd docs/
+# ln -s ../testum testum
+docs/testum
+
+### Other, relevant to hxltm-eticaai ___________________________________________
+# yq --output-format json < ontologia/cor.hxltm.215.yml > ontologia/cor.hxltm.215.json
+ontologia/*.json
+
+docs/*.htm
+docs/**/*.htm
+docs/*.html
+docs/**/*.html
+docs/*.pdf
+docs/**/*.pdf
+docs/*.epub
+docs/**/*.epub
+!docs/**/ontologia-regulam.html
+!docs/**/codex-simplex-ontologiae.html
+!docs/**/codex-simplex-ontologiae/index.html
+
+temp-external-references
+
+### Python ignores _____________________________________________________________
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+## Tox
+*.pyc
+*.pyo
+*.swp
+__pycache__
+.tox
+.benchmarks
+.pytest_cache
+
+### IDEs _______________________________________________________________________
+.vscode
+.idea
+
+### temp
+# tox.ini
+Dockerfile
+.ipynb_checkpoints
+
+# asciidoctor
+# @see https://asciidoctor.org/#bundler
+vendor
+Gemfile
+Gemfile.lock
+.bundle
+!ontologia/*.json
